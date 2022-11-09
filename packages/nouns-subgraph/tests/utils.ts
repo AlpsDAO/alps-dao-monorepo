@@ -10,7 +10,7 @@ import {
   handleMinQuorumVotesBPSSet,
   handleMaxQuorumVotesBPSSet,
   handleQuorumCoefficientSet,
-} from '../src/nouns-dao';
+} from '../src/alps-dao';
 import { Address, ethereum, Bytes, BigInt, ByteArray } from '@graphprotocol/graph-ts';
 import { BIGINT_ONE, BIGINT_ZERO } from '../src/utils/constants';
 

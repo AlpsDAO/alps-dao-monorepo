@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { BigInt, Bytes, log } from '@graphprotocol/graph-ts';
 import {
   ProposalCreatedWithRequirements,
@@ -9,7 +10,7 @@ import {
   MinQuorumVotesBPSSet,
   MaxQuorumVotesBPSSet,
   QuorumCoefficientSet,
-} from './types/NounsDAO/NounsDAO';
+} from './types/AlpsDAO/AlpsDAO';
 import {
   getOrCreateDelegate,
   getOrCreateProposal,
@@ -142,7 +143,7 @@ export function handleVoteCast(event: VoteCast): void {
   vote.votes = event.params.votes;
   vote.support = event.params.support == 1;
   vote.supportDetailed = event.params.support;
-  vote.nouns = voter.nounsRepresented;
+  vote.alps = voter.alpsRepresented;
   vote.blockNumber = event.block.number;
 
   if (event.params.reason != '') {

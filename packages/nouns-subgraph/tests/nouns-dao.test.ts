@@ -7,7 +7,7 @@ import {
   handleMinQuorumVotesBPSSet,
   handleMaxQuorumVotesBPSSet,
   handleQuorumCoefficientSet,
-} from '../src/nouns-dao';
+} from '../src/alps-dao';
 import {
   createProposalCreatedWithRequirementsEvent,
   createVoteCastEvent,
