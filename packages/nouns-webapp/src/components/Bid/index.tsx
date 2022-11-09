@@ -32,11 +32,11 @@ const computeMinimumNextBid = (
 
 const minBidEth = (minBid: BigNumber): string => {
   if (minBid.isZero()) {
-    return '0.01';
+    return '0.08';
   }
 
   const eth = utils.formatEther(EthersBN.from(minBid.toString()));
-  return new BigNumber(eth).toFixed(2, BigNumber.ROUND_CEIL);
+  return new BigNumber(eth).toFixed(4, BigNumber.ROUND_CEIL);
 };
 
 const currentBid = (bidInputRef: React.RefObject<HTMLInputElement>) => {
@@ -97,7 +97,7 @@ const Bid: React.FC<{
     const input = event.target.value;
 
     // disable more than 2 digits after decimal point
-    if (input.includes('.') && event.target.value.split('.')[1].length > 2) {
+    if (input.includes('.') && event.target.value.split('.')[1].length > 11) {
       return;
     }
 
@@ -291,11 +291,6 @@ const Bid: React.FC<{
           </Button>
         ) : (
           <>
-            <Col lg={12} className={classes.voteForNextNounBtnWrapper}>
-              <Button className={classes.bidBtnAuctionEnded} onClick={fomoNounsBtnOnClickHandler}>
-                <Trans>Vote for the next Noun</Trans> ⌐◧-◧
-              </Button>
-            </Col>
             {/* Only show force settle button if wallet connected */}
             {isWalletConnected && (
               <Col lg={12}>

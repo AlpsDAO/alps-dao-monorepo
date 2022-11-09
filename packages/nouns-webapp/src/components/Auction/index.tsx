@@ -30,7 +30,8 @@ const Auction: React.FC<AuctionProps> = props => {
   const lastNounId = useAppSelector(state => state.onDisplayAuction.lastAuctionNounId);
 
   const loadedNounHandler = (seed: INounSeed) => {
-    dispatch(setStateBackgroundColor(seed.background === 0 ? grey : beige));
+    const backgroundColors = ['#63a0f9', '#018146', '#000000', '#76858b', '#f8d689'];
+    dispatch(setStateBackgroundColor(backgroundColors[seed.background] ?? beige));
   };
 
   const prevAuctionHandler = () => {

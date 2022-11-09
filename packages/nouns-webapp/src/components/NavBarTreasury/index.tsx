@@ -27,7 +27,7 @@ const NavBarTreasury: React.FC<NavBarTreasuryProps> = props => {
   }
 
   return (
-    <div className={`${classes.wrapper} ${treasuryStyleClass}`}>
+    <div className={`${classes.wrapper} ${classes.coolInfo}`}>
       <div className={classes.button}>
         <div
           className="d-flex flex-row justify-content-around"

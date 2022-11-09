@@ -76,7 +76,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = props => {
   return (
     <>
       <div
-        className={`${classes.wrapper} ${getNavBarButtonVariant(buttonStyle)}`}
+        className={`${classes.wrapper} ${classes.coolInfo}`}
         onClick={isDisabled ? () => {} : onClick}
       >
         <div

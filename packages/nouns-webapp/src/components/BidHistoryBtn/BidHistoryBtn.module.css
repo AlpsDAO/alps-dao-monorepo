@@ -13,7 +13,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  color: var(--brand-cool-light-text);
+  color: var(--brand-white);
 }
 
 .bidHistoryWrapperWarm {
@@ -22,12 +22,12 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  color: var(--brand-warm-light-text);
+  color: var(--brand-black);
 }
 
 .bidHistory {
   margin-left: 0.5rem;
-  color: var(--brand-color-cool);
+  color: var(--brand-white);
   font-family: 'PT Root UI';
   font-weight: bold;
   font-size: 1rem;

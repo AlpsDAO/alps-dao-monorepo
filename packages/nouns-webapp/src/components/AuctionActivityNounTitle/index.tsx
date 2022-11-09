@@ -6,8 +6,8 @@ const AuctionActivityNounTitle: React.FC<{ nounId: BigNumber; isCool?: boolean }
   const { nounId, isCool } = props;
   return (
     <div className={classes.wrapper}>
-      <h1 style={{ color: isCool ? 'var(--brand-cool-dark-text)' : 'var(--brand-warm-dark-text)' }}>
-        <Trans>Noun {nounId.toString()}</Trans>
+      <h1 style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}>
+        <Trans>Alp {nounId.toString()}</Trans>
       </h1>
     </div>
   );

@@ -34,8 +34,8 @@ interface PendingCustomTrait {
 
 const nounsProtocolLink = (
   <Link
-    text={<Trans>Nouns Protocol</Trans>}
-    url="https://www.notion.so/Noun-Protocol-32e4f0bf74fe433e927e2ea35e52a507"
+    text={<Trans>Alps Protocol</Trans>}
+    url="https://github.com/AlpsDAO/alps-dao-monorepo/"
     leavesPage={true}
   />
 );
@@ -48,10 +48,20 @@ const nounsAssetsLink = (
   />
 );
 
+const alpsAssetsLink = (
+  <Link
+    text="alps-assets"
+    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/nouns-assets"
+    leavesPage={true}
+  />
+);
+
+const gnarsAssetsLink = <Link text="gnars-assets" url="https://gnars.wtf/" leavesPage={true} />;
+
 const nounsSDKLink = (
   <Link
-    text="nouns-sdk"
-    url="https://github.com/nounsDAO/nouns-monorepo/tree/master/packages/nouns-sdk"
+    text="alps-sdk"
+    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/nouns-sdk"
     leavesPage={true}
   />
 );
@@ -270,9 +280,9 @@ const Playground: React.FC = () => {
             </h1>
             <p>
               <Trans>
-                The playground was built using the {nounsProtocolLink}. Noun's traits are determined
-                by the Noun Seed. The seed was generated using {nounsAssetsLink} and rendered using
-                the {nounsSDKLink}.
+                The playground was built using the {nounsProtocolLink}. Alp's traits are determined
+                by the Seed. The seed was generated using {nounsAssetsLink} , {gnarsAssetsLink},{' '}
+                {alpsAssetsLink} and rendered using the {nounsSDKLink}.
               </Trans>
             </p>
           </Col>
@@ -286,7 +296,7 @@ const Playground: React.FC = () => {
                 }}
                 className={classes.primaryBtn}
               >
-                <Trans>Generate Nouns</Trans>
+                <Trans>Generate Alps</Trans>
               </Button>
             </Col>
             <Row>
@@ -376,7 +386,7 @@ const Playground: React.FC = () => {
               <Trans>
                 You've generated{' '}
                 {i18n.number(parseInt(nounSvgs ? (nounSvgs.length / 365).toFixed(2) : '0'))} years
-                worth of Nouns
+                worth of Alps
               </Trans>
             </p>
           </Col>

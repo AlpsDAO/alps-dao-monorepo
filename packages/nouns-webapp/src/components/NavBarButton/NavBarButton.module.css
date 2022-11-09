@@ -1,6 +1,6 @@
 .wrapper {
   height: 40px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   font-size: 16px;
   line-height: 16px;
   font-family: 'PT Root UI';
@@ -44,9 +44,9 @@
 }
 
 .coolInfo {
-  border: 1px solid var(--brand-cool-border);
-  border-radius: 10px;
-  color: var(--brand-cool-dark-text);
+  border: 1px solid var(--brand-white);
+  /* border-radius: 10px; */
+  color: var(--brand-white);
 }
 
 .coolInfo:hover {
@@ -57,7 +57,7 @@
 .coolWallet {
   background-color: var(--brand-cool-accent);
   border: 1px solid var(--brand-cool-border);
-  border-radius: 10px;
+  /* border-radius: 10px; */
   color: var(--brand-warm-dark-text);
   padding: 0px 12px 0px 12px;
   transition: all 0.2s ease-in-out;
@@ -70,9 +70,9 @@
 }
 
 .warmInfo {
-  border: 1px solid var(--brand-warm-border);
-  border-radius: 10px;
-  color: var(--brand-warm-dark-text);
+  border: 1px solid var(--brand-white);
+  /* border-radius: 10px; */
+  color: var(--brand-white);
 }
 
 .warmInfo:hover {
@@ -83,7 +83,7 @@
 .warmWallet {
   background-color: var(--brand-warm-accent);
   border: 1px solid var(--brand-warm-border);
-  border-radius: 10px;
+  /* border-radius: 10px; */
   color: var(--brand-warm-dark-text);
   padding: 0px 12px 0px 12px;
   transition: all 0.2s ease-in-out;

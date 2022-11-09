@@ -1,6 +1,6 @@
 .wrapper {
   height: 40px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   font-size: 16px;
   font-family: 'PT Root UI';
   font-weight: bold;
@@ -50,15 +50,23 @@
 }
 
 .warmInfo .treasuryBalance {
-  color: var(--brand-warm-dark-text);
+  color: var(--brand-white);
 }
 
 .coolInfo .treasuryBalance {
-  color: var(--brand-cool-dark-text);
+  color: var(--brand-white);
+}
+
+.warmInfo:hover .treasuryBalance {
+  color: var(--brand-black);
+}
+
+.coolInfo:hover .treasuryBalance {
+  color: var(--brand-black);
 }
 
 .treasuryHeader {
-  opacity: 0.5;
+  /* opacity: 0.5; */
 }
 
 .button:hover {
@@ -66,9 +74,9 @@
 }
 
 .coolInfo {
-  border: 1px solid var(--brand-cool-border);
-  border-radius: 10px;
-  color: var(--brand-cool-dark-text);
+  border: 1px solid var(--brand-white);
+  /* border-radius: 10px; */
+  color: var(--brand-white);
 }
 
 .coolInfo:hover {
@@ -77,9 +85,9 @@
 }
 
 .warmInfo {
-  border: 1px solid var(--brand-warm-border);
-  border-radius: 10px;
-  color: var(--brand-warm-light-text);
+  border: 1px solid var(--brand-white);
+  /* border-radius: 10px; */
+  color: var(--brand-white);
 }
 
 .warmInfo:hover {
@@ -93,7 +101,7 @@
 }
 
 .whiteTreasuryHeader {
-  opacity: 0.5;
+  /* opacity: 0.5; */
 }
 
 .whiteInfo:hover {

@@ -1,6 +1,6 @@
 .wrapper {
   height: 40px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   font-size: 16px;
   line-height: 16px;
   font-family: 'PT Root UI';
@@ -94,6 +94,15 @@
   min-height: 18px;
   line-height: 20px;
   color: black !important;
+}
+
+.dropdownBtnContentMobile {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-height: 18px;
+  line-height: 20px;
+  color: var(--brand-white);
 }
 
 .arrowDown {

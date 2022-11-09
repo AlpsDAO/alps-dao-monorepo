@@ -70,7 +70,7 @@ const AuctionTimer: React.FC<{
       <Col xs={timerToggle ? 4 : 6} lg={12} className={classes.leftCol}>
         <h4
           style={{
-            color: isCool ? 'var(--brand-cool-light-text)' : 'var(--brand-warm-light-text)',
+            color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
           }}
         >
           {timerToggle ? (

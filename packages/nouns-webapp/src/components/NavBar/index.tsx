@@ -25,7 +25,7 @@ import NavLocaleSwitcher from '../NavLocaleSwitcher';
 
 const NavBar = () => {
   const activeAccount = useAppSelector(state => state.account.activeAccount);
-  const stateBgColor = useAppSelector(state => state.application.stateBackgroundColor);
+  // const stateBgColor = useAppSelector(state => state.application.stateBackgroundColor);
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const history = useHistory();
   const ethBalance = useEtherBalance(config.addresses.nounsDaoExecutor);
@@ -33,6 +33,7 @@ const NavBar = () => {
   const treasuryBalance = ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
   const daoEtherscanLink = buildEtherscanHoldingsLink(config.addresses.nounsDaoExecutor);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
+  const isMobile = window.innerWidth < 992;
 
   const useStateBg =
     history.location.pathname === '/' ||
@@ -51,11 +52,11 @@ const NavBar = () => {
     <>
       <Navbar
         expand="xl"
-        style={{ backgroundColor: `${useStateBg ? stateBgColor : 'white'}` }}
+        style={{ backgroundColor: `#213343` }}
         className={classes.navBarCustom}
         expanded={isNavExpanded}
       >
-        <Container style={{ maxWidth: 'unset' }}>
+        <Container style={{ maxWidth: 'unset', paddingBottom: isMobile ? 3 : 0 }}>
           <div className={classes.brandAndTreasuryWrapper}>
             <Navbar.Brand as={Link} to="/" className={classes.navBarBrand}>
               <img src={logo} className={classes.navBarLogo} alt="Nouns DAO logo" />
@@ -96,19 +97,21 @@ const NavBar = () => {
               />
             </Nav.Link>
             <Nav.Link
-              href={externalURL(ExternalURL.nounsCenter)}
+              href={
+                'https://alpsdao.notion.site/About-Notion-or-Gitbook-96d8df1df40441c2b17d6db1e190a5c2'
+              }
               className={classes.nounsNavLink}
               target="_blank"
               rel="noreferrer"
               onClick={closeNav}
             >
               <NavBarButton
-                buttonText={<Trans>Docs</Trans>}
+                buttonText={<Trans>About</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faBookOpen} />}
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <Nav.Link
+            {/* <Nav.Link
               href={externalURL(ExternalURL.discourse)}
               className={classes.nounsNavLink}
               target="_blank"
@@ -120,7 +123,7 @@ const NavBar = () => {
                 buttonIcon={<FontAwesomeIcon icon={faComments} />}
                 buttonStyle={nonWalletButtonStyle}
               />
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link
               as={Link}
               to="/playground"

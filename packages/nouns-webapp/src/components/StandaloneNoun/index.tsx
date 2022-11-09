@@ -34,6 +34,7 @@ export const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
     name,
     description,
     image,
+    parts,
   };
 };
 
@@ -133,9 +134,9 @@ export const StandaloneNounWithSeed: React.FC<StandaloneNounWithSeedProps> = (
     dispatch(setOnDisplayAuctionNounId(nounId.toNumber()));
   };
 
-  const { image, description } = getNoun(nounId, seed);
+  const { image, description, parts } = getNoun(nounId, seed);
 
-  const noun = <Noun imgPath={image} alt={description} />;
+  const noun = <Noun imgPath={image} alt={description} parts={parts} />;
   const nounWithLink = (
     <Link
       to={'/noun/' + nounId.toString()}

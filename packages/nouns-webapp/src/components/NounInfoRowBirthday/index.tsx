@@ -26,6 +26,7 @@ export const getNounBirthday = (nounId: number, pastAuctions: AuctionState[]) =>
 
 const NounInfoRowBirthday: React.FC<NounInfoRowBirthdayProps> = props => {
   const { nounId } = props;
+  const isCool = useAppSelector(state => state.application.isCoolBackground);
 
   // If the noun is a nounder noun, use the next noun to get the mint date.
   // We do this because we use the auction start time to get the mint date and
@@ -46,12 +47,14 @@ const NounInfoRowBirthday: React.FC<NounInfoRowBirthdayProps> = props => {
 
   return (
     <div className={classes.birthdayInfoContainer}>
-      <span>
-        <Image src={_BirthdayIcon} className={classes.birthdayIcon} />
-      </span>
-      <Trans>Born</Trans>
-      <span className={classes.nounInfoRowBirthday}>
-        {i18n.date(birthday, { month: 'long', year: 'numeric', day: '2-digit' })}
+      <span style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}>
+        <span>
+          <Image src={_BirthdayIcon} className={classes.birthdayIcon} />
+        </span>
+        <Trans>Born</Trans>
+        <span className={classes.nounInfoRowBirthday}>
+          {i18n.date(birthday, { month: 'long', year: 'numeric', day: '2-digit' })}
+        </span>
       </span>
     </div>
   );

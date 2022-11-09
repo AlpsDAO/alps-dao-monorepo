@@ -1,7 +1,9 @@
 .navBarBrand {
   position: relative;
   z-index: 2;
-  padding: 1rem 0rem;
+  /* padding: 0rem 0rem; */
+  /* margin-bottom: 1.5rem; */
+  padding-bottom: 2rem;
   transition: all 0.15s ease-in-out;
 }
 
@@ -10,7 +12,7 @@
 }
 
 .navBarLogo {
-  width: 75px;
+  width: 160px;
   height: 75px;
 }
 
@@ -59,7 +61,7 @@
   width: 10px;
   height: 10px;
   background-color: #7fc59c;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   margin-right: -30px;
   margin-left: 20px;
   margin-top: -20px;
@@ -96,8 +98,9 @@
 }
 
 .navBarToggle {
-  border-radius: 10px;
+  /* border-radius: 10px; */
   height: 44px;
   padding: 0.25rem 0.5rem;
   margin-right: 12px;
+  background-image: url("data:image/svg+xml,<svg width='45' height='45' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M3 7C3 6.44772 3.44772 6 4 6H26C26.5523 6 27 6.44772 27 7C27 7.55228 26.5523 8 26 8H4C3.44772 8 3 7.55228 3 7ZM3 15C3 14.4477 3.44772 14 4 14H26C26.5523 14 27 14.4477 27 15C27 15.5523 26.5523 16 26 16H4C3.44772 16 3 15.5523 3 15ZM3 23C3 22.4477 3.44772 22 4 22H26C26.5523 22 27 22.4477 27 23C27 23.5523 26.5523 24 26 24H4C3.44772 24 3 23.5523 3 23Z' fill='white'/></svg>");
 }

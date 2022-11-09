@@ -44,7 +44,7 @@
 }
 
 .dropDownTop {
-  border-radius: 10px 10px 0px 0px;
+  /* border-radius: 10px 10px 0px 0px; */
   padding-top: 0.65rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
@@ -59,7 +59,7 @@
 }
 
 .dropDownBottom {
-  border-radius: 0px 0px 10px 10px;
+  /* border-radius: 0px 0px 10px 10px; */
   padding-bottom: 0.65rem;
   padding-top: 0.5rem;
   padding-left: 1rem;

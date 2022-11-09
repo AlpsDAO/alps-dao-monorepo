@@ -48,12 +48,18 @@ const Holder: React.FC<HolderProps> = props => {
         }}
         id="holder-etherscan-tooltip"
       >
-        <ShortAddress size={40} address={holder} avatar={true} />
+        <span
+          style={{
+            color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
+          }}
+        >
+          <ShortAddress size={40} address={holder} avatar={true} />
+        </span>
       </Tooltip>
     </a>
   );
 
-  const nounderNounContent = 'nounders.eth';
+  const nounderNounContent = 'founders';
 
   return (
     <>
@@ -61,7 +67,7 @@ const Holder: React.FC<HolderProps> = props => {
         <Col xs={1} lg={12} className={classes.leftCol}>
           <h4
             style={{
-              color: isCool ? 'var(--brand-cool-light-text)' : 'var(--brand-warm-light-text)',
+              color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
             }}
             className={classes.holderCopy}
           >
@@ -72,7 +78,7 @@ const Holder: React.FC<HolderProps> = props => {
           <h2
             className={classes.holderContent}
             style={{
-              color: isCool ? 'var(--brand-cool-dark-text)' : 'var(--brand-warm-dark-text)',
+              color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
             }}
           >
             {isNounders ? nounderNounContent : nonNounderNounContent}

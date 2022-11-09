@@ -223,7 +223,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
           <div
             style={{
               borderRight: `1px solid ${mobileBorderColor}`,
-              color: mobileTextColor,
+              color: 'var(--brand-white)',
             }}
             className={classes.mobileSwitchWalletText}
             onClick={switchWalletHandler}
