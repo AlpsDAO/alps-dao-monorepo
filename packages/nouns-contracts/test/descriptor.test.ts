@@ -1,17 +1,17 @@
 import chai from 'chai';
 import { solidity } from 'ethereum-waffle';
-import { NounsDescriptor } from '../typechain';
+import { AlpsDescriptor } from '../typechain';
 import ImageData from '../files/image-data-v1.json';
 import { LongestPart } from './types';
-import { deployNounsDescriptor, populateDescriptor } from './utils';
+import { deployAlpsDescriptor, populateDescriptor } from './utils';
 import { ethers } from 'hardhat';
 import { appendFileSync } from 'fs';
 
 chai.use(solidity);
 const { expect } = chai;
 
-describe('NounsDescriptor', () => {
-  let nounsDescriptor: NounsDescriptor;
+describe('AlpsDescriptor', () => {
+  let alpsDescriptor: AlpsDescriptor;
   let snapshotId: number;
 
   const part: LongestPart = {
@@ -26,7 +26,7 @@ describe('NounsDescriptor', () => {
   };
 
   before(async () => {
-    nounsDescriptor = await deployNounsDescriptor();
+    alpsDescriptor = await deployAlpsDescriptor();
 
     for (const [l, layer] of Object.entries(ImageData.images)) {
       for (const [i, item] of layer.entries()) {
@@ -39,7 +39,7 @@ describe('NounsDescriptor', () => {
       }
     }
 
-    await populateDescriptor(nounsDescriptor);
+    await populateDescriptor(alpsDescriptor);
   });
 
   beforeEach(async () => {
@@ -51,12 +51,12 @@ describe('NounsDescriptor', () => {
   });
 
   it('should generate valid token uri metadata when data uris are disabled', async () => {
-    const BASE_URI = 'https://api.nouns.wtf/metadata/';
+    const BASE_URI = 'https://api.alps.wtf/metadata/';
 
-    await nounsDescriptor.setBaseURI(BASE_URI);
-    await nounsDescriptor.toggleDataURIEnabled();
+    await alpsDescriptor.setBaseURI(BASE_URI);
+    await alpsDescriptor.toggleDataURIEnabled();
 
-    const tokenUri = await nounsDescriptor.tokenURI(0, {
+    const tokenUri = await alpsDescriptor.tokenURI(0, {
       background: 0,
       body: longest.bodies.index,
       accessory: longest.accessories.index,
@@ -76,7 +76,7 @@ describe('NounsDescriptor', () => {
     const { bodies, accessories, heads, glasses } = images;
     const max = Math.max(bodies.length, accessories.length, heads.length, glasses.length);
     for (let i = 0; i < max; i++) {
-      const tokenUri = await nounsDescriptor.tokenURI(i, {
+      const tokenUri = await alpsDescriptor.tokenURI(i, {
         background: Math.min(i, bgcolors.length - 1),
         body: Math.min(i, bodies.length - 1),
         accessory: Math.min(i, accessories.length - 1),
@@ -88,8 +88,8 @@ describe('NounsDescriptor', () => {
           'ascii',
         ),
       );
-      expect(name).to.equal(`Noun ${i}`);
-      expect(description).to.equal(`Noun ${i} is a member of the Nouns DAO`);
+      expect(name).to.equal(`Alp ${i}`);
+      expect(description).to.equal(`Alp ${i} is a member of the Alps DAO`);
       expect(image).to.not.be.undefined;
 
       appendFileSync(

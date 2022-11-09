@@ -1,17 +1,17 @@
 import chai from 'chai';
 import { solidity } from 'ethereum-waffle';
-import { NounsDescriptorV2 } from '../typechain';
+import { AlpsDescriptorV2 } from '../typechain';
 import ImageData from '../files/image-data-v2.json';
 import { LongestPart } from './types';
-import { deployNounsDescriptorV2, populateDescriptorV2 } from './utils';
+import { deployAlpsDescriptorV2, populateDescriptorV2 } from './utils';
 import { ethers } from 'hardhat';
 import { appendFileSync } from 'fs';
 
 chai.use(solidity);
 const { expect } = chai;
 
-describe('NounsDescriptorV2', () => {
-  let nounsDescriptor: NounsDescriptorV2;
+describe('AlpsDescriptorV2', () => {
+  let alpsDescriptor: AlpsDescriptorV2;
   let snapshotId: number;
 
   const part: LongestPart = {
@@ -26,7 +26,7 @@ describe('NounsDescriptorV2', () => {
   };
 
   before(async () => {
-    nounsDescriptor = await deployNounsDescriptorV2();
+    alpsDescriptor = await deployAlpsDescriptorV2();
 
     for (const [l, layer] of Object.entries(ImageData.images)) {
       for (const [i, item] of layer.entries()) {
@@ -39,7 +39,7 @@ describe('NounsDescriptorV2', () => {
       }
     }
 
-    await populateDescriptorV2(nounsDescriptor);
+    await populateDescriptorV2(alpsDescriptor);
   });
 
   beforeEach(async () => {
@@ -60,7 +60,7 @@ describe('NounsDescriptorV2', () => {
     const { bodies, accessories, heads, glasses } = images;
     const max = Math.max(bodies.length, accessories.length, heads.length, glasses.length);
     for (let i = 0; i < max; i++) {
-      const tokenUri = await nounsDescriptor.tokenURI(i, {
+      const tokenUri = await alpsDescriptor.tokenURI(i, {
         background: Math.min(i, bgcolors.length - 1),
         body: Math.min(i, bodies.length - 1),
         accessory: Math.min(i, accessories.length - 1),
@@ -72,8 +72,8 @@ describe('NounsDescriptorV2', () => {
           'ascii',
         ),
       );
-      expect(name).to.equal(`Noun ${i}`);
-      expect(description).to.equal(`Noun ${i} is a member of the Nouns DAO`);
+      expect(name).to.equal(`Alp ${i}`);
+      expect(description).to.equal(`Alp ${i} is a member of the Alps DAO`);
       expect(image).to.not.be.undefined;
 
       appendFileSync(

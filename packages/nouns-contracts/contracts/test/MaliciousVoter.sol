@@ -2,16 +2,16 @@
 
 pragma solidity ^0.8.6;
 
-import { NounsDAOLogicV2 } from '../governance/NounsDAOLogicV2.sol';
+import { AlpsDAOLogicV2 } from '../governance/AlpsDAOLogicV2.sol';
 
 contract MaliciousVoter {
-    NounsDAOLogicV2 public dao;
+    AlpsDAOLogicV2 public dao;
     uint256 public proposalId;
     uint8 public support;
     bool useReason;
 
     constructor(
-        NounsDAOLogicV2 dao_,
+        AlpsDAOLogicV2 dao_,
         uint256 proposalId_,
         uint8 support_,
         bool useReason_
