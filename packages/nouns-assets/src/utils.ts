@@ -1,15 +1,15 @@
 import { keccak256 as solidityKeccak256 } from '@ethersproject/solidity';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { NounSeed, NounData } from './types';
+import { AlpSeed, AlpData } from './types';
 import { images, bgcolors } from './image-data.json';
 
 const { bodies, accessories, heads, glasses } = images;
 
 /**
- * Get encoded part and background information using a Noun seed
- * @param seed The Noun seed
+ * Get encoded part and background information using a Alp seed
+ * @param seed The Alp seed
  */
-export const getNounData = (seed: NounSeed): NounData => {
+export const getAlpData = (seed: AlpSeed): AlpData => {
   return {
     parts: [
       bodies[seed.body],
@@ -22,10 +22,10 @@ export const getNounData = (seed: NounSeed): NounData => {
 };
 
 /**
- * Generate a random Noun seed
- * @param seed The Noun seed
+ * Generate a random Alp seed
+ * @param seed The Alp seed
  */
-export const getRandomNounSeed = (): NounSeed => {
+export const getRandomAlpSeed = (): AlpSeed => {
   return {
     background: Math.floor(Math.random() * bgcolors.length),
     body: Math.floor(Math.random() * bodies.length),
@@ -51,7 +51,7 @@ export const shiftRightAndCast = (
 };
 
 /**
- * Emulates the NounsSeeder.sol methodology for pseudorandomly selecting a part
+ * Emulates the AlpsSeeder.sol methodology for pseudorandomly selecting a part
  * @param pseudorandomness Hex representation of a number
  * @param partCount The number of parts to pseudorandomly choose from
  * @param shiftAmount The amount to right shift
@@ -61,19 +61,19 @@ export const getPseudorandomPart = (
   pseudorandomness: string,
   partCount: number,
   shiftAmount: number,
-  uintSize: number = 48,
+  uintSize = 48,
 ): number => {
   const hex = shiftRightAndCast(pseudorandomness, shiftAmount, uintSize);
   return BigNumber.from(hex).mod(partCount).toNumber();
 };
 
 /**
- * Emulates the NounsSeeder.sol methodology for generating a Noun seed
- * @param nounId The Noun tokenId used to create pseudorandomness
+ * Emulates the AlpsSeeder.sol methodology for generating a Alp seed
+ * @param alpId The Alp tokenId used to create pseudorandomness
  * @param blockHash The block hash use to create pseudorandomness
  */
-export const getNounSeedFromBlockHash = (nounId: BigNumberish, blockHash: string): NounSeed => {
-  const pseudorandomness = solidityKeccak256(['bytes32', 'uint256'], [blockHash, nounId]);
+export const getAlpSeedFromBlockHash = (alpId: BigNumberish, blockHash: string): AlpSeed => {
+  const pseudorandomness = solidityKeccak256(['bytes32', 'uint256'], [blockHash, alpId]);
   return {
     background: getPseudorandomPart(pseudorandomness, bgcolors.length, 0),
     body: getPseudorandomPart(pseudorandomness, bodies.length, 48),
