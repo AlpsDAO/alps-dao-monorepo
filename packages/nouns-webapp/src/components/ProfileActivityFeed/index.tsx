@@ -4,21 +4,21 @@ import Section from '../../layout/Section';
 import classes from './ProfileActivityFeed.module.css';
 
 import { Trans } from '@lingui/macro';
-import { useNounActivity } from '../../wrappers/nounActivity';
+import { useAlpActivity } from '../../wrappers/alpActivity';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
 import ProfileActivityFeedToggle from '../ProfileActivityFeedToggle';
 import DesktopProfileActivityFeed from '../DesktopProfileActivityFeed';
 import MobileProfileActivityFeed from '../MobileProfileActivityFeed';
 
 interface ProfileActivityFeedProps {
-  nounId: number;
+  alpId: number;
 }
 
 interface ProposalInfo {
   id: number;
 }
 
-export interface NounVoteHistory {
+export interface AlpVoteHistory {
   blockNumber: number | string;
   proposal: ProposalInfo;
   support: boolean;
@@ -27,13 +27,13 @@ export interface NounVoteHistory {
 }
 
 const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
-  const { nounId } = props;
+  const { alpId } = props;
 
   const MAX_EVENTS_SHOW_ABOVE_FOLD = 5;
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const { loading, error, data } = useNounActivity(nounId);
+  const { loading, error, data } = useAlpActivity(alpId);
 
   if (loading || !data || data === undefined) {
     return (
@@ -55,7 +55,7 @@ const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
   if (error) {
     return (
       <div>
-        <Trans>Failed to fetch Noun activity history</Trans>
+        <Trans>Failed to fetch Alp activity history</Trans>
       </div>
     );
   }
@@ -70,7 +70,7 @@ const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
         </div>
         {data && data.length === 0 ? (
           <div className={classes.nullStateCopy}>
-            <Trans>This Noun has no activity, since it was just created. Check back soon!</Trans>
+            <Trans>This Alp has no activity, since it was just created. Check back soon!</Trans>
           </div>
         ) : (
           <>

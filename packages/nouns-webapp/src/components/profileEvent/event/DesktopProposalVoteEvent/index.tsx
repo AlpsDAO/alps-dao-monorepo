@@ -2,11 +2,11 @@ import { useHistory } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import classes from './DesktopProposalVoteEvent.module.css';
 import ProposalVoteInfoPillsContainer from '../../eventData/ProposalVoteInfoPillsContainer';
-import { ProposalVoteEvent } from '../../../../wrappers/nounActivity';
+import { ProposalVoteEvent } from '../../../../wrappers/alpActivity';
 import React from 'react';
-import { getProposalVoteIcon } from '../../../../utils/nounActivity/getProposalVoteIcon';
+import { getProposalVoteIcon } from '../../../../utils/alpActivity/getProposalVoteIcon';
 import ProposalVoteHeadline from '../../eventData/ProposalVoteHeadline';
-import DesktopNounActivityRow from '../../activityRow/DesktopNounActivityRow';
+import DesktopAlpActivityRow from '../../activityRow/DesktopAlpActivityRow';
 import ReactTooltip from 'react-tooltip';
 import { Trans } from '@lingui/macro';
 
@@ -21,7 +21,7 @@ const DesktopProposalVoteEvent: React.FC<DesktopProposalVoteEventProps> = props 
     history.push(event.proposal.id ? `/vote/${event.proposal.id}` : '/vote');
 
   return (
-    <DesktopNounActivityRow
+    <DesktopAlpActivityRow
       icon={
         <Image
           src={getProposalVoteIcon(event.proposal, event.vote.supportDetailed)}

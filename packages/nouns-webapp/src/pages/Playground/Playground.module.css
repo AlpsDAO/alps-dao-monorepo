@@ -57,16 +57,16 @@
   font-size: 15px;
   color: #8c8d92;
 }
-.nounYearsFooter {
+.alpYearsFooter {
   font-style: italic;
 }
-.nounImg {
+.alpImg {
   border-radius: 16px;
 }
-.nounImg:hover {
+.alpImg:hover {
   cursor: pointer;
   transform: scale(1.01);
 }
-.nounWrapper {
+.alpWrapper {
   margin-bottom: 1rem;
 }

@@ -1,5 +1,5 @@
 import {
-  ContractAddresses as NounsContractAddresses,
+  ContractAddresses as AlpsContractAddresses,
   getContractAddressesForChainOrThrow,
 } from '@nouns/sdk';
 import { ChainId } from '@usedapp/core';
@@ -8,7 +8,7 @@ interface ExternalContractAddresses {
   lidoToken: string | undefined;
 }
 
-export type ContractAddresses = NounsContractAddresses & ExternalContractAddresses;
+export type ContractAddresses = AlpsContractAddresses & ExternalContractAddresses;
 
 interface AppConfig {
   jsonRpcUri: string;
@@ -59,7 +59,7 @@ const app: Record<SupportedChains, AppConfig> = {
   [ChainId.Rinkeby]: {
     jsonRpcUri: createNetworkHttpUrl('rinkeby'),
     wsRpcUri: createNetworkWsUrl('rinkeby'),
-    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph-rinkeby-v5',
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/alpsdao/alps-subgraph-rinkeby-v5',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
   [ChainId.Goerli]: {
@@ -71,13 +71,13 @@ const app: Record<SupportedChains, AppConfig> = {
   [ChainId.Mainnet]: {
     jsonRpcUri: createNetworkHttpUrl('mainnet'),
     wsRpcUri: createNetworkWsUrl('mainnet'),
-    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph',
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/alpsdao/alps-subgraph',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
   [ChainId.Hardhat]: {
     jsonRpcUri: 'http://localhost:8545',
     wsRpcUri: 'ws://localhost:8545',
-    subgraphApiUri: 'http://localhost:8000/subgraphs/name/nounsdao/nouns-subgraph',
+    subgraphApiUri: 'http://localhost:8000/subgraphs/name/alpsdao/alps-subgraph',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
 };
@@ -98,11 +98,11 @@ const externalAddresses: Record<SupportedChains, ExternalContractAddresses> = {
 };
 
 const getAddresses = (): ContractAddresses => {
-  let nounsAddresses = {} as NounsContractAddresses;
+  let alpsAddresses = {} as AlpsContractAddresses;
   try {
-    nounsAddresses = getContractAddressesForChainOrThrow(CHAIN_ID);
+    alpsAddresses = getContractAddressesForChainOrThrow(CHAIN_ID);
   } catch {}
-  return { ...nounsAddresses, ...externalAddresses[CHAIN_ID] };
+  return { ...alpsAddresses, ...externalAddresses[CHAIN_ID] };
 };
 
 const config = {

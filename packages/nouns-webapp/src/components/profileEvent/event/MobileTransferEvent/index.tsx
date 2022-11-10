@@ -1,8 +1,8 @@
 import React from 'react';
 import { buildEtherscanTxLink } from '../../../../utils/etherscan';
-import { TransferEvent } from '../../../../wrappers/nounActivity';
+import { TransferEvent } from '../../../../wrappers/alpActivity';
 import classes from './MobileTransferEvent.module.css';
-import MobileNounActivityRow from '../../activityRow/MobileNounActivityRow';
+import MobileAlpActivityRow from '../../activityRow/MobileAlpActivityRow';
 import { SwitchHorizontalIcon } from '@heroicons/react/solid';
 import ShortAddress from '../../../ShortAddress';
 import TransactionHashPill from '../../eventData/infoPills/TransactionHashPill';
@@ -16,7 +16,7 @@ const MobileTransferEvent: React.FC<MobileTransferEventProps> = props => {
   const { event } = props;
 
   return (
-    <MobileNounActivityRow
+    <MobileAlpActivityRow
       onClick={() => window.open(buildEtherscanTxLink(event.transactionHash), '_blank')}
       icon={
         <div className={classes.switchIconWrapper}>

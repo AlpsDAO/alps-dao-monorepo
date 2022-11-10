@@ -1,6 +1,6 @@
 import { Col, Row } from 'react-bootstrap';
 import Section from '../../layout/Section';
-import { useAllProposals, useProposalThreshold } from '../../wrappers/nounsDao';
+import { useAllProposals, useProposalThreshold } from '../../wrappers/alpsDao';
 import Proposals from '../../components/Proposals';
 import classes from './Governance.module.css';
 import { utils } from 'ethers/lib/ethers';
@@ -12,14 +12,14 @@ import { i18n } from '@lingui/core';
 const GovernancePage = () => {
   const { data: proposals } = useAllProposals();
   const threshold = useProposalThreshold();
-  const nounsRequired = threshold !== undefined ? threshold + 1 : '...';
+  const alpsRequired = threshold !== undefined ? threshold + 1 : '...';
 
   const treasuryBalance = useTreasuryBalance();
   const treasuryBalanceUSD = useTreasuryUSDValue();
 
   // Note: We have to extract this copy out of the <span> otherwise the Lingui macro gets confused
-  const nounSingular = <Trans>Alp</Trans>;
-  const nounPlural = <Trans>Alps</Trans>;
+  const alpSingular = <Trans>Alp</Trans>;
+  const alpPlural = <Trans>Alps</Trans>;
 
   return (
     <Section fullWidth={false} className={classes.section}>
@@ -37,7 +37,7 @@ const GovernancePage = () => {
             Alps govern <span className={classes.boldText}>Alps DAO</span>. Alps can vote on
             proposals or delegate their vote to a third party. A minimum of{' '}
             <span className={classes.boldText}>
-              {nounsRequired} {threshold === 0 ? nounSingular : nounPlural}
+              {alpsRequired} {threshold === 0 ? alpSingular : alpPlural}
             </span>{' '}
             is required to submit proposals.
           </Trans>

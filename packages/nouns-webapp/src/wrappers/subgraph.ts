@@ -11,7 +11,7 @@ export interface IBid {
   blockNumber: number;
   blockTimestamp: number;
   txIndex?: number;
-  noun: {
+  alp: {
     id: number;
     startTime?: BigNumberish;
     endTime?: BigNumberish;
@@ -32,7 +32,7 @@ export interface ProposalVotes {
 
 export interface Delegate {
   id: string;
-  nounsRepresented: {
+  alpsRepresented: {
     id: string;
   }[];
 }
@@ -92,7 +92,7 @@ export const auctionQuery = (auctionId: number) => gql`
 	  }
 	  startTime
 	  endTime
-	  noun {
+	  alp {
 		id
 		seed {
 		  id
@@ -127,16 +127,16 @@ export const bidsByAuctionQuery = (auctionId: string) => gql`
 	  bidder {
 	  	id
 	  }
-	  noun {
+	  alp {
 		id
 	  }
 	}
   }
  `;
 
-export const nounQuery = (id: string) => gql`
+export const alpQuery = (id: string) => gql`
  {
-	noun(id:"${id}") {
+	alp(id:"${id}") {
 	  id
 	  seed {
 	  background
@@ -152,9 +152,9 @@ export const nounQuery = (id: string) => gql`
   }
  `;
 
-export const nounsIndex = () => gql`
+export const alpsIndex = () => gql`
   {
-    nouns {
+    alps {
       id
       owner {
         id
@@ -174,7 +174,7 @@ export const latestAuctionsQuery = () => gql`
       }
       startTime
       endTime
-      noun {
+      alp {
         id
         owner {
           id
@@ -219,9 +219,9 @@ export const latestBidsQuery = (first: number = 10) => gql`
   }  
 `;
 
-export const nounVotingHistoryQuery = (nounId: number) => gql`
+export const alpVotingHistoryQuery = (alpId: number) => gql`
 {
-	noun(id: ${nounId}) {
+	alp(id: ${alpId}) {
 		id
 		votes {
       blockNumber
@@ -238,9 +238,9 @@ export const nounVotingHistoryQuery = (nounId: number) => gql`
 }
 `;
 
-export const nounTransferHistoryQuery = (nounId: number) => gql`
+export const alpTransferHistoryQuery = (alpId: number) => gql`
 {
-  transferEvents(where: {noun: "${nounId}"}) {
+  transferEvents(where: {alp: "${alpId}"}) {
     id
     previousHolder {
       id
@@ -253,9 +253,9 @@ export const nounTransferHistoryQuery = (nounId: number) => gql`
 }
 `;
 
-export const nounDelegationHistoryQuery = (nounId: number) => gql`
+export const alpDelegationHistoryQuery = (alpId: number) => gql`
 {
-  delegationEvents(where: {noun: "${nounId}"}) {
+  delegationEvents(where: {alp: "${alpId}"}) {
     id
     previousDelegate {
       id
@@ -289,29 +289,29 @@ export const proposalVotesQuery = (proposalId: string) => gql`
   }
 `;
 
-export const delegateNounsAtBlockQuery = (delegates: string[], block: number) => gql`
+export const delegateAlpsAtBlockQuery = (delegates: string[], block: number) => gql`
 {
   delegates(where: { id_in: ${JSON.stringify(delegates)} }, block: { number: ${block} }) {
     id
-    nounsRepresented {
+    alpsRepresented {
       id
     }
   }
 }
 `;
 
-export const currentlyDelegatedNouns = (delegate: string) => gql`
+export const currentlyDelegatedAlps = (delegate: string) => gql`
 {
   delegates(where: { id: "${delegate}"} ) {
     id
-    nounsRepresented {
+    alpsRepresented {
       id
     }
   }
 }
 `;
 
-export const totalNounSupplyAtPropSnapshot = (proposalId: string) => gql`
+export const totalAlpSupplyAtPropSnapshot = (proposalId: string) => gql`
 {
   proposals(where: {id: ${proposalId}}) {
     totalSupply

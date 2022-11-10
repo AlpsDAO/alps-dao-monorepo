@@ -119,9 +119,9 @@
   cursor: pointer;
 }
 
-.nounsNavLink,
-.nounsNavLink:active,
-.nounsNavLink:visited {
+.alpsNavLink,
+.alpsNavLink:active,
+.alpsNavLink:visited {
   font-family: 'PT Root UI';
   font-weight: bold;
   font-size: 0.9rem;

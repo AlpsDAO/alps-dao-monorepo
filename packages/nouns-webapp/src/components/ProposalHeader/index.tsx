@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import ProposalStatus from '../ProposalStatus';
 import classes from './ProposalHeader.module.css';
 import navBarButtonClasses from '../NavBarButton/NavBarButton.module.css';
-import { Proposal, useHasVotedOnProposal, useProposalVote } from '../../wrappers/nounsDao';
+import { Proposal, useHasVotedOnProposal, useProposalVote } from '../../wrappers/alpsDao';
 import clsx from 'clsx';
 import { isMobileScreen } from '../../utils/isMobile';
-import { useUserVotesAsOfBlock } from '../../wrappers/nounToken';
+import { useUserVotesAsOfBlock } from '../../wrappers/alpToken';
 import { useBlockTimestamp } from '../../hooks/useBlockTimestamp';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
@@ -188,7 +188,7 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
       {proposal && isActiveForVoting && proposalCreationTimestamp && !!availableVotes && !hasVoted && (
         <Alert variant="success" className={classes.voterIneligibleAlert}>
           <Trans>
-            Only Nouns you owned or were delegated to you before{' '}
+            Only Alps you owned or were delegated to you before{' '}
             {i18n.date(new Date(proposalCreationTimestamp * 1000), {
               dateStyle: 'long',
               timeStyle: 'long',

@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-.stackedNounWrapper {
+.stackedAlpWrapper {
   display: flex;
 }
 
@@ -14,7 +14,7 @@
   text-align: left;
 }
 
-.nounsRepresented {
+.alpsRepresented {
   color: var(--brand-gray-dark-text);
   display: flex;
   margin-top: 0.25rem;

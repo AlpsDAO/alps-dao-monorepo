@@ -5,7 +5,7 @@ import { useEtherBalance } from '@usedapp/core';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import testnetNoun from '../../assets/testnet-noun.png';
+import testnetAlp from '../../assets/testnet-alp.png';
 import config, { CHAIN_ID } from '../../config';
 import { utils } from 'ethers';
 import { buildEtherscanHoldingsLink } from '../../utils/etherscan';
@@ -28,16 +28,16 @@ const NavBar = () => {
   // const stateBgColor = useAppSelector(state => state.application.stateBackgroundColor);
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const history = useHistory();
-  const ethBalance = useEtherBalance(config.addresses.nounsDaoExecutor);
+  const ethBalance = useEtherBalance(config.addresses.alpsDaoExecutor);
   const lidoBalanceAsETH = useLidoBalance();
   const treasuryBalance = ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
-  const daoEtherscanLink = buildEtherscanHoldingsLink(config.addresses.nounsDaoExecutor);
+  const daoEtherscanLink = buildEtherscanHoldingsLink(config.addresses.alpsDaoExecutor);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const isMobile = window.innerWidth < 992;
 
   const useStateBg =
     history.location.pathname === '/' ||
-    history.location.pathname.includes('/noun/') ||
+    history.location.pathname.includes('/alp/') ||
     history.location.pathname.includes('/auction/');
 
   const nonWalletButtonStyle = !useStateBg
@@ -59,11 +59,11 @@ const NavBar = () => {
         <Container style={{ maxWidth: 'unset', paddingBottom: isMobile ? 3 : 0 }}>
           <div className={classes.brandAndTreasuryWrapper}>
             <Navbar.Brand as={Link} to="/" className={classes.navBarBrand}>
-              <img src={logo} className={classes.navBarLogo} alt="Nouns DAO logo" />
+              <img src={logo} className={classes.navBarLogo} alt="Alps DAO logo" />
             </Navbar.Brand>
             {Number(CHAIN_ID) !== 1 && (
               <Nav.Item>
-                <img className={classes.testnetImg} src={testnetNoun} alt="testnet noun" />
+                <img className={classes.testnetImg} src={testnetAlp} alt="testnet alp" />
                 TESTNET
               </Nav.Item>
             )}
@@ -71,7 +71,7 @@ const NavBar = () => {
               {treasuryBalance && (
                 <Nav.Link
                   href={daoEtherscanLink}
-                  className={classes.nounsNavLink}
+                  className={classes.alpsNavLink}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -89,7 +89,7 @@ const NavBar = () => {
             onClick={() => setIsNavExpanded(!isNavExpanded)}
           />
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link as={Link} to="/vote" className={classes.nounsNavLink} onClick={closeNav}>
+            <Nav.Link as={Link} to="/vote" className={classes.alpsNavLink} onClick={closeNav}>
               <NavBarButton
                 buttonText={<Trans>DAO</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faUsers} />}
@@ -100,7 +100,7 @@ const NavBar = () => {
               href={
                 'https://alpsdao.notion.site/About-Notion-or-Gitbook-96d8df1df40441c2b17d6db1e190a5c2'
               }
-              className={classes.nounsNavLink}
+              className={classes.alpsNavLink}
               target="_blank"
               rel="noreferrer"
               onClick={closeNav}
@@ -113,7 +113,7 @@ const NavBar = () => {
             </Nav.Link>
             {/* <Nav.Link
               href={externalURL(ExternalURL.discourse)}
-              className={classes.nounsNavLink}
+              className={classes.alpsNavLink}
               target="_blank"
               rel="noreferrer"
               onClick={closeNav}
@@ -124,12 +124,7 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link> */}
-            <Nav.Link
-              as={Link}
-              to="/playground"
-              className={classes.nounsNavLink}
-              onClick={closeNav}
-            >
+            <Nav.Link as={Link} to="/playground" className={classes.alpsNavLink} onClick={closeNav}>
               <NavBarButton
                 buttonText={<Trans>Playground</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faPlay} />}

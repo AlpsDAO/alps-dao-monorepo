@@ -2,8 +2,8 @@ import { useQuery } from '@apollo/client';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { currentlyDelegatedNouns } from '../../wrappers/subgraph';
-import HorizontalStackedNouns from '../HorizontalStackedNouns';
+import { currentlyDelegatedAlps } from '../../wrappers/subgraph';
+import HorizontalStackedAlps from '../HorizontalStackedAlps';
 import ShortAddress from '../ShortAddress';
 import classes from './ByLineHoverCard.module.css';
 import { ScaleIcon } from '@heroicons/react/solid';
@@ -17,7 +17,7 @@ const MAX_NOUN_IDS_SHOWN = 12;
 const ByLineHoverCard: React.FC<ByLineHoverCardProps> = props => {
   const { proposerAddress } = props;
 
-  const { data, loading, error } = useQuery(currentlyDelegatedNouns(proposerAddress));
+  const { data, loading, error } = useQuery(currentlyDelegatedAlps(proposerAddress));
 
   if (loading || (data && data.delegates.length === 0)) {
     return (
@@ -32,9 +32,9 @@ const ByLineHoverCard: React.FC<ByLineHoverCardProps> = props => {
     return <>Error fetching Vote info</>;
   }
 
-  const sortedNounIds = data.delegates[0].nounsRepresented
-    .map((noun: { id: string }) => {
-      return parseInt(noun.id);
+  const sortedAlpIds = data.delegates[0].alpsRepresented
+    .map((alp: { id: string }) => {
+      return parseInt(alp.id);
     })
     .sort((a: number, b: number) => {
       return a - b;
@@ -42,9 +42,9 @@ const ByLineHoverCard: React.FC<ByLineHoverCardProps> = props => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.stackedNounWrapper}>
-        <HorizontalStackedNouns
-          nounIds={data.delegates[0].nounsRepresented.map((noun: { id: string }) => noun.id)}
+      <div className={classes.stackedAlpWrapper}>
+        <HorizontalStackedAlps
+          alpIds={data.delegates[0].alpsRepresented.map((alp: { id: string }) => alp.id)}
         />
       </div>
 
@@ -52,30 +52,30 @@ const ByLineHoverCard: React.FC<ByLineHoverCardProps> = props => {
         <ShortAddress address={data ? data.delegates[0].id : ''} />
       </div>
 
-      <div className={classes.nounsRepresented}>
+      <div className={classes.alpsRepresented}>
         <div>
           <ScaleIcon height={15} width={15} className={classes.icon} />
-          {sortedNounIds.length === 1 ? (
+          {sortedAlpIds.length === 1 ? (
             <Trans>
-              <span>Delegated Noun: </span>
+              <span>Delegated Alp: </span>
             </Trans>
           ) : (
             <Trans>
-              <span>Delegated Nouns: </span>
+              <span>Delegated Alps: </span>
             </Trans>
           )}
 
-          {sortedNounIds.slice(0, MAX_NOUN_IDS_SHOWN).map((nounId: number, i: number) => {
+          {sortedAlpIds.slice(0, MAX_NOUN_IDS_SHOWN).map((alpId: number, i: number) => {
             return (
-              <span className={classes.bold} key={nounId.toString()}>
-                {nounId}
-                {i !== Math.min(MAX_NOUN_IDS_SHOWN, sortedNounIds.length) - 1 && ', '}{' '}
+              <span className={classes.bold} key={alpId.toString()}>
+                {alpId}
+                {i !== Math.min(MAX_NOUN_IDS_SHOWN, sortedAlpIds.length) - 1 && ', '}{' '}
               </span>
             );
           })}
-          {sortedNounIds.length > MAX_NOUN_IDS_SHOWN && (
+          {sortedAlpIds.length > MAX_NOUN_IDS_SHOWN && (
             <span>
-              <Trans>... and {sortedNounIds.length - MAX_NOUN_IDS_SHOWN} more</Trans>
+              <Trans>... and {sortedAlpIds.length - MAX_NOUN_IDS_SHOWN} more</Trans>
             </span>
           )}
         </div>

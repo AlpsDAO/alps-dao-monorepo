@@ -2,8 +2,8 @@ import classes from './BidHistoryModal.module.css';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { XIcon } from '@heroicons/react/solid';
-import { Auction } from '../../wrappers/nounsAuction';
-import { StandaloneNounRoundedCorners } from '../StandaloneNoun';
+import { Auction } from '../../wrappers/alpsAuction';
+import { StandaloneAlpRoundedCorners } from '../StandaloneAlp';
 import { useAuctionBids } from '../../wrappers/onDisplayAuction';
 import { Bid } from '../../utils/types';
 import BidHistoryModalRow from '../BidHistoryModalRow';
@@ -19,7 +19,7 @@ const BidHistoryModalOverlay: React.FC<{
 }> = props => {
   const { onDismiss, auction } = props;
 
-  const bids = useAuctionBids(auction.nounId);
+  const bids = useAuctionBids(auction.alpId);
 
   return (
     <>
@@ -32,15 +32,15 @@ const BidHistoryModalOverlay: React.FC<{
       <div className={classes.modal}>
         <div className={classes.content}>
           <div className={classes.header}>
-            <div className={classes.nounWrapper}>
-              <StandaloneNounRoundedCorners nounId={auction && auction.nounId} />
+            <div className={classes.alpWrapper}>
+              <StandaloneAlpRoundedCorners alpId={auction && auction.alpId} />
             </div>
 
             <div className={classes.title}>
               <h2>
                 <Trans>Bids for</Trans>
               </h2>
-              <h1>Noun {auction && auction.nounId.toString()}</h1>
+              <h1>Alp {auction && auction.alpId.toString()}</h1>
             </div>
           </div>
           <div className={classes.bidWrapper}>

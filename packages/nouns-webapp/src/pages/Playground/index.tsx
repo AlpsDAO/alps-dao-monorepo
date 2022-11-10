@@ -12,11 +12,11 @@ import {
 import classes from './Playground.module.css';
 import React, { ChangeEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import Link from '../../components/Link';
-import { ImageData, getNounData, getRandomNounSeed } from '@nouns/assets';
+import { ImageData, getAlpData, getRandomAlpSeed } from '@nouns/assets';
 import { buildSVG, EncodedImage, PNGCollectionEncoder } from '@nouns/sdk';
 import InfoIcon from '../../assets/icons/Info.svg';
-import Noun from '../../components/Noun';
-import NounModal from './NounModal';
+import Alp from '../../components/Alp';
+import AlpModal from './AlpModal';
 import { PNG } from 'pngjs';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
@@ -32,7 +32,7 @@ interface PendingCustomTrait {
   filename: string;
 }
 
-const nounsProtocolLink = (
+const alpsProtocolLink = (
   <Link
     text={<Trans>Alps Protocol</Trans>}
     url="https://github.com/AlpsDAO/alps-dao-monorepo/"
@@ -51,17 +51,17 @@ const nounsAssetsLink = (
 const alpsAssetsLink = (
   <Link
     text="alps-assets"
-    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/nouns-assets"
+    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/alps-assets"
     leavesPage={true}
   />
 );
 
 const gnarsAssetsLink = <Link text="gnars-assets" url="https://gnars.wtf/" leavesPage={true} />;
 
-const nounsSDKLink = (
+const alpsSDKLink = (
   <Link
     text="alps-sdk"
-    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/nouns-sdk"
+    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/alps-sdk"
     leavesPage={true}
   />
 );
@@ -95,25 +95,25 @@ const traitKeyToLocalizedTraitKeyFirstLetterCapitalized = (s: string): ReactNode
 };
 
 const Playground: React.FC = () => {
-  const [nounSvgs, setNounSvgs] = useState<string[]>();
+  const [alpSvgs, setAlpSvgs] = useState<string[]>();
   const [traits, setTraits] = useState<Trait[]>();
   const [modSeed, setModSeed] = useState<{ [key: string]: number }>();
   const [initLoad, setInitLoad] = useState<boolean>(true);
-  const [displayNoun, setDisplayNoun] = useState<boolean>(false);
-  const [indexOfNounToDisplay, setIndexOfNounToDisplay] = useState<number>();
+  const [displayAlp, setDisplayAlp] = useState<boolean>(false);
+  const [indexOfAlpToDisplay, setIndexOfAlpToDisplay] = useState<number>();
   const [selectIndexes, setSelectIndexes] = useState<Record<string, number>>({});
   const [pendingTrait, setPendingTrait] = useState<PendingCustomTrait>();
   const [isPendingTraitValid, setPendingTraitValid] = useState<boolean>();
 
   const customTraitFileRef = useRef<HTMLInputElement>(null);
 
-  const generateNounSvg = React.useCallback(
+  const generateAlpSvg = React.useCallback(
     (amount: number = 1) => {
       for (let i = 0; i < amount; i++) {
-        const seed = { ...getRandomNounSeed(), ...modSeed };
-        const { parts, background } = getNounData(seed);
+        const seed = { ...getRandomAlpSeed(), ...modSeed };
+        const { parts, background } = getAlpData(seed);
         const svg = buildSVG(parts, encoder.data.palette, background);
-        setNounSvgs(prev => {
+        setAlpSvgs(prev => {
           return prev ? [svg, ...prev] : [svg];
         });
       }
@@ -140,10 +140,10 @@ const Playground: React.FC = () => {
     );
 
     if (initLoad) {
-      generateNounSvg(8);
+      generateAlpSvg(8);
       setInitLoad(false);
     }
-  }, [generateNounSvg, initLoad]);
+  }, [generateAlpSvg, initLoad]);
 
   const traitOptions = (trait: Trait) => {
     return Array.from(Array(trait.traitNames.length + 1)).map((_, index) => {
@@ -260,12 +260,12 @@ const Playground: React.FC = () => {
 
   return (
     <>
-      {displayNoun && indexOfNounToDisplay !== undefined && nounSvgs && (
-        <NounModal
+      {displayAlp && indexOfAlpToDisplay !== undefined && alpSvgs && (
+        <AlpModal
           onDismiss={() => {
-            setDisplayNoun(false);
+            setDisplayAlp(false);
           }}
-          svg={nounSvgs[indexOfNounToDisplay]}
+          svg={alpSvgs[indexOfAlpToDisplay]}
         />
       )}
 
@@ -280,9 +280,9 @@ const Playground: React.FC = () => {
             </h1>
             <p>
               <Trans>
-                The playground was built using the {nounsProtocolLink}. Alp's traits are determined
-                by the Seed. The seed was generated using {nounsAssetsLink} , {gnarsAssetsLink},{' '}
-                {alpsAssetsLink} and rendered using the {nounsSDKLink}.
+                The playground was built using the {alpsProtocolLink}. Alp's traits are determined
+                by the Seed. The seed was generated using {alpsAssetsLink} , {gnarsAssetsLink},{' '}
+                {nounsAssetsLink} and rendered using the {alpsSDKLink}.
               </Trans>
             </p>
           </Col>
@@ -292,7 +292,7 @@ const Playground: React.FC = () => {
             <Col lg={12}>
               <Button
                 onClick={() => {
-                  generateNounSvg();
+                  generateAlpSvg();
                 }}
                 className={classes.primaryBtn}
               >
@@ -382,31 +382,31 @@ const Playground: React.FC = () => {
                 </Button>
               </>
             )}
-            <p className={classes.nounYearsFooter}>
+            <p className={classes.alpYearsFooter}>
               <Trans>
                 You've generated{' '}
-                {i18n.number(parseInt(nounSvgs ? (nounSvgs.length / 365).toFixed(2) : '0'))} years
+                {i18n.number(parseInt(alpSvgs ? (alpSvgs.length / 365).toFixed(2) : '0'))} years
                 worth of Alps
               </Trans>
             </p>
           </Col>
           <Col lg={9}>
             <Row>
-              {nounSvgs &&
-                nounSvgs.map((svg, i) => {
+              {alpSvgs &&
+                alpSvgs.map((svg, i) => {
                   return (
                     <Col xs={4} lg={3} key={i}>
                       <div
                         onClick={() => {
-                          setIndexOfNounToDisplay(i);
-                          setDisplayNoun(true);
+                          setIndexOfAlpToDisplay(i);
+                          setDisplayAlp(true);
                         }}
                       >
-                        <Noun
+                        <Alp
                           imgPath={`data:image/svg+xml;base64,${btoa(svg)}`}
-                          alt="noun"
-                          className={classes.nounImg}
-                          wrapperClassName={classes.nounWrapper}
+                          alt="alp"
+                          className={classes.alpImg}
+                          wrapperClassName={classes.alpWrapper}
                         />
                       </div>
                     </Col>

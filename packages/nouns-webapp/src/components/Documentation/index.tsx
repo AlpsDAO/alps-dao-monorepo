@@ -6,13 +6,6 @@ import Link from '../Link';
 import { Trans } from '@lingui/macro';
 
 const Documentation = () => {
-  const cryptopunksLink = (
-    <Link
-      text={<Trans>Cryptopunks</Trans>}
-      url="https://www.larvalabs.com/cryptopunks"
-      leavesPage={true}
-    />
-  );
   const playgroundLink = (
     <Link text={<Trans>Playground</Trans>} url="/playground" leavesPage={false} />
   );
@@ -43,8 +36,8 @@ const Documentation = () => {
           <p className={classes.aboutText}>
             <Trans>
               Alps DAO is an extension of {nounsDAOLink}, focused on establishing long term
-              relationships with alpine resorts to proliferate Nouns, provide unique membership
-              perks to DAO members and support proposals that enhance on-mountain environments and
+              relationships with alpine resorts to proliferate Alps, provide unique membership perks
+              to DAO members and support proposals that enhance on-mountain environments and
               experiences.
             </Trans>
           </p>
@@ -78,7 +71,7 @@ const Documentation = () => {
                   <Trans>All Alps are members of Alps DAO.</Trans>
                 </li>
                 <li>
-                  <Trans>Alps DAO uses Nouns DAO’s fork of {compoundGovLink}.</Trans>
+                  <Trans>Alps DAO uses Alps DAO’s fork of {compoundGovLink}.</Trans>
                 </li>
                 <li>
                   <Trans>One Alp is equal to one vote.</Trans>
@@ -197,7 +190,7 @@ const Documentation = () => {
                   <Trans>bodies (32)</Trans>
                 </li>
                 <li>
-                  <Trans>accessories (186) </Trans>
+                  <Trans>accessories (182) </Trans>
                 </li>
                 <li>
                   <Trans>heads (248) </Trans>

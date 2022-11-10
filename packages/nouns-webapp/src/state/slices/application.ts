@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReactNode } from 'react';
-import { grey } from '../../utils/nounBgColors';
+import { grey } from '../../utils/alpBgColors';
 
 export interface AlertModal {
   show: boolean;
@@ -45,6 +45,12 @@ export const applicationSlice = createSlice({
           isCool = false;
           break;
         case '#f8d689':
+          isCool = true;
+          break;
+        case '#d5d7e1':
+          isCool = true;
+          break;
+        case '#e1d7d5':
           isCool = true;
           break;
         default:

@@ -54,8 +54,8 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
       <WalletButton
         onClick={() => {
           const walletlink = new WalletLinkConnector({
-            appName: 'Nouns.WTF',
-            appLogoUrl: 'https://nouns.wtf/static/media/logo.cdea1650.svg',
+            appName: 'Alps.WTF',
+            appLogoUrl: 'https://alps.wtf/static/media/logo.cdea1650.svg',
             url: config.app.jsonRpcUri,
             supportedChainIds,
           });
@@ -88,8 +88,8 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           const trezor = new TrezorConnector({
             chainId: CHAIN_ID,
             url: config.app.jsonRpcUri,
-            manifestAppUrl: 'https://nouns.wtf',
-            manifestEmail: 'nounops+trezorconnect@protonmail.com',
+            manifestAppUrl: 'https://alps.wtf',
+            manifestEmail: 'alpops+trezorconnect@protonmail.com',
           });
           activate(trezor);
         }}

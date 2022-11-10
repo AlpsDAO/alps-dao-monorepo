@@ -3,8 +3,8 @@ import { ScaleIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { delegateNounsAtBlockQuery } from '../../wrappers/subgraph';
-import HorizontalStackedNouns from '../HorizontalStackedNouns';
+import { delegateAlpsAtBlockQuery } from '../../wrappers/subgraph';
+import HorizontalStackedAlps from '../HorizontalStackedAlps';
 import ShortAddress from '../ShortAddress';
 import classes from './DelegateHoverCard.module.css';
 
@@ -19,7 +19,7 @@ const DelegateHoverCard: React.FC<DelegateHoverCardProps> = props => {
   const unwrappedDelegateId = delegateId ? delegateId.replace('delegate-', '') : '';
 
   const { data, loading, error } = useQuery(
-    delegateNounsAtBlockQuery([unwrappedDelegateId], proposalCreationBlock),
+    delegateAlpsAtBlockQuery([unwrappedDelegateId], proposalCreationBlock),
   );
 
   if (loading || !data || data === undefined || data.delegates.length === 0) {
@@ -36,13 +36,13 @@ const DelegateHoverCard: React.FC<DelegateHoverCardProps> = props => {
     return <>Error fetching Vote info</>;
   }
 
-  const numVotesForProp = data.delegates[0].nounsRepresented.length;
+  const numVotesForProp = data.delegates[0].alpsRepresented.length;
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.stackedNounWrapper}>
-        <HorizontalStackedNouns
-          nounIds={data.delegates[0].nounsRepresented.map((noun: { id: string }) => noun.id)}
+      <div className={classes.stackedAlpWrapper}>
+        <HorizontalStackedAlps
+          alpIds={data.delegates[0].alpsRepresented.map((alp: { id: string }) => alp.id)}
         />
       </div>
 
@@ -50,15 +50,15 @@ const DelegateHoverCard: React.FC<DelegateHoverCardProps> = props => {
         <ShortAddress address={data ? data.delegates[0].id : ''} />
       </div>
 
-      <div className={classes.nounInfoWrapper}>
+      <div className={classes.alpInfoWrapper}>
         <ScaleIcon height={20} width={20} className={classes.icon} />
         {numVotesForProp === 1 ? (
           <Trans>
-            Voted with<span className={classes.bold}>{numVotesForProp}</span>Noun
+            Voted with<span className={classes.bold}>{numVotesForProp}</span>Alp
           </Trans>
         ) : (
           <Trans>
-            Voted with<span className={classes.bold}>{numVotesForProp}</span>Nouns
+            Voted with<span className={classes.bold}>{numVotesForProp}</span>Alps
           </Trans>
         )}
       </div>

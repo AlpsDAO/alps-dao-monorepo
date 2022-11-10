@@ -1,6 +1,6 @@
 import classes from './Banner.module.css';
 import Section from '../../layout/Section';
-import calendar_noun from '../../assets/alps_dao_homepage.png';
+import calendar_alp from '../../assets/alps_dao_homepage.png';
 import Image from 'react-bootstrap/Image';
 import { Trans } from '@lingui/macro';
 
@@ -17,7 +17,7 @@ const Banner = () => {
         </h1>
       </div>
       <div style={{ padding: '2rem', paddingBottom: '1rem' }}>
-        <Image src={calendar_noun} alt={'Banner Image'} fluid />
+        <Image src={calendar_alp} alt={'Banner Image'} fluid />
       </div>
     </Section>
   );

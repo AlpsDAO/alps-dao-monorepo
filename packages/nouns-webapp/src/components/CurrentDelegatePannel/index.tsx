@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { useEthers } from '@usedapp/core';
 import React from 'react';
 import { useShortAddress } from '../../utils/addressAndENSDisplayUtils';
-import { useUserDelegatee } from '../../wrappers/nounToken';
+import { useUserDelegatee } from '../../wrappers/alpToken';
 import NavBarButton, { NavBarButtonStyle } from '../NavBarButton';
 import ShortAddress from '../ShortAddress';
 import classes from './CurrentDelegatePannel.module.css';
@@ -30,9 +30,9 @@ const CurrentDelegatePannel: React.FC<CurrentDelegatePannelProps> = props => {
 
           <p className={classes.copy}>
             <Trans>
-              Noun votes are not transferable, but are{' '}
+              Alp votes are not transferable, but are{' '}
               <span className={classes.emph}>delegatable</span>, which means you can assign your
-              vote to someone else as long as you own your Noun.
+              vote to someone else as long as you own your Alp.
             </Trans>
           </p>
         </div>

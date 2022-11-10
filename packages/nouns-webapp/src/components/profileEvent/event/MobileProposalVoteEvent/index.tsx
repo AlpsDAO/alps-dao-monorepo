@@ -2,11 +2,11 @@ import { useHistory } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import classes from './MobileProposalVoteEvent.module.css';
 import ProposalVoteInfoPillsContainer from '../../eventData/ProposalVoteInfoPillsContainer';
-import { ProposalVoteEvent } from '../../../../wrappers/nounActivity';
+import { ProposalVoteEvent } from '../../../../wrappers/alpActivity';
 import React from 'react';
-import { getProposalVoteIcon } from '../../../../utils/nounActivity/getProposalVoteIcon';
+import { getProposalVoteIcon } from '../../../../utils/alpActivity/getProposalVoteIcon';
 import ProposalVoteHeadline from '../../eventData/ProposalVoteHeadline';
-import MobileNounActivityRow from '../../activityRow/MobileNounActivityRow';
+import MobileAlpActivityRow from '../../activityRow/MobileAlpActivityRow';
 
 interface MobileProposalVoteEventProps {
   event: ProposalVoteEvent;
@@ -19,7 +19,7 @@ const MobileProposalVoteEvent: React.FC<MobileProposalVoteEventProps> = props =>
     history.push(event.proposal.id ? `/vote/${event.proposal.id}` : '/vote');
 
   return (
-    <MobileNounActivityRow
+    <MobileAlpActivityRow
       onClick={proposalOnClickHandler}
       icon={
         <Image
