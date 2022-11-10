@@ -17,7 +17,7 @@ export async function getGasPriceWithPrompt(
 
   promptjs.start();
 
-  let result = await promptjs.get([
+  const result = await promptjs.get([
     {
       properties: {
         gasPrice: {
@@ -54,7 +54,7 @@ export async function printEstimatedCost(factory: ContractFactory, gasPrice: Big
   );
   const deploymentCost = deploymentGas.mul(gasPrice);
   console.log(
-    `Estimated cost to deploy NounsDAOLogicV2: ${utils.formatUnits(deploymentCost, 'ether')} ETH`,
+    `Estimated cost to deploy AlpsDAOLogicV2: ${utils.formatUnits(deploymentCost, 'ether')} ETH`,
   );
 }
 

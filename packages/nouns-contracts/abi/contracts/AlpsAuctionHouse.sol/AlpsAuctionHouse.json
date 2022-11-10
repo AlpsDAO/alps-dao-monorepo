@@ -5,7 +5,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "nounId",
+        "name": "alpId",
         "type": "uint256"
       },
       {
@@ -36,7 +36,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "nounId",
+        "name": "alpId",
         "type": "uint256"
       },
       {
@@ -61,7 +61,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "nounId",
+        "name": "alpId",
         "type": "uint256"
       },
       {
@@ -106,7 +106,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "nounId",
+        "name": "alpId",
         "type": "uint256"
       },
       {
@@ -185,11 +185,24 @@
   },
   {
     "inputs": [],
+    "name": "alps",
+    "outputs": [
+      {
+        "internalType": "contract IAlpsToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "auction",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "nounId",
+        "name": "alpId",
         "type": "uint256"
       },
       {
@@ -225,7 +238,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "nounId",
+        "name": "alpId",
         "type": "uint256"
       }
     ],
@@ -248,10 +261,23 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "holeoffame",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
-        "internalType": "contract INounsToken",
-        "name": "_nouns",
+        "internalType": "contract IAlpsToken",
+        "name": "_alps",
         "type": "address"
       },
       {
@@ -293,19 +319,6 @@
         "internalType": "uint8",
         "name": "",
         "type": "uint8"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "nouns",
-    "outputs": [
-      {
-        "internalType": "contract INounsToken",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",

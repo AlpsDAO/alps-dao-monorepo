@@ -9,15 +9,15 @@ export enum ChainId {
 }
 
 // prettier-ignore
-export type DescriptorV1ContractNames = 'NFTDescriptor' | 'NounsDescriptor';
+export type DescriptorV1ContractNames = 'NFTDescriptor' | 'AlpsDescriptor';
 // prettier-ignore
-export type DescriptorV2ContractNames = 'NFTDescriptorV2' | 'NounsDescriptorV2' | 'SVGRenderer' | 'NounsArt' | 'Inflator';
+export type DescriptorV2ContractNames = 'NFTDescriptorV2' | 'AlpsDescriptorV2' | 'SVGRenderer' | 'AlpsArt' | 'Inflator';
 // prettier-ignore
-export type ContractName = DescriptorV2ContractNames | 'NounsSeeder' | 'NounsToken' | 'NounsAuctionHouse' | 'NounsAuctionHouseProxyAdmin' | 'NounsAuctionHouseProxy' | 'NounsDAOExecutor' | 'NounsDAOLogicV1' | 'NounsDAOProxy';
+export type ContractName = DescriptorV2ContractNames | 'AlpsSeeder' | 'AlpsToken' | 'AlpsAuctionHouse' | 'AlpsAuctionHouseProxyAdmin' | 'AlpsAuctionHouseProxy' | 'AlpsDAOExecutor' | 'AlpsDAOLogicV1' | 'AlpsDAOProxy';
 // prettier-ignore
-export type ContractNameDescriptorV1 = DescriptorV1ContractNames | 'NounsSeeder' | 'NounsToken' | 'NounsAuctionHouse' | 'NounsAuctionHouseProxyAdmin' | 'NounsAuctionHouseProxy' | 'NounsDAOExecutor' | 'NounsDAOLogicV1' | 'NounsDAOProxy';
+export type ContractNameDescriptorV1 = DescriptorV1ContractNames | 'AlpsSeeder' | 'AlpsToken' | 'AlpsAuctionHouse' | 'AlpsAuctionHouseProxyAdmin' | 'AlpsAuctionHouseProxy' | 'AlpsDAOExecutor' | 'AlpsDAOLogicV1' | 'AlpsDAOProxy';
 // prettier-ignore
-export type ContractNamesDAOV2 = Exclude<ContractName, 'NounsDAOLogicV1' | 'NounsDAOProxy'> | 'NounsDAOLogicV2' | 'NounsDAOProxyV2';
+export type ContractNamesDAOV2 = Exclude<ContractName, 'AlpsDAOLogicV1' | 'AlpsDAOProxy'> | 'AlpsDAOLogicV2' | 'AlpsDAOProxyV2';
 
 export interface ContractDeployment {
   args?: (string | number | (() => string))[];

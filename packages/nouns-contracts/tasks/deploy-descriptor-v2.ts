@@ -6,10 +6,10 @@ async function delay(seconds: number) {
   return new Promise(resolve => setTimeout(resolve, 1000 * seconds));
 }
 
-task('deploy-descriptor-v2', 'Deploy NounsDescriptorV2 & populate it with art')
+task('deploy-descriptor-v2', 'Deploy AlpsDescriptorV2 & populate it with art')
   .addParam(
     'daoExecutor',
-    'The address of the NounsDAOExecutor that should be the owner of the descriptor.',
+    'The address of the AlpsDAOExecutor that should be the owner of the descriptor.',
   )
   .setAction(async ({ daoExecutor }, { ethers, run, network }) => {
     const contracts: Record<ContractName, DeployedContract> = {} as Record<
@@ -20,7 +20,7 @@ task('deploy-descriptor-v2', 'Deploy NounsDescriptorV2 & populate it with art')
     console.log(`Deploying from address ${deployer.address}`);
 
     const nonce = await deployer.getTransactionCount();
-    const expectedNounsArtAddress = ethers.utils.getContractAddress({
+    const expectedAlpsArtAddress = ethers.utils.getContractAddress({
       from: deployer.address,
       nonce: nonce + 4,
     });
@@ -44,20 +44,20 @@ task('deploy-descriptor-v2', 'Deploy NounsDescriptorV2 & populate it with art')
       libraries: {},
     };
 
-    const nounsDescriptorFactory = await ethers.getContractFactory('NounsDescriptorV2', {
+    const alpsDescriptorFactory = await ethers.getContractFactory('AlpsDescriptorV2', {
       libraries: {
         NFTDescriptorV2: library.address,
       },
     });
-    const nounsDescriptor = await nounsDescriptorFactory.deploy(
-      expectedNounsArtAddress,
+    const alpsDescriptor = await alpsDescriptorFactory.deploy(
+      expectedAlpsArtAddress,
       renderer.address,
     );
-    contracts.NounsDescriptorV2 = {
-      name: 'NounsDescriptorV2',
-      address: nounsDescriptor.address,
-      constructorArguments: [expectedNounsArtAddress, renderer.address],
-      instance: nounsDescriptor,
+    contracts.AlpsDescriptorV2 = {
+      name: 'AlpsDescriptorV2',
+      address: alpsDescriptor.address,
+      constructorArguments: [expectedAlpsArtAddress, renderer.address],
+      instance: alpsDescriptor,
       libraries: {
         NFTDescriptorV2: library.address,
       },
@@ -73,12 +73,12 @@ task('deploy-descriptor-v2', 'Deploy NounsDescriptorV2 & populate it with art')
     };
 
     const art = await (
-      await ethers.getContractFactory('NounsArt', deployer)
-    ).deploy(nounsDescriptor.address, inflator.address);
-    contracts.NounsArt = {
-      name: 'NounsArt',
+      await ethers.getContractFactory('AlpsArt', deployer)
+    ).deploy(alpsDescriptor.address, inflator.address);
+    contracts.AlpsArt = {
+      name: 'AlpsArt',
       address: art.address,
-      constructorArguments: [nounsDescriptor.address, inflator.address],
+      constructorArguments: [alpsDescriptor.address, inflator.address],
       instance: art,
       libraries: {},
     };
@@ -96,12 +96,12 @@ task('deploy-descriptor-v2', 'Deploy NounsDescriptorV2 & populate it with art')
     console.log('Populating Descriptor...');
     await run('populate-descriptor', {
       nftDescriptor: contracts.NFTDescriptorV2.address,
-      nounsDescriptor: contracts.NounsDescriptorV2.address,
+      alpsDescriptor: contracts.AlpsDescriptorV2.address,
     });
     console.log('Population complete.');
 
     console.log('Transfering ownership to DAO Executor...');
-    await nounsDescriptor.transferOwnership(daoExecutor);
+    await alpsDescriptor.transferOwnership(daoExecutor);
     console.log('Transfer complete.');
 
     if (network.name !== 'localhost') {

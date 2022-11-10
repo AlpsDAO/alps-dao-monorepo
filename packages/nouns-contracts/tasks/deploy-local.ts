@@ -1,13 +1,13 @@
-import { default as NounsAuctionHouseABI } from '../abi/contracts/NounsAuctionHouse.sol/NounsAuctionHouse.json';
+import { default as AlpsAuctionHouseABI } from '../abi/contracts/AlpsAuctionHouse.sol/AlpsAuctionHouse.json';
 import { task, types } from 'hardhat/config';
 import { Interface, parseUnits } from 'ethers/lib/utils';
 import { Contract as EthersContract } from 'ethers';
 import { ContractName } from './types';
 
 type LocalContractName =
-  | Exclude<ContractName, 'NounsDAOLogicV1' | 'NounsDAOProxy'>
-  | 'NounsDAOLogicV2'
-  | 'NounsDAOProxyV2'
+  | Exclude<ContractName, 'AlpsDAOLogicV1' | 'AlpsDAOProxy'>
+  | 'AlpsDAOLogicV2'
+  | 'AlpsDAOProxyV2'
   | 'WETH'
   | 'Multicall2';
 
@@ -19,7 +19,7 @@ interface Contract {
 }
 
 task('deploy-local', 'Deploy contracts to hardhat')
-  .addOptionalParam('noundersdao', 'The nounders DAO contract address')
+  .addOptionalParam('alpersdao', 'The alpers DAO contract address')
   .addOptionalParam('auctionTimeBuffer', 'The auction time buffer (seconds)', 30, types.int) // Default: 30 seconds
   .addOptionalParam('auctionReservePrice', 'The auction reserve price (wei)', 1, types.int) // Default: 1 wei
   .addOptionalParam(
@@ -61,11 +61,11 @@ task('deploy-local', 'Deploy contracts to hardhat')
 
     const [deployer] = await ethers.getSigners();
     const nonce = await deployer.getTransactionCount();
-    const expectedNounsArtAddress = ethers.utils.getContractAddress({
+    const expectedAlpsArtAddress = ethers.utils.getContractAddress({
       from: deployer.address,
       nonce: nonce + NOUNS_ART_NONCE_OFFSET,
     });
-    const expectedNounsDAOProxyAddress = ethers.utils.getContractAddress({
+    const expectedAlpsDAOProxyAddress = ethers.utils.getContractAddress({
       from: deployer.address,
       nonce: nonce + GOVERNOR_N_DELEGATOR_NONCE_OFFSET,
     });
@@ -77,40 +77,40 @@ task('deploy-local', 'Deploy contracts to hardhat')
       WETH: {},
       NFTDescriptorV2: {},
       SVGRenderer: {},
-      NounsDescriptorV2: {
-        args: [expectedNounsArtAddress, () => contracts.SVGRenderer.instance?.address],
+      AlpsDescriptorV2: {
+        args: [expectedAlpsArtAddress, () => contracts.SVGRenderer.instance?.address],
         libraries: () => ({
           NFTDescriptorV2: contracts.NFTDescriptorV2.instance?.address as string,
         }),
       },
       Inflator: {},
-      NounsArt: {
+      AlpsArt: {
         args: [
-          () => contracts.NounsDescriptorV2.instance?.address,
+          () => contracts.AlpsDescriptorV2.instance?.address,
           () => contracts.Inflator.instance?.address,
         ],
       },
-      NounsSeeder: {},
-      NounsToken: {
+      AlpsSeeder: {},
+      AlpsToken: {
         args: [
-          args.noundersdao || deployer.address,
+          args.alpersdao || deployer.address,
           expectedAuctionHouseProxyAddress,
-          () => contracts.NounsDescriptorV2.instance?.address,
-          () => contracts.NounsSeeder.instance?.address,
+          () => contracts.AlpsDescriptorV2.instance?.address,
+          () => contracts.AlpsSeeder.instance?.address,
           proxyRegistryAddress,
         ],
       },
-      NounsAuctionHouse: {
+      AlpsAuctionHouse: {
         waitForConfirmation: true,
       },
-      NounsAuctionHouseProxyAdmin: {},
-      NounsAuctionHouseProxy: {
+      AlpsAuctionHouseProxyAdmin: {},
+      AlpsAuctionHouseProxy: {
         args: [
-          () => contracts.NounsAuctionHouse.instance?.address,
-          () => contracts.NounsAuctionHouseProxyAdmin.instance?.address,
+          () => contracts.AlpsAuctionHouse.instance?.address,
+          () => contracts.AlpsAuctionHouseProxyAdmin.instance?.address,
           () =>
-            new Interface(NounsAuctionHouseABI).encodeFunctionData('initialize', [
-              contracts.NounsToken.instance?.address,
+            new Interface(AlpsAuctionHouseABI).encodeFunctionData('initialize', [
+              contracts.AlpsToken.instance?.address,
               contracts.WETH.instance?.address,
               args.auctionTimeBuffer,
               args.auctionReservePrice,
@@ -119,19 +119,19 @@ task('deploy-local', 'Deploy contracts to hardhat')
             ]),
         ],
       },
-      NounsDAOExecutor: {
-        args: [expectedNounsDAOProxyAddress, args.timelockDelay],
+      AlpsDAOExecutor: {
+        args: [expectedAlpsDAOProxyAddress, args.timelockDelay],
       },
-      NounsDAOLogicV2: {
+      AlpsDAOLogicV2: {
         waitForConfirmation: true,
       },
-      NounsDAOProxyV2: {
+      AlpsDAOProxyV2: {
         args: [
-          () => contracts.NounsDAOExecutor.instance?.address,
-          () => contracts.NounsToken.instance?.address,
-          args.noundersdao || deployer.address,
-          () => contracts.NounsDAOExecutor.instance?.address,
-          () => contracts.NounsDAOLogicV2.instance?.address,
+          () => contracts.AlpsDAOExecutor.instance?.address,
+          () => contracts.AlpsToken.instance?.address,
+          args.alpersdao || deployer.address,
+          () => contracts.AlpsDAOExecutor.instance?.address,
+          () => contracts.AlpsDAOLogicV2.instance?.address,
           args.votingPeriod,
           args.votingDelay,
           args.proposalThresholdBps,

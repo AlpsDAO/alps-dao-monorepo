@@ -51,6 +51,9 @@ contract AlpsAuctionHouse is IAlpsAuctionHouse, PausableUpgradeable, ReentrancyG
     // The duration of a single auction
     uint256 public duration;
 
+    // holeoffame wallet
+    address public holeoffame = 0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC;
+
     // The active auction
     IAlpsAuctionHouse.Auction public auction;
 
@@ -228,7 +231,7 @@ contract AlpsAuctionHouse is IAlpsAuctionHouse, PausableUpgradeable, ReentrancyG
         auction.settled = true;
 
         if (_auction.bidder == address(0)) {
-            alps.burn(_auction.alpId);
+            alps.transferFrom(address(this), holeoffame, _auction.alpId);
         } else {
             alps.transferFrom(address(this), _auction.bidder, _auction.alpId);
         }

@@ -20,20 +20,20 @@ task('update-configs', 'Write the deployed addresses to the SDK and subgraph con
       const addressesPath = join(sdkPath, 'src/contract/addresses.json');
       const addresses = JSON.parse(readFileSync(addressesPath, 'utf8'));
       addresses[chainId] = {
-        nounsToken: contracts.NounsToken.address,
-        nounsSeeder: contracts.NounsSeeder.address,
-        nounsDescriptor: contracts.NounsDescriptorV2
-          ? contracts.NounsDescriptorV2.address
-          : contracts.NounsDescriptor.address,
+        alpsToken: contracts.AlpsToken.address,
+        alpsSeeder: contracts.AlpsSeeder.address,
+        alpsDescriptor: contracts.AlpsDescriptorV2
+          ? contracts.AlpsDescriptorV2.address
+          : contracts.AlpsDescriptor.address,
         nftDescriptor: contracts.NFTDescriptorV2
           ? contracts.NFTDescriptorV2.address
           : contracts.NFTDescriptor.address,
-        nounsAuctionHouse: contracts.NounsAuctionHouse.address,
-        nounsAuctionHouseProxy: contracts.NounsAuctionHouseProxy.address,
-        nounsAuctionHouseProxyAdmin: contracts.NounsAuctionHouseProxyAdmin.address,
-        nounsDaoExecutor: contracts.NounsDAOExecutor.address,
-        nounsDAOProxy: contracts.NounsDAOProxy.address,
-        nounsDAOLogicV1: contracts.NounsDAOLogicV1.address,
+        alpsAuctionHouse: contracts.AlpsAuctionHouse.address,
+        alpsAuctionHouseProxy: contracts.AlpsAuctionHouseProxy.address,
+        alpsAuctionHouseProxyAdmin: contracts.AlpsAuctionHouseProxyAdmin.address,
+        alpsDaoExecutor: contracts.AlpsDAOExecutor.address,
+        alpsDAOProxy: contracts.AlpsDAOProxy.address,
+        alpsDAOLogicV1: contracts.AlpsDAOLogicV1.address,
       };
       writeFileSync(addressesPath, JSON.stringify(addresses, null, 2));
       try {
@@ -41,26 +41,26 @@ task('update-configs', 'Write the deployed addresses to the SDK and subgraph con
           cwd: sdkPath,
         });
       } catch {
-        console.log('Failed to re-build `@nouns/sdk`. Please rebuild manually.');
+        console.log('Failed to re-build `@alps/sdk`. Please rebuild manually.');
       }
-      console.log('Addresses written to the Nouns SDK.');
+      console.log('Addresses written to the Alps SDK.');
 
       // Generate subgraph config
       const configName = `${network}-fork`;
-      const subgraphConfigPath = join(__dirname, `../../nouns-subgraph/config/${configName}.json`);
+      const subgraphConfigPath = join(__dirname, `../../alps-subgraph/config/${configName}.json`);
       const subgraphConfig = {
         network,
-        nounsToken: {
-          address: contracts.NounsToken.address,
-          startBlock: contracts.NounsToken.instance.deployTransaction.blockNumber,
+        alpsToken: {
+          address: contracts.AlpsToken.address,
+          startBlock: contracts.AlpsToken.instance.deployTransaction.blockNumber,
         },
-        nounsAuctionHouse: {
-          address: contracts.NounsAuctionHouseProxy.address,
-          startBlock: contracts.NounsAuctionHouseProxy.instance.deployTransaction.blockNumber,
+        alpsAuctionHouse: {
+          address: contracts.AlpsAuctionHouseProxy.address,
+          startBlock: contracts.AlpsAuctionHouseProxy.instance.deployTransaction.blockNumber,
         },
-        nounsDAO: {
-          address: contracts.NounsDAOProxy.address,
-          startBlock: contracts.NounsDAOProxy.instance.deployTransaction.blockNumber,
+        alpsDAO: {
+          address: contracts.AlpsDAOProxy.address,
+          startBlock: contracts.AlpsDAOProxy.instance.deployTransaction.blockNumber,
         },
       };
       writeFileSync(subgraphConfigPath, JSON.stringify(subgraphConfig, null, 2));

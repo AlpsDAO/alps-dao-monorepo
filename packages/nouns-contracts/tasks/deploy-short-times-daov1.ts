@@ -1,4 +1,4 @@
-import { default as NounsAuctionHouseABI } from '../abi/contracts/NounsAuctionHouse.sol/NounsAuctionHouse.json';
+import { default as AlpsAuctionHouseABI } from '../abi/contracts/AlpsAuctionHouse.sol/AlpsAuctionHouse.json';
 import {
   ChainId,
   ContractDeployment,
@@ -31,10 +31,10 @@ const NOUNS_ART_NONCE_OFFSET = 4;
 const AUCTION_HOUSE_PROXY_NONCE_OFFSET = 9;
 const GOVERNOR_N_DELEGATOR_NONCE_OFFSET = 12;
 
-task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov times for testing')
+task('deploy-short-times-daov1', 'Deploy all Alps contracts with short gov times for testing')
   .addFlag('autoDeploy', 'Deploy all contracts without user interaction')
   .addOptionalParam('weth', 'The WETH contract address', undefined, types.string)
-  .addOptionalParam('noundersdao', 'The nounders DAO contract address', undefined, types.string)
+  .addOptionalParam('alpersdao', 'The alpers DAO contract address', undefined, types.string)
   .addOptionalParam(
     'auctionTimeBuffer',
     'The auction time buffer (seconds)',
@@ -86,11 +86,9 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
     // prettier-ignore
     const proxyRegistryAddress = proxyRegistries[network.chainId] ?? proxyRegistries[ChainId.Rinkeby];
 
-    if (!args.noundersdao) {
-      console.log(
-        `Nounders DAO address not provided. Setting to deployer (${deployer.address})...`,
-      );
-      args.noundersdao = deployer.address;
+    if (!args.alpersdao) {
+      console.log(`Alpders DAO address not provided. Setting to deployer (${deployer.address})...`);
+      args.alpersdao = deployer.address;
     }
     if (!args.weth) {
       const deployedWETHContract = wethContracts[network.chainId];
@@ -103,7 +101,7 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
     }
 
     const nonce = await deployer.getTransactionCount();
-    const expectedNounsArtAddress = ethers.utils.getContractAddress({
+    const expectedAlpsArtAddress = ethers.utils.getContractAddress({
       from: deployer.address,
       nonce: nonce + NOUNS_ART_NONCE_OFFSET,
     });
@@ -111,7 +109,7 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
       from: deployer.address,
       nonce: nonce + AUCTION_HOUSE_PROXY_NONCE_OFFSET,
     });
-    const expectedNounsDAOProxyAddress = ethers.utils.getContractAddress({
+    const expectedAlpsDAOProxyAddress = ethers.utils.getContractAddress({
       from: deployer.address,
       nonce: nonce + GOVERNOR_N_DELEGATOR_NONCE_OFFSET,
     });
@@ -122,37 +120,37 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
     const contracts: Record<ContractName, ContractDeployment> = {
       NFTDescriptorV2: {},
       SVGRenderer: {},
-      NounsDescriptorV2: {
-        args: [expectedNounsArtAddress, () => deployment.SVGRenderer.address],
+      AlpsDescriptorV2: {
+        args: [expectedAlpsArtAddress, () => deployment.SVGRenderer.address],
         libraries: () => ({
           NFTDescriptorV2: deployment.NFTDescriptorV2.address,
         }),
       },
       Inflator: {},
-      NounsArt: {
-        args: [() => deployment.NounsDescriptorV2.address, () => deployment.Inflator.address],
+      AlpsArt: {
+        args: [() => deployment.AlpsDescriptorV2.address, () => deployment.Inflator.address],
       },
-      NounsSeeder: {},
-      NounsToken: {
+      AlpsSeeder: {},
+      AlpsToken: {
         args: [
-          args.noundersdao,
+          args.alpersdao,
           expectedAuctionHouseProxyAddress,
-          () => deployment.NounsDescriptorV2.address,
-          () => deployment.NounsSeeder.address,
+          () => deployment.AlpsDescriptorV2.address,
+          () => deployment.AlpsSeeder.address,
           proxyRegistryAddress,
         ],
       },
-      NounsAuctionHouse: {
+      AlpsAuctionHouse: {
         waitForConfirmation: true,
       },
-      NounsAuctionHouseProxyAdmin: {},
-      NounsAuctionHouseProxy: {
+      AlpsAuctionHouseProxyAdmin: {},
+      AlpsAuctionHouseProxy: {
         args: [
-          () => deployment.NounsAuctionHouse.address,
-          () => deployment.NounsAuctionHouseProxyAdmin.address,
+          () => deployment.AlpsAuctionHouse.address,
+          () => deployment.AlpsAuctionHouseProxyAdmin.address,
           () =>
-            new Interface(NounsAuctionHouseABI).encodeFunctionData('initialize', [
-              deployment.NounsToken.address,
+            new Interface(AlpsAuctionHouseABI).encodeFunctionData('initialize', [
+              deployment.AlpsToken.address,
               args.weth,
               args.auctionTimeBuffer,
               args.auctionReservePrice,
@@ -163,7 +161,7 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
         waitForConfirmation: true,
         validateDeployment: () => {
           const expected = expectedAuctionHouseProxyAddress.toLowerCase();
-          const actual = deployment.NounsAuctionHouseProxy.address.toLowerCase();
+          const actual = deployment.AlpsAuctionHouseProxy.address.toLowerCase();
           if (expected !== actual) {
             throw new Error(
               `Unexpected auction house proxy address. Expected: ${expected}. Actual: ${actual}.`,
@@ -171,19 +169,19 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
           }
         },
       },
-      NounsDAOExecutor: {
-        args: [expectedNounsDAOProxyAddress, args.timelockDelay],
+      AlpsDAOExecutor: {
+        args: [expectedAlpsDAOProxyAddress, args.timelockDelay],
       },
-      NounsDAOLogicV1: {
+      AlpsDAOLogicV1: {
         waitForConfirmation: true,
       },
-      NounsDAOProxy: {
+      AlpsDAOProxy: {
         args: [
-          () => deployment.NounsDAOExecutor.address,
-          () => deployment.NounsToken.address,
-          args.noundersdao,
-          () => deployment.NounsDAOExecutor.address,
-          () => deployment.NounsDAOLogicV1.address,
+          () => deployment.AlpsDAOExecutor.address,
+          () => deployment.AlpsToken.address,
+          args.alpersdao,
+          () => deployment.AlpsDAOExecutor.address,
+          () => deployment.AlpsDAOLogicV1.address,
           args.votingPeriod,
           args.votingDelay,
           args.proposalThresholdBps,
@@ -191,11 +189,11 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
         ],
         waitForConfirmation: true,
         validateDeployment: () => {
-          const expected = expectedNounsDAOProxyAddress.toLowerCase();
-          const actual = deployment.NounsDAOProxy.address.toLowerCase();
+          const expected = expectedAlpsDAOProxyAddress.toLowerCase();
+          const actual = deployment.AlpsDAOProxy.address.toLowerCase();
           if (expected !== actual) {
             throw new Error(
-              `Unexpected Nouns DAO proxy address. Expected: ${expected}. Actual: ${actual}.`,
+              `Unexpected Alps DAO proxy address. Expected: ${expected}. Actual: ${actual}.`,
             );
           }
         },
@@ -226,11 +224,11 @@ task('deploy-short-times-daov1', 'Deploy all Nouns contracts with short gov time
 
       let nameForFactory: string;
       switch (name) {
-        case 'NounsDAOExecutor':
-          nameForFactory = 'NounsDAOExecutorTest';
+        case 'AlpsDAOExecutor':
+          nameForFactory = 'AlpsDAOExecutorTest';
           break;
-        case 'NounsDAOLogicV1':
-          nameForFactory = 'NounsDAOLogicV1Harness';
+        case 'AlpsDAOLogicV1':
+          nameForFactory = 'AlpsDAOLogicV1Harness';
           break;
         default:
           nameForFactory = name;

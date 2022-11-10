@@ -16,29 +16,29 @@ task(
 
   await run('populate-descriptor', {
     nftDescriptor: contracts.NFTDescriptorV2.instance.address,
-    nounsDescriptor: contracts.NounsDescriptorV2.instance.address,
+    alpsDescriptor: contracts.AlpsDescriptorV2.instance.address,
   });
 
-  await contracts.NounsAuctionHouse.instance
-    .attach(contracts.NounsAuctionHouseProxy.instance.address)
+  await contracts.AlpsAuctionHouse.instance
+    .attach(contracts.AlpsAuctionHouseProxy.instance.address)
     .unpause({
       gasLimit: 1_000_000,
     });
 
   // Transfer ownership
-  const executorAddress = contracts.NounsDAOExecutor.instance.address;
-  await contracts.NounsDescriptorV2.instance.transferOwnership(executorAddress);
-  await contracts.NounsToken.instance.transferOwnership(executorAddress);
-  await contracts.NounsAuctionHouseProxyAdmin.instance.transferOwnership(executorAddress);
-  await contracts.NounsAuctionHouse.instance
-    .attach(contracts.NounsAuctionHouseProxy.instance.address)
+  const executorAddress = contracts.AlpsDAOExecutor.instance.address;
+  await contracts.AlpsDescriptorV2.instance.transferOwnership(executorAddress);
+  await contracts.AlpsToken.instance.transferOwnership(executorAddress);
+  await contracts.AlpsAuctionHouseProxyAdmin.instance.transferOwnership(executorAddress);
+  await contracts.AlpsAuctionHouse.instance
+    .attach(contracts.AlpsAuctionHouseProxy.instance.address)
     .transferOwnership(executorAddress);
   console.log(
     'Transferred ownership of the descriptor, token, and proxy admin contracts to the executor.',
   );
 
   // await run('create-proposal', {
-  //   nounsDaoProxy: contracts.NounsDAOProxyV2.instance.address,
+  //   alpsDaoProxy: contracts.AlpsDAOProxyV2.instance.address,
   // });
 
   const { chainId } = await ethers.provider.getNetwork();
@@ -56,12 +56,12 @@ task(
 
   console.table(accounts);
   console.log(
-    `Noun contracts deployed to local node at http://localhost:8545 (Chain ID: ${chainId})`,
+    `Alp contracts deployed to local node at http://localhost:8545 (Chain ID: ${chainId})`,
   );
-  console.log(`Auction House Proxy address: ${contracts.NounsAuctionHouseProxy.instance.address}`);
-  console.log(`Nouns ERC721 address: ${contracts.NounsToken.instance.address}`);
-  console.log(`Nouns DAO Executor address: ${contracts.NounsDAOExecutor.instance.address}`);
-  console.log(`Nouns DAO Proxy address: ${contracts.NounsDAOProxyV2.instance.address}`);
+  console.log(`Auction House Proxy address: ${contracts.AlpsAuctionHouseProxy.instance.address}`);
+  console.log(`Alps ERC721 address: ${contracts.AlpsToken.instance.address}`);
+  console.log(`Alps DAO Executor address: ${contracts.AlpsDAOExecutor.instance.address}`);
+  console.log(`Alps DAO Proxy address: ${contracts.AlpsDAOProxyV2.instance.address}`);
 
   await ethers.provider.send('evm_setIntervalMining', [12_000]);
 

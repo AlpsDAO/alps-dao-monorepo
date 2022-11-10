@@ -3,7 +3,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_noundersDAO",
+        "name": "_alpersDAO",
         "type": "address"
       },
       {
@@ -12,12 +12,12 @@
         "type": "address"
       },
       {
-        "internalType": "contract INounsDescriptor",
+        "internalType": "contract IAlpsDescriptorMinimal",
         "name": "_descriptor",
         "type": "address"
       },
       {
-        "internalType": "contract INounsSeeder",
+        "internalType": "contract IAlpsSeeder",
         "name": "_seeder",
         "type": "address"
       },
@@ -29,6 +29,78 @@
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "AlpBurned",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint48",
+            "name": "background",
+            "type": "uint48"
+          },
+          {
+            "internalType": "uint48",
+            "name": "body",
+            "type": "uint48"
+          },
+          {
+            "internalType": "uint48",
+            "name": "accessory",
+            "type": "uint48"
+          },
+          {
+            "internalType": "uint48",
+            "name": "head",
+            "type": "uint48"
+          },
+          {
+            "internalType": "uint48",
+            "name": "glasses",
+            "type": "uint48"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct IAlpsSeeder.Seed",
+        "name": "seed",
+        "type": "tuple"
+      }
+    ],
+    "name": "AlpCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "alpersDAO",
+        "type": "address"
+      }
+    ],
+    "name": "AlpersDAOUpdated",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -141,7 +213,7 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "contract INounsDescriptor",
+        "internalType": "contract IAlpsDescriptorMinimal",
         "name": "descriptor",
         "type": "address"
       }
@@ -166,78 +238,6 @@
       }
     ],
     "name": "MinterUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "NounBurned",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "components": [
-          {
-            "internalType": "uint48",
-            "name": "background",
-            "type": "uint48"
-          },
-          {
-            "internalType": "uint48",
-            "name": "body",
-            "type": "uint48"
-          },
-          {
-            "internalType": "uint48",
-            "name": "accessory",
-            "type": "uint48"
-          },
-          {
-            "internalType": "uint48",
-            "name": "head",
-            "type": "uint48"
-          },
-          {
-            "internalType": "uint48",
-            "name": "glasses",
-            "type": "uint48"
-          }
-        ],
-        "indexed": false,
-        "internalType": "struct INounsSeeder.Seed",
-        "name": "seed",
-        "type": "tuple"
-      }
-    ],
-    "name": "NounCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "noundersDAO",
-        "type": "address"
-      }
-    ],
-    "name": "NoundersDAOUpdated",
     "type": "event"
   },
   {
@@ -270,7 +270,7 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "contract INounsSeeder",
+        "internalType": "contract IAlpsSeeder",
         "name": "seeder",
         "type": "address"
       }
@@ -330,6 +330,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "alpersDAO",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -370,7 +383,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "nounId",
+        "name": "alpId",
         "type": "uint256"
       }
     ],
@@ -528,7 +541,7 @@
     "name": "descriptor",
     "outputs": [
       {
-        "internalType": "contract INounsDescriptor",
+        "internalType": "contract IAlpsDescriptorMinimal",
         "name": "",
         "type": "address"
       }
@@ -741,19 +754,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "noundersDAO",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -880,7 +880,7 @@
     "name": "seeder",
     "outputs": [
       {
-        "internalType": "contract INounsSeeder",
+        "internalType": "contract IAlpsSeeder",
         "name": "",
         "type": "address"
       }
@@ -931,6 +931,19 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_alpersDAO",
+        "type": "address"
+      }
+    ],
+    "name": "setAlpersDAO",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "operator",
         "type": "address"
       },
@@ -961,7 +974,7 @@
   {
     "inputs": [
       {
-        "internalType": "contract INounsDescriptor",
+        "internalType": "contract IAlpsDescriptorMinimal",
         "name": "_descriptor",
         "type": "address"
       }
@@ -987,20 +1000,7 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_noundersDAO",
-        "type": "address"
-      }
-    ],
-    "name": "setNoundersDAO",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "contract INounsSeeder",
+        "internalType": "contract IAlpsSeeder",
         "name": "_seeder",
         "type": "address"
       }
