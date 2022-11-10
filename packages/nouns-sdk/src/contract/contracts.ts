@@ -1,9 +1,9 @@
 import {
-  NounsTokenFactory,
-  NounsAuctionHouseFactory,
-  NounsDescriptorFactory,
-  NounsSeederFactory,
-  NounsDaoLogicV1Factory,
+  AlpsTokenFactory,
+  AlpsAuctionHouseFactory,
+  AlpsDescriptorFactory,
+  AlpsSeederFactory,
+  AlpsDaoLogicV1Factory,
 } from '@nouns/contracts';
 import type { Signer } from 'ethers';
 import type { Provider } from '@ethersproject/providers';
@@ -24,24 +24,24 @@ export const getContractsForChainOrThrow = (
   const addresses = getContractAddressesForChainOrThrow(chainId);
 
   return {
-    nounsTokenContract: NounsTokenFactory.connect(
-      addresses.nounsToken,
+    alpsTokenContract: AlpsTokenFactory.connect(
+      addresses.alpsToken,
       signerOrProvider as Signer | Provider,
     ),
-    nounsAuctionHouseContract: NounsAuctionHouseFactory.connect(
-      addresses.nounsAuctionHouseProxy,
+    alpsAuctionHouseContract: AlpsAuctionHouseFactory.connect(
+      addresses.alpsAuctionHouseProxy,
       signerOrProvider as Signer | Provider,
     ),
-    nounsDescriptorContract: NounsDescriptorFactory.connect(
-      addresses.nounsDescriptor,
+    alpsDescriptorContract: AlpsDescriptorFactory.connect(
+      addresses.alpsDescriptor,
       signerOrProvider as Signer | Provider,
     ),
-    nounsSeederContract: NounsSeederFactory.connect(
-      addresses.nounsSeeder,
+    alpsSeederContract: AlpsSeederFactory.connect(
+      addresses.alpsSeeder,
       signerOrProvider as Signer | Provider,
     ),
-    nounsDaoContract: NounsDaoLogicV1Factory.connect(
-      addresses.nounsDAOProxy,
+    alpsDaoContract: AlpsDaoLogicV1Factory.connect(
+      addresses.alpsDAOProxy,
       signerOrProvider as Signer | Provider,
     ),
   };

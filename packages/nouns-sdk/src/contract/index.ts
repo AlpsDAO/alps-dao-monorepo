@@ -2,15 +2,15 @@ export { getContractAddressesForChainOrThrow } from './addresses';
 export { getContractsForChainOrThrow } from './contracts';
 export { ChainId, ContractAddresses } from './types';
 export {
-  NounsTokenABI,
-  NounsAuctionHouseABI,
-  NounsDescriptorABI,
-  NounsSeederABI,
-  NounsDAOABI,
-  NounsDAOV2ABI,
-  NounsTokenFactory,
-  NounsAuctionHouseFactory,
-  NounsDescriptorFactory,
-  NounsSeederFactory,
-  NounsDaoLogicV1Factory,
+  AlpsTokenABI,
+  AlpsAuctionHouseABI,
+  AlpsDescriptorABI,
+  AlpsSeederABI,
+  AlpsDAOABI,
+  AlpsDAOV2ABI,
+  AlpsTokenFactory,
+  AlpsAuctionHouseFactory,
+  AlpsDescriptorFactory,
+  AlpsSeederFactory,
+  AlpsDaoLogicV1Factory,
 } from '@nouns/contracts';

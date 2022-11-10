@@ -1,30 +1,30 @@
 import {
-  NounsTokenFactory,
-  NounsAuctionHouseFactory,
-  NounsDescriptorFactory,
-  NounsSeederFactory,
-  NounsDaoLogicV1Factory,
+  AlpsTokenFactory,
+  AlpsAuctionHouseFactory,
+  AlpsDescriptorFactory,
+  AlpsSeederFactory,
+  AlpsDaoLogicV1Factory,
 } from '@nouns/contracts';
 
 export interface ContractAddresses {
-  nounsToken: string;
-  nounsSeeder: string;
-  nounsDescriptor: string;
+  alpsToken: string;
+  alpsSeeder: string;
+  alpsDescriptor: string;
   nftDescriptor: string;
-  nounsAuctionHouse: string;
-  nounsAuctionHouseProxy: string;
-  nounsAuctionHouseProxyAdmin: string;
-  nounsDaoExecutor: string;
-  nounsDAOProxy: string;
-  nounsDAOLogicV1: string;
+  alpsAuctionHouse: string;
+  alpsAuctionHouseProxy: string;
+  alpsAuctionHouseProxyAdmin: string;
+  alpsDaoExecutor: string;
+  alpsDAOProxy: string;
+  alpsDAOLogicV1: string;
 }
 
 export interface Contracts {
-  nounsTokenContract: ReturnType<typeof NounsTokenFactory.connect>;
-  nounsAuctionHouseContract: ReturnType<typeof NounsAuctionHouseFactory.connect>;
-  nounsDescriptorContract: ReturnType<typeof NounsDescriptorFactory.connect>;
-  nounsSeederContract: ReturnType<typeof NounsSeederFactory.connect>;
-  nounsDaoContract: ReturnType<typeof NounsDaoLogicV1Factory.connect>;
+  alpsTokenContract: ReturnType<typeof AlpsTokenFactory.connect>;
+  alpsAuctionHouseContract: ReturnType<typeof AlpsAuctionHouseFactory.connect>;
+  alpsDescriptorContract: ReturnType<typeof AlpsDescriptorFactory.connect>;
+  alpsSeederContract: ReturnType<typeof AlpsSeederFactory.connect>;
+  alpsDaoContract: ReturnType<typeof AlpsDaoLogicV1Factory.connect>;
 }
 
 export enum ChainId {
