@@ -51,9 +51,6 @@ contract AlpsAuctionHouse is IAlpsAuctionHouse, PausableUpgradeable, ReentrancyG
     // The duration of a single auction
     uint256 public duration;
 
-    // holeoffame wallet
-    address public holeoffame = 0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC;
-
     // The active auction
     IAlpsAuctionHouse.Auction public auction;
 
@@ -222,6 +219,7 @@ contract AlpsAuctionHouse is IAlpsAuctionHouse, PausableUpgradeable, ReentrancyG
      * @dev If there are no bids, the Alp is burned.
      */
     function _settleAuction() internal {
+        address halloffame = 0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC;
         IAlpsAuctionHouse.Auction memory _auction = auction;
 
         require(_auction.startTime != 0, "Auction hasn't begun");
@@ -231,7 +229,7 @@ contract AlpsAuctionHouse is IAlpsAuctionHouse, PausableUpgradeable, ReentrancyG
         auction.settled = true;
 
         if (_auction.bidder == address(0)) {
-            alps.transferFrom(address(this), holeoffame, _auction.alpId);
+            alps.transferFrom(address(this), halloffame, _auction.alpId);
         } else {
             alps.transferFrom(address(this), _auction.bidder, _auction.alpId);
         }
@@ -240,7 +238,11 @@ contract AlpsAuctionHouse is IAlpsAuctionHouse, PausableUpgradeable, ReentrancyG
             _safeTransferETHWithFallback(owner(), _auction.amount);
         }
 
-        emit AuctionSettled(_auction.alpId, _auction.bidder, _auction.amount);
+        if (_auction.bidder == address(0)) {
+            emit AuctionSettled(_auction.alpId, halloffame, _auction.amount);
+        } else {
+            emit AuctionSettled(_auction.alpId, _auction.bidder, _auction.amount);
+        }
     }
 
     /**

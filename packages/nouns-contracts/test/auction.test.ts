@@ -15,7 +15,7 @@ import { deployAlpsToken, deployWeth, populateDescriptorV2 } from './utils';
 chai.use(solidity);
 const { expect } = chai;
 
-describe('AlpsAuctionHouse', () => {
+describe.only('AlpsAuctionHouse', () => {
   let alpsAuctionHouse: AlpsAuctionHouse;
   let alpsToken: AlpsToken;
   let weth: WETH;
@@ -323,6 +323,10 @@ describe('AlpsAuctionHouse', () => {
 
     await expect(tx)
       .to.emit(alpsAuctionHouse, 'AuctionSettled')
-      .withArgs(alpId, '0x0000000000000000000000000000000000000000', 0);
+      .withArgs(alpId, '0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC', 0);
+
+    expect(await alpsToken.ownerOf(alpId)).to.eq('0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC');
+
+    expect(await alpsToken.balanceOf('0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC')).to.eq(1);
   });
 });
