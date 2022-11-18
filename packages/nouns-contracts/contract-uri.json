@@ -1,8 +1,8 @@
 {
-  "name": "Nouns",
-  "description": "One Noun, every day, forever.\r\n\r\nnouns.wtf",
-  "image": "ipfs://QmNdUibRHNqX2byJLtCD3ofn65cfCtvXdQnV87wRjqWf96",
-  "external_link": "https://nouns.wtf",
+  "name": "Alps",
+  "description": "One Alp, every 3 hours, forever.\r\n\r\nalps.wtf",
+  "image": "ipfs://QmZo2w3YyWsvRg6DJQYeB2pdheXT8E9iCvAZDzkR7q5xQd",
+  "external_link": "https://alps.wtf",
   "seller_fee_basis_points": 0,
   "fee_recipient": "0x0000000000000000000000000000000000000000"
 }
