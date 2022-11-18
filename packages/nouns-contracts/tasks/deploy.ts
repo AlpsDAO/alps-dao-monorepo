@@ -37,8 +37,8 @@ task('deploy', 'Deploys NFTDescriptor, AlpsDescriptor, AlpsSeeder, and AlpsToken
   .addOptionalParam(
     'auctionReservePrice',
     'The auction reserve price (wei)',
-    1 /* 1 wei */,
-    types.int,
+    '80000000000000000' /* 0.08 ether */,
+    types.string,
   )
   .addOptionalParam(
     'auctionMinIncrementBidPercentage',
