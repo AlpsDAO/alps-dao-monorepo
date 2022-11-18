@@ -15,7 +15,7 @@
 .link,
 .link:hover,
 .link:active {
-  color: black;
+  color: white;
   text-decoration: none;
   display: flex;
   cursor: pointer;
@@ -112,5 +112,15 @@
 
   .youCopy {
     padding-right: 0.25rem;
+  }
+}
+
+@media (max-width: 568px) {
+  .winnerCopy,
+  .winnerContent,
+  .verifyLink,
+  .verifyButton,
+  .link {
+    color: var(--brand-black) !important;
   }
 }

@@ -101,16 +101,21 @@ const AlperAlpContent: React.FC<{
                 ` ${alpContentClasses.bidRow}`
               }
             >
-              <Trans>All Alp auction proceeds are sent to the </Trans>{' '}
-              <Link to="/vote" className={alpContentClasses.link}>
-                <Trans>Alps DAO</Trans>
-              </Link>
-              .{' '}
-              <Trans>
-                For this reason, we, the project’s founders, have chosen to compensate ourselves
-                with Alps. Every 10th Alp for the first 5 years of the project will be sent to our
-                multisig, where it will be vested and distributed to individual founders.
-              </Trans>
+              <span
+                style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+                className={alpContentClasses.mobileText}
+              >
+                <Trans>All Alp auction proceeds are sent to the </Trans>{' '}
+                <Link to="/vote" className={alpContentClasses.link}>
+                  <Trans>Alps DAO</Trans>
+                </Link>
+                .{' '}
+                <Trans>
+                  For this reason, we, the project’s founders, have chosen to compensate ourselves
+                  with Alps. Every 10th Alp for the first 5 years of the project will be sent to our
+                  multisig, where it will be vested and distributed to individual founders.
+                </Trans>
+              </span>
             </li>
           </ul>
           {/* <div

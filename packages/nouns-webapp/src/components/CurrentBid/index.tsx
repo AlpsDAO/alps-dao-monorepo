@@ -29,6 +29,7 @@ const CurrentBid: React.FC<{ currentBid: BigNumber | BidNa; auctionEnded: boolea
           style={{
             color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
           }}
+          className={classes.mobileText}
         >
           {titleContent}
         </h4>

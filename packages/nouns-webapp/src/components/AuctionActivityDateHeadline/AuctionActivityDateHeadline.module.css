@@ -10,3 +10,9 @@
   margin-left: 5rem;
   width: auto;
 }
+
+@media (max-width: 568px) {
+  .date {
+    color: var(--brand-black) !important;
+  }
+}

@@ -213,7 +213,9 @@ const NavWallet: React.FC<NavWalletProps> = props => {
                 <Davatar size={21} address={address} provider={provider} />
               </div>
               <div className={navDropdownClasses.dropdownBtnContent}>
-                {ens ? renderENS(ens) : renderAddress(address)}
+                <span style={{ color: 'var(--brand-white)' }}>
+                  {ens ? renderENS(ens) : renderAddress(address)}
+                </span>
               </div>
             </div>
           </div>

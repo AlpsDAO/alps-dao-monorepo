@@ -14,3 +14,16 @@
   margin-bottom: 4px;
   margin-right: 7px;
 }
+
+@media (max-width: 568px) {
+  .classes.alpInfoRowBirthday {
+    color: var(--brand-black) !important;
+  }
+  .mobileText {
+    color: var(--brand-black) !important;
+  }
+
+  .birthdayIcon {
+    filter: brightness(0) invert(0) !important;
+  }
+}

@@ -52,6 +52,7 @@ const Holder: React.FC<HolderProps> = props => {
           style={{
             color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
           }}
+          className={classes.mobileText}
         >
           <ShortAddress size={40} address={holder} avatar={true} />
         </span>

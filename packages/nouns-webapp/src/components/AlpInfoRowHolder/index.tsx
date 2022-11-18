@@ -54,9 +54,16 @@ const AlpInfoRowHolder: React.FC<AlpInfoRowHolderProps> = props => {
     >
       <div className={classes.alpHolderInfoContainer}>
         <span>
-          <Image src={_HeartIcon} className={classes.heartIcon} />
+          <Image
+            src={_HeartIcon}
+            className={classes.heartIcon}
+            style={{ filter: isCool ? '' : 'brightness(0) invert(1)' }}
+          />
         </span>
-        <span>
+        <span
+          style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+          className={classes.mobileText}
+        >
           <Trans>Winner</Trans>
         </span>
         <span>

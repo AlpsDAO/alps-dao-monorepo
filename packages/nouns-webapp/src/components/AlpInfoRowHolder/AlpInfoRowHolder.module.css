@@ -48,3 +48,13 @@
   margin-bottom: 4px;
   margin-right: 7px;
 }
+
+@media (max-width: 568px) {
+  .mobileText {
+    color: var(--brand-black) !important;
+  }
+
+  .heartIcon {
+    filter: brightness(0) invert(0) !important;
+  }
+}

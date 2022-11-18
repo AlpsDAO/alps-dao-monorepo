@@ -28,11 +28,24 @@ const bidItem = (bid: Bid, index: number, classes: any, isCool?: boolean) => {
               <ShortAddress address={bid.sender} avatar={isMobile ? false : true} />
             </div>
           </div>
-          <div className={classes.bidDate}>{date}</div>
+          <div
+            className={classes.bidDate}
+            style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+          >
+            {date}
+          </div>
         </div>
         <div className={classes.rightSectionWrapper}>
-          <div className={classes.bidAmount}>{bidAmount}</div>
-          <div className={classes.linkSymbol}>
+          <div
+            className={classes.bidAmount}
+            style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+          >
+            {bidAmount}
+          </div>
+          <div
+            className={classes.linkSymbol}
+            style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+          >
             <a href={txLink} target="_blank" rel="noreferrer">
               <img src={link} width={24} alt="link symbol" />
             </a>

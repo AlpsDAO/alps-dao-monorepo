@@ -6,6 +6,7 @@ import { containsBlockedText } from '../../utils/moderation/containsBlockedText'
 import { useShortAddress } from '../../utils/addressAndENSDisplayUtils';
 import React from 'react';
 import Identicon from '../Identicon';
+import { useAppSelector } from '../../hooks';
 
 const ShortAddress: React.FC<{ address: string; avatar?: boolean; size?: number }> = props => {
   const { address, avatar, size = 24 } = props;
@@ -15,6 +16,8 @@ const ShortAddress: React.FC<{ address: string; avatar?: boolean; size?: number 
   const ensMatchesBlocklistRegex = containsBlockedText(ens || '', 'en');
   const shortAddress = useShortAddress(address);
 
+  const isCool = useAppSelector(state => state.application.isCoolBackground);
+
   if (avatar) {
     return (
       <div className={classes.shortAddress}>
@@ -23,7 +26,14 @@ const ShortAddress: React.FC<{ address: string; avatar?: boolean; size?: number 
             <Identicon size={size} address={address} provider={provider} />
           </div>
         )}
-        <span>{ens && !ensMatchesBlocklistRegex ? ens : shortAddress}</span>
+        <span
+          className={classes.mobileText}
+          style={{
+            color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
+          }}
+        >
+          {ens && !ensMatchesBlocklistRegex ? ens : shortAddress}
+        </span>
       </div>
     );
   }

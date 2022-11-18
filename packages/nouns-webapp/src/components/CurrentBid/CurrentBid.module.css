@@ -52,3 +52,13 @@
     padding-left: 0.5rem;
   }
 }
+
+@media (max-width: 568px) {
+  .mobileText {
+    color: var(--brand-black) !important;
+  }
+
+  .currentBid {
+    color: var(--brand-black) !important;
+  }
+}

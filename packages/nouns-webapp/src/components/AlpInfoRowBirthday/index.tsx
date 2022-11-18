@@ -47,9 +47,16 @@ const AlpInfoRowBirthday: React.FC<AlpInfoRowBirthdayProps> = props => {
 
   return (
     <div className={classes.birthdayInfoContainer}>
-      <span style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}>
+      <span
+        style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+        className={classes.mobileText}
+      >
         <span>
-          <Image src={_BirthdayIcon} className={classes.birthdayIcon} />
+          <Image
+            src={_BirthdayIcon}
+            className={classes.birthdayIcon}
+            style={{ filter: isCool ? '' : 'brightness(0) invert(1)' }}
+          />
         </span>
         <Trans>Born</Trans>
         <span className={classes.alpInfoRowBirthday}>

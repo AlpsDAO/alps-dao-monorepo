@@ -78,3 +78,9 @@
 .currentHolder {
   margin-bottom: 1rem;
 }
+
+@media (max-width: 568px) {
+  .alpInfoWrapper {
+    color: var(--brand-black) !important;
+  }
+}

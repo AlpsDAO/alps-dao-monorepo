@@ -64,6 +64,9 @@ const Winner: React.FC<WinnerProps> = props => {
       target={'_blank'}
       rel="noreferrer"
       className={classes.link}
+      style={{
+        color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
+      }}
     >
       <Tooltip
         tip="View on Etherscan"

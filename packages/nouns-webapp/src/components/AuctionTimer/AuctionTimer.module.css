@@ -99,3 +99,12 @@
     padding-right: 0.5rem;
   }
 }
+
+@media (max-width: 568px) {
+  .timerWrapper {
+    color: var(--brand-black) !important;
+  }
+  .mobileText {
+    color: var(--brand-black) !important;
+  }
+}

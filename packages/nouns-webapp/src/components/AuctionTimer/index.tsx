@@ -72,6 +72,7 @@ const AuctionTimer: React.FC<{
           style={{
             color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
           }}
+          className={classes.mobileText}
         >
           {timerToggle ? (
             window.innerWidth < 992 ? (
@@ -92,7 +93,7 @@ const AuctionTimer: React.FC<{
           <h2
             className={clsx(classes.timerWrapper, classes.timeLeft)}
             style={{
-              color: isCool ? 'var(--brand-cool-dark-text)' : 'var(--brand-warm-dark-text)',
+              color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
             }}
           >
             <div className={classes.timerSection}>
@@ -124,7 +125,7 @@ const AuctionTimer: React.FC<{
           <h2
             className={classes.timerWrapper}
             style={{
-              color: isCool ? 'var(--brand-cool-dark-text)' : 'var(--brand-warm-dark-text)',
+              color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
             }}
           >
             <div className={clsx(classes.timerSection, classes.clockSection)}>

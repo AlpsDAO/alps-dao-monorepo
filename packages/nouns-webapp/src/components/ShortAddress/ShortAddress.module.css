@@ -14,3 +14,9 @@
   font-family: 'PT Root UI';
   font-weight: bold;
 }
+
+@media (max-width: 568px) {
+  .mobileText {
+    color: var(--brand-black) !important;
+  }
+}
