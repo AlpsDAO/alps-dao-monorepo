@@ -1,15 +1,15 @@
 {
   "network": "goerli",
   "alpsToken": {
-    "address": "0x792953537602dbB210312F73F476413C455b7E90",
-    "startBlock": 7883081
+    "address": "0x6210734e2Ef092A0D8Ef451Aa63F8E8c6CD36172",
+    "startBlock": 7927739
   },
   "alpsAuctionHouse": {
-    "address": "0xd83cD0aDF8B793bF00281ff25Bf5b9DDA2AD5080",
-    "startBlock": 7883081
+    "address": "0x04f83161B21a5B6DE987b5056d48F72DdB8deC8f",
+    "startBlock": 7927739
   },
   "alpsDAO": {
-    "address": "0x19A1a499C0aDB2e281cC8e68CDa0Ac49831Ba420",
-    "startBlock": 7883081
+    "address": "0x6eD27a0DB68FF46AbEF0a51697b6997FC80F5C95",
+    "startBlock": 7927739
   }
 }
