@@ -112,9 +112,7 @@ const NavBar = () => {
               />
             </Nav.Link>
             <Nav.Link
-              href={
-                'https://alpsdao.notion.site/About-Notion-or-Gitbook-96d8df1df40441c2b17d6db1e190a5c2'
-              }
+              href={'https://alpsdao.gitbook.io/about/'}
               className={classes.alpsNavLink}
               target="_blank"
               rel="noreferrer"
