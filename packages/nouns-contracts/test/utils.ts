@@ -22,9 +22,11 @@ import {
   SVGRenderer__factory as SVGRendererFactory,
   AlpsDAOExecutor__factory as AlpsDaoExecutorFactory,
   AlpsDAOLogicV1__factory as AlpsDaoLogicV1Factory,
+  AlpsAttribute__factory as AlpsAttributeFactory,
   AlpsDAOExecutor,
   Inflator__factory,
   AlpsDAOStorageV2,
+  AlpsAttribute,
 } from '../typechain';
 import ImageData from '../files/image-data-v1.json';
 import ImageDataV2 from '../files/image-data-v2.json';
@@ -68,9 +70,7 @@ export const deployAlpsDescriptor = async (
   return alpsDescriptorFactory.deploy();
 };
 
-export const deployAlpsDescriptorV2 = async (
-  deployer?: SignerWithAddress,
-): Promise<AlpsDescriptorV2> => {
+export const deployAlpsDescriptorV2 = async (deployer?: SignerWithAddress) => {
   const signer = deployer || (await getSigners()).deployer;
   const nftDescriptorLibraryFactory = await ethers.getContractFactory('NFTDescriptorV2', signer);
   const nftDescriptorLibrary = await nftDescriptorLibraryFactory.deploy();
@@ -82,9 +82,11 @@ export const deployAlpsDescriptorV2 = async (
   );
 
   const renderer = await new SVGRendererFactory(signer).deploy();
+  const attribute = await new AlpsAttributeFactory(signer).deploy();
   const descriptor = await alpsDescriptorFactory.deploy(
     ethers.constants.AddressZero,
     renderer.address,
+    attribute.address,
   );
 
   const inflator = await new Inflator__factory(signer).deploy();
@@ -92,7 +94,7 @@ export const deployAlpsDescriptorV2 = async (
   const art = await new AlpsArtFactory(signer).deploy(descriptor.address, inflator.address);
   await descriptor.setArt(art.address);
 
-  return descriptor;
+  return { descriptor, attribute };
 };
 
 export const deployAlpsSeeder = async (deployer?: SignerWithAddress): Promise<AlpsSeeder> => {
@@ -115,7 +117,7 @@ export const deployAlpsToken = async (
   return factory.deploy(
     alpersDAO || signer.address,
     minter || signer.address,
-    descriptor || (await deployAlpsDescriptorV2(signer)).address,
+    descriptor || (await deployAlpsDescriptorV2(signer)).descriptor.address,
     seeder || (await deployAlpsSeeder(signer)).address,
     proxyRegistryAddress || address(0),
   );
@@ -142,6 +144,35 @@ export const populateDescriptor = async (alpsDescriptor: AlpsDescriptor): Promis
     chunkArray(heads, 10).map(chunk => alpsDescriptor.addManyHeads(chunk.map(({ data }) => data))),
     alpsDescriptor.addManyGlasses(glasses.map(({ data }) => data)),
   ]);
+};
+
+export const populateAttribute = async (alpsAttribute: AlpsAttribute): Promise<void> => {
+  const { images } = ImageDataV2;
+  const { bodies, accessories, heads, glasses } = images;
+
+  const parseTraitName = (partName: string): string =>
+    capitalizeFirstLetter(partName.substring(partName.indexOf('-') + 1));
+  const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+
+  const bodyAttributes = bodies.map(({ filename }) => parseTraitName(filename));
+  const accessoryAttributes = accessories.map(({ filename }) => parseTraitName(filename));
+  const headAttributes = heads.map(({ filename }) => parseTraitName(filename));
+  const glassesAttributes = glasses.map(({ filename }) => parseTraitName(filename));
+
+  await alpsAttribute.addManyBackgrounds([
+    'Bluebird Sky',
+    'Evergreen',
+    'Night',
+    'Slate',
+    'Yellow Snow',
+    'Cool',
+    'Warm',
+  ]);
+
+  await alpsAttribute.addManyBodies(bodyAttributes);
+  await alpsAttribute.addManyAccessories(accessoryAttributes);
+  await alpsAttribute.addManyHeads(headAttributes);
+  await alpsAttribute.addManyGlasses(glassesAttributes);
 };
 
 export const populateDescriptorV2 = async (alpsDescriptor: AlpsDescriptorV2): Promise<void> => {

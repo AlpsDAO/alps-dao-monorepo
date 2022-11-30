@@ -15,7 +15,7 @@ import { deployAlpsToken, deployWeth, populateDescriptorV2 } from './utils';
 chai.use(solidity);
 const { expect } = chai;
 
-describe.only('AlpsAuctionHouse', () => {
+describe('AlpsAuctionHouse', () => {
   let alpsAuctionHouse: AlpsAuctionHouse;
   let alpsToken: AlpsToken;
   let weth: WETH;

@@ -13,7 +13,7 @@ export type DescriptorV1ContractNames = 'NFTDescriptor' | 'AlpsDescriptor';
 // prettier-ignore
 export type DescriptorV2ContractNames = 'NFTDescriptorV2' | 'AlpsDescriptorV2' | 'SVGRenderer' | 'AlpsArt' | 'Inflator';
 // prettier-ignore
-export type ContractName = DescriptorV2ContractNames | 'AlpsSeeder' | 'AlpsToken' | 'AlpsAuctionHouse' | 'AlpsAuctionHouseProxyAdmin' | 'AlpsAuctionHouseProxy' | 'AlpsDAOExecutor' | 'AlpsDAOLogicV1' | 'AlpsDAOProxy';
+export type ContractName = DescriptorV2ContractNames | 'AlpsSeeder' | 'AlpsToken' | 'AlpsAuctionHouse' | 'AlpsAuctionHouseProxyAdmin' | 'AlpsAuctionHouseProxy' | 'AlpsDAOExecutor' | 'AlpsDAOLogicV1' | 'AlpsDAOProxy' | 'AlpsAttribute';
 // prettier-ignore
 export type ContractNameDescriptorV1 = DescriptorV1ContractNames | 'AlpsSeeder' | 'AlpsToken' | 'AlpsAuctionHouse' | 'AlpsAuctionHouseProxyAdmin' | 'AlpsAuctionHouseProxy' | 'AlpsDAOExecutor' | 'AlpsDAOLogicV1' | 'AlpsDAOProxy';
 // prettier-ignore

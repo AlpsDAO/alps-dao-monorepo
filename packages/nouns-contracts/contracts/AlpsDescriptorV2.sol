@@ -25,6 +25,7 @@ import { NFTDescriptorV2 } from './libs/NFTDescriptorV2.sol';
 import { ISVGRenderer } from './interfaces/ISVGRenderer.sol';
 import { IAlpsArt } from './interfaces/IAlpsArt.sol';
 import { IInflator } from './interfaces/IInflator.sol';
+import { IAlpsAttribute } from './interfaces/IAlpsAttribute.sol';
 
 contract AlpsDescriptorV2 is IAlpsDescriptorV2, Ownable {
     using Strings for uint256;
@@ -48,6 +49,9 @@ contract AlpsDescriptorV2 is IAlpsDescriptorV2, Ownable {
     /// @notice Base URI, used when isDataURIEnabled is false
     string public override baseURI;
 
+    /// @notice attributes
+    IAlpsAttribute public attribute;
+
     /**
      * @notice Require that the parts have not been locked.
      */
@@ -56,9 +60,20 @@ contract AlpsDescriptorV2 is IAlpsDescriptorV2, Ownable {
         _;
     }
 
-    constructor(IAlpsArt _art, ISVGRenderer _renderer) {
+    constructor(
+        IAlpsArt _art,
+        ISVGRenderer _renderer,
+        IAlpsAttribute _attribute
+    ) {
         art = _art;
         renderer = _renderer;
+        attribute = _attribute;
+    }
+
+    function setAttribute(IAlpsAttribute _attribute) external onlyOwner {
+        require(address(_attribute) != address(0), 'ZERO ADDRESS');
+
+        attribute = _attribute;
     }
 
     /**
@@ -424,13 +439,14 @@ contract AlpsDescriptorV2 is IAlpsDescriptorV2, Ownable {
         string memory description,
         IAlpsSeeder.Seed memory seed
     ) public view override returns (string memory) {
+        string memory attributes = generateAttributesList(seed);
         NFTDescriptorV2.TokenURIParams memory params = NFTDescriptorV2.TokenURIParams({
             name: name,
             description: description,
             parts: getPartsForSeed(seed),
             background: art.backgrounds(seed.background)
         });
-        return NFTDescriptorV2.constructTokenURI(renderer, params);
+        return NFTDescriptorV2.constructTokenURI(renderer, params, attributes);
     }
 
     /**
@@ -466,5 +482,28 @@ contract AlpsDescriptorV2 is IAlpsDescriptorV2, Ownable {
      */
     function _getPalette(bytes memory part) private view returns (bytes memory) {
         return art.palettes(uint8(part[0]));
+    }
+
+    function generateAttributesList(IAlpsSeeder.Seed memory seed) public view returns (string memory) {
+        return
+            string(
+                abi.encodePacked(
+                    '{"trait_type":"Background","value":"',
+                    attribute.backgrounds(seed.background),
+                    '"},',
+                    '{"trait_type":"Body","value":"',
+                    attribute.bodies(seed.body),
+                    '"},',
+                    '{"trait_type":"Accessory","value":"',
+                    attribute.accessories(seed.accessory),
+                    '"},',
+                    '{"trait_type":"Head","value":"',
+                    attribute.heads(seed.head),
+                    '"},',
+                    '{"trait_type":"Glasses","value":"',
+                    attribute.glasses(seed.glasses),
+                    '"}'
+                )
+            );
     }
 }

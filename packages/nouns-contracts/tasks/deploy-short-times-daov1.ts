@@ -120,8 +120,13 @@ task('deploy-short-times-daov1', 'Deploy all Alps contracts with short gov times
     const contracts: Record<ContractName, ContractDeployment> = {
       NFTDescriptorV2: {},
       SVGRenderer: {},
+      AlpsAttribute: {},
       AlpsDescriptorV2: {
-        args: [expectedAlpsArtAddress, () => deployment.SVGRenderer.address],
+        args: [
+          expectedAlpsArtAddress,
+          () => deployment.SVGRenderer.address,
+          () => deployment.AlpsAttribute.address,
+        ],
         libraries: () => ({
           NFTDescriptorV2: deployment.NFTDescriptorV2.address,
         }),

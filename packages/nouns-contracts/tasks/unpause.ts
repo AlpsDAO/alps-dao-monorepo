@@ -11,7 +11,10 @@ task('unpause', 'Unpause auction')
     const auctionHouseFactory = await ethers.getContractFactory('AlpsAuctionHouse');
     const auctionHouseContract = auctionHouseFactory.attach(auctionHouseProxy);
 
-    await (await auctionHouseContract.unpause()).wait();
+    // await (
+    //   await auctionHouseContract.reservePrice(),
+    //   )
+    // ).wait();
 
-    console.log(`Success unpause.`);
+    console.log(await auctionHouseContract.reservePrice());
   });

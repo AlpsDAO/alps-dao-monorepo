@@ -44,6 +44,17 @@ task('deploy-descriptor-v2', 'Deploy AlpsDescriptorV2 & populate it with art')
       libraries: {},
     };
 
+    const alpsAttribute = await (
+      await ethers.getContractFactory('AlpsAttribute', deployer)
+    ).deploy();
+    contracts.AlpsAttribute = {
+      name: 'AlpsAttribute',
+      address: alpsAttribute.address,
+      instance: alpsAttribute,
+      constructorArguments: [],
+      libraries: {},
+    };
+
     const alpsDescriptorFactory = await ethers.getContractFactory('AlpsDescriptorV2', {
       libraries: {
         NFTDescriptorV2: library.address,
@@ -52,6 +63,7 @@ task('deploy-descriptor-v2', 'Deploy AlpsDescriptorV2 & populate it with art')
     const alpsDescriptor = await alpsDescriptorFactory.deploy(
       expectedAlpsArtAddress,
       renderer.address,
+      alpsAttribute.address,
     );
     contracts.AlpsDescriptorV2 = {
       name: 'AlpsDescriptorV2',
