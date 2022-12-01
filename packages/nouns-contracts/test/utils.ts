@@ -150,10 +150,6 @@ export const populateAttribute = async (alpsAttribute: AlpsAttribute): Promise<v
   const { images } = ImageDataV2;
   const { bodies, accessories, heads, glasses } = images;
 
-  const parseTraitName = (partName: string): string =>
-    capitalizeFirstLetter(partName.substring(partName.indexOf('-') + 1));
-  const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
-
   const bodyAttributes = bodies.map(({ filename }) => parseTraitName(filename));
   const accessoryAttributes = accessories.map(({ filename }) => parseTraitName(filename));
   const headAttributes = heads.map(({ filename }) => parseTraitName(filename));
@@ -555,3 +551,14 @@ function dataToDescriptorInput(data: string[]): {
     itemCount,
   };
 }
+
+export const parseTraitName = (fileName: string): string => {
+  const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+  fileName = fileName
+    .substring(fileName.indexOf('-') + 1)
+    .split('-')
+    .map(name => capitalizeFirstLetter(name))
+    .join(' ');
+
+  return fileName;
+};

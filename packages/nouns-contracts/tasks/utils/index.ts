@@ -94,3 +94,14 @@ export function printContractsTable(contracts: Record<ContractName, DeployedCont
     ),
   );
 }
+
+export function parseTraitName(fileName: string): string {
+  const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+  fileName = fileName
+    .substring(fileName.indexOf('-') + 1)
+    .split('-')
+    .map(name => capitalizeFirstLetter(name))
+    .join(' ');
+
+  return fileName;
+}

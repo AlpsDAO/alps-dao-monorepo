@@ -3,7 +3,12 @@ import { solidity } from 'ethereum-waffle';
 import { AlpsAttribute, AlpsDescriptorV2 } from '../typechain';
 import ImageData from '../files/image-data-v2.json';
 import { LongestPart } from './types';
-import { deployAlpsDescriptorV2, populateDescriptorV2, populateAttribute } from './utils';
+import {
+  deployAlpsDescriptorV2,
+  populateDescriptorV2,
+  populateAttribute,
+  parseTraitName,
+} from './utils';
 import { ethers } from 'hardhat';
 import { appendFileSync } from 'fs';
 import ImageDataV2 from '../files/image-data-v2.json';
@@ -59,9 +64,6 @@ describe.only('AlpsDescriptorV2', () => {
   it('should generate valid attributes', async () => {
     const { images } = ImageDataV2;
     const { bodies, accessories, heads, glasses } = images;
-    const parseTraitName = (partName: string): string =>
-      capitalizeFirstLetter(partName.substring(partName.indexOf('-') + 1));
-    const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
     expect(await alpsAttribute.backgrounds(0)).to.eq('Bluebird Sky');
     expect(await alpsAttribute.bodies(0)).to.eq(parseTraitName(bodies[0].filename));

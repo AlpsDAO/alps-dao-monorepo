@@ -1,5 +1,6 @@
 import { task, types } from 'hardhat/config';
 import ImageData from '../files/image-data-v2.json';
+import { parseTraitName } from './utils';
 
 task('populate-attribute', 'Populates the attribute.')
   .addOptionalParam(
@@ -16,10 +17,6 @@ task('populate-attribute', 'Populates the attribute.')
 
     const { images } = ImageData;
     const { bodies, accessories, heads, glasses } = images;
-
-    const parseTraitName = (partName: string): string =>
-      capitalizeFirstLetter(partName.substring(partName.indexOf('-') + 1));
-    const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
     const bodyAttributes = bodies.map(({ filename }) => parseTraitName(filename));
     const accessoryAttributes = accessories.map(({ filename }) => parseTraitName(filename));
