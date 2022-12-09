@@ -132,7 +132,7 @@ task('deploy-short-times', 'Deploy all Alps contracts with short gov times for t
         args: [
           expectedAlpsArtAddress,
           () => deployment.SVGRenderer.address,
-          () => deployment.SVGRenderer.address,
+          () => deployment.AlpsAttribute.address,
         ],
         libraries: () => ({
           NFTDescriptorV2: deployment.NFTDescriptorV2.address,
