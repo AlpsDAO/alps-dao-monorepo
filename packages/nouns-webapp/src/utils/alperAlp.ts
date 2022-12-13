@@ -6,6 +6,10 @@ export const isAlperAlp = (alpId: BigNumber) => {
   return alpId.mod(10).eq(0) || alpId.eq(0);
 };
 
+export const isAlpsCouncil = (nounId: BigNumber) => {
+  return nounId.mod(5).eq(0);
+};
+
 const emptyAlperAuction = (onDisplayAuctionId: number): Auction => {
   return {
     amount: BigNumber.from(0).toJSON(),

@@ -13,10 +13,11 @@ import Tooltip from '../Tooltip';
 interface WinnerProps {
   winner: string;
   isAlpers?: boolean;
+  isAlpsCouncil?: boolean;
 }
 
 const Winner: React.FC<WinnerProps> = props => {
-  const { winner, isAlpers } = props;
+  const { winner, isAlpers, isAlpsCouncil } = props;
   const activeAccount = useAppSelector(state => state.account.activeAccount);
 
   const isCool = useAppSelector(state => state.application.isCoolBackground);
@@ -80,6 +81,28 @@ const Winner: React.FC<WinnerProps> = props => {
     </a>
   );
 
+  const alpsCouncilContent = (
+    <a
+      href={"buildEtherscanAddressLink('alpers.eth')"}
+      target={'_blank'}
+      rel="noreferrer"
+      className={classes.link}
+      style={{
+        color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
+      }}
+    >
+      <Tooltip
+        tip="View on Etherscan"
+        tooltipContent={(tip: string) => {
+          return <Trans>View on Etherscan</Trans>;
+        }}
+        id="holder-etherscan-tooltip"
+      >
+        Alps Council
+      </Tooltip>
+    </a>
+  );
+
   return (
     <>
       <Row className={clsx(classes.wrapper, classes.section)}>
@@ -101,6 +124,7 @@ const Winner: React.FC<WinnerProps> = props => {
             }}
           >
             {isAlpers ? alperAlpContent : nonAlperAlpContent}
+            {isAlpsCouncil ? alpsCouncilContent : null}
           </h2>
         </Col>
       </Row>

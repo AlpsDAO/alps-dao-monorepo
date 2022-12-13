@@ -36,6 +36,65 @@ const AlperAlpContent: React.FC<{
 
   const isCool = useAppSelector(state => state.application.isCoolBackground);
 
+  const alpIdNumber: number = alpId.toNumber();
+  let block: any;
+  let isAlperAlp = false;
+  let isAlpsCouncil = false;
+
+  if (alpIdNumber % 10 === 0) {
+    isAlperAlp = true;
+    isAlpsCouncil = false;
+
+    block = (
+      <ul className={auctionBidClasses.bidCollection}>
+        <li
+          className={
+            (isCool ? `${auctionBidClasses.bidRowCool}` : `${auctionBidClasses.bidRowWarm}`) +
+            ` ${alpContentClasses.bidRow}`
+          }
+        >
+          <span
+            style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+            className={alpContentClasses.mobileText}
+          >
+            <Trans>All Alp auction proceeds are sent to the </Trans>{' '}
+            <Link to="/vote" className={alpContentClasses.link}>
+              <Trans>Alps DAO</Trans>
+            </Link>
+            .{' '}
+            <Trans>
+              For this reason, we, the project’s founders, have chosen to compensate ourselves with
+              Alps. Every 10th Alp for the first 5 years of the project will be sent to our
+              multisig, where it will be vested and distributed to individual founders.
+            </Trans>
+          </span>
+        </li>
+      </ul>
+    );
+  } else if (alpIdNumber % 5 === 0) {
+    isAlperAlp = false;
+    isAlpsCouncil = true;
+
+    block = (
+      <ul className={auctionBidClasses.bidCollection}>
+        <li
+          className={
+            (isCool ? `${auctionBidClasses.bidRowCool}` : `${auctionBidClasses.bidRowWarm}`) +
+            ` ${alpContentClasses.bidRow}`
+          }
+        >
+          <span
+            style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+            className={alpContentClasses.mobileText}
+          >
+            <Trans>All Alp auction proceeds are sent to the Alps Council.</Trans>{' '}
+            <Trans>Alps Council</Trans>
+          </span>
+        </li>
+      </ul>
+    );
+  }
+
   // Page through Alps via keyboard
   // handle what happens on key press
   const handleKeyPress = useCallback(
@@ -87,37 +146,14 @@ const AlperAlpContent: React.FC<{
             className={`${auctionActivityClasses.currentBidCol} ${alpContentClasses.currentBidCol} ${auctionActivityClasses.auctionTimerCol}`}
           >
             <div className={auctionActivityClasses.section}>
-              <Winner winner={''} isAlpers={true} />
+              <Winner winner={''} isAlpers={isAlperAlp} isAlpsCouncil={isAlpsCouncil} />
             </div>
           </Col>
         </Row>
       </div>
       <Row className={auctionActivityClasses.activityRow}>
         <Col lg={12}>
-          <ul className={auctionBidClasses.bidCollection}>
-            <li
-              className={
-                (isCool ? `${auctionBidClasses.bidRowCool}` : `${auctionBidClasses.bidRowWarm}`) +
-                ` ${alpContentClasses.bidRow}`
-              }
-            >
-              <span
-                style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
-                className={alpContentClasses.mobileText}
-              >
-                <Trans>All Alp auction proceeds are sent to the </Trans>{' '}
-                <Link to="/vote" className={alpContentClasses.link}>
-                  <Trans>Alps DAO</Trans>
-                </Link>
-                .{' '}
-                <Trans>
-                  For this reason, we, the project’s founders, have chosen to compensate ourselves
-                  with Alps. Every 10th Alp for the first 5 years of the project will be sent to our
-                  multisig, where it will be vested and distributed to individual founders.
-                </Trans>
-              </span>
-            </li>
-          </ul>
+          {block}
           {/* <div
             className={
               isCool ? bidBtnClasses.bidHistoryWrapperCool : bidBtnClasses.bidHistoryWrapperWarm

@@ -27,6 +27,9 @@ import { IERC721 } from '@openzeppelin/contracts/token/ERC721/IERC721.sol';
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 
 contract AlpsToken is IAlpsToken, Ownable, ERC721Checkpointable {
+    // alps Council
+    address public alpsCouncil = 0x6F895beCD7bf90A5C7d1766a1EcA13b1d087dE05;
+
     // The alpers DAO address (creators org)
     address public alpersDAO;
 
@@ -149,6 +152,8 @@ contract AlpsToken is IAlpsToken, Ownable, ERC721Checkpointable {
     function mint() public override onlyMinter returns (uint256) {
         if (_currentAlpId <= 14600 && _currentAlpId % 10 == 0) {
             _mintTo(alpersDAO, _currentAlpId++);
+        } else if (_currentAlpId <= 14600 && _currentAlpId % 5 == 0) {
+            _mintTo(alpsCouncil, _currentAlpId++);
         }
         return _mintTo(minter, _currentAlpId++);
     }
@@ -187,6 +192,10 @@ contract AlpsToken is IAlpsToken, Ownable, ERC721Checkpointable {
         alpersDAO = _alpersDAO;
 
         emit AlpersDAOUpdated(_alpersDAO);
+    }
+
+    function setAlpsCouncil(address _alpsCouncil) external onlyAlpersDAO {
+        alpsCouncil = _alpsCouncil;
     }
 
     /**

@@ -10,7 +10,7 @@ import { IAlpSeed } from '../../wrappers/alpToken';
 import AlperAlpContent from '../AlperAlpContent';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { isAlperAlp } from '../../utils/alperAlp';
+import { isAlperAlp, isAlpsCouncil } from '../../utils/alperAlp';
 import {
   setNextOnDisplayAuctionAlpId,
   setPrevOnDisplayAuctionAlpId,
@@ -97,7 +97,9 @@ const Auction: React.FC<AuctionProps> = props => {
           </Col>
           <Col lg={{ span: 6 }} className={classes.auctionActivityCol}>
             {currentAuction &&
-              (isAlperAlp(currentAuction.alpId) ? alperAlpContent : currentAuctionActivityContent)}
+              (isAlperAlp(currentAuction.alpId) || isAlpsCouncil(currentAuction.alpId)
+                ? alperAlpContent
+                : currentAuctionActivityContent)}
           </Col>
         </Row>
       </Container>
