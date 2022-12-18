@@ -57,16 +57,24 @@ const AlperAlpContent: React.FC<{
             style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
             className={alpContentClasses.mobileText}
           >
-            <Trans>All Alp auction proceeds are sent to the </Trans>{' '}
+            {/* <Trans>All Alp auction proceeds are sent to the </Trans>{' '}
             <Link to="/vote" className={alpContentClasses.link}>
               <Trans>Alps DAO</Trans>
             </Link>
-            .{' '}
-            <Trans>
-              For this reason, we, the project’s founders, have chosen to compensate ourselves with
-              Alps. Every 10th Alp for the first 5 years of the project will be sent to our
-              multisig, where it will be vested and distributed to individual founders.
-            </Trans>
+            .{' '} */}
+            <p>
+              As mentioned, because 100% of Alp auction proceeds are sent to Alps DAO, the founders
+              have chosen to compensate themselves with every 10th Alp for the first 5 years of the
+              project, we have established a Founder's Council or Alpine Council which is a group
+              that consists of the founders plus founding/early team members.{' '}
+            </p>
+            <p>
+              This council is allocated every 5th token (Alp IDs #5, #15, #25, #35 and so on) which
+              will be automatically sent to a multisig to be vested and shared among the council.{' '}
+            </p>
+            The council distributions don't interfere with the cadence of 3 hour auctions. Alps are
+            sent directly to the multisig and auctions continue on schedule with the next available
+            Alp ID. s.
           </span>
         </li>
       </ul>
@@ -87,8 +95,19 @@ const AlperAlpContent: React.FC<{
             style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
             className={alpContentClasses.mobileText}
           >
-            <Trans>All Alp auction proceeds are sent to the Alps Council.</Trans>{' '}
-            <Trans>Alps Council</Trans>
+            <p>
+              As mentioned, because 100% of Alp auction proceeds are sent to Alps DAO, the founders
+              have chosen to compensate themselves with every 10th Alp for the first 5 years of the
+              project, we have established a Founder's Council or Alpine Council which is a group
+              that consists of the founders plus founding/early team members.{' '}
+            </p>
+            <p>
+              This council is allocated every 5th token (Alp IDs #5, #15, #25, #35 and so on) which
+              will be automatically sent to a multisig to be vested and shared among the council.{' '}
+            </p>
+            The council distributions don't interfere with the cadence of 3 hour auctions. Alps are
+            sent directly to the multisig and auctions continue on schedule with the next available
+            Alp ID. s.
           </span>
         </li>
       </ul>

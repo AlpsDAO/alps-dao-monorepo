@@ -76,7 +76,7 @@ const Winner: React.FC<WinnerProps> = props => {
         }}
         id="holder-etherscan-tooltip"
       >
-        Founders
+        Founders / Alpine Council
       </Tooltip>
     </a>
   );
@@ -98,7 +98,7 @@ const Winner: React.FC<WinnerProps> = props => {
         }}
         id="holder-etherscan-tooltip"
       >
-        Alps Council
+        Founders / Alpine Council
       </Tooltip>
     </a>
   );

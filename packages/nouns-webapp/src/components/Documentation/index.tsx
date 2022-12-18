@@ -276,9 +276,22 @@ const Documentation = () => {
               </p>
               <p>
                 <Trans>
-                  Founder distributions don't interfere with the cadence of 3 hour auctions. Alps
-                  are sent directly to the founder multisig and auctions continue on schedule with
-                  the next available Alp ID.
+                  Additionally, we have established an Alpine Council which is a group that consists
+                  of the founders plus founding/early team members.
+                </Trans>
+              </p>
+              <p>
+                <Trans>
+                  This council is allocated every 5th token (Alp IDs #5, #15, #25, #35 and so on)
+                  which will be automatically sent to a multisig to be vested and shared among the
+                  Alpine Council members.
+                </Trans>
+              </p>
+              <p>
+                <Trans>
+                  These distributions don't interfere with the cadence of 3 hour auctions. Alps are
+                  sent directly to the founder multisig and the Alpine Council multisig and auctions
+                  continue on schedule with the next available Alp ID.
                 </Trans>
               </p>
             </Accordion.Body>

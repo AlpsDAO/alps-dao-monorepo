@@ -61,7 +61,7 @@ const SettleManuallyBtn: React.FC<{
       >
         {settleEnabled ? (
           <>
-            <Trans>Settle manually</Trans>
+            <Trans>Start The Next Auction</Trans>
           </>
         ) : (
           <>
