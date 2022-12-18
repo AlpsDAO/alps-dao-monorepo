@@ -63,18 +63,11 @@ const AlperAlpContent: React.FC<{
             </Link>
             .{' '} */}
             <p>
-              As mentioned, because 100% of Alp auction proceeds are sent to Alps DAO, the founders
-              have chosen to compensate themselves with every 10th Alp for the first 5 years of the
-              project, we have established a Founder's Council or Alpine Council which is a group
-              that consists of the founders plus founding/early team members.{' '}
+              Because 100% of Alp auction proceeds are sent to Alps DAO, the founders have chosen to
+              compensate themselves with Alps. Every 10th Alp for the first 5 years of the project
+              (Alp IDs #0, #10, #20, #30 and so on) will be automatically sent to a multisig to be
+              vested and shared among the founding members of the project.
             </p>
-            <p>
-              This council is allocated every 5th token (Alp IDs #5, #15, #25, #35 and so on) which
-              will be automatically sent to a multisig to be vested and shared among the council.{' '}
-            </p>
-            The council distributions don't interfere with the cadence of 3 hour auctions. Alps are
-            sent directly to the multisig and auctions continue on schedule with the next available
-            Alp ID. s.
           </span>
         </li>
       </ul>
@@ -96,18 +89,10 @@ const AlperAlpContent: React.FC<{
             className={alpContentClasses.mobileText}
           >
             <p>
-              As mentioned, because 100% of Alp auction proceeds are sent to Alps DAO, the founders
-              have chosen to compensate themselves with every 10th Alp for the first 5 years of the
-              project, we have established a Founder's Council or Alpine Council which is a group
-              that consists of the founders plus founding/early team members.{' '}
+              The Alpine Council is allocated every 5th token (Alp IDs #5, #15, #25, #35 and so on)
+              for the first 5 years, which will be automatically sent to a multisig to be vested and
+              shared among The Alpine Council members
             </p>
-            <p>
-              This council is allocated every 5th token (Alp IDs #5, #15, #25, #35 and so on) which
-              will be automatically sent to a multisig to be vested and shared among the council.{' '}
-            </p>
-            The council distributions don't interfere with the cadence of 3 hour auctions. Alps are
-            sent directly to the multisig and auctions continue on schedule with the next available
-            Alp ID. s.
           </span>
         </li>
       </ul>

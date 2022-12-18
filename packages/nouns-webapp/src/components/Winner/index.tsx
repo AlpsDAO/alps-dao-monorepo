@@ -61,7 +61,7 @@ const Winner: React.FC<WinnerProps> = props => {
 
   const alperAlpContent = (
     <a
-      href={buildEtherscanAddressLink('alpers.eth')}
+      href={buildEtherscanAddressLink('0x7f0fB27A2673AdC49D583AEB6e5f799E7D7dc16F')}
       target={'_blank'}
       rel="noreferrer"
       className={classes.link}
@@ -76,14 +76,14 @@ const Winner: React.FC<WinnerProps> = props => {
         }}
         id="holder-etherscan-tooltip"
       >
-        Founders / Alpine Council
+        Founders
       </Tooltip>
     </a>
   );
 
   const alpsCouncilContent = (
     <a
-      href={"buildEtherscanAddressLink('alpers.eth')"}
+      href={buildEtherscanAddressLink('0x6F895beCD7bf90A5C7d1766a1EcA13b1d087dE05')}
       target={'_blank'}
       rel="noreferrer"
       className={classes.link}
@@ -98,7 +98,7 @@ const Winner: React.FC<WinnerProps> = props => {
         }}
         id="holder-etherscan-tooltip"
       >
-        Founders / Alpine Council
+        Alpine Council
       </Tooltip>
     </a>
   );
