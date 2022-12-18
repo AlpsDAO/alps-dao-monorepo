@@ -58,7 +58,7 @@ contract AlpsToken is IAlpsToken, Ownable, ERC721Checkpointable {
     uint256 private _currentAlpId;
 
     // IPFS content hash of contract-level metadata
-    string private _contractURIHash = 'QmZi1n79FqWt2tTLwCqiy6nLM6xLGRsEPQ5JmReJQKNNzX';
+    string private _contractURIHash = 'QmYxzhCuw1zV9bqFG3gKJqpow5Ab88c1613Nmtv58pKiZQ';
 
     // OpenSea's Proxy Registry
     IProxyRegistry public immutable proxyRegistry;
