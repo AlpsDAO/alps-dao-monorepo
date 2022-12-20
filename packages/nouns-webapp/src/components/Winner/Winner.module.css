@@ -113,13 +113,19 @@
   .youCopy {
     padding-right: 0.25rem;
   }
+
+  .winnerCopy,
+  .winnerContent,
+  .verifyLink,
+  .link {
+    color: var(--brand-black) !important;
+  }
 }
 
 @media (max-width: 568px) {
   .winnerCopy,
   .winnerContent,
   .verifyLink,
-  .verifyButton,
   .link {
     color: var(--brand-black) !important;
   }

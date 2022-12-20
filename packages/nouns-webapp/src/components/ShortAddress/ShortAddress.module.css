@@ -15,6 +15,12 @@
   font-weight: bold;
 }
 
+@media (max-width: 992px) {
+  .mobileText {
+    color: var(--brand-black) !important;
+  }
+}
+
 @media (max-width: 568px) {
   .mobileText {
     color: var(--brand-black) !important;

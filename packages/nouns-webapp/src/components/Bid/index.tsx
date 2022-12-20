@@ -293,7 +293,7 @@ const Bid: React.FC<{
           <>
             {/* Only show force settle button if wallet connected */}
             {isWalletConnected && (
-              <Col lg={12}>
+              <Col lg={0}>
                 <SettleManuallyBtn settleAuctionHandler={settleAuctionHandler} auction={auction} />
               </Col>
             )}

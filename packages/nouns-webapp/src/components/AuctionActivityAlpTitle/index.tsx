@@ -7,8 +7,8 @@ const AuctionActivityAlpTitle: React.FC<{ alpId: BigNumber; isCool?: boolean }> 
   return (
     <div className={classes.wrapper}>
       <h1
-        className={classes.mobileText}
         style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
+        className={classes.mobileText}
       >
         <Trans>Alp {alpId.toString()}</Trans>
       </h1>
