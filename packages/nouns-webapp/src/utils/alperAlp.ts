@@ -3,7 +3,7 @@ import { AuctionState } from '../state/slices/auction';
 import { BigNumber } from '@ethersproject/bignumber';
 
 export const isAlperAlp = (alpId: BigNumber) => {
-  return alpId.mod(10).eq(0) || alpId.eq(0);
+  return alpId.mod(10).eq(0) || alpId.eq(0) || alpId.mod(5).eq(0);
 };
 
 export const isAlpsCouncil = (nounId: BigNumber) => {
