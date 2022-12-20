@@ -125,6 +125,10 @@ msgstr ""
 #~ msgid "Add one or more transactions and describe your proposal for the community. The proposal cannot modified after submission, so please verify all information before submitting. The voting period will begin after 2 1/3 days and last for 3 days."
 #~ msgstr "トランザクション を１つ以上追加し、提案をコミュニティに説明してください。 提案は提出後に変更することが出来ませんので、事前に全ての情報を確認してください。 投票期間は56時間後に始まり、3日間続く予定です。"
 
+#: src/components/Documentation/index.tsx
+msgid "Additionally, the founders have chosen to establish The Alpine Council which is a group that consists of the founders plus founding/early team members and compensate this group with Alps. Every 5th Alp for the first 5 years of the project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to a multisig to be vested and shared among The Alpine Council members."
+msgstr ""
+
 #: src/components/ProposalTransactionFormModal/index.tsx
 msgid "Address"
 msgstr "アドレス"
@@ -142,8 +146,8 @@ msgid "Against"
 msgstr "反対"
 
 #: src/components/AlperAlpContent/index.tsx
-msgid "All Alp auction proceeds are sent to the"
-msgstr "すべてのAlpオークションの収益は、"
+#~ msgid "All Alp auction proceeds are sent to the"
+#~ msgstr "すべてのAlpオークションの収益は、"
 
 #: src/pages/Alpers/index.tsx
 msgid "All Alp auction proceeds are sent to the Alps DAO. For this reason, we, the project's founders (‘Alpers’) have chosen to compensate ourselves with Alps. Every 10th alp for the first 5 years of the project will be sent to our multisig (5/10), where it will be vested and distributed to individual Alpers."
@@ -205,7 +209,6 @@ msgstr "Alps"
 msgid "Alps Auction House"
 msgstr "Alpsオークションハウス"
 
-#: src/components/AlperAlpContent/index.tsx
 #: src/components/Documentation/index.tsx
 #: src/pages/Governance/index.tsx
 msgid "Alps DAO"
@@ -606,20 +609,24 @@ msgstr "賛成"
 #~ msgstr "その為、我々、プロジェクトの創設者 (Alpers) はAlpsで自らを補償することに決めました。 プロジェクトの最初の5年間の間は、毎回10体目のAlpがマルチシグ(5/10) に送られた後、個々のナウンダーズに与えられ、配布されます。"
 
 #: src/components/AlperAlpContent/index.tsx
-msgid "For this reason, we, the project’s founders, have chosen to compensate ourselves with Alps. Every 10th Alp for the first 5 years of the project will be sent to our multisig, where it will be vested and distributed to individual founders."
-msgstr ""
+#~ msgid "For this reason, we, the project’s founders, have chosen to compensate ourselves with Alps. Every 10th Alp for the first 5 years of the project will be sent to our multisig, where it will be vested and distributed to individual founders."
+#~ msgstr ""
 
 #: src/components/Footer/index.tsx
 #~ msgid "Forums"
 #~ msgstr "Forums"
 
 #: src/components/Documentation/index.tsx
-msgid "Founder distributions don't interfere with the cadence of 3 hour auctions. Alps are sent directly to the founder multisig and auctions continue on schedule with the next available Alp ID."
+#~ msgid "Founder distributions don't interfere with the cadence of 3 hour auctions. Alps are sent directly to the founder multisig and auctions continue on schedule with the next available Alp ID."
+#~ msgstr ""
+
+#: src/components/Documentation/index.tsx
+msgid "Founder's & Alpine Council Rewards"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
-msgid "Founder's Reward"
-msgstr ""
+#~ msgid "Founder's Reward"
+#~ msgstr ""
 
 #: src/components/Documentation/index.tsx
 msgid "Founders are the group of builders that initiated Alps DAO. Here are the Founders:"
@@ -901,8 +908,8 @@ msgid "Settle Auction"
 msgstr "オークションを決済する"
 
 #: src/components/SettleManuallyBtn/index.tsx
-msgid "Settle manually"
-msgstr "手動で決済する"
+#~ msgid "Settle manually"
+#~ msgstr "手動で決済する"
 
 #: src/components/Bid/index.tsx
 msgid "Settled auction successfully!"
@@ -927,6 +934,10 @@ msgstr "少なく表示する"
 #: src/components/NavWallet/index.tsx
 msgid "Sign out"
 msgstr "サインアウト"
+
+#: src/components/SettleManuallyBtn/index.tsx
+msgid "Start The Next Auction"
+msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "Starts"
@@ -1066,6 +1077,10 @@ msgstr "トレジャリーは、ガバナンスを通じてAlpsが独占的に�
 msgid "There was an error voting for your account."
 msgstr "アカウントの投票中にエラーが発生しました。"
 
+#: src/components/Documentation/index.tsx
+msgid "These distributions don't interfere with the cadence of 3 hour auctions. Alps are sent directly to the founder multisig and the Alpine Council multisig and auctions continue on schedule with the next available Alp ID."
+msgstr ""
+
 #: src/components/ProfileActivityFeed/index.tsx
 msgid "This Alp has no activity, since it was just created. Check back soon!"
 msgstr "このAlpは作成されたばかりで、動きがありません。また後ほどご確認ください！"
@@ -1174,6 +1189,7 @@ msgstr "すべての入札を表示"
 #: src/components/profileEvent/event/DesktopProposalVoteEvent/index.tsx
 #: src/components/profileEvent/event/DesktopTransferEvent/index.tsx
 #: src/components/profileEvent/event/DesktopTransferEvent/index.tsx
+#: src/components/Winner/index.tsx
 #: src/components/Winner/index.tsx
 msgid "View on Etherscan"
 msgstr "イーサスキャンで見る"
@@ -1306,8 +1322,12 @@ msgstr "あなたの<0>{availableVotes}</0>票が新しいアカウントに委�
 #~ msgstr "付属品(140)"
 
 #: src/components/Documentation/index.tsx
-msgid "accessories (186)"
+msgid "accessories (182)"
 msgstr ""
+
+#: src/components/Documentation/index.tsx
+#~ msgid "accessories (186)"
+#~ msgstr ""
 
 #: src/components/AuctionTimer/index.tsx
 msgid "at"
