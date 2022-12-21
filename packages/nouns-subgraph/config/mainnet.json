@@ -1,15 +1,15 @@
 {
   "network": "mainnet",
   "alpsToken": {
-    "address": "0x9C8fF314C9Bc7F6e59A9d9225Fb22946427eDC03",
-    "startBlock": 12985438
+    "address": "0xf59eB3e1957F120f7C135792830F900685536f52",
+    "startBlock": 16231711
   },
   "alpsAuctionHouse": {
-    "address": "0x830BD73E4184ceF73443C15111a1DF14e495C706",
-    "startBlock": 12985451
+    "address": "0xDbd5aF97D7CABB950CFDD1BC49e864145f8164A2",
+    "startBlock": 16231711
   },
   "alpsDAO": {
-    "address": "0x6f3E6272A167e8AcCb32072d08E0957F9c79223d",
-    "startBlock": 12985453
+    "address": "0x40A113d1FfeC298a95969eca1d8a52261A10dC53",
+    "startBlock": 16231711
   }
 }

@@ -31,7 +31,7 @@ task('deploy', 'Deploys NFTDescriptor, AlpsDescriptor, AlpsSeeder, and AlpsToken
   .addOptionalParam(
     'auctionTimeBuffer',
     'The auction time buffer (seconds)',
-    5 * 60 /* 5 minutes */,
+    3 * 60 /* 3 minutes */,
     types.int,
   )
   .addOptionalParam(
