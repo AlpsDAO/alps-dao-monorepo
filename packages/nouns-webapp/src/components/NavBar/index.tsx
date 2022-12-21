@@ -144,7 +144,7 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <NavLocaleSwitcher buttonStyle={nonWalletButtonStyle} />
+            {/* <NavLocaleSwitcher buttonStyle={nonWalletButtonStyle} /> */}
             <NavWallet address={activeAccount || '0'} buttonStyle={nonWalletButtonStyle} />{' '}
           </Navbar.Collapse>
         </Container>
