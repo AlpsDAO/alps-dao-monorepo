@@ -255,19 +255,6 @@ const Documentation = () => {
             <Accordion.Body>
               <p>
                 <Trans>
-                  Founders are the group of builders that initiated Alps DAO. Here are the Founders:
-                </Trans>
-              </p>
-              <ul>
-                <li>
-                  <Link text="Benbodhi" url="https://twitter.com/benbodhi" leavesPage={true} />
-                </li>
-                <li>
-                  <Link text="ThaSwami" url="https://twitter.com/tha_swami" leavesPage={true} />
-                </li>
-              </ul>
-              <p>
-                <Trans>
                   Because 100% of Alp auction proceeds are sent to Alps DAO, the founders have
                   chosen to compensate themselves with Alps. Every 10th Alp for the first 5 years of
                   the project (Alp IDs #0, #10, #20, #30 and so on) will be automatically sent to a

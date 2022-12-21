@@ -7,7 +7,7 @@ import { push } from 'connected-react-router';
 import { alpPath } from '../../utils/history';
 import useOnDisplayAuction from '../../wrappers/onDisplayAuction';
 import { useEffect } from 'react';
-import ProfileActivityFeed from '../../components/ProfileActivityFeed';
+// import ProfileActivityFeed from '../../components/ProfileActivityFeed';
 
 interface AuctionPageProps {
   initialAuctionId?: number;
@@ -47,7 +47,8 @@ const AuctionPage: React.FC<AuctionPageProps> = props => {
     <>
       <Auction auction={onDisplayAuction} />
       {onDisplayAuctionAlpId !== undefined && onDisplayAuctionAlpId !== lastAuctionAlpId ? (
-        <ProfileActivityFeed alpId={onDisplayAuctionAlpId} />
+        // <ProfileActivityFeed alpId={onDisplayAuctionAlpId} />
+        <></>
       ) : (
         <Banner />
       )}

@@ -41,18 +41,19 @@ const Winner: React.FC<WinnerProps> = props => {
         </h2>
       </Col>
       {!isMobile && (
-        <Col>
-          <a
-            href="https://alps.center/alpers"
-            target="_blank"
-            rel="noreferrer noopener"
-            className={classes.verifyLink}
-          >
-            <Button className={classes.verifyButton}>
-              <Trans>What now?</Trans>
-            </Button>
-          </a>
-        </Col>
+        // <Col>
+        //   <a
+        //     href="https://alps.center/alpers"
+        //     target="_blank"
+        //     rel="noreferrer noopener"
+        //     className={classes.verifyLink}
+        //   >
+        //     <Button className={classes.verifyButton}>
+        //       <Trans>What now?</Trans>
+        //     </Button>
+        //   </a>
+        // </Col>
+        <></>
       )}
     </Row>
   ) : (
@@ -128,7 +129,7 @@ const Winner: React.FC<WinnerProps> = props => {
           </h2>
         </Col>
       </Row>
-      {isWinnerYou && isMobile && (
+      {/* {isWinnerYou && isMobile && (
         <Row>
           <a
             href="https://alps.center/alpers"
@@ -141,7 +142,7 @@ const Winner: React.FC<WinnerProps> = props => {
             </Button>
           </a>
         </Row>
-      )}
+      )} */}
     </>
   );
 };

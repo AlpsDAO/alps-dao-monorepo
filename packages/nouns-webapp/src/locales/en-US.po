@@ -624,8 +624,8 @@ msgstr "Founder's & Alpine Council Rewards"
 #~ msgstr "Founder's Reward"
 
 #: src/components/Documentation/index.tsx
-msgid "Founders are the group of builders that initiated Alps DAO. Here are the Founders:"
-msgstr "Founders are the group of builders that initiated Alps DAO. Here are the Founders:"
+#~ msgid "Founders are the group of builders that initiated Alps DAO. Here are the Founders:"
+#~ msgstr "Founders are the group of builders that initiated Alps DAO. Here are the Founders:"
 
 #: src/components/Documentation/index.tsx
 msgid "Founders receive rewards in the form of Alps (10% of supply for first 5 years)."
@@ -1228,8 +1228,8 @@ msgstr "Waiting for"
 
 #: src/components/Winner/index.tsx
 #: src/components/Winner/index.tsx
-msgid "What now?"
-msgstr "What now?"
+#~ msgid "What now?"
+#~ msgstr "What now?"
 
 #: src/components/Documentation/index.tsx
 msgid "While settlement is most heavily incentivized for the winning bidder, it can be triggered by anyone, allowing the system to trustlessly auction Alps as long as Ethereum is operational and there are interested bidders."
