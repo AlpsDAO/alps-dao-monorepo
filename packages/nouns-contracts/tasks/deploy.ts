@@ -20,9 +20,9 @@ const wethContracts: Record<number, string> = {
   [ChainId.Goerli]: '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6',
 };
 
-const NOUNS_ART_NONCE_OFFSET = 4;
-const AUCTION_HOUSE_PROXY_NONCE_OFFSET = 9;
-const GOVERNOR_N_DELEGATOR_NONCE_OFFSET = 12;
+const NOUNS_ART_NONCE_OFFSET = 5;
+const AUCTION_HOUSE_PROXY_NONCE_OFFSET = 10;
+const GOVERNOR_N_DELEGATOR_NONCE_OFFSET = 13;
 
 task('deploy', 'Deploys NFTDescriptor, AlpsDescriptor, AlpsSeeder, and AlpsToken')
   .addFlag('autoDeploy', 'Deploy all contracts without user interaction')
