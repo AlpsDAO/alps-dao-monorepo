@@ -89,9 +89,9 @@ const AlperAlpContent: React.FC<{
             className={alpContentClasses.mobileText}
           >
             <p>
-              The Alpine Council is allocated every 5th token (Alp IDs #5, #15, #25, #35 and so on)
-              for the first 5 years, which will be automatically sent to a multisig to be vested and
-              shared among The Alpine Council members
+              The Alpine Council is allocated every token ending in 5 (Alp IDs #5, #15, #25, #35 and
+              so on) for the first 5 years, which will be automatically sent to a multisig to be
+              vested and shared among The Alpine Council members
             </p>
           </span>
         </li>
