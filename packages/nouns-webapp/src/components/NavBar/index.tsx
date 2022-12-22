@@ -76,7 +76,7 @@ const NavBar = () => {
                   rel="noreferrer"
                 >
                   <NavBarTreasury
-                    treasuryBalance={Number(utils.formatEther(treasuryBalance)).toFixed(0)}
+                    treasuryBalance={Number(utils.formatEther(treasuryBalance)).toFixed(3)}
                     treasuryStyle={nonWalletButtonStyle}
                   />
                 </Nav.Link>
