@@ -51,7 +51,7 @@ const nounsAssetsLink = (
 const alpsAssetsLink = (
   <Link
     text="alps-assets"
-    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/alps-assets"
+    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/nouns-assets"
     leavesPage={true}
   />
 );
