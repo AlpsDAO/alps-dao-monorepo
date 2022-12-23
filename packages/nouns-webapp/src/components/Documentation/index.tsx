@@ -95,8 +95,14 @@ const Documentation = () => {
                 </li>
                 <li>
                   <Trans>
-                    Alps that receive no bids are sent to a treasury wallet for rescue opportunities
-                    and burn events.
+                    The Alpine Council receives rewards in the form of Alps (10% of supply for first
+                    5 years).
+                  </Trans>
+                </li>
+                <li>
+                  <Trans>
+                    Alps that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet
+                    for rescue opportunities and burn events.
                   </Trans>
                 </li>
               </ul>

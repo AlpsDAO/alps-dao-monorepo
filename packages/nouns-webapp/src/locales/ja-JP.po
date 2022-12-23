@@ -271,7 +271,11 @@ msgid "Alps govern <0>Alps DAO</0>. Alps can vote on proposals or delegate their
 msgstr "Alpsが統治する <0>Alps DAO</0> 。Alpsは提案に対して投票したり、第三者に投票を委任することができますが、提案の提出には最低でも <1>{alpsRequired} {0}</1> 以上が必要です。"
 
 #: src/components/Documentation/index.tsx
-msgid "Alps that receive no bids are sent to a treasury wallet for rescue opportunities and burn events."
+#~ msgid "Alps that receive no bids are sent to a treasury wallet for rescue opportunities and burn events."
+#~ msgstr ""
+
+#: src/components/Documentation/index.tsx
+msgid "Alps that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet for rescue opportunities and burn events."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -1012,6 +1016,10 @@ msgstr "Alpers"
 #: src/pages/Alpers/index.tsx
 msgid "The Alpers reward is intended as compensation for our pre and post-launch contributions to the project, and to help us participate meaningfully in governance as the project matures. Since there are 10 Alpers, after 5 years each Alper could receive up to 1% of the Alp supply."
 msgstr "Alpersの報酬は、プロジェクト開始前と開始後の貢献に対する対価として提供されるほか、プロジェクトが成熟するにつれ、ガバナンスに有意義に参加できるよう支援することも目的としています。Alpersは10人なので、5年後には各ナウンダーは最大でAlpの供給量の1%を受け取ることができます。"
+
+#: src/components/Documentation/index.tsx
+msgid "The Alpine Council receives rewards in the form of Alps (10% of supply for first 5 years)."
+msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "The Alps Auction Contract will act as a self-sufficient Alp generation and distribution mechanism, auctioning one Alp every 24 hours, forever. 100% of auction proceeds (ETH) are automatically deposited in the Alps DAO treasury, where they are governed by Alp owners."

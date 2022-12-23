@@ -266,7 +266,11 @@ msgid "Alps govern <0>Alps DAO</0>. Alps can vote on proposals or delegate their
 msgstr ""
 
 #: src/components/Documentation/index.tsx
-msgid "Alps that receive no bids are sent to a treasury wallet for rescue opportunities and burn events."
+#~ msgid "Alps that receive no bids are sent to a treasury wallet for rescue opportunities and burn events."
+#~ msgstr ""
+
+#: src/components/Documentation/index.tsx
+msgid "Alps that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet for rescue opportunities and burn events."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -1006,6 +1010,10 @@ msgstr ""
 
 #: src/pages/Alpers/index.tsx
 msgid "The Alpers reward is intended as compensation for our pre and post-launch contributions to the project, and to help us participate meaningfully in governance as the project matures. Since there are 10 Alpers, after 5 years each Alper could receive up to 1% of the Alp supply."
+msgstr ""
+
+#: src/components/Documentation/index.tsx
+msgid "The Alpine Council receives rewards in the form of Alps (10% of supply for first 5 years)."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
