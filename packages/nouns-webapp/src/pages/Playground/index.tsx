@@ -61,7 +61,7 @@ const gnarsAssetsLink = <Link text="gnars-assets" url="https://gnars.wtf/" leave
 const alpsSDKLink = (
   <Link
     text="alps-sdk"
-    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/alps-sdk"
+    url="https://github.com/AlpsDAO/alps-dao-monorepo/tree/master/packages/nouns-sdk"
     leavesPage={true}
   />
 );
