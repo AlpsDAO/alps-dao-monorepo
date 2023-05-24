@@ -271,7 +271,7 @@ const Documentation = () => {
                 <Trans>
                   Additionally, the founders have chosen to establish The Alpine Council which is a
                   group that consists of the founders plus founding/early team members and
-                  compensate this group with Alps. Every 5th Alp for the first 5 years of the
+                  compensate this group with Alps. Every 10th Alp with ID ending in "5" for the first 5 years of the
                   project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to a
                   multisig to be vested and shared among The Alpine Council members.
                 </Trans>
