@@ -59,7 +59,7 @@ const NavBar = () => {
         <Container style={{ maxWidth: 'unset', paddingBottom: isMobile ? 3 : 0 }}>
           <div className={classes.brandAndTreasuryWrapper}>
             <Navbar.Brand as={Link} to="/" className={classes.navBarBrand}>
-              <img src={logo} className={classes.navBarLogo} alt="Alps DAO logo" />
+              <img src={logo} className={classes.navBarLogo} alt="Alps logo" />
             </Navbar.Brand>
             {Number(CHAIN_ID) !== 1 && (
               <Nav.Item>

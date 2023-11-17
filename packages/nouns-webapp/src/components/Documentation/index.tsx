@@ -35,15 +35,15 @@ const Documentation = () => {
           </h1>
           <p className={classes.aboutText}>
             <Trans>
-              Alps DAO is an extension of {nounsDAOLink}, focused on establishing long term
+              Alps is an extension of {nounsDAOLink} and Gnars, focused on establishing long term
               relationships with alpine resorts to proliferate Alps, provide unique membership perks
-              to DAO members and support proposals that enhance on-mountain environments and
+              to members and support proposals that enhance on-mountain environments and
               experiences.
             </Trans>
           </p>
           <p className={classes.aboutText} style={{ paddingBottom: '4rem' }}>
             <Trans>
-              Learn more about Alps DAO below or create your own Alps off-chain using our{' '}
+              Learn more about Alps below or create your own Alps off-chain using our{' '}
               {playgroundLink}.
             </Trans>
           </p>
@@ -68,10 +68,10 @@ const Documentation = () => {
                   <Trans>Settlement of one auction kicks off the next.</Trans>
                 </li>
                 <li>
-                  <Trans>All Alps are members of Alps DAO.</Trans>
+                  <Trans>All Alp tokens are members of Alps DAO.</Trans>
                 </li>
                 <li>
-                  <Trans>Alps DAO uses Alps DAO’s fork of {compoundGovLink}.</Trans>
+                  <Trans>Alps uses a fork of {compoundGovLink}.</Trans>
                 </li>
                 <li>
                   <Trans>One Alp is equal to one vote.</Trans>
@@ -80,7 +80,7 @@ const Documentation = () => {
                   <Trans>The treasury is controlled exclusively by Alps via governance.</Trans>
                 </li>
                 <li>
-                  <Trans>Artwork is generative and stored directly on-chain (not IPFS).</Trans>
+                  <Trans>Artwork is generative and stored directly onchain (not IPFS).</Trans>
                 </li>
                 <li>
                   <Trans>
@@ -144,8 +144,8 @@ const Documentation = () => {
             </Accordion.Header>
             <Accordion.Body>
               <Trans>
-                Alps DAO utilizes {nounsDAOLink}’s fork of {compoundGovLink} and is the main
-                governing body of the Alps ecosystem. The Alps DAO treasury receives 100% of ETH
+                Alps utilizes {nounsDAOLink}’s fork of {compoundGovLink} and is the main
+                governing body of the Alps ecosystem. The Alps treasury receives 100% of ETH
                 proceeds from Alp auctions. Each Alp is an irrevocable member of Alps DAO and
                 entitled to one vote in all governance matters. Alp votes are non-transferable (if
                 you sell your Alp the vote goes with it) but delegatable, which means you can assign
@@ -256,13 +256,13 @@ const Documentation = () => {
           </Accordion.Item>
           <Accordion.Item eventKey="7" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Founder's & Alpine Council Rewards</Trans>
+              <Trans>Founders & Alpine Council Rewards</Trans>
             </Accordion.Header>
             <Accordion.Body>
               <p>
                 <Trans>
-                  Because 100% of Alp auction proceeds are sent to Alps DAO, the founders have
-                  chosen to compensate themselves with Alps. Every 10th Alp for the first 5 years of
+                  Because 100% of Alp auction proceeds are sent to the Alps treasury, the founders have
+                  chosen to compensate themselves with Alp tokens. Every 10th Alp for the first 5 years of
                   the project (Alp IDs #0, #10, #20, #30 and so on) will be automatically sent to a
                   multisig to be vested and shared among the founding members of the project.
                 </Trans>
@@ -270,10 +270,10 @@ const Documentation = () => {
               <p>
                 <Trans>
                   Additionally, the founders have chosen to establish The Alpine Council which is a
-                  group that consists of the founders plus founding/early team members and
+                  group that consists of the founders plus early team members and contributors, and
                   compensate this group with Alps. Every 10th Alp with ID ending in "5" for the first 5 years of the
-                  project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to a
-                  multisig to be vested and shared among The Alpine Council members.
+                  project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to
+                  The Alpine Council multisig to be utilized by active Alpine Council members in voting.
                 </Trans>
               </p>
               <p>

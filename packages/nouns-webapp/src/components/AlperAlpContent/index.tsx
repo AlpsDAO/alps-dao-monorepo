@@ -63,10 +63,10 @@ const AlperAlpContent: React.FC<{
             </Link>
             .{' '} */}
             <p>
-              Because 100% of Alp auction proceeds are sent to Alps DAO, the founders have chosen to
-              compensate themselves with Alps. Every 10th Alp for the first 5 years of the project
-              (Alp IDs #0, #10, #20, #30 and so on) will be automatically sent to a multisig to be
-              vested and shared among the founding members of the project.
+              Because 100% of Alp auction proceeds are sent to the Alps treasury, the founders have
+              chosen to compensate themselves with Alp tokens. Every 10th Alp for the first 5 years of
+              the project (Alp IDs #0, #10, #20, #30 and so on) will be automatically sent to a
+              multisig to be vested and shared among the founding members of the project.
             </p>
           </span>
         </li>
@@ -89,9 +89,9 @@ const AlperAlpContent: React.FC<{
             className={alpContentClasses.mobileText}
           >
             <p>
-              The Alpine Council is allocated every token ending in 5 (Alp IDs #5, #15, #25, #35 and
-              so on) for the first 5 years, which will be automatically sent to a multisig to be
-              vested and shared among The Alpine Council members
+              Every 10th Alp with ID ending in "5" for the first 5 years of the
+              project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to
+              The Alpine Council to be utilized by active Alpine Council members in voting.
             </p>
           </span>
         </li>
