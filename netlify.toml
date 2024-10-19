@@ -22,8 +22,8 @@
   publish = "packages/nouns-webapp/build"
 
 [build.environment]
-  NODE_VERSION=20.x
-  NODE_OPTIONS=--openssl-legacy-provider
+  NODE_VERSION = "20"
+  NODE_OPTIONS = "--openssl-legacy-provider"
 
 
 [[redirects]]
