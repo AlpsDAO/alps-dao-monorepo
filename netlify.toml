@@ -21,6 +21,10 @@
   command = "yarn workspace @nouns/webapp build"
   publish = "packages/nouns-webapp/build"
 
+[build.environment]
+  NODE_VERSION=20.x
+  NODE_OPTIONS=--openssl-legacy-provider
+
 
 [[redirects]]
   from = "http://www.alps.wtf/*"
