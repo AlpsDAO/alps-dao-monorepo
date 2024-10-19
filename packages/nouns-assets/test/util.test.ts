@@ -3,18 +3,18 @@ import { keccak256 as solidityKeccak256 } from '@ethersproject/solidity';
 import {
   shiftRightAndCast,
   getPseudorandomPart,
-  getNounSeedFromBlockHash,
-  getNounData,
+  getAlpSeedFromBlockHash,
+  getAlpData,
 } from '../src/index';
 import { images } from '../src/image-data.json';
-import { NounSeed } from '../src/types';
+import { AlpSeed } from '../src/types';
 
 const { bodies, accessories, heads, glasses } = images;
 
 describe('@noun/assets utils', () => {
   // Test against Noun 116, created at block 13661786
   const NOUN116_ID = 116;
-  const NOUN116_SEED: NounSeed = {
+  const NOUN116_SEED: AlpSeed = {
     background: 1,
     body: 28,
     accessory: 120,
@@ -47,7 +47,7 @@ describe('@noun/assets utils', () => {
 
   describe('getNounSeedFromBlockHash', () => {
     it('should match NounsSeeder.sol implementation for generating a Noun seed', () => {
-      expect(getNounSeedFromBlockHash(NOUN116_ID, NOUN116_PREV_BLOCKHASH)).to.deep.equal(
+      expect(getAlpSeedFromBlockHash(NOUN116_ID, NOUN116_PREV_BLOCKHASH)).to.deep.equal(
         NOUN116_SEED,
       );
     });
