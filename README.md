@@ -1,6 +1,6 @@
-# nouns-monorepo
+# alps-dao-monorepo
 
-Nouns DAO is a generative avatar art collective run by a group of crypto misfits.
+Alps is a generative avatar art collective, a fork of nouns focused on snow and mountains.
 
 ## Packages
 
