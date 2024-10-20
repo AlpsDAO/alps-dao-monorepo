@@ -71,7 +71,7 @@ const app: Record<SupportedChains, AppConfig> = {
   [ChainId.Mainnet]: {
     jsonRpcUri: createNetworkHttpUrl('mainnet'),
     wsRpcUri: createNetworkWsUrl('mainnet'),
-    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/alpsdao/alps-dao',
+    subgraphApiUri: 'https://gateway.thegraph.com/api/244e3e1d1f64c7bee9b26fc12184f380/subgraphs/id/BfBbbRZVbUNN7KWQ3iHbFKhrzUQeZgajnpqiUvXs9p5m',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
   [ChainId.Hardhat]: {

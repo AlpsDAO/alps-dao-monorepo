@@ -20,7 +20,7 @@
     "test:configgen": "echo libsFolder: $(dirname `cd ../..; pwd`)/alps-monorepo/node_modules > matchstick.yaml",
     "test": "graph test",
     "create:localnode": "graph create --node http://localhost:8020/",
-    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
+    "deploy": "graph deploy --studio",
     "deploy:localnode": "graph deploy --debug --node http://localhost:8020/ --ipfs http://localhost:5001/",
     "deploy:hardhat": "yarn clean && yarn prepare:hardhat && yarn codegen && yarn create:localnode alpsdao/alps-subgraph && yarn deploy:localnode alpsdao/alps-subgraph",
     "deploy:rinkeby": "yarn clean && yarn prepare:rinkeby && yarn codegen && yarn deploy alpsdao/alps-subgraph-rinkeby",
