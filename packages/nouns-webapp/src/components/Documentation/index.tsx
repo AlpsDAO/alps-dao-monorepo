@@ -41,7 +41,7 @@ const NounsDAOLink = () => (
 const GnarsLink = () => (
   <Link
     text={<Trans>Gnars</Trans>}
-    url="https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/6370?tab=about"
+    url="https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/?tab=about"
     leavesPage={true}
   />
 );
