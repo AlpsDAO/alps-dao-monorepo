@@ -7,8 +7,8 @@ import { isMobileScreen } from '../../utils/isMobile';
 import { Trans } from '@lingui/macro';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import React from 'react';
-import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import Tooltip from '../Tooltip';
+import { buildEtherscanAddressLink } from '../../utils/etherscan';
 
 interface WinnerProps {
   winner: string;
@@ -18,7 +18,9 @@ interface WinnerProps {
 
 // Constants for zero address and Warming Hut fallback
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-const WARMING_HUT_ENS = 'warminghut.eth'; // Fallback ENS for no-bid auctions
+const WARMING_HUT_ENS = 'warminghut.eth';
+const WARMING_HUT_ADDRESS = '0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC';
+const WARMING_HUT_LINK = `https://etherscan.io/token/0xf59eb3e1957f120f7c135792830f900685536f52?a=${WARMING_HUT_ADDRESS}`;
 
 const Winner: React.FC<WinnerProps> = props => {
   const { winner, isAlpers, isAlpsCouncil } = props;
@@ -27,8 +29,9 @@ const Winner: React.FC<WinnerProps> = props => {
   const isMobile = isMobileScreen();
   const activeLocale = useActiveLocale();
 
-  // Use Warming Hut ENS if the winner is the zero address
+  // Determine displayed winner
   const displayWinner = winner.toLowerCase() === ZERO_ADDRESS ? WARMING_HUT_ENS : winner;
+  const winnerLink = displayWinner === WARMING_HUT_ENS ? WARMING_HUT_LINK : buildEtherscanAddressLink(displayWinner);
 
   const isWinnerYou =
     activeAccount !== undefined &&
@@ -63,12 +66,7 @@ const Winner: React.FC<WinnerProps> = props => {
       )}
     </Row>
   ) : (
-    <a
-      href={buildEtherscanAddressLink(displayWinner)}
-      target="_blank"
-      rel="noreferrer"
-      className={classes.link}
-    >
+    <a href={winnerLink} target="_blank" rel="noreferrer noopener" className={classes.link}>
       <Tooltip
         tip="View on Etherscan"
         tooltipContent={(tip: string) => <Trans>View on Etherscan</Trans>}
