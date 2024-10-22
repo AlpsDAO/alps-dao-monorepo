@@ -45,6 +45,8 @@ export const ETHERSCAN_API_KEY = process.env.REACT_APP_ETHERSCAN_API_KEY ?? '';
 
 const INFURA_PROJECT_ID = process.env.REACT_APP_INFURA_PROJECT_ID;
 
+export const WALLET_CONNECT_V2_PROJECT_ID = process.env.REACT_APP_WALLET_CONNECT_V2_PROJECT_ID ?? '';
+
 export const createNetworkHttpUrl = (network: string): string => {
   const custom = process.env[`REACT_APP_${network.toUpperCase()}_JSONRPC`];
   return custom || `https://${network}.infura.io/v3/${INFURA_PROJECT_ID}`;
@@ -54,6 +56,8 @@ export const createNetworkWsUrl = (network: string): string => {
   const custom = process.env[`REACT_APP_${network.toUpperCase()}_WSRPC`];
   return custom || `wss://${network}.infura.io/ws/v3/${INFURA_PROJECT_ID}`;
 };
+
+const THEGRAPH_STUDIO_API_KEY = process.env.REACT_APP_THEGRAPH_STUDIO_API_KEY ?? '';
 
 const app: Record<SupportedChains, AppConfig> = {
   [ChainId.Rinkeby]: {
@@ -71,7 +75,7 @@ const app: Record<SupportedChains, AppConfig> = {
   [ChainId.Mainnet]: {
     jsonRpcUri: createNetworkHttpUrl('mainnet'),
     wsRpcUri: createNetworkWsUrl('mainnet'),
-    subgraphApiUri: 'https://gateway.thegraph.com/api/244e3e1d1f64c7bee9b26fc12184f380/subgraphs/id/BfBbbRZVbUNN7KWQ3iHbFKhrzUQeZgajnpqiUvXs9p5m',
+    subgraphApiUri: `https://gateway.thegraph.com/api/${THEGRAPH_STUDIO_API_KEY}/subgraphs/id/BfBbbRZVbUNN7KWQ3iHbFKhrzUQeZgajnpqiUvXs9p5m`,
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
   [ChainId.Hardhat]: {
