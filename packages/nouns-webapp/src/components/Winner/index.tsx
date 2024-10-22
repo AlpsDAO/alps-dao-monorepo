@@ -16,8 +16,9 @@ interface WinnerProps {
   isAlpsCouncil?: boolean;
 }
 
-const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'; // Ethereum's zero address
-const WARMING_HUT_ENS = 'warminghut.eth'; // ENS to display when no bids were placed
+// Constants for zero address and Warming Hut fallback
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+const WARMING_HUT_ENS = 'warminghut.eth'; // Fallback ENS for no-bid auctions
 
 const Winner: React.FC<WinnerProps> = props => {
   const { winner, isAlpers, isAlpsCouncil } = props;
@@ -30,7 +31,8 @@ const Winner: React.FC<WinnerProps> = props => {
   const displayWinner = winner.toLowerCase() === ZERO_ADDRESS ? WARMING_HUT_ENS : winner;
 
   const isWinnerYou =
-    activeAccount !== undefined && activeAccount.toLocaleLowerCase() === winner.toLocaleLowerCase();
+    activeAccount !== undefined &&
+    activeAccount.toLocaleLowerCase() === winner.toLocaleLowerCase();
 
   const nonAlperAlpContent = isWinnerYou ? (
     <Row className={classes.youSection}>
@@ -61,13 +63,33 @@ const Winner: React.FC<WinnerProps> = props => {
       )}
     </Row>
   ) : (
-    <ShortAddress size={40} address={displayWinner} avatar={true} />
+    <a
+      href={buildEtherscanAddressLink(displayWinner)}
+      target="_blank"
+      rel="noreferrer"
+      className={classes.link}
+    >
+      <Tooltip
+        tip="View on Etherscan"
+        tooltipContent={(tip: string) => <Trans>View on Etherscan</Trans>}
+        id="winner-etherscan-tooltip"
+      >
+        <span
+          style={{
+            color: isCool ? 'var(--brand-black)' : 'var(--brand-white)',
+          }}
+          className={classes.mobileText}
+        >
+          <ShortAddress size={40} address={displayWinner} avatar={true} />
+        </span>
+      </Tooltip>
+    </a>
   );
 
   const alperAlpContent = (
     <a
       href={buildEtherscanAddressLink('0x7f0fB27A2673AdC49D583AEB6e5f799E7D7dc16F')}
-      target={'_blank'}
+      target="_blank"
       rel="noreferrer"
       className={classes.link}
       style={{
@@ -76,9 +98,7 @@ const Winner: React.FC<WinnerProps> = props => {
     >
       <Tooltip
         tip="View on Etherscan"
-        tooltipContent={(tip: string) => {
-          return <Trans>View on Etherscan</Trans>;
-        }}
+        tooltipContent={(tip: string) => <Trans>View on Etherscan</Trans>}
         id="holder-etherscan-tooltip"
       >
         Founders
@@ -89,7 +109,7 @@ const Winner: React.FC<WinnerProps> = props => {
   const alpsCouncilContent = (
     <a
       href={buildEtherscanAddressLink('0x6F895beCD7bf90A5C7d1766a1EcA13b1d087dE05')}
-      target={'_blank'}
+      target="_blank"
       rel="noreferrer"
       className={classes.link}
       style={{
@@ -98,9 +118,7 @@ const Winner: React.FC<WinnerProps> = props => {
     >
       <Tooltip
         tip="View on Etherscan"
-        tooltipContent={(tip: string) => {
-          return <Trans>View on Etherscan</Trans>;
-        }}
+        tooltipContent={(tip: string) => <Trans>View on Etherscan</Trans>}
         id="holder-etherscan-tooltip"
       >
         Alpine Council
