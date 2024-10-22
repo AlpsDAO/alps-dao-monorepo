@@ -16,11 +16,10 @@ interface WinnerProps {
   isAlpsCouncil?: boolean;
 }
 
-// Constants for zero address and Warming Hut fallback
+// Constants for the Warming Hut Ethereum address and fallback link
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-const WARMING_HUT_ENS = 'warminghut.eth';
 const WARMING_HUT_ADDRESS = '0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC';
-const WARMING_HUT_LINK = `https://etherscan.io/token/0xf59eb3e1957f120f7c135792830f900685536f52?a=${WARMING_HUT_ADDRESS}`;
+const WARMING_HUT_LINK = `https://etherscan.io/token/0xf59eb3e1957f120f7c135792830f900685536f52?a=${WARMING_HUT_ADDRESS}#inventory`;
 
 const Winner: React.FC<WinnerProps> = props => {
   const { winner, isAlpers, isAlpsCouncil } = props;
@@ -29,9 +28,9 @@ const Winner: React.FC<WinnerProps> = props => {
   const isMobile = isMobileScreen();
   const activeLocale = useActiveLocale();
 
-  // Determine displayed winner
-  const displayWinner = winner.toLowerCase() === ZERO_ADDRESS ? WARMING_HUT_ENS : winner;
-  const winnerLink = displayWinner === WARMING_HUT_ENS ? WARMING_HUT_LINK : buildEtherscanAddressLink(displayWinner);
+  // Use the Warming Hut address if the winner is the zero address
+  const resolvedWinner = winner.toLowerCase() === ZERO_ADDRESS ? WARMING_HUT_ADDRESS : winner;
+  const winnerLink = resolvedWinner === WARMING_HUT_ADDRESS ? WARMING_HUT_LINK : buildEtherscanAddressLink(resolvedWinner);
 
   const isWinnerYou =
     activeAccount !== undefined &&
@@ -78,7 +77,7 @@ const Winner: React.FC<WinnerProps> = props => {
           }}
           className={classes.mobileText}
         >
-          <ShortAddress size={40} address={displayWinner} avatar={true} />
+          <ShortAddress size={40} address={resolvedWinner} avatar={true} />
         </span>
       </Tooltip>
     </a>
@@ -149,20 +148,6 @@ const Winner: React.FC<WinnerProps> = props => {
           </h2>
         </Col>
       </Row>
-      {/* {isWinnerYou && isMobile && (
-        <Row>
-          <a
-            href="https://alps.center/alpers"
-            target="_blank"
-            rel="noreferrer noopener"
-            className={classes.verifyLink}
-          >
-            <Button className={classes.verifyButton}>
-              <Trans>What now?</Trans>
-            </Button>
-          </a>
-        </Row>
-      )} */}
     </>
   );
 };
