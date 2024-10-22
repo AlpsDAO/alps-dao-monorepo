@@ -20,12 +20,11 @@ const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const WARMING_HUT_ADDRESS = '0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC';
 const WARMING_HUT_LINK = `https://etherscan.io/token/0xf59eb3e1957f120f7c135792830f900685536f52?a=${WARMING_HUT_ADDRESS}#inventory`;
 
-const AlpInfoRowHolder: React.FC<AlpInfoRowHolderProps> = props => {
-  const { alpId } = props;
+const AlpInfoRowHolder: React.FC<AlpInfoRowHolderProps> = ({ alpId }) => {
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const { loading, error, data } = useQuery(auctionQuery(alpId));
 
-  // Determine winner address or fallback to Warming Hut if no bids
+  // Use Warming Hut address if there is no bidder
   const winner = data?.auction.bidder?.id || WARMING_HUT_ADDRESS;
   const winnerLink =
     winner === WARMING_HUT_ADDRESS ? WARMING_HUT_LINK : buildEtherscanAddressLink(winner);
@@ -48,8 +47,6 @@ const AlpInfoRowHolder: React.FC<AlpInfoRowHolderProps> = props => {
     );
   }
 
-  const shortAddressComponent = <ShortAddress address={winner} avatar={true} />;
-
   return (
     <Tooltip
       tip="View on Etherscan"
@@ -57,38 +54,30 @@ const AlpInfoRowHolder: React.FC<AlpInfoRowHolderProps> = props => {
       id="holder-etherscan-tooltip"
     >
       <div className={classes.alpHolderInfoContainer}>
-        <span>
-          <Image
-            src={_HeartIcon}
-            className={classes.heartIcon}
-            style={{ filter: isCool ? '' : 'brightness(0) invert(1)' }}
-          />
-        </span>
+        <Image
+          src={_HeartIcon}
+          className={classes.heartIcon}
+          style={{ filter: isCool ? '' : 'brightness(0) invert(1)' }}
+        />
         <span
           style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
           className={classes.mobileText}
         >
           <Trans>Winner</Trans>
         </span>
-        <span>
-          <a
-            className={
-              isCool ? classes.alpHolderEtherscanLinkCool : classes.alpHolderEtherscanLinkWarm
-            }
-            href={winnerLink}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {winner.toLowerCase() === config.addresses.alpsAuctionHouseProxy.toLowerCase() ? (
-              <Trans>Alps Auction House</Trans>
-            ) : (
-              shortAddressComponent
-            )}
-            <span className={classes.linkIconSpan}>
-              <Image src={_LinkIcon} className={classes.linkIcon} />
-            </span>
-          </a>
-        </span>
+        <a
+          className={
+            isCool ? classes.alpHolderEtherscanLinkCool : classes.alpHolderEtherscanLinkWarm
+          }
+          href={winnerLink}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <ShortAddress address={winner} avatar={true} />
+          <span className={classes.linkIconSpan}>
+            <Image src={_LinkIcon} className={classes.linkIcon} />
+          </span>
+        </a>
       </div>
     </Tooltip>
   );
