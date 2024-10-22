@@ -16,17 +16,21 @@ interface WinnerProps {
   isAlpsCouncil?: boolean;
 }
 
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'; // Ethereum's zero address
+const WARMING_HUT_ENS = 'warminghut.eth'; // ENS to display when no bids were placed
+
 const Winner: React.FC<WinnerProps> = props => {
   const { winner, isAlpers, isAlpsCouncil } = props;
   const activeAccount = useAppSelector(state => state.account.activeAccount);
-
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const isMobile = isMobileScreen();
+  const activeLocale = useActiveLocale();
+
+  // Use Warming Hut ENS if the winner is the zero address
+  const displayWinner = winner.toLowerCase() === ZERO_ADDRESS ? WARMING_HUT_ENS : winner;
 
   const isWinnerYou =
     activeAccount !== undefined && activeAccount.toLocaleLowerCase() === winner.toLocaleLowerCase();
-
-  const activeLocale = useActiveLocale();
 
   const nonAlperAlpContent = isWinnerYou ? (
     <Row className={classes.youSection}>
@@ -57,7 +61,7 @@ const Winner: React.FC<WinnerProps> = props => {
       )}
     </Row>
   ) : (
-    <ShortAddress size={40} address={winner} avatar={true} />
+    <ShortAddress size={40} address={displayWinner} avatar={true} />
   );
 
   const alperAlpContent = (
