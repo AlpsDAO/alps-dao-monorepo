@@ -7,7 +7,11 @@ import { Trans } from '@lingui/macro';
 
 // Define reusable Link components outside of Trans for efficiency and clarity
 const PlaygroundLink = () => (
-  <Link text={<Trans>Playground</Trans>} url="/playground" leavesPage={false} />
+  <Link
+    text={<Trans>Playground</Trans>}
+    url="/playground"
+    leavesPage={false}
+  />
 );
 
 const PublicDomainLink = () => (
@@ -34,6 +38,14 @@ const NounsDAOLink = () => (
   />
 );
 
+const GnarsLink = () => (
+  <Link
+    text={<Trans>Gnars</Trans>}
+    url="https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/6370?tab=about"
+    leavesPage={true}
+  />
+);
+
 const Documentation = () => {
   return (
     <Section fullWidth={false}>
@@ -42,10 +54,16 @@ const Documentation = () => {
           <h1><Trans>WTF?</Trans></h1>
           <p className={classes.aboutText}>
             <Trans>
-              Alps is an extension of <NounsDAOLink /> and Gnars, focused on establishing
-              long-term relationships with alpine resorts to proliferate Alps, provide
-              unique membership perks to members, and support proposals that enhance
-              on-mountain environments and experiences.
+              We take ⌐◨-◨ deep into the pristine pow of the world. Alps is a club where membership fees go into
+              a treasury governed by the membership tokens. If you love mountain culture, skiing, snowboarding,
+              or snow in general, join us by bidding above.
+              </Trans>
+          </p>
+          <p className={classes.aboutText}>
+            <Trans>
+              Alps is an extension of <NounsDAOLink /> and <GnarsLink />, focused on establishing
+              long-term relationships with alpine resorts to proliferate Alps, provide unique membership perks
+              to members, and support proposals that enhance on-mountain environments and experiences.
             </Trans>
           </p>
           <p className={classes.aboutText} style={{ paddingBottom: '4rem' }}>
