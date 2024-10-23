@@ -1,8 +1,9 @@
 import { useEtherBalance } from '@usedapp/core';
 import useLidoBalance from './useLidoBalance';
-import { useCoingeckoPrice } from '@usedapp/coingecko';
+import useChainlinkEthToUsd from './useChainlinkEthToUsd';
 import config from '../config';
 import { ethers } from 'ethers';
+import { useEffect, useState } from 'react';
 
 /**
  * Computes treasury balance (ETH + Lido)
@@ -20,10 +21,17 @@ export const useTreasuryBalance = () => {
  *
  * @returns USD value of treasury assets (ETH + Lido) at current exchange rate
  */
-export const useTreasuryUSDValue = () => {
-  const etherPrice = Number(useCoingeckoPrice('ethereum', 'usd'));
-  const treasuryBalanceETH = Number(
-    ethers.utils.formatEther(useTreasuryBalance()?.toString() || '0'),
-  );
-  return etherPrice * treasuryBalanceETH;
+export const useTreasuryUSDValue = (ethBalance?: ethers.BigNumber) => {
+  const [ balance, setBalance ] = useState<ethers.BigNumber | undefined>(undefined);
+  const { rate, decimals } = useChainlinkEthToUsd();
+  
+  useEffect(() => {
+    if (!rate || !decimals || !ethBalance) {
+      setBalance(undefined);
+      return;
+    }
+    setBalance(ethBalance.mul(rate.div(ethers.BigNumber.from(10).pow(decimals))));
+  }, [rate?.toString(), decimals?.toString(), ethBalance?.toString()]);
+  
+  return balance;
 };

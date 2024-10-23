@@ -15,7 +15,7 @@ const GovernancePage = () => {
   const alpsRequired = threshold !== undefined ? threshold + 1 : '...';
 
   const treasuryBalance = useTreasuryBalance();
-  const treasuryBalanceUSD = useTreasuryUSDValue();
+  const treasuryBalanceUSD = useTreasuryUSDValue(treasuryBalance);
 
   // Note: We have to extract this copy out of the <span> otherwise the Lingui macro gets confused
   const alpSingular = <Trans>Alp</Trans>;
@@ -61,7 +61,7 @@ const GovernancePage = () => {
               <Col className={classes.usdTreasuryAmt}>
                 <h1 className={classes.usdBalance}>
                   {treasuryBalanceUSD &&
-                    i18n.number(Number(treasuryBalanceUSD.toFixed(0)), {
+                    i18n.number(Number(Number(utils.formatEther(treasuryBalanceUSD)).toFixed(2)), {
                       style: 'currency',
                       currency: 'USD',
                     })}
