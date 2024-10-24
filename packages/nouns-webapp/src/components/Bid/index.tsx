@@ -240,11 +240,6 @@ const Bid: React.FC<{
   const isDisabled =
     placeBidState.status === 'Mining' || settleAuctionState.status === 'Mining' || !activeAccount;
 
-  const fomoAlpsBtnOnClickHandler = () => {
-    // Open Fomo Alps in a new tab
-    window.open('https://fomoalps.wtf', '_blank')?.focus();
-  };
-
   const isWalletConnected = activeAccount !== undefined;
 
   return (

@@ -1,4 +1,4 @@
-import { Web3Provider } from '@ethersproject/providers';
+import { BaseProvider } from '@ethersproject/providers';
 import { BigNumber as EthersBN, utils } from 'ethers';
 
 /**
@@ -8,7 +8,7 @@ import { BigNumber as EthersBN, utils } from 'ethers';
  * @returns  NNS or ENS or null (if neither resolve)
  */
 export async function lookupNNSOrENS(
-  library: Web3Provider,
+  library: BaseProvider,
   address: string,
 ): Promise<string | null> {
   try {

@@ -10,7 +10,7 @@ import {
 import { useUserVotesAsOfBlock } from '../../wrappers/alpToken';
 import classes from './Vote.module.css';
 import { RouteComponentProps } from 'react-router-dom';
-import { TransactionStatus, useBlockNumber } from '@usedapp/core';
+import { TransactionStatus } from '@usedapp/core';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -40,6 +40,7 @@ import { SearchIcon } from '@heroicons/react/solid';
 import ReactTooltip from 'react-tooltip';
 import DynamicQuorumInfoModal from '../../components/DynamicQuorumInfoModal';
 import config from '../../config';
+import { useBlockNumber } from '../../hooks/useBlockNumber';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

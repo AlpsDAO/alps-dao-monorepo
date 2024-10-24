@@ -1,7 +1,6 @@
-import { useEtherBalance } from '@usedapp/core';
 import useLidoBalance from './useLidoBalance';
 import useChainlinkEthToUsd from './useChainlinkEthToUsd';
-import config from '../config';
+import config, { getPublicProvider } from '../config';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 
@@ -11,8 +10,19 @@ import { useEffect, useState } from 'react';
  * @returns Total balance of treasury (ETH + Lido) as EthersBN
  */
 export const useTreasuryBalance = () => {
-  const ethBalance = useEtherBalance(config.addresses.alpsDaoExecutor);
+  const [ethBalance, setEthBalance] = useState<ethers.BigNumber | undefined>();
   const lidoBalanceAsETH = useLidoBalance();
+
+  useEffect(() => {
+    async function getTreasuryBalance() {
+      const publicProvider = getPublicProvider();
+      const balance = await publicProvider.getBalance(config.addresses.alpsDaoExecutor);
+      setEthBalance(balance);
+    }
+
+    getTreasuryBalance();
+  }, []);
+
   return ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
 };
 

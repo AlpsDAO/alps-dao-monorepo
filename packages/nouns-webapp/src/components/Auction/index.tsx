@@ -15,7 +15,7 @@ import {
   setNextOnDisplayAuctionAlpId,
   setPrevOnDisplayAuctionAlpId,
 } from '../../state/slices/onDisplayAuction';
-import { beige, grey } from '../../utils/alpBgColors';
+import { beige } from '../../utils/alpBgColors';
 
 interface AuctionProps {
   auction?: IAuction;

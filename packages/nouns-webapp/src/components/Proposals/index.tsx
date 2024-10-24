@@ -3,7 +3,7 @@ import { Alert, Button } from 'react-bootstrap';
 import ProposalStatus from '../ProposalStatus';
 import classes from './Proposals.module.css';
 import { useHistory } from 'react-router-dom';
-import { useBlockNumber, useEthers } from '@usedapp/core';
+import { useEthers } from '@usedapp/core';
 import { isMobileScreen } from '../../utils/isMobile';
 import clsx from 'clsx';
 import { useUserAlpTokenBalance, useUserVotes } from '../../wrappers/alpToken';
@@ -14,11 +14,13 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import { SUPPORTED_LOCALE_TO_DAYSJS_LOCALE, SupportedLocale } from '../../i18n/locales';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DelegationModal from '../DelegationModal';
 import { i18n } from '@lingui/core';
 import en from 'dayjs/locale/en';
 import { AVERAGE_BLOCK_TIME_IN_SECS } from '../../utils/constants';
+import { getPublicProvider } from '../../config';
+import { useBlockNumber } from '../../hooks/useBlockNumber';
 
 dayjs.extend(relativeTime);
 

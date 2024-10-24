@@ -1,7 +1,5 @@
 import { AlpsDAOV2ABI, AlpsDaoLogicV1Factory } from '@nouns/sdk';
 import {
-  ChainId,
-  useBlockNumber,
   useContractCall,
   useContractCalls,
   useContractFunction,
@@ -12,11 +10,12 @@ import { defaultAbiCoder, Result } from 'ethers/lib/utils';
 import { useMemo } from 'react';
 import { useLogs } from '../hooks/useLogs';
 import * as R from 'ramda';
-import config, { CHAIN_ID } from '../config';
+import config, { ChainId, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
 import { proposalsQuery } from './subgraph';
 import BigNumber from 'bignumber.js';
 import { useBlockTimestamp } from '../hooks/useBlockTimestamp';
+import { useBlockNumber } from '../hooks/useBlockNumber';
 
 export interface DynamicQuorumParams {
   minQuorumVotesBPS: number;

@@ -24,6 +24,7 @@ import {
 } from '../../utils/addressAndENSDisplayUtils';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
+import { getPublicProvider } from '../../config';
 
 interface NavWalletProps {
   address: string;
@@ -50,12 +51,12 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const [buttonUp, setButtonUp] = useState(false);
   const [showConnectModal, setShowConnectModal] = useState(false);
   const history = useHistory();
-  const { library: provider } = useEthers();
   const activeAccount = useAppSelector(state => state.account.activeAccount);
   const { deactivate } = useEthers();
   const ens = useReverseENSLookUp(address);
   const shortAddress = useShortAddress(address);
   const activeLocale = useActiveLocale();
+  const publicProvider = getPublicProvider();
 
   const setModalStateHandler = (state: boolean) => {
     setShowConnectModal(state);
@@ -125,7 +126,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
         <div className={navDropdownClasses.button}>
           <div className={classes.icon}>
             {' '}
-            <Davatar size={21} address={address} provider={provider} />
+            <Davatar size={21} address={address} provider={publicProvider} />
           </div>
           <div className={navDropdownClasses.dropdownBtnContent}>{ens ? ens : shortAddress}</div>
           <div className={buttonUp ? navDropdownClasses.arrowUp : navDropdownClasses.arrowDown}>
@@ -210,7 +211,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
             <div className={navDropdownClasses.button}>
               <div className={classes.icon}>
                 {' '}
-                <Davatar size={21} address={address} provider={provider} />
+                <Davatar size={21} address={address} provider={publicProvider} />
               </div>
               <div className={navDropdownClasses.dropdownBtnContent}>
                 <span style={{ color: 'var(--brand-white)' }}>

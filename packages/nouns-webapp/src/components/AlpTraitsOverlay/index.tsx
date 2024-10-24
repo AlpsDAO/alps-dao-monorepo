@@ -20,13 +20,6 @@ const AlpTraitsOverlay: React.FC<{
 
   let stateBgColor = useAppSelector(state => state.application.stateBackgroundColor);
 
-  const traits = {
-    body: BodyIcon,
-    accessory: AccessoryIcon,
-    head: HeadIcon,
-    glasses: GlassesIcon,
-  };
-
   const backgroundColors = {
     '#63a0f9': 'Bluebird Sky',
     '#018146': 'Evergreen',

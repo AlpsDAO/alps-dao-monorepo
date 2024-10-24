@@ -7,12 +7,12 @@ import classes from './VoteCard.module.css';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
 import DelegateGroupedAlpImageVoteTable from '../DelegateGroupedAlpImageVoteTable';
-import { useEthers } from '@usedapp/core';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
 import clsx from 'clsx';
 import { ensCacheKey } from '../../utils/ensLookup';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import { lookupNNSOrENS } from '../../utils/lookupNNSOrENS';
+import { getPublicProvider } from '../../config';
 
 export enum VoteCardVariant {
   FOR,
@@ -59,7 +59,7 @@ const VoteCard: React.FC<VoteCardProps> = props => {
       break;
   }
 
-  const { library } = useEthers();
+  const publicProvider = getPublicProvider();
   const [ensCached, setEnsCached] = useState(false);
   const locale = useActiveLocale();
   const filteredDelegateGroupedVoteData =
@@ -69,7 +69,7 @@ const VoteCard: React.FC<VoteCardProps> = props => {
   // Pre-fetch ENS  of delegates (with 30min TTL)
   // This makes hover cards load more smoothly
   useEffect(() => {
-    if (!delegateGroupedVoteData || !library || ensCached) {
+    if (!delegateGroupedVoteData || ensCached) {
       return;
     }
 
@@ -78,7 +78,7 @@ const VoteCard: React.FC<VoteCardProps> = props => {
         return;
       }
 
-      lookupNNSOrENS(library, delegateInfo.delegate)
+      lookupNNSOrENS(publicProvider, delegateInfo.delegate)
         .then(name => {
           // Store data as mapping of address_Expiration => address or ENS
           if (name) {
@@ -96,7 +96,7 @@ const VoteCard: React.FC<VoteCardProps> = props => {
         });
     });
     setEnsCached(true);
-  }, [library, ensCached, delegateGroupedVoteData]);
+  }, [ensCached, delegateGroupedVoteData]);
 
   return (
     <Col lg={4} className={classes.wrapper}>

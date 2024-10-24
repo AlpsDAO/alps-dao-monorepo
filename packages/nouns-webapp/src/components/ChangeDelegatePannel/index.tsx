@@ -13,6 +13,7 @@ import { usePickByState } from '../../utils/pickByState';
 import { buildEtherscanTxLink } from '../../utils/etherscan';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import BrandSpinner from '../BrandSpinner';
+import { getPublicProvider } from '../../config';
 
 interface ChangeDelegatePannelProps {
   onDismiss: () => void;
@@ -50,7 +51,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
     ChangeDelegateState.ENTER_DELEGATE_ADDRESS,
   );
 
-  const { library, account } = useEthers();
+  const { account } = useEthers();
 
   const [delegateAddress, setDelegateAddress] = useState(delegateTo ?? '');
   const [delegateInputText, setDelegateInputText] = useState(delegateTo ?? '');
@@ -76,8 +77,9 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
   }, [delegateState]);
 
   useEffect(() => {
+    const publicProvider = getPublicProvider();
     const checkIsValidENS = async () => {
-      const reverseENSResult = await library?.resolveName(delegateAddress);
+      const reverseENSResult = await publicProvider?.resolveName(delegateAddress);
       if (reverseENSResult) {
         setDelegateAddress(reverseENSResult);
       }
@@ -85,7 +87,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
     };
 
     checkIsValidENS();
-  }, [delegateAddress, delegateTo, library]);
+  }, [delegateAddress, delegateTo]);
 
   useEffect(() => {
     if (delegateAddress.length === 0) {
