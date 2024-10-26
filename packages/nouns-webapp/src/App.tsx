@@ -17,16 +17,18 @@ import VotePage from './pages/Vote';
 import AlpersPage from './pages/Alpers';
 import NotFoundPage from './pages/NotFound';
 import Playground from './pages/Playground';
-import { CHAIN_ID, ChainId, getPublicProvider } from './config';
+import { CHAIN_ID, ChainId } from './config';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { AvatarProvider } from '@davatar/react';
 import dayjs from 'dayjs';
 import DelegatePage from './pages/DelegatePage';
-import { useEthers } from '@usedapp/core';
+import { useWallet } from './hooks/useWallet';
+import { usePublicProvider } from './hooks/usePublicProvider';
 
 function App() {
-  const { account, chainId } = useEthers();
+  const { account, chainId } = useWallet();
   const dispatch = useAppDispatch();
+  const publicProvider = usePublicProvider();
   dayjs.extend(relativeTime);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ function App() {
       )}
       <BrowserRouter>
         <AvatarProvider
-          provider={chainId === ChainId.Mainnet ? getPublicProvider() : undefined}
+          provider={chainId === ChainId.Mainnet ? publicProvider : undefined}
           batchLookups={true}
         >
           <NavBar />

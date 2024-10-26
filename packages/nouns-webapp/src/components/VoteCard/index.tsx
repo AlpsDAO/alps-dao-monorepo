@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import { ensCacheKey } from '../../utils/ensLookup';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import { lookupNNSOrENS } from '../../utils/lookupNNSOrENS';
-import { getPublicProvider } from '../../config';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
 
 export enum VoteCardVariant {
   FOR,
@@ -59,7 +59,7 @@ const VoteCard: React.FC<VoteCardProps> = props => {
       break;
   }
 
-  const publicProvider = getPublicProvider();
+  const publicProvider = usePublicProvider();
   const [ensCached, setEnsCached] = useState(false);
   const locale = useActiveLocale();
   const filteredDelegateGroupedVoteData =

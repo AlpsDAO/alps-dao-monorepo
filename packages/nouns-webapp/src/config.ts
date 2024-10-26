@@ -2,7 +2,6 @@ import {
   ContractAddresses as AlpsContractAddresses,
   getContractAddressesForChainOrThrow,
 } from '@nouns/sdk';
-import { ethers } from 'ethers';
 
 interface ExternalContractAddresses {
   lidoToken: string | undefined;
@@ -62,10 +61,6 @@ export const createNetworkHttpUrl = (network: string): string => {
 export const createNetworkWsUrl = (network: string): string => {
   const custom = process.env[`REACT_APP_${network.toUpperCase()}_WSRPC`];
   return custom || `wss://${network}.infura.io/ws/v3/${INFURA_PROJECT_ID}`;
-};
-
-export const getPublicProvider = (): ethers.providers.BaseProvider => {
-  return ethers.getDefaultProvider(app[CHAIN_ID].jsonRpcUri);
 };
 
 const THEGRAPH_STUDIO_API_KEY = process.env.REACT_APP_THEGRAPH_STUDIO_API_KEY ?? '';

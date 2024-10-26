@@ -1,7 +1,6 @@
 import Modal from '../Modal';
 import WalletButton from '../WalletButton';
 import { WALLET_TYPE } from '../WalletButton';
-import { useEthers } from '@usedapp/core';
 import clsx from 'clsx';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
@@ -11,10 +10,11 @@ import { FortmaticConnector } from '@web3-react/fortmatic-connector';
 import config, { CHAIN_ID, WALLET_CONNECT_V2_PROJECT_ID } from '../../config';
 import classes from './WalletConnectModal.module.css';
 import { Trans } from '@lingui/macro';
+import { useWallet } from '../../hooks/useWallet';
 
 const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
   const { onDismiss } = props;
-  const { activate } = useEthers();
+  const { activate } = useWallet();
   const supportedChainIds = [CHAIN_ID];
 
   const wallets = (

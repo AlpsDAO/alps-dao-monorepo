@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import config from '../../config';
 import { Proposal, useDynamicQuorumProps } from '../../wrappers/alpsDao';
 import { totalAlpSupplyAtPropSnapshot } from '../../wrappers/subgraph';
 import { Backdrop } from '../Modal';
@@ -298,7 +297,6 @@ const DynamicQuorumInfoModal: React.FC<{
   );
 
   const dynamicQuorumProps = useDynamicQuorumProps(
-    config.addresses.alpsDAOProxy,
     proposal.startBlock,
   );
 

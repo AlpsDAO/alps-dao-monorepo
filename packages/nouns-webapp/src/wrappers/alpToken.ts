@@ -1,10 +1,11 @@
-import { useContractCall, useContractFunction, useEthers } from '@usedapp/core';
-import { BigNumber as EthersBN, ethers, utils } from 'ethers';
-import { AlpsTokenABI, AlpsTokenFactory } from '@nouns/contracts';
+import { BigNumber as EthersBN, ethers } from 'ethers';
 import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
 import { seedsQuery } from './subgraph';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useWallet } from '../hooks/useWallet';
+import { useContracts } from '../hooks/useContracts';
+import { useTransaction } from '../hooks/useTransaction';
 
 interface AlpToken {
   name: string;
@@ -24,7 +25,6 @@ export enum AlpsTokenContractFunction {
   delegateVotes = 'votesToDelegate',
 }
 
-const abi = new utils.Interface(AlpsTokenABI);
 const seedCacheKey = cacheKey(cache.seed, CHAIN_ID, config.addresses.alpsToken);
 
 const isSeedValid = (seed: Record<string, any> | undefined) => {
@@ -34,14 +34,25 @@ const isSeedValid = (seed: Record<string, any> | undefined) => {
   return hasExpectedKeys && hasValidValues;
 };
 
-export const useAlpToken = (alpId: EthersBN) => {
-  const [alp] =
-    useContractCall<[string]>({
-      abi,
-      address: config.addresses.alpsToken,
-      method: 'dataURI',
-      args: [alpId],
-    }) || [];
+export const useAlpToken = (alpId?: ethers.BigNumber) => {
+  const [alp, setAlp] = useState<string | undefined>();
+  const { alpsDaoToken } = useContracts();
+
+  useEffect(() => {
+    async function getAlp(alpId?: ethers.BigNumber) {
+      if (alpId === undefined) {
+        setAlp(undefined);
+        return;
+      }
+      try {
+        const dataURI = await alpsDaoToken.dataURI(alpId);
+        setAlp(dataURI);
+      }
+      catch {}
+    }
+    
+    getAlp(alpId);
+  }, [alpId]);
 
   if (!alp) {
     return;
@@ -82,18 +93,30 @@ const useAlpSeeds = () => {
   return cachedSeeds;
 };
 
-export const useAlpSeed = (alpId: EthersBN) => {
+export const useAlpSeed = (alpId?: EthersBN) => {
   const seeds = useAlpSeeds();
-  const seed = seeds?.[alpId.toString()];
-  // prettier-ignore
-  const request = seed ? false : {
-    abi,
-    address: config.addresses.alpsToken,
-    method: 'seeds',
-    args: [alpId],
-  };
-  const response = useContractCall<IAlpSeed>(request);
-  if (response) {
+  const seed = seeds?.[alpId?.toString() ?? ''];
+  
+  const [response, setResponse] = useState<IAlpSeed | undefined>();
+  const { alpsDaoToken } = useContracts();
+
+  useEffect(() => {
+    async function getSeeds(alpId?: ethers.BigNumber) {
+      if (!alpId) {
+        setResponse(undefined);
+        return;
+      }
+      try {
+        const seedsResponse = await alpsDaoToken.seeds(alpId);
+        setResponse(seedsResponse);
+      }
+      catch {}
+    }
+    
+    getSeeds(alpId);
+  }, [alpId]);
+  
+  if (alpId && response) {
     const seedCache = localStorage.getItem(seedCacheKey);
     if (seedCache && isSeedValid(response)) {
       const updatedSeedCache = JSON.stringify({
@@ -114,74 +137,116 @@ export const useAlpSeed = (alpId: EthersBN) => {
 };
 
 export const useUserVotes = (): number | undefined => {
-  const { account } = useEthers();
+  const { account } = useWallet();
   return useAccountVotes(account ?? ethers.constants.AddressZero);
 };
 
 export const useAccountVotes = (account?: string): number | undefined => {
-  const [votes] =
-    useContractCall<[EthersBN]>({
-      abi,
-      address: config.addresses.alpsToken,
-      method: 'getCurrentVotes',
-      args: [account],
-    }) || [];
+  const [votes, setVotes] = useState<ethers.BigNumber | undefined>();
+  const { alpsDaoToken } = useContracts();
+
+  useEffect(() => {
+    async function getVotes(address?: string) {
+      if (!address) {
+        setVotes(undefined);
+        return;
+      }
+      try {
+        const votes = await alpsDaoToken.getCurrentVotes(address);
+        setVotes(votes);
+      }
+      catch {}
+    }
+    
+    getVotes(account);
+  }, [account]);
+
   return votes?.toNumber();
 };
 
 export const useUserDelegatee = (): string | undefined => {
-  const { account } = useEthers();
-  const [delegate] =
-    useContractCall<[string]>({
-      abi,
-      address: config.addresses.alpsToken,
-      method: 'delegates',
-      args: [account],
-    }) || [];
+  const [delegate, setDelegate] = useState<string | undefined>();
+  const { alpsDaoToken } = useContracts();
+  const { account } = useWallet();
+
+  useEffect(() => {
+    async function getDelegate(address?: string) {
+      if (!address) {
+        setDelegate(undefined);
+        return;
+      }
+      try {
+        const delegates = await alpsDaoToken.delegates(address);
+        setDelegate(delegates);
+      }
+      catch {}
+    }
+    
+    getDelegate(account);
+  }, [account]);
+
   return delegate;
 };
 
 export const useUserVotesAsOfBlock = (block: number | undefined): number | undefined => {
-  const { account } = useEthers();
-  // Check for available votes
-  const [votes] =
-    useContractCall<[EthersBN]>({
-      abi,
-      address: config.addresses.alpsToken,
-      method: 'getPriorVotes',
-      args: [account, block],
-    }) || [];
+  const [votes, setVotes] = useState<ethers.BigNumber | undefined>();
+  const { alpsDaoToken } = useContracts();
+  const { account } = useWallet();
+
+  useEffect(() => {
+    async function getVotes(address?: string, block?: number) {
+      if (!address || !block) {
+        setVotes(undefined);
+        return;
+      }
+      try {
+        const votes = await alpsDaoToken.getPriorVotes(address, block);
+        setVotes(votes);
+      }
+      catch {}
+    }
+    
+    getVotes(account);
+  }, [account, block]);
+
   return votes?.toNumber();
 };
 
 export const useDelegateVotes = () => {
-  const alpsToken = new AlpsTokenFactory().attach(config.addresses.alpsToken);
+  const { transact, status } = useTransaction();
+  const { alpsDaoToken } = useContracts();
 
-  const { send, state } = useContractFunction(alpsToken, 'delegate');
+  const delegateVotes = (delegatee: string) => {
+    transact(alpsDaoToken.delegate(delegatee));
+  };
 
-  return { send, state };
+  return { delegateVotes, delegateVotesState: status };
 };
 
-export const useAlpTokenBalance = (address: string): number | undefined => {
-  const [tokenBalance] =
-    useContractCall<[EthersBN]>({
-      abi,
-      address: config.addresses.alpsToken,
-      method: 'balanceOf',
-      args: [address],
-    }) || [];
+export const useAlpTokenBalance = (address?: string): number | undefined => {
+  const [tokenBalance, setTokenBalance] = useState<ethers.BigNumber | undefined>(undefined);
+  const { alpsDaoToken } = useContracts();
+
+  useEffect(() => {
+    async function balanceOf(address?: string) {
+      if (!address) {
+        setTokenBalance(undefined);
+        return;
+      }
+      try {
+        const balance = await alpsDaoToken.balanceOf(address);
+        setTokenBalance(balance);
+      }
+      catch {}
+    }
+    
+    balanceOf(address);
+  }, [address]);
+  
   return tokenBalance?.toNumber();
 };
 
 export const useUserAlpTokenBalance = (): number | undefined => {
-  const { account } = useEthers();
-
-  const [tokenBalance] =
-    useContractCall<[EthersBN]>({
-      abi,
-      address: config.addresses.alpsToken,
-      method: 'balanceOf',
-      args: [account],
-    }) || [];
-  return tokenBalance?.toNumber();
+  const { account } = useWallet();
+  return useAlpTokenBalance(account);
 };

@@ -1,6 +1,4 @@
-import { Auction, AuctionHouseContractFunction } from '../../wrappers/alpsAuction';
-import { useEthers, useContractFunction } from '@usedapp/core';
-import { connectContractToSigner } from '@usedapp/core/dist/cjs/src/hooks';
+import { Auction } from '../../wrappers/alpsAuction';
 import { useAppSelector } from '../../hooks';
 import React, { useEffect, useState, useRef, ChangeEvent, useCallback } from 'react';
 import { utils, BigNumber as EthersBN } from 'ethers';
@@ -10,13 +8,13 @@ import { Spinner, InputGroup, FormControl, Button, Col } from 'react-bootstrap';
 import { useAuctionMinBidIncPercentage } from '../../wrappers/alpsAuction';
 import { useAppDispatch } from '../../hooks';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
-import { AlpsAuctionHouseFactory } from '@nouns/sdk';
-import config from '../../config';
 import WalletConnectModal from '../WalletConnectModal';
 import SettleManuallyBtn from '../SettleManuallyBtn';
 import { Trans } from '@lingui/macro';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
+import { useTransaction } from '../../hooks/useTransaction';
+import { useContracts } from '../../hooks/useContracts';
 
 const computeMinimumNextBid = (
   currentBid: BigNumber,
@@ -51,12 +49,9 @@ const Bid: React.FC<{
   auctionEnded: boolean;
 }> = props => {
   const activeAccount = useAppSelector(state => state.account.activeAccount);
-  const { library } = useEthers();
+  const { alpsAuctionHouseProxy } = useContracts();
   let { auction, auctionEnded } = props;
   const activeLocale = useActiveLocale();
-  const alpsAuctionHouseContract = new AlpsAuctionHouseFactory().attach(
-    config.addresses.alpsAuctionHouseProxy,
-  );
 
   const account = useAppSelector(state => state.account.activeAccount);
 
@@ -84,14 +79,8 @@ const Bid: React.FC<{
     minBidIncPercentage,
   );
 
-  const { send: placeBid, state: placeBidState } = useContractFunction(
-    alpsAuctionHouseContract,
-    AuctionHouseContractFunction.createBid,
-  );
-  const { send: settleAuction, state: settleAuctionState } = useContractFunction(
-    alpsAuctionHouseContract,
-    AuctionHouseContractFunction.settleCurrentAndCreateNewAuction,
-  );
+  const { transact: transactBid, status: placeBidState } = useTransaction();
+  const { transact: settleAuction, status: settleAuctionState } = useTransaction();
 
   const bidInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
@@ -125,18 +114,17 @@ const Bid: React.FC<{
     }
 
     const value = utils.parseEther(bidInputRef.current.value.toString());
-    const contract = connectContractToSigner(alpsAuctionHouseContract, undefined, library);
-    const gasLimit = await contract.estimateGas.createBid(auction.alpId, {
+    const gasLimit = await alpsAuctionHouseProxy.estimateGas.createBid(auction.alpId, {
       value,
     });
-    placeBid(auction.alpId, {
+    transactBid(alpsAuctionHouseProxy.createBid(auction.alpId, {
       value,
       gasLimit: gasLimit.add(10_000), // A 10,000 gas pad is used to avoid 'Out of gas' errors
-    });
+    }));
   };
 
   const settleAuctionHandler = () => {
-    settleAuction();
+    settleAuction(alpsAuctionHouseProxy.settleCurrentAndCreateNewAuction());
   };
 
   const clearBidInput = () => {

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getPublicProvider } from '../config';
+import { usePublicProvider } from '../hooks/usePublicProvider';
 
 export const useEnsAvatarLookup = (address: string) => {
+  const publicProvider = usePublicProvider();
   const [ensAvatar, setEnsAvatar] = useState<string>();
 
   useEffect(() => {
-    const publicProvider = getPublicProvider();
     let mounted = true;
     if (address && publicProvider) {
       publicProvider

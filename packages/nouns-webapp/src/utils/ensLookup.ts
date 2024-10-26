@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { cache, cacheKey, CHAIN_ID, getPublicProvider } from '../config';
+import { cache, cacheKey, CHAIN_ID } from '../config';
 import { lookupNNSOrENS } from './lookupNNSOrENS';
+import { usePublicProvider } from '../hooks/usePublicProvider';
 
 export const ensCacheKey = (address: string) => {
   return cacheKey(cache.ens, CHAIN_ID, address);
@@ -8,11 +9,11 @@ export const ensCacheKey = (address: string) => {
 
 export const useReverseENSLookUp = (address: string) => {
   const [ens, setEns] = useState<string>();
+  const publicProvider = usePublicProvider();
 
   useEffect(() => {
     let mounted = true;
     if (address) {
-      const publicProvider = getPublicProvider();
       // Look for resolved ENS in local storage (result of pre-fetching)
       const maybeCachedENSResultRaw = localStorage.getItem(ensCacheKey(address));
       if (maybeCachedENSResultRaw) {

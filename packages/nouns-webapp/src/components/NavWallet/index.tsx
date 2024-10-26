@@ -1,5 +1,4 @@
 import Davatar from '@davatar/react';
-import { useEthers } from '@usedapp/core';
 import React, { useState } from 'react';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { getNavBarButtonVariant, NavBarButtonStyle } from '../NavBarButton';
@@ -24,7 +23,8 @@ import {
 } from '../../utils/addressAndENSDisplayUtils';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
-import { getPublicProvider } from '../../config';
+import { useWallet } from '../../hooks/useWallet';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
 
 interface NavWalletProps {
   address: string;
@@ -52,11 +52,11 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const [showConnectModal, setShowConnectModal] = useState(false);
   const history = useHistory();
   const activeAccount = useAppSelector(state => state.account.activeAccount);
-  const { deactivate } = useEthers();
+  const { deactivate } = useWallet();
   const ens = useReverseENSLookUp(address);
   const shortAddress = useShortAddress(address);
   const activeLocale = useActiveLocale();
-  const publicProvider = getPublicProvider();
+  const publicProvider = usePublicProvider();
 
   const setModalStateHandler = (state: boolean) => {
     setShowConnectModal(state);

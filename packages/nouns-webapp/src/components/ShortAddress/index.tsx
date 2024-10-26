@@ -6,11 +6,11 @@ import { useShortAddress } from '../../utils/addressAndENSDisplayUtils';
 import React from 'react';
 import Identicon from '../Identicon';
 import { useAppSelector } from '../../hooks';
-import { getPublicProvider } from '../../config';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
 
 const ShortAddress: React.FC<{ address: string; avatar?: boolean; size?: number }> = props => {
   const { address, avatar, size = 24 } = props;
-  const publicProvider = getPublicProvider();
+  const publicProvider = usePublicProvider();
 
   const ens = useReverseENSLookUp(address) || resolveAlpContractAddress(address);
   const ensMatchesBlocklistRegex = containsBlockedText(ens || '', 'en');

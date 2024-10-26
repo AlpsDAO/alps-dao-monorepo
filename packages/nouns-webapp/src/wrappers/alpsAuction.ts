@@ -1,11 +1,10 @@
-import { useContractCall } from '@usedapp/core';
-import { BigNumber as EthersBN, utils } from 'ethers';
-import { AlpsAuctionHouseABI } from '@nouns/sdk';
-import config from '../config';
+import { BigNumber as EthersBN } from 'ethers';
 import BigNumber from 'bignumber.js';
 import { isAlperAlp } from '../utils/alperAlp';
 import { useAppSelector } from '../hooks';
 import { AuctionState } from '../state/slices/auction';
+import { useEffect, useState } from 'react';
+import { useContracts } from '../hooks/useContracts';
 
 export enum AuctionHouseContractFunction {
   auction = 'auction',
@@ -25,31 +24,46 @@ export interface Auction {
   settled: boolean;
 }
 
-const abi = new utils.Interface(AlpsAuctionHouseABI);
+export const useAuction = () => {
+  const [auction, setAuction] = useState<Auction | undefined>();
+  const { alpsAuctionHouseProxy } = useContracts();
 
-export const useAuction = (auctionHouseProxyAddress: string) => {
-  const auction = useContractCall<Auction>({
-    abi,
-    address: auctionHouseProxyAddress,
-    method: 'auction',
-    args: [],
-  });
-  return auction as Auction;
+  useEffect(() => {
+    async function getAuction() {
+      try {
+        const auctionResult = await alpsAuctionHouseProxy.auction();
+        setAuction(auctionResult);
+      }
+      catch {}
+    }
+
+    getAuction();
+  }, []);
+
+  return auction;
 };
 
 export const useAuctionMinBidIncPercentage = () => {
-  const minBidIncrement = useContractCall({
-    abi,
-    address: config.addresses.alpsAuctionHouseProxy,
-    method: 'minBidIncrementPercentage',
-    args: [],
-  });
+  const [minBidIncrement, setMinBidIncrement] = useState<number | undefined>();
+  const { alpsAuctionHouseProxy } = useContracts();
+
+  useEffect(() => {
+    async function getMinBidIncrement() {
+      try {
+        const perc = await alpsAuctionHouseProxy.minBidIncrementPercentage();
+        setMinBidIncrement(perc);
+      }
+      catch {}
+    }
+
+    getMinBidIncrement();
+  }, []);
 
   if (!minBidIncrement) {
     return;
   }
 
-  return new BigNumber(minBidIncrement[0]);
+  return new BigNumber(minBidIncrement);
 };
 
 /**

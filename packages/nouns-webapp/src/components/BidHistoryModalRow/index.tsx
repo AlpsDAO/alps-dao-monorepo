@@ -14,7 +14,7 @@ import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { containsBlockedText } from '../../utils/moderation/containsBlockedText';
 import { i18n } from '@lingui/core';
 import { shortENS, useShortAddress } from '../../utils/addressAndENSDisplayUtils';
-import { getPublicProvider } from '../../config';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
 interface BidHistoryModalRowProps {
   bid: Bid;
   index: number;
@@ -23,7 +23,7 @@ interface BidHistoryModalRowProps {
 const BidHistoryModalRow: React.FC<BidHistoryModalRowProps> = props => {
   const { bid, index } = props;
   const txLink = buildEtherscanTxLink(bid.transactionHash);
-  const provider = getPublicProvider();
+  const provider = usePublicProvider();
 
   const bidAmount = <TruncatedAmount amount={new BigNumber(EthersBN.from(bid.value).toString())} />;
 

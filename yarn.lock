@@ -5252,14 +5252,6 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@17.0.1":
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.1.tgz#eb1f1407dea8da3bc741879c1192aa703ab9975b"
-  integrity sha512-w8t9f53B2ei4jeOqf/gxtc2Sswnc3LBK5s0DyJcg5xd10tMHXts2N31cKjWfH9IC/JvEPa/YF1U4YeP1t4R6HQ==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^3.0.2"
-
 "@types/resolve@0.0.8", "@types/resolve@^0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-0.0.8.tgz#f26074d238e02659e323ce1a13d041eee280e194"
@@ -5541,25 +5533,6 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
-
-"@uniswap/token-lists@^1.0.0-beta.27":
-  version "1.0.0-beta.27"
-  resolved "https://registry.yarnpkg.com/@uniswap/token-lists/-/token-lists-1.0.0-beta.27.tgz#8b02a979b0b0024cc96f60e694a3f6db6b2ccab2"
-  integrity sha512-x5hmIniQ9TGqOBCRqfWcmZi/U5kB0qrHMDQ9igs3nMbK0wwmYLraL4owbIwXFGR/co6/lJYJC4K/Gjn4wZY5mQ==
-
-"@usedapp/core@0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-0.9.1.tgz#b895caabf4bfe7f1bfda00651b60812b3437156f"
-  integrity sha512-Xhv3EZPVdkwn1J1qX7vC4GwPEfYU03cqRdWf2HupkWoEyCwkj/QrOpeoYz0TEWVlIle948kaBhDe+HKr48cKSw==
-  dependencies:
-    "@types/react" "17.0.1"
-    "@uniswap/token-lists" "^1.0.0-beta.27"
-    "@web3-react/core" "6.1.1"
-    "@web3-react/injected-connector" "6.0.7"
-    "@web3-react/network-connector" "6.1.5"
-    ethers "5.5.1"
-    lodash.merge "^4.6.2"
-    nanoid "3.1.22"
 
 "@walletconnect/core@2.17.1":
   version "2.17.1"
@@ -5866,23 +5839,12 @@
     web-encoding "1.1.5"
     web-streams-polyfill "3.0.3"
 
-"@web3-react/abstract-connector@^6.0.7":
+"@web3-react/abstract-connector@6.0.7", "@web3-react/abstract-connector@^6.0.7":
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/@web3-react/abstract-connector/-/abstract-connector-6.0.7.tgz#401b3c045f1e0fab04256311be49d5144e9badc6"
   integrity sha512-RhQasA4Ox8CxUC0OENc1AJJm8UTybu/oOCM61Zjg6y0iF7Z0sqv1Ai1VdhC33hrQpA8qSBgoXN9PaP8jKmtdqg==
   dependencies:
     "@web3-react/types" "^6.0.7"
-
-"@web3-react/core@6.1.1":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@web3-react/core/-/core-6.1.1.tgz#06c853890723f600b387b738a4b71ef41d5cccb7"
-  integrity sha512-HKXOgPNCmFvrVsed+aW/HlVhwzs8t3b+nzg3BoxgJQo/5yLiJXSumHRBdUrPxhBQiHkHRZiVPAvzf/8JMnm74Q==
-  dependencies:
-    "@ethersproject/keccak256" "^5.0.0-beta.130"
-    "@web3-react/abstract-connector" "^6.0.7"
-    "@web3-react/types" "^6.0.7"
-    tiny-invariant "^1.0.6"
-    tiny-warning "^1.0.3"
 
 "@web3-react/core@^6.1.9":
   version "6.1.9"
@@ -5905,7 +5867,7 @@
     fortmatic "^1.0.0"
     tiny-invariant "^1.0.6"
 
-"@web3-react/injected-connector@6.0.7", "@web3-react/injected-connector@^6.0.7":
+"@web3-react/injected-connector@^6.0.7":
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/@web3-react/injected-connector/-/injected-connector-6.0.7.tgz#1e0be23f51fa07fe6547fe986768a46b74c3a426"
   integrity sha512-Y7aJSz6pg+MWKtvdyuqyy6LWuH+4Tqtph1LWfiyVms9II9ar/9B/de4R8wh4wjg91wmHkU+D75yP09E/Soh2RA==
@@ -5922,15 +5884,6 @@
     "@0x/subproviders" "^5.0.4"
     "@web3-react/abstract-connector" "^6.0.7"
     "@web3-react/types" "^6.0.7"
-
-"@web3-react/network-connector@6.1.5":
-  version "6.1.5"
-  resolved "https://registry.yarnpkg.com/@web3-react/network-connector/-/network-connector-6.1.5.tgz#1fcce1dc7b03dac23fcc01ad0b0c870cb0e39e0b"
-  integrity sha512-Uwk8iMG8YCnTeKmyXt3Q7QJN28qTs0YTTW8/aes2R26KmYWCk3GdL2eal0QcXUixJy/IjrhXzbwzHgpneJqrWg==
-  dependencies:
-    "@web3-react/abstract-connector" "^6.0.7"
-    "@web3-react/types" "^6.0.7"
-    tiny-invariant "^1.0.6"
 
 "@web3-react/trezor-connector@^6.1.9":
   version "6.1.9"
@@ -11737,7 +11690,7 @@ ethereumjs-wallet@0.6.5:
     utf8 "^3.0.0"
     uuid "^3.3.2"
 
-ethers@5.5.1, ethers@5.6.8, ethers@^4.0.32, ethers@^4.0.40, ethers@^5.0.1, ethers@^5.0.2, ethers@^5.5.2, ethers@^5.6.8, ethers@~4.0.4:
+ethers@5.6.8, ethers@^4.0.32, ethers@^4.0.40, ethers@^5.0.1, ethers@^5.0.2, ethers@^5.5.2, ethers@^5.6.8, ethers@~4.0.4:
   version "5.6.8"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.6.8.tgz#d36b816b4896341a80a8bbd2a44e8cb6e9b98dd4"
   integrity sha512-YxIGaltAOdvBFPZwIkyHnXbW40f1r8mHUgapW6dxkO+6t7H6wY8POUn0Kbxrd/N7I4hHxyi7YCddMAH/wmho2w==
@@ -17690,11 +17643,6 @@ nanoid@3.1.20:
   version "3.1.20"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.20.tgz#badc263c6b1dcf14b71efaa85f6ab4c1d6cfc788"
   integrity sha512-a1cQNyczgKbLX9jwbS/+d7W8fX/RfgYR7lVWwWOGIPNgK2m0MWvrGF6/m4kk6U3QcFMnZf3RIhL0v2Jgh/0Uxw==
-
-nanoid@3.1.22:
-  version "3.1.22"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.22.tgz#b35f8fb7d151990a8aebd5aa5015c03cf726f844"
-  integrity sha512-/2ZUaJX2ANuLtTvqTlgqBQNJoQO398KyJgZloL0PZkC0dpysjncRUPsFe3DUPzz/y3h+u7C46np8RMuvF3jsSQ==
 
 nanoid@^3.0.2, nanoid@^3.1.20, nanoid@^3.1.23:
   version "3.3.7"

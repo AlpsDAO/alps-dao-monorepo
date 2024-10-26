@@ -3,7 +3,7 @@ import Modal from '../Modal';
 import classes from './VoteModal.module.css';
 import { useCastVote, useCastVoteWithReason, Vote } from '../../wrappers/alpsDao';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
-import { TransactionStatus } from '@usedapp/core';
+import { TransactionStatus } from '../../hooks/useTransaction';
 import NavBarButton, { NavBarButtonStyle } from '../NavBarButton';
 import clsx from 'clsx';
 import { Trans } from '@lingui/macro';

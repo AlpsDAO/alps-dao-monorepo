@@ -3,13 +3,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { EventFilter, keyToFilter } from '../../utils/logParsing';
 import { fetchedLogs, fetchedLogsError, fetchingLogs } from '../slices/logs';
 import { useBlockNumber } from '../../hooks/useBlockNumber';
-import { getPublicProvider } from '../../config';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
 
 const MAX_BLOCKS_PER_CALL = 1_000_000;
 
 const Updater = (): null => {
   const dispatch = useAppDispatch();
   const state = useAppSelector(state => state.logs);
+  const publicProvider = usePublicProvider();
 
   const blockNumber = useBlockNumber();
 
@@ -35,7 +36,6 @@ const Updater = (): null => {
 
   useEffect(() => {
     if (typeof blockNumber !== 'number' || filtersNeedFetch.length === 0) return;
-    const publicProvider = getPublicProvider();
 
     dispatch(fetchingLogs({ filters: filtersNeedFetch, blockNumber }));
     filtersNeedFetch.forEach(filter => {
