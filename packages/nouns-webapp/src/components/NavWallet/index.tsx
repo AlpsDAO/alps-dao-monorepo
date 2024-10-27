@@ -1,5 +1,5 @@
 import Davatar from '@davatar/react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { getNavBarButtonVariant, NavBarButtonStyle } from '../NavBarButton';
 import classes from './NavWallet.module.css';
@@ -23,8 +23,8 @@ import {
 } from '../../utils/addressAndENSDisplayUtils';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
-import { useWallet } from '../../hooks/useWallet';
 import { usePublicProvider } from '../../hooks/usePublicProvider';
+import { WalletContext } from '../../contexts/WalletContext';
 
 interface NavWalletProps {
   address: string;
@@ -52,7 +52,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const [showConnectModal, setShowConnectModal] = useState(false);
   const history = useHistory();
   const activeAccount = useAppSelector(state => state.account.activeAccount);
-  const { deactivate } = useWallet();
+  const { deactivate } = useContext(WalletContext);
   const ens = useReverseENSLookUp(address);
   const shortAddress = useShortAddress(address);
   const activeLocale = useActiveLocale();
@@ -65,7 +65,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const switchWalletHandler = () => {
     setShowConnectModal(false);
     setButtonUp(false);
-    deactivate();
+    deactivate?.();
     setShowConnectModal(false);
     setShowConnectModal(true);
   };
@@ -73,7 +73,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const disconectWalletHandler = () => {
     setShowConnectModal(false);
     setButtonUp(false);
-    deactivate();
+    deactivate?.();
   };
 
   const statePrimaryButtonClass = usePickByState(
@@ -87,13 +87,6 @@ const NavWallet: React.FC<NavWalletProps> = props => {
     navDropdownClasses.whiteInfoSelected,
     navDropdownClasses.dropdownActive,
     navDropdownClasses.dropdownActive,
-    history,
-  );
-
-  const mobileTextColor = usePickByState(
-    'rgba(140, 141, 146, 1)',
-    'rgba(121, 128, 156, 1)',
-    'rgba(142, 129, 127, 1)',
     history,
   );
 

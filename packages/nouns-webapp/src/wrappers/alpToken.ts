@@ -2,10 +2,10 @@ import { BigNumber as EthersBN, ethers } from 'ethers';
 import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
 import { seedsQuery } from './subgraph';
-import { useEffect, useState } from 'react';
-import { useWallet } from '../hooks/useWallet';
+import { useContext, useEffect, useState } from 'react';
 import { useContracts } from '../hooks/useContracts';
 import { useTransaction } from '../hooks/useTransaction';
+import { WalletContext } from '../contexts/WalletContext';
 
 interface AlpToken {
   name: string;
@@ -40,7 +40,7 @@ export const useAlpToken = (alpId?: ethers.BigNumber) => {
 
   useEffect(() => {
     async function getAlp(alpId?: ethers.BigNumber) {
-      if (alpId === undefined) {
+      if (alpId === undefined || !alpsDaoToken) {
         setAlp(undefined);
         return;
       }
@@ -102,7 +102,7 @@ export const useAlpSeed = (alpId?: EthersBN) => {
 
   useEffect(() => {
     async function getSeeds(alpId?: ethers.BigNumber) {
-      if (!alpId) {
+      if (!alpId || !alpsDaoToken) {
         setResponse(undefined);
         return;
       }
@@ -137,7 +137,7 @@ export const useAlpSeed = (alpId?: EthersBN) => {
 };
 
 export const useUserVotes = (): number | undefined => {
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
   return useAccountVotes(account ?? ethers.constants.AddressZero);
 };
 
@@ -147,7 +147,7 @@ export const useAccountVotes = (account?: string): number | undefined => {
 
   useEffect(() => {
     async function getVotes(address?: string) {
-      if (!address) {
+      if (!address || !alpsDaoToken) {
         setVotes(undefined);
         return;
       }
@@ -167,11 +167,11 @@ export const useAccountVotes = (account?: string): number | undefined => {
 export const useUserDelegatee = (): string | undefined => {
   const [delegate, setDelegate] = useState<string | undefined>();
   const { alpsDaoToken } = useContracts();
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
 
   useEffect(() => {
     async function getDelegate(address?: string) {
-      if (!address) {
+      if (!address || !alpsDaoToken) {
         setDelegate(undefined);
         return;
       }
@@ -191,11 +191,11 @@ export const useUserDelegatee = (): string | undefined => {
 export const useUserVotesAsOfBlock = (block: number | undefined): number | undefined => {
   const [votes, setVotes] = useState<ethers.BigNumber | undefined>();
   const { alpsDaoToken } = useContracts();
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
 
   useEffect(() => {
     async function getVotes(address?: string, block?: number) {
-      if (!address || !block) {
+      if (!address || !block || !alpsDaoToken) {
         setVotes(undefined);
         return;
       }
@@ -217,6 +217,7 @@ export const useDelegateVotes = () => {
   const { alpsDaoToken } = useContracts();
 
   const delegateVotes = (delegatee: string) => {
+    if (!alpsDaoToken) return;
     transact(alpsDaoToken.delegate(delegatee));
   };
 
@@ -229,7 +230,7 @@ export const useAlpTokenBalance = (address?: string): number | undefined => {
 
   useEffect(() => {
     async function balanceOf(address?: string) {
-      if (!address) {
+      if (!address || !alpsDaoToken) {
         setTokenBalance(undefined);
         return;
       }
@@ -247,6 +248,6 @@ export const useAlpTokenBalance = (address?: string): number | undefined => {
 };
 
 export const useUserAlpTokenBalance = (): number | undefined => {
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
   return useAlpTokenBalance(account);
 };

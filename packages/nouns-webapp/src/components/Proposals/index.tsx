@@ -13,13 +13,13 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import { SUPPORTED_LOCALE_TO_DAYSJS_LOCALE, SupportedLocale } from '../../i18n/locales';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import DelegationModal from '../DelegationModal';
 import { i18n } from '@lingui/core';
 import en from 'dayjs/locale/en';
 import { AVERAGE_BLOCK_TIME_IN_SECS } from '../../utils/constants';
 import { useBlockNumber } from '../../hooks/useBlockNumber';
-import { useWallet } from '../../hooks/useWallet';
+import { WalletContext } from '../../contexts/WalletContext';
 
 dayjs.extend(relativeTime);
 
@@ -72,7 +72,7 @@ const getCountdownCopy = (proposal: Proposal, currentBlock: number, locale: Supp
 const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
   const history = useHistory();
 
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
   const connectedAccountAlpVotes = useUserVotes() || 0;
   const currentBlock = useBlockNumber();
   const isMobile = isMobileScreen();

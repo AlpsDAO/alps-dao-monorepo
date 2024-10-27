@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { isAddress } from 'ethers/lib/utils';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Collapse, FormControl } from 'react-bootstrap';
 import currentDelegatePannelClasses from '../CurrentDelegatePannel/CurrentDelegatePannel.module.css';
 import DelegationCandidateInfo from '../DelegationCandidateInfo';
@@ -12,8 +12,8 @@ import { usePickByState } from '../../utils/pickByState';
 import { buildEtherscanTxLink } from '../../utils/etherscan';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import BrandSpinner from '../BrandSpinner';
-import { useWallet } from '../../hooks/useWallet';
 import { usePublicProvider } from '../../hooks/usePublicProvider';
+import { WalletContext } from '../../contexts/WalletContext';
 
 interface ChangeDelegatePannelProps {
   onDismiss: () => void;
@@ -53,7 +53,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
 
   const publicProvider = usePublicProvider();
 
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
 
   const [delegateAddress, setDelegateAddress] = useState(delegateTo ?? '');
   const [delegateInputText, setDelegateInputText] = useState(delegateTo ?? '');

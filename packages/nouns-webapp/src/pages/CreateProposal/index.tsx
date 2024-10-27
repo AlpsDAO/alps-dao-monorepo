@@ -17,14 +17,14 @@ import CreateProposalButton from '../../components/CreateProposalButton';
 import ProposalTransactions from '../../components/ProposalTransactions';
 import ProposalTransactionFormModal from '../../components/ProposalTransactionFormModal';
 import { withStepProgress } from 'react-stepz';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { Trans } from '@lingui/macro';
-import { useWallet } from '../../hooks/useWallet';
 import { ethers } from 'ethers';
+import { WalletContext } from '../../contexts/WalletContext';
 
 const CreateProposalPage = () => {
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
   const latestProposalId = useProposalCount();
   const latestProposal = useProposal(latestProposalId ?? 0);
   const availableVotes = useUserVotes();

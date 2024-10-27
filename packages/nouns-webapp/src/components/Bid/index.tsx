@@ -94,7 +94,7 @@ const Bid: React.FC<{
   };
 
   const placeBidHandler = async () => {
-    if (!auction || !bidInputRef.current || !bidInputRef.current.value) {
+    if (!auction || !bidInputRef.current || !bidInputRef.current.value || !alpsAuctionHouseProxy) {
       return;
     }
 
@@ -124,6 +124,7 @@ const Bid: React.FC<{
   };
 
   const settleAuctionHandler = () => {
+    if (!alpsAuctionHouseProxy) return;
     settleAuction(alpsAuctionHouseProxy.settleCurrentAndCreateNewAuction());
   };
 

@@ -1,7 +1,7 @@
 import { AlpsDAOV2ABI } from '@nouns/sdk';
 import { utils, BigNumber as EthersBN } from 'ethers';
 import { defaultAbiCoder, Result } from 'ethers/lib/utils';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useLogs } from '../hooks/useLogs';
 import * as R from 'ramda';
 import { useQuery } from '@apollo/client';
@@ -9,9 +9,9 @@ import { proposalsQuery } from './subgraph';
 import BigNumber from 'bignumber.js';
 import { useBlockTimestamp } from '../hooks/useBlockTimestamp';
 import { useBlockNumber } from '../hooks/useBlockNumber';
-import { useWallet } from '../hooks/useWallet';
 import { useContracts } from '../hooks/useContracts';
 import { useTransaction } from '../hooks/useTransaction';
+import { WalletContext } from '../contexts/WalletContext';
 
 export interface DynamicQuorumParams {
   minQuorumVotesBPS: number;
@@ -158,7 +158,7 @@ export const useCurrentQuorum = (
 
   useEffect(() => {
     async function getQuorum(proposalId: number, skip: boolean) {
-      if (skip) {
+      if (skip || !alpsDaoProxyV2) {
         setQuorum(undefined);
         return;
       }
@@ -183,6 +183,10 @@ export const useDynamicQuorumProps = (
 
   useEffect(() => {
     async function getParams(block: number) {
+      if (!alpsDaoProxyV2) {
+        setParams(undefined);
+        return;
+      }
       try {
         const paramsResponse = await alpsDaoProxyV2.getDynamicQuorumParamsAt(block);
         setParams(paramsResponse);
@@ -198,13 +202,13 @@ export const useDynamicQuorumProps = (
 
 const useVoteReceipt = (proposalId: string | undefined): { hasVoted: boolean, support: number } => {
   const [receipt, setReceipt] = useState<{ hasVoted: boolean, support: number }>({ hasVoted: false, support: -1 });
-  const { account } = useWallet();
+  const { account } = useContext(WalletContext);
   const { alpsDaoProxyV2 } = useContracts();
 
   // Fetch a voting receipt for the passed proposal id
   useEffect(() => {
     async function getReceipt(proposalId?: string, account?: string) {
-      if (!proposalId || !account) {
+      if (!proposalId || !account || !alpsDaoProxyV2) {
         setReceipt({ hasVoted: false, support: -1 });
         return;
       }
@@ -250,6 +254,10 @@ export const useProposalCount = (): number | undefined => {
   useEffect(() => {
     async function getCount() {
       try {
+        if (!alpsDaoProxyV2) {
+          setCount(undefined);
+          return;
+        }
         const proposalCount = await alpsDaoProxyV2.proposalCount();
         setCount(proposalCount);
       }
@@ -270,6 +278,10 @@ export const useProposalThreshold = (): number | undefined => {
   useEffect(() => {
     async function getThreshold() {
       try {
+        if (!alpsDaoProxyV2) {
+          setThreshold(undefined);
+          return;
+        }
         const proposalThreshold = await alpsDaoProxyV2.proposalThreshold();
         setThreshold(proposalThreshold);
       }
@@ -290,6 +302,10 @@ const useVotingDelay = (): number | undefined => {
   useEffect(() => {
     async function getBlockDelay() {
       try {
+        if (!alpsDaoProxyV2) {
+          setBlockDelay(undefined);
+          return;
+        }
         const delay = await alpsDaoProxyV2.votingDelay();
         setBlockDelay(delay);
       }
@@ -335,7 +351,7 @@ const formatProposalTransactionDetails = (details: ProposalTransactionDetails | 
 const useFormattedProposalCreatedLogs = (skip: boolean, fromBlock?: number) => {
   const { alpsDaoProxyV2 } = useContracts();
   const proposalCreatedFilter = {
-    ...alpsDaoProxyV2.filters?.ProposalCreated(null, null, null, null, null, null, null, null, null),
+    ...alpsDaoProxyV2?.filters?.ProposalCreated(null, null, null, null, null, null, null, null, null),
     fromBlock,
   };
 
@@ -450,7 +466,7 @@ export const useAllProposalsViaChain = (skip = false): ProposalData => {
     return countToIndices(proposalCount);
   }, [proposalCount]);
 
-  if (!skip) {
+  if (!skip && alpsDaoProxyV2) {
     (async () => {
       const localProposals = [];
       const localStates = [];
@@ -515,6 +531,7 @@ export const useCastVote = () => {
   const { alpsDaoProxyV2 } = useContracts();
 
   const castVote = (proposalId: string, vote: Vote) => {
+    if (!alpsDaoProxyV2) return;
     transact(alpsDaoProxyV2.castVote(proposalId, vote));
   };
 
@@ -526,6 +543,7 @@ export const useCastVoteWithReason = () => {
   const { alpsDaoProxyV2 } = useContracts();
 
   const castVoteWithReason = (proposalId: string, vote: Vote, voteReason: string) => {
+    if (!alpsDaoProxyV2) return;
     transact(alpsDaoProxyV2.castVoteWithReason(proposalId, vote, voteReason));
   };
   
@@ -537,6 +555,7 @@ export const usePropose = () => {
   const { alpsDaoProxyV2 } = useContracts();
   
   const propose = (targets: string[], values: EthersBN[], signatures: string[], calldatas: string[], description: string) => {
+    if (!alpsDaoProxyV2) return;
     transact(alpsDaoProxyV2.propose(targets, values, signatures, calldatas, description));
   }
   
@@ -548,6 +567,7 @@ export const useQueueProposal = () => {
   const { alpsDaoProxyV2 } = useContracts();
 
   const queueProposal = (proposalId: string) => {
+    if (!alpsDaoProxyV2) return;
     transact(alpsDaoProxyV2.queue(proposalId));
   };
 
@@ -559,6 +579,7 @@ export const useExecuteProposal = () => {
   const { alpsDaoProxyV2 } = useContracts();
 
   const executeProposal = (proposalId: string) => {
+    if (!alpsDaoProxyV2) return;
     transact(alpsDaoProxyV2.execute(proposalId));
   };
   

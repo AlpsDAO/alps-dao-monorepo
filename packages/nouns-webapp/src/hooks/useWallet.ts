@@ -4,7 +4,15 @@ import { ethers } from "ethers";
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { usePublicProvider } from "./usePublicProvider";
 
-export const useWallet = () => {
+export interface Wallet {
+    account?: string;
+    chainId?: number;
+    provider?: ethers.providers.BaseProvider;
+    activate?: (connector: AbstractConnector) => void;
+    deactivate?: () => void;
+}
+
+export const useWallet = (): Wallet => {
     const publicProvider = usePublicProvider();
     const [account, setAccount] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | undefined>(CHAIN_ID);
@@ -13,19 +21,20 @@ export const useWallet = () => {
     const activate = async (connector: AbstractConnector) => {
         try {
             const result = await connector.activate();
-            if (!result || !result.account || !result.chainId || !result.provider) return;
+            if (!result || !result.account || !result.provider) return;
+            const { chainId: providerChainId } = await provider.getNetwork();
+            const web3Provider = new ethers.providers.Web3Provider(result.provider);
+            setProvider(web3Provider);
+            setChainId(providerChainId);
             setAccount(result.account);
-            const network = ethers.providers.getNetwork(result.chainId);
-            setChainId(network.chainId);
-            setProvider(result.provider);
             result.provider.once('disconnect', deactivate);
         }
-        catch {}
+        catch { }
     };
 
     const deactivate = () => {
         setAccount(undefined);
-        setChainId(undefined);
+        setChainId(CHAIN_ID);
         setProvider(publicProvider);
     };
 

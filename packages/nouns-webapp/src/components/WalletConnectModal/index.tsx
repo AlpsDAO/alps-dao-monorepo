@@ -10,11 +10,12 @@ import { FortmaticConnector } from '@web3-react/fortmatic-connector';
 import config, { CHAIN_ID, WALLET_CONNECT_V2_PROJECT_ID } from '../../config';
 import classes from './WalletConnectModal.module.css';
 import { Trans } from '@lingui/macro';
-import { useWallet } from '../../hooks/useWallet';
+import { useContext } from 'react';
+import { WalletContext } from '../../contexts/WalletContext';
 
 const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
   const { onDismiss } = props;
-  const { activate } = useWallet();
+  const { activate } = useContext(WalletContext);
   const supportedChainIds = [CHAIN_ID];
 
   const wallets = (
@@ -24,7 +25,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           const injected = new InjectedConnector({
             supportedChainIds,
           });
-          activate(injected);
+          activate?.(injected);
         }}
         walletType={WALLET_TYPE.metamask}
       />
@@ -34,7 +35,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
             apiKey: 'pk_live_60FAF077265B4CBA',
             chainId: CHAIN_ID,
           });
-          activate(fortmatic);
+          activate?.(fortmatic);
         }}
         walletType={WALLET_TYPE.fortmatic}
       />
@@ -49,7 +50,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
               [CHAIN_ID]: config.app.jsonRpcUri,
             },
           });
-          activate(walletConnectV2);
+          activate?.(walletConnectV2);
         }}
         walletType={WALLET_TYPE.walletconnect}
       />
@@ -61,7 +62,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
             url: config.app.jsonRpcUri,
             supportedChainIds,
           });
-          activate(walletlink);
+          activate?.(walletlink);
         }}
         walletType={WALLET_TYPE.coinbaseWallet}
       />
@@ -70,7 +71,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           const injected = new InjectedConnector({
             supportedChainIds,
           });
-          activate(injected);
+          activate?.(injected);
         }}
         walletType={WALLET_TYPE.brave}
       />
@@ -93,7 +94,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
             manifestAppUrl: 'https://alps.wtf',
             manifestEmail: 'alpops+trezorconnect@protonmail.com',
           });
-          activate(trezor);
+          activate?.(trezor);
         }}
         walletType={WALLET_TYPE.trezor}
       />

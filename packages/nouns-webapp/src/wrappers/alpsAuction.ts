@@ -30,6 +30,10 @@ export const useAuction = () => {
 
   useEffect(() => {
     async function getAuction() {
+      if (!alpsAuctionHouseProxy) {
+        setAuction(undefined);
+        return;
+      }
       try {
         const auctionResult = await alpsAuctionHouseProxy.auction();
         setAuction(auctionResult);
@@ -49,6 +53,10 @@ export const useAuctionMinBidIncPercentage = () => {
 
   useEffect(() => {
     async function getMinBidIncrement() {
+      if (!alpsAuctionHouseProxy) {
+        setMinBidIncrement(undefined);
+        return;
+      }
       try {
         const perc = await alpsAuctionHouseProxy.minBidIncrementPercentage();
         setMinBidIncrement(perc);
