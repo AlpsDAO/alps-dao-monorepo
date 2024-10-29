@@ -10,11 +10,11 @@ import clsx from 'clsx';
 import auctionActivityClasses from '../AuctionActivity/BidHistory.module.css';
 import _trophy from '../../assets/icons/trophy.svg';
 import Davatar from '@davatar/react';
-import { useEthers } from '@usedapp/core';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { containsBlockedText } from '../../utils/moderation/containsBlockedText';
 import { i18n } from '@lingui/core';
 import { shortENS, useShortAddress } from '../../utils/addressAndENSDisplayUtils';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
 interface BidHistoryModalRowProps {
   bid: Bid;
   index: number;
@@ -23,7 +23,7 @@ interface BidHistoryModalRowProps {
 const BidHistoryModalRow: React.FC<BidHistoryModalRowProps> = props => {
   const { bid, index } = props;
   const txLink = buildEtherscanTxLink(bid.transactionHash);
-  const { library: provider } = useEthers();
+  const provider = usePublicProvider();
 
   const bidAmount = <TruncatedAmount amount={new BigNumber(EthersBN.from(bid.value).toString())} />;
 

@@ -1,16 +1,16 @@
-import { useBlockNumber } from '@usedapp/core';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useReadonlyProvider } from '../../hooks/useReadonlyProvider';
 import { EventFilter, keyToFilter } from '../../utils/logParsing';
 import { fetchedLogs, fetchedLogsError, fetchingLogs } from '../slices/logs';
+import { useBlockNumber } from '../../hooks/useBlockNumber';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
 
 const MAX_BLOCKS_PER_CALL = 1_000_000;
 
 const Updater = (): null => {
   const dispatch = useAppDispatch();
   const state = useAppSelector(state => state.logs);
-  const provider = useReadonlyProvider();
+  const publicProvider = usePublicProvider();
 
   const blockNumber = useBlockNumber();
 
@@ -35,7 +35,7 @@ const Updater = (): null => {
   }, [blockNumber, state]);
 
   useEffect(() => {
-    if (!provider || typeof blockNumber !== 'number' || filtersNeedFetch.length === 0) return;
+    if (typeof blockNumber !== 'number' || filtersNeedFetch.length === 0) return;
 
     dispatch(fetchingLogs({ filters: filtersNeedFetch, blockNumber }));
     filtersNeedFetch.forEach(filter => {
@@ -52,7 +52,7 @@ const Updater = (): null => {
 
       Promise.all(
         ranges.map(range =>
-          provider.getLogs({
+          publicProvider.getLogs({
             ...filter,
             ...range,
           }),
@@ -76,7 +76,7 @@ const Updater = (): null => {
           );
         });
     });
-  }, [blockNumber, dispatch, filtersNeedFetch, provider]);
+  }, [blockNumber, dispatch, filtersNeedFetch]);
 
   return null;
 };

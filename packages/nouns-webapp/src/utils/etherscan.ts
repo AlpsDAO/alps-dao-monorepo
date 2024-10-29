@@ -1,5 +1,4 @@
-import { ChainId } from '@usedapp/core';
-import { CHAIN_ID, ETHERSCAN_API_KEY } from '../config';
+import { ChainId, CHAIN_ID, ETHERSCAN_API_KEY } from '../config';
 
 const getBaseURL = (network: ChainId) => {
   switch (network) {

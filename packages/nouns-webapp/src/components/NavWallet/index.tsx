@@ -1,6 +1,5 @@
 import Davatar from '@davatar/react';
-import { useEthers } from '@usedapp/core';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { getNavBarButtonVariant, NavBarButtonStyle } from '../NavBarButton';
 import classes from './NavWallet.module.css';
@@ -24,6 +23,8 @@ import {
 } from '../../utils/addressAndENSDisplayUtils';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
+import { WalletContext } from '../../contexts/WalletContext';
 
 interface NavWalletProps {
   address: string;
@@ -50,12 +51,12 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const [buttonUp, setButtonUp] = useState(false);
   const [showConnectModal, setShowConnectModal] = useState(false);
   const history = useHistory();
-  const { library: provider } = useEthers();
   const activeAccount = useAppSelector(state => state.account.activeAccount);
-  const { deactivate } = useEthers();
+  const { deactivate } = useContext(WalletContext);
   const ens = useReverseENSLookUp(address);
   const shortAddress = useShortAddress(address);
   const activeLocale = useActiveLocale();
+  const publicProvider = usePublicProvider();
 
   const setModalStateHandler = (state: boolean) => {
     setShowConnectModal(state);
@@ -64,7 +65,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const switchWalletHandler = () => {
     setShowConnectModal(false);
     setButtonUp(false);
-    deactivate();
+    deactivate?.();
     setShowConnectModal(false);
     setShowConnectModal(true);
   };
@@ -72,7 +73,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const disconectWalletHandler = () => {
     setShowConnectModal(false);
     setButtonUp(false);
-    deactivate();
+    deactivate?.();
   };
 
   const statePrimaryButtonClass = usePickByState(
@@ -86,13 +87,6 @@ const NavWallet: React.FC<NavWalletProps> = props => {
     navDropdownClasses.whiteInfoSelected,
     navDropdownClasses.dropdownActive,
     navDropdownClasses.dropdownActive,
-    history,
-  );
-
-  const mobileTextColor = usePickByState(
-    'rgba(140, 141, 146, 1)',
-    'rgba(121, 128, 156, 1)',
-    'rgba(142, 129, 127, 1)',
     history,
   );
 
@@ -125,7 +119,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
         <div className={navDropdownClasses.button}>
           <div className={classes.icon}>
             {' '}
-            <Davatar size={21} address={address} provider={provider} />
+            <Davatar size={21} address={address} provider={publicProvider} />
           </div>
           <div className={navDropdownClasses.dropdownBtnContent}>{ens ? ens : shortAddress}</div>
           <div className={buttonUp ? navDropdownClasses.arrowUp : navDropdownClasses.arrowDown}>
@@ -210,7 +204,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
             <div className={navDropdownClasses.button}>
               <div className={classes.icon}>
                 {' '}
-                <Davatar size={21} address={address} provider={provider} />
+                <Davatar size={21} address={address} provider={publicProvider} />
               </div>
               <div className={navDropdownClasses.dropdownBtnContent}>
                 <span style={{ color: 'var(--brand-white)' }}>

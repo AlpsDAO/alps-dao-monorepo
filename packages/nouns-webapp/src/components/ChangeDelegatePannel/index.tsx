@@ -1,8 +1,7 @@
 import { Trans } from '@lingui/macro';
-import { useEthers } from '@usedapp/core';
 import clsx from 'clsx';
 import { isAddress } from 'ethers/lib/utils';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Collapse, FormControl } from 'react-bootstrap';
 import currentDelegatePannelClasses from '../CurrentDelegatePannel/CurrentDelegatePannel.module.css';
 import DelegationCandidateInfo from '../DelegationCandidateInfo';
@@ -13,6 +12,8 @@ import { usePickByState } from '../../utils/pickByState';
 import { buildEtherscanTxLink } from '../../utils/etherscan';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import BrandSpinner from '../BrandSpinner';
+import { usePublicProvider } from '../../hooks/usePublicProvider';
+import { WalletContext } from '../../contexts/WalletContext';
 
 interface ChangeDelegatePannelProps {
   onDismiss: () => void;
@@ -50,34 +51,36 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
     ChangeDelegateState.ENTER_DELEGATE_ADDRESS,
   );
 
-  const { library, account } = useEthers();
+  const publicProvider = usePublicProvider();
+
+  const { account } = useContext(WalletContext);
 
   const [delegateAddress, setDelegateAddress] = useState(delegateTo ?? '');
   const [delegateInputText, setDelegateInputText] = useState(delegateTo ?? '');
   const [delegateInputClass, setDelegateInputClass] = useState<string>('');
   const [hasResolvedDeepLinkedENS, setHasResolvedDeepLinkedENS] = useState(false);
   const availableVotes = useAlpTokenBalance(account ?? '') ?? 0;
-  const { send: delegateVotes, state: delegateState } = useDelegateVotes();
+  const { delegateVotes, delegateVotesState } = useDelegateVotes();
   const locale = useActiveLocale();
   const currentDelegate = useUserDelegatee();
 
   useEffect(() => {
-    if (delegateState.status === 'Success') {
+    if (delegateVotesState.status === 'Success') {
       setChangeDelegateState(ChangeDelegateState.CHANGE_SUCCESS);
     }
 
-    if (delegateState.status === 'Exception' || delegateState.status === 'Fail') {
+    if (delegateVotesState.status === 'Exception' || delegateVotesState.status === 'Fail') {
       setChangeDelegateState(ChangeDelegateState.CHANGE_FAILURE);
     }
 
-    if (delegateState.status === 'Mining') {
+    if (delegateVotesState.status === 'Mining') {
       setChangeDelegateState(ChangeDelegateState.CHANGING);
     }
-  }, [delegateState]);
+  }, [delegateVotesState]);
 
   useEffect(() => {
     const checkIsValidENS = async () => {
-      const reverseENSResult = await library?.resolveName(delegateAddress);
+      const reverseENSResult = await publicProvider?.resolveName(delegateAddress);
       if (reverseENSResult) {
         setDelegateAddress(reverseENSResult);
       }
@@ -85,7 +88,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
     };
 
     checkIsValidENS();
-  }, [delegateAddress, delegateTo, library]);
+  }, [delegateAddress, delegateTo]);
 
   useEffect(() => {
     if (delegateAddress.length === 0) {
@@ -99,7 +102,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
     }
   }, [delegateAddress, delegateTo, hasResolvedDeepLinkedENS]);
 
-  const etherscanTxLink = buildEtherscanTxLink(delegateState.transaction?.hash ?? '');
+  const etherscanTxLink = buildEtherscanTxLink(delegateVotesState.transaction?.hash ?? '');
 
   const primaryButton = usePickByState(
     changeDelegateState,
@@ -182,7 +185,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
         Your <span style={{ fontWeight: 'bold' }}>{availableVotes}</span> votes have been delegated
         to a new account.
       </Trans>,
-      <>{delegateState.errorMessage}</>,
+      <>{delegateVotesState.errorMessage}</>,
     ],
   );
 

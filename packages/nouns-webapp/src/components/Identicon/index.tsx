@@ -1,16 +1,16 @@
 import Davatar, { Image } from '@davatar/react';
-import { Web3Provider } from '@ethersproject/providers';
+import { BaseProvider } from '@ethersproject/providers';
 import { Component } from 'react';
 
 interface IdenticonInnerProps {
   address: string;
-  provider: Web3Provider;
+  provider: BaseProvider;
   size: number;
 }
 
 interface IdenticonOutterProps {
   address: string;
-  provider?: Web3Provider;
+  provider?: BaseProvider;
   size?: number;
 }
 
@@ -26,7 +26,7 @@ class IdenticonInner extends Component<IdenticonInnerProps> {
     console.log(error, errorInfo);
   }
 
-  renderDavatar(address: string, provider: Web3Provider, size: number) {
+  renderDavatar(address: string, provider: BaseProvider, size: number) {
     return <Davatar address={address} size={size} provider={provider} />;
   }
 

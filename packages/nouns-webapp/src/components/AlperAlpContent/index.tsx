@@ -5,14 +5,11 @@ import AuctionNavigation from '../AuctionNavigation';
 import AuctionActivityAlpTitle from '../AuctionActivityAlpTitle';
 import AuctionActivityDateHeadline from '../AuctionActivityDateHeadline';
 import AuctionTitleAndNavWrapper from '../AuctionTitleAndNavWrapper';
-import { Link } from 'react-router-dom';
 import alpContentClasses from './AlperAlpContent.module.css';
 import auctionBidClasses from '../AuctionActivity/BidHistory.module.css';
-import bidBtnClasses from '../BidHistoryBtn/BidHistoryBtn.module.css';
 import auctionActivityClasses from '../AuctionActivity/AuctionActivity.module.css';
 import CurrentBid, { BID_N_A } from '../CurrentBid';
 import Winner from '../Winner';
-import { Trans } from '@lingui/macro';
 
 import { useAppSelector } from '../../hooks';
 import { useCallback, useEffect } from 'react';

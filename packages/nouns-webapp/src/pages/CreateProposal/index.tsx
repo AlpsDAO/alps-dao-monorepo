@@ -11,19 +11,20 @@ import {
 import { useUserVotes } from '../../wrappers/alpToken';
 import classes from './CreateProposal.module.css';
 import { Link } from 'react-router-dom';
-import { useEthers } from '@usedapp/core';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import ProposalEditor from '../../components/ProposalEditor';
 import CreateProposalButton from '../../components/CreateProposalButton';
 import ProposalTransactions from '../../components/ProposalTransactions';
 import ProposalTransactionFormModal from '../../components/ProposalTransactionFormModal';
 import { withStepProgress } from 'react-stepz';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { Trans } from '@lingui/macro';
+import { ethers } from 'ethers';
+import { WalletContext } from '../../contexts/WalletContext';
 
 const CreateProposalPage = () => {
-  const { account } = useEthers();
+  const { account } = useContext(WalletContext);
   const latestProposalId = useProposalCount();
   const latestProposal = useProposal(latestProposalId ?? 0);
   const availableVotes = useUserVotes();
@@ -84,7 +85,7 @@ const CreateProposalPage = () => {
 
     await propose(
       proposalTransactions.map(({ address }) => address), // Targets
-      proposalTransactions.map(({ value }) => value ?? '0'), // Values
+      proposalTransactions.map(({ value }) => ethers.BigNumber.from(value ?? 0)), // Values
       proposalTransactions.map(({ signature }) => signature), // Signatures
       proposalTransactions.map(({ calldata }) => calldata), // Calldatas
       `# ${titleValue}\n\n${bodyValue}`, // Description

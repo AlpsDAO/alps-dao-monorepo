@@ -10,7 +10,7 @@ import {
 import { useUserVotesAsOfBlock } from '../../wrappers/alpToken';
 import classes from './Vote.module.css';
 import { RouteComponentProps } from 'react-router-dom';
-import { TransactionStatus, useBlockNumber } from '@usedapp/core';
+import { TransactionStatus } from '../../hooks/useTransaction';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -39,7 +39,7 @@ import { AVERAGE_BLOCK_TIME_IN_SECS } from '../../utils/constants';
 import { SearchIcon } from '@heroicons/react/solid';
 import ReactTooltip from 'react-tooltip';
 import DynamicQuorumInfoModal from '../../components/DynamicQuorumInfoModal';
-import config from '../../config';
+import { useBlockNumber } from '../../hooks/useBlockNumber';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -103,7 +103,6 @@ const VotePage = ({
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock ?? undefined);
 
   const currentQuorum = useCurrentQuorum(
-    config.addresses.alpsDAOProxy,
     proposal && proposal.id ? parseInt(proposal.id) : 0,
     dqInfo && dqInfo.proposal ? dqInfo.proposal.quorumCoefficient === '0' : true,
   );

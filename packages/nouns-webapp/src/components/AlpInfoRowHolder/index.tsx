@@ -5,7 +5,6 @@ import _LinkIcon from '../../assets/icons/Link.svg';
 import { auctionQuery } from '../../wrappers/subgraph';
 import _HeartIcon from '../../assets/icons/Heart.svg';
 import classes from './AlpInfoRowHolder.module.css';
-import config from '../../config';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import ShortAddress from '../ShortAddress';
 import { useAppSelector } from '../../hooks';
@@ -16,7 +15,6 @@ interface AlpInfoRowHolderProps {
   alpId: number;
 }
 
-const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const WARMING_HUT_ADDRESS = '0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC';
 const WARMING_HUT_LINK = `https://etherscan.io/token/0xf59eb3e1957f120f7c135792830f900685536f52?a=${WARMING_HUT_ADDRESS}#inventory`;
 

@@ -1,18 +1,18 @@
-import { useEthers } from '@usedapp/core';
 import { useEffect, useState } from 'react';
+import { usePublicProvider } from '../hooks/usePublicProvider';
 
 export const useEnsAvatarLookup = (address: string) => {
-  const { library } = useEthers();
+  const publicProvider = usePublicProvider();
   const [ensAvatar, setEnsAvatar] = useState<string>();
 
   useEffect(() => {
     let mounted = true;
-    if (address && library) {
-      library
+    if (address && publicProvider) {
+      publicProvider
         .lookupAddress(address)
         .then(name => {
           if (!name) return;
-          library.getResolver(name).then(resolver => {
+          publicProvider.getResolver(name).then(resolver => {
             if (!resolver) return;
             resolver
               .getText('avatar')
@@ -35,7 +35,7 @@ export const useEnsAvatarLookup = (address: string) => {
       setEnsAvatar('');
       mounted = false;
     };
-  }, [address, library]);
+  }, [address]);
 
   return ensAvatar;
 };

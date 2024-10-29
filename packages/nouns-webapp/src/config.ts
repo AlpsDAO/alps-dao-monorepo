@@ -2,7 +2,6 @@ import {
   ContractAddresses as AlpsContractAddresses,
   getContractAddressesForChainOrThrow,
 } from '@nouns/sdk';
-import { ChainId } from '@usedapp/core';
 
 interface ExternalContractAddresses {
   lidoToken: string | undefined;
@@ -15,6 +14,13 @@ interface AppConfig {
   wsRpcUri: string;
   subgraphApiUri: string;
   enableHistory: boolean;
+}
+
+export enum ChainId {
+  Mainnet = 1,
+  Rinkeby = 4,
+  Goerli = 5,
+  Hardhat = 31337
 }
 
 type SupportedChains = ChainId.Rinkeby | ChainId.Mainnet | ChainId.Hardhat | ChainId.Goerli;

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ChainId, DAppProvider } from '@usedapp/core';
 import { Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import account from './state/slices/account';
@@ -27,7 +26,7 @@ import { clientFactory, latestAuctionsQuery } from './wrappers/subgraph';
 import { useEffect } from 'react';
 import pastAuctions, { addPastAuctions } from './state/slices/pastAuctions';
 import LogsUpdater from './state/updaters/logs';
-import config, { CHAIN_ID, createNetworkHttpUrl, multicallOnLocalhost } from './config';
+import config from './config';
 import { WebSocketProvider } from '@ethersproject/providers';
 import { BigNumber, BigNumberish } from 'ethers';
 import { AlpsAuctionHouseFactory } from '@nouns/sdk';
@@ -78,24 +77,6 @@ const store = configureStore({});
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-const supportedChainURLs = {
-  [ChainId.Mainnet]: createNetworkHttpUrl('mainnet'),
-  [ChainId.Rinkeby]: createNetworkHttpUrl('rinkeby'),
-  [ChainId.Hardhat]: 'http://localhost:8545',
-  [ChainId.Goerli]: createNetworkHttpUrl('goerli'),
-};
-
-// prettier-ignore
-const useDappConfig = {
-  readOnlyChainId: CHAIN_ID,
-  readOnlyUrls: {
-    [CHAIN_ID]: supportedChainURLs[CHAIN_ID],
-  },
-  multicallAddresses: {
-    [ChainId.Hardhat]: multicallOnLocalhost,
-  }
-};
 
 const client = clientFactory(config.app.subgraphApiUri);
 
@@ -210,12 +191,10 @@ ReactDOM.render(
         >
           <ApolloProvider client={client}>
             <PastAuctions />
-            <DAppProvider config={useDappConfig}>
-              <LanguageProvider>
-                <App />
-              </LanguageProvider>
-              <Updaters />
-            </DAppProvider>
+            <LanguageProvider>
+              <App />
+            </LanguageProvider>
+            <Updaters />
           </ApolloProvider>
         </Web3ReactProvider>
       </React.StrictMode>
