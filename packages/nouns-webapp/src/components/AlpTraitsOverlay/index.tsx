@@ -56,15 +56,15 @@ const AlpTraitsOverlay: React.FC<{
           <Image className={classes.image} src={HeadIcon} style={{ marginRight: 10 }} />{' '}
           {getAlpTrait(parts[2]).value}
         </li>
-        <li key={'head'} style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+        <li key={'glasses'} style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
           <Image className={classes.image} src={GlassesIcon} style={{ marginRight: 10 }} />{' '}
           {getAlpTrait(parts[3]).value}
         </li>
-        <li key={'head'} style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+        <li key={'body'} style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
           <Image className={classes.image} src={BodyIcon} style={{ marginRight: 10 }} />{' '}
           {getAlpTrait(parts[0]).value}
         </li>
-        <li key={'head'} style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+        <li key={'accessory'} style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
           <Image className={classes.image} src={AccessoryIcon} style={{ marginRight: 10 }} />{' '}
           {getAlpTrait(parts[1]).value}
         </li>
