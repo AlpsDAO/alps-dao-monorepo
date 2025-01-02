@@ -206,7 +206,7 @@ export const useUserVotesAsOfBlock = (block: number | undefined): number | undef
       catch {}
     }
     
-    getVotes(account);
+    getVotes(account, block);
   }, [account, block]);
 
   return votes?.toNumber();
