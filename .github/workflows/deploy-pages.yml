@@ -45,4 +45,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # yarn refuses to add wrangler to the workspace root (-W); use npm for the action's install
+          packageManager: npm
           command: pages deploy packages/nouns-webapp/build --project-name=alps-wtf --branch=master
