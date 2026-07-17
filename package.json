@@ -34,7 +34,8 @@
     "**/@ethersproject/providers": "5.6.8",
     "**/@ethersproject/abstract-provider": "5.6.1",
     "**/@ethersproject/abi": "5.6.3",
-    "**/@walletconnect/keyvaluestorage": "1.0.2"
+    "**/@walletconnect/keyvaluestorage": "1.0.2",
+    "**/gluegun": "4.3.1"
   },
   "workspaces": [
     "packages/*"
