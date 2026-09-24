@@ -16,8 +16,9 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import advanced from 'dayjs/plugin/advancedFormat';
-import VoteModal from '../../components/VoteModal';
-import React, { useCallback, useEffect, useState } from 'react';
+import VotePanel from '../../components/VotePanel';
+import ProposalActivityFeed from '../../components/ProposalActivityFeed';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import clsx from 'clsx';
 import ProposalHeader from '../../components/ProposalHeader';
@@ -25,12 +26,11 @@ import ProposalContent from '../../components/ProposalContent';
 import VoteCard, { VoteCardVariant } from '../../components/VoteCard';
 import { useQuery } from '@apollo/client';
 import {
-  proposalVotesQuery,
   delegateAlpsAtBlockQuery,
-  ProposalVotes,
   Delegates,
   propUsingDynamicQuorum,
 } from '../../wrappers/subgraph';
+import { useProposalVotes } from '../../hooks/useProposalVotes';
 import { getAlpVotes } from '../../utils/getAlpsVotes';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
@@ -53,7 +53,7 @@ const VotePage = ({
 }: RouteComponentProps<{ id: string }>) => {
   const proposal = useProposal(id);
 
-  const [showVoteModal, setShowVoteModal] = useState<boolean>(false);
+  const votePanelRef = useRef<HTMLDivElement>(null);
   const [showDynamicQuorumInfoModal, setShowDynamicQuorumInfoModal] = useState<boolean>(false);
   // Toggle between Alp centric view and delegate view
   const [isDelegateView, setIsDelegateView] = useState(false);
@@ -92,13 +92,34 @@ const VotePage = ({
       : undefined;
   const now = dayjs();
 
+  const activeAccount = useAppSelector(state => state.account.activeAccount);
+  const {
+    votes,
+    loading,
+    error,
+    recordReceipt,
+  } = useProposalVotes(proposal?.id, proposal?.status === ProposalState.ACTIVE);
+  const userVote = votes.find(v => v.voter === activeAccount?.toLowerCase());
+
+  // Tally from the live vote list, so votes show up as soon as they're cast
+  const tally = (support: number) =>
+    votes.filter(v => v.support === support).reduce((sum, v) => sum + v.votes, 0);
+  const liveProposal = proposal && {
+    ...proposal,
+    forCount: tally(1),
+    againstCount: tally(0),
+    abstainCount: tally(2),
+  };
+
   // Get total votes and format percentages for UI
-  const totalVotes = proposal
-    ? proposal.forCount + proposal.againstCount + proposal.abstainCount
+  const totalVotes = liveProposal
+    ? liveProposal.forCount + liveProposal.againstCount + liveProposal.abstainCount
     : undefined;
-  const forPercentage = proposal && totalVotes ? (proposal.forCount * 100) / totalVotes : 0;
-  const againstPercentage = proposal && totalVotes ? (proposal.againstCount * 100) / totalVotes : 0;
-  const abstainPercentage = proposal && totalVotes ? (proposal.abstainCount * 100) / totalVotes : 0;
+  const forPercentage = liveProposal && totalVotes ? (liveProposal.forCount * 100) / totalVotes : 0;
+  const againstPercentage =
+    liveProposal && totalVotes ? (liveProposal.againstCount * 100) / totalVotes : 0;
+  const abstainPercentage =
+    liveProposal && totalVotes ? (liveProposal.abstainCount * 100) / totalVotes : 0;
 
   // Only count available votes as of the proposal created block
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock ?? undefined);
@@ -227,20 +248,11 @@ const VotePage = ({
     [executeProposalState, onTransactionStateChange, setModal],
   );
 
-  const activeAccount = useAppSelector(state => state.account.activeAccount);
-  const {
-    loading,
-    error,
-    data: voters,
-  } = useQuery<ProposalVotes>(proposalVotesQuery(proposal?.id ?? '0'), {
-    skip: !proposal,
-  });
-
-  const voterIds = voters?.votes?.map(v => v.voter.id);
+  const voterIds = votes.map(v => v.voter);
   const { data: delegateSnapshot } = useQuery<Delegates>(
-    delegateAlpsAtBlockQuery(voterIds ?? [], proposal?.createdBlock ?? 0),
+    delegateAlpsAtBlockQuery(voterIds, proposal?.createdBlock ?? 0),
     {
-      skip: !voters?.votes?.length,
+      skip: !voterIds.length,
     },
   );
 
@@ -250,10 +262,10 @@ const VotePage = ({
     return acc;
   }, {});
 
-  const data = voters?.votes?.map(v => ({
-    delegate: v.voter.id,
-    supportDetailed: v.supportDetailed,
-    alpsRepresented: delegateToAlpIds?.[v.voter.id] ?? [],
+  const data = votes.map(v => ({
+    delegate: v.voter,
+    supportDetailed: v.support,
+    alpsRepresented: delegateToAlpIds?.[v.voter] ?? [],
   }));
 
   const [showToast, setShowToast] = useState(true);
@@ -265,7 +277,7 @@ const VotePage = ({
     }
   }, [showToast]);
 
-  if (!proposal || loading || !data || loadingDQInfo || !dqInfo) {
+  if (!proposal || !liveProposal || loading || loadingDQInfo || !dqInfo) {
     return (
       <div className={classes.spinner}>
         <Spinner animation="border" />
@@ -294,19 +306,16 @@ const VotePage = ({
           onDismiss={() => setShowDynamicQuorumInfoModal(false)}
         />
       )}
-      <VoteModal
-        show={showVoteModal}
-        onHide={() => setShowVoteModal(false)}
-        proposalId={proposal?.id}
-        availableVotes={availableVotes || 0}
-      />
       <Col lg={10} className={classes.wrapper}>
         {proposal && (
           <ProposalHeader
             proposal={proposal}
             isActiveForVoting={isActiveForVoting}
             isWalletConnected={isWalletConnected}
-            submitButtonClickHandler={() => setShowVoteModal(true)}
+            userVote={userVote}
+            submitButtonClickHandler={() =>
+              votePanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
           />
         )}
       </Col>
@@ -342,7 +351,7 @@ const VotePage = ({
         </p>
         <Row>
           <VoteCard
-            proposal={proposal}
+            proposal={liveProposal}
             percentage={forPercentage}
             alpIds={forAlps}
             variant={VoteCardVariant.FOR}
@@ -350,7 +359,7 @@ const VotePage = ({
             delegateGroupedVoteData={data}
           />
           <VoteCard
-            proposal={proposal}
+            proposal={liveProposal}
             percentage={againstPercentage}
             alpIds={againstAlps}
             variant={VoteCardVariant.AGAINST}
@@ -358,7 +367,7 @@ const VotePage = ({
             delegateGroupedVoteData={data}
           />
           <VoteCard
-            proposal={proposal}
+            proposal={liveProposal}
             percentage={abstainPercentage}
             alpIds={abstainAlps}
             variant={VoteCardVariant.ABSTAIN}
@@ -451,7 +460,24 @@ const VotePage = ({
           </Col>
         </Row>
 
-        <ProposalContent proposal={proposal} />
+        <Row>
+          <Col lg={7}>
+            <ProposalContent proposal={proposal} />
+          </Col>
+          <Col lg={5} className={classes.sidebar}>
+            {isActiveForVoting && (
+              <VotePanel
+                ref={votePanelRef}
+                proposalId={proposal.id}
+                availableVotes={availableVotes || 0}
+                isWalletConnected={isWalletConnected}
+                userVote={userVote}
+                onVoteCast={recordReceipt}
+              />
+            )}
+            <ProposalActivityFeed proposal={liveProposal} votes={votes} currentBlock={currentBlock} />
+          </Col>
+        </Row>
       </Col>
     </Section>
   );

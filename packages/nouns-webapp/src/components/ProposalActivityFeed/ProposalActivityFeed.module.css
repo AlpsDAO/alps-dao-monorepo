@@ -1,0 +1,100 @@
+.feed {
+  font-family: 'PT Root UI';
+}
+
+.title {
+  font-family: 'Londrina Solid';
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+.empty {
+  color: var(--brand-gray-light-text);
+  font-weight: bold;
+}
+
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--brand-gray-border);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.itemHeader {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Scoped under .feed to win over the vote page's red link color */
+.feed .account {
+  display: inline-flex;
+  vertical-align: bottom;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: bold;
+  color: var(--brand-black);
+  text-decoration: none;
+}
+
+.feed .account:hover {
+  text-decoration: underline;
+}
+
+.action {
+  font-weight: bold;
+}
+
+.for {
+  color: var(--brand-color-green);
+}
+
+.against {
+  color: var(--brand-color-red);
+}
+
+/* Darker than the vote button yellow so it stays readable on white */
+.abstain {
+  color: #b38600;
+}
+
+.time {
+  color: var(--brand-gray-light-text);
+}
+
+.reason {
+  margin: 0.25rem 0 0 1.65rem;
+  font-size: 15px;
+  color: var(--brand-cool-dark-text);
+  word-wrap: break-word;
+}
+
+.feed .reason p {
+  margin: 0 0 0.4rem;
+  padding: 0;
+}
+
+.feed .reason p:last-child {
+  margin-bottom: 0;
+}
+
+.event .itemHeader {
+  color: var(--brand-gray-light-text);
+}
+
+.eventDot {
+  display: inline-block;
+  vertical-align: middle;
+  width: 6px;
+  height: 6px;
+  margin: 0 0.55rem 0 0.45rem;
+  border-radius: 50%;
+  background-color: var(--brand-gray-light-text);
+}

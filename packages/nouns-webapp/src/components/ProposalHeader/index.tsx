@@ -23,6 +23,8 @@ interface ProposalHeaderProps {
   proposal: Proposal;
   isActiveForVoting?: boolean;
   isWalletConnected: boolean;
+  // The connected account's vote as seen live on the page, ahead of the receipt fetched on load
+  userVote?: { support: 0 | 1 | 2 };
   submitButtonClickHandler: () => void;
 }
 
@@ -49,12 +51,15 @@ const getTranslatedVoteCopyFromString = (proposalVote: string) => {
 };
 
 const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
-  const { proposal, isActiveForVoting, isWalletConnected, submitButtonClickHandler } = props;
+  const { proposal, isActiveForVoting, isWalletConnected, userVote, submitButtonClickHandler } =
+    props;
 
   const isMobile = isMobileScreen();
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock) ?? 0;
-  const hasVoted = useHasVotedOnProposal(proposal?.id);
-  const proposalVote = useProposalVote(proposal?.id);
+  const receiptHasVoted = useHasVotedOnProposal(proposal?.id);
+  const receiptVote = useProposalVote(proposal?.id);
+  const hasVoted = receiptHasVoted || !!userVote;
+  const proposalVote = userVote ? ['Against', 'For', 'Abstain'][userVote.support] : receiptVote;
   const proposalCreationTimestamp = useBlockTimestamp(proposal?.createdBlock);
   const disableVoteButton = !isWalletConnected || !availableVotes || hasVoted;
   const activeLocale = useActiveLocale();

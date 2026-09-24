@@ -19,8 +19,11 @@ export interface IBid {
   };
 }
 
-interface ProposalVote {
+export interface ProposalVote {
   supportDetailed: 0 | 1 | 2;
+  votes: string;
+  reason: string | null;
+  blockNumber: string;
   voter: {
     id: string;
   };
@@ -279,8 +282,11 @@ export const createTimestampAllProposals = () => gql`
 
 export const proposalVotesQuery = (proposalId: string) => gql`
   {
-    votes(where: { proposal: "${proposalId}", votesRaw_gt: 0 }) {
+    votes(first: 1000, where: { proposal: "${proposalId}", votesRaw_gt: 0 }) {
       supportDetailed
+      votes
+      reason
+      blockNumber
       voter {
         id
       }

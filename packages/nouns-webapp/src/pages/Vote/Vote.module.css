@@ -166,3 +166,12 @@
 .cursorPointer {
   cursor: pointer;
 }
+
+/* Voting panel + activity feed, beside the description on desktop and below it on mobile */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
+}

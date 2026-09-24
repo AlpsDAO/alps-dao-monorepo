@@ -72,12 +72,42 @@
   color: var(--brand-gray-light-text);
 }
 
+.votePanel {
+  padding: 1rem 1.25rem 1.25rem;
+  border-radius: 12px;
+  background-color: var(--brand-gray-background);
+  font-family: 'PT Root UI';
+}
+
+.panelTitle {
+  font-family: 'Londrina Solid';
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+.panelNote {
+  margin: 0;
+  font-weight: bold;
+  color: var(--brand-gray-light-text);
+}
+
 .transactionStatus {
   font-size: 18px;
-  margin-bottom: 2rem;
   text-align: center;
   font-family: 'PT Root UI';
   font-weight: bold;
+}
+
+.transactionStatus p {
+  margin-bottom: 0;
+}
+
+.tryAgainBtn {
+  margin-top: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  background-color: var(--brand-black) !important;
+  border: none !important;
 }
 
 .disabled {
