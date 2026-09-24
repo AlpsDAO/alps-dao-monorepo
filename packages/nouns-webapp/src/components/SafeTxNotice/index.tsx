@@ -19,7 +19,8 @@ const SafeTxNotice: React.FC<{ safeTx: SafeTxProgress }> = ({ safeTx }) => {
           Sent to your Safe with all {confirmationsRequired} confirmations. Waiting for an owner to
           execute it.
         </Trans>
-      )}{' '}
+      )}
+      <br />
       <a href={url} target="_blank" rel="noreferrer">
         <Trans>View in Safe</Trans>
       </a>

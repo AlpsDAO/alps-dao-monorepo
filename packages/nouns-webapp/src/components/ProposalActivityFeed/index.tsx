@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import { Proposal, ProposalState } from '../../wrappers/alpsDao';
 import { ProposalVoteEntry } from '../../hooks/useProposalVotes';
-import { useBlockTimestamp } from '../../hooks/useBlockTimestamp';
+import { useBlockTimestamps } from '../../hooks/useBlockTimestamp';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import ShortAddress from '../ShortAddress';
 import { Image as AddressIcon } from '@davatar/react';
@@ -25,7 +25,8 @@ const voteAction = (support: 0 | 1 | 2) =>
 
 const formatTime = (timestamp: number | undefined) => {
   if (!timestamp) return undefined;
-  const time = dayjs.unix(timestamp);
+  // A block can be a few seconds "ahead" of a slightly slow local clock; never show it in the future
+  const time = dayjs.unix(Math.min(timestamp, Date.now() / 1000));
   if (dayjs().diff(time, 'day') < 7) return time.fromNow();
   return time.format(time.year() === dayjs().year() ? 'MMM D' : 'MMM D, YYYY');
 };
@@ -56,21 +57,18 @@ const ProposalActivityFeed: React.FC<{
   votes: ProposalVoteEntry[];
   currentBlock: number | undefined;
 }> = ({ proposal, votes, currentBlock }) => {
-  const createdTimestamp = useBlockTimestamp(proposal.createdBlock);
-
-  // The subgraph gives votes a block but no time, so interpolate between proposal creation and now
-  const secondsPerBlock =
-    createdTimestamp && currentBlock && currentBlock > proposal.createdBlock
-      ? (Date.now() / 1000 - createdTimestamp) / (currentBlock - proposal.createdBlock)
-      : 12;
-  const timeOfBlock = (block: number | undefined) =>
-    block !== undefined && createdTimestamp
-      ? createdTimestamp + (block - proposal.createdBlock) * secondsPerBlock
-      : undefined;
-
   const { status } = proposal;
   const wasStopped = status === ProposalState.CANCELLED || status === ProposalState.VETOED;
   const hasReached = (block: number) => currentBlock !== undefined && currentBlock >= block;
+
+  // The subgraph gives votes a block but no time, so look up each block's actual timestamp
+  const blockTimestamps = useBlockTimestamps([
+    ...votes.map(v => v.blockNumber),
+    proposal.createdBlock,
+    ...[proposal.startBlock, proposal.endBlock].filter(hasReached),
+  ]);
+  const timeOfBlock = (block: number | undefined) =>
+    block !== undefined ? blockTimestamps[block] : undefined;
 
   const items: FeedItem[] = votes.map(v => ({
     key: `vote-${v.voter}`,

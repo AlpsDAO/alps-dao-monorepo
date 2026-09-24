@@ -67,6 +67,7 @@
 
 .time {
   color: var(--brand-gray-light-text);
+  white-space: nowrap;
 }
 
 .reason {

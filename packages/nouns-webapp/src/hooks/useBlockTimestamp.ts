@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePublicProvider } from './usePublicProvider';
 
 /**
@@ -21,4 +21,46 @@ export function useBlockTimestamp(blockNumber: number | undefined): number | und
   }, [blockNumber]);
 
   return blockTimestamp;
+}
+
+/**
+ * Timestamps for several past blocks, keyed by block number. Blocks without a timestamp yet are absent.
+ */
+export function useBlockTimestamps(blockNumbers: number[]): Record<number, number> {
+  const publicProvider = usePublicProvider();
+  const [timestamps, setTimestamps] = useState<Record<number, number>>({});
+  const requested = useRef(new Set<number>());
+  const key = Array.from(new Set(blockNumbers)).sort().join(',');
+
+  useEffect(() => {
+    const missing = key
+      .split(',')
+      .filter(Boolean)
+      .map(Number)
+      .filter(block => !requested.current.has(block));
+    if (!missing.length) return;
+    missing.forEach(block => requested.current.add(block));
+    Promise.all(
+      missing.map(block =>
+        publicProvider
+          .getBlock(block)
+          .then(data => [block, data?.timestamp] as const)
+          .catch(() => {
+            // Let a later render retry it
+            requested.current.delete(block);
+            return [block, undefined] as const;
+          }),
+      ),
+    ).then(results =>
+      setTimestamps(prev => {
+        const next = { ...prev };
+        results.forEach(([block, timestamp]) => {
+          if (timestamp) next[block] = timestamp;
+        });
+        return next;
+      }),
+    );
+  }, [key, publicProvider]);
+
+  return timestamps;
 }
