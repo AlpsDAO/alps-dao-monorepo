@@ -39,6 +39,7 @@ import { AVERAGE_BLOCK_TIME_IN_SECS } from '../../utils/constants';
 import { SearchIcon } from '@heroicons/react/solid';
 import ReactTooltip from 'react-tooltip';
 import DynamicQuorumInfoModal from '../../components/DynamicQuorumInfoModal';
+import SafeTxNotice from '../../components/SafeTxNotice';
 import { useBlockNumber } from '../../hooks/useBlockNumber';
 
 dayjs.extend(utc);
@@ -161,6 +162,14 @@ const VotePage = ({
     ) => {
       switch (tx.status) {
         case 'None':
+          setPending?.(false);
+          break;
+        case 'QueuedInSafe':
+          setModal({
+            title: <Trans>Sent to your Safe</Trans>,
+            message: tx.safeTx && <SafeTxNotice safeTx={tx.safeTx} />,
+            show: true,
+          });
           setPending?.(false);
           break;
         case 'Mining':

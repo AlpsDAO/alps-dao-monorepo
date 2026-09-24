@@ -10,6 +10,7 @@ import { useAppDispatch } from '../../hooks';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import WalletConnectModal from '../WalletConnectModal';
 import SettleManuallyBtn from '../SettleManuallyBtn';
+import SafeTxNotice from '../SafeTxNotice';
 import { Trans } from '@lingui/macro';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
@@ -163,6 +164,14 @@ const Bid: React.FC<{
           content: <Trans>Place bid</Trans>,
         });
         break;
+      case 'QueuedInSafe':
+        setModal({
+          title: <Trans>Sent to your Safe</Trans>,
+          message: placeBidState.safeTx && <SafeTxNotice safeTx={placeBidState.safeTx} />,
+          show: true,
+        });
+        setBidButtonContent({ loading: false, content: <Trans>Place bid</Trans> });
+        break;
       case 'Mining':
         setBidButtonContent({ loading: true, content: <></> });
         break;
@@ -193,6 +202,14 @@ const Bid: React.FC<{
           loading: false,
           content: <Trans>Settle Auction</Trans>,
         });
+        break;
+      case 'QueuedInSafe':
+        setModal({
+          title: <Trans>Sent to your Safe</Trans>,
+          message: settleAuctionState.safeTx && <SafeTxNotice safeTx={settleAuctionState.safeTx} />,
+          show: true,
+        });
+        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
         break;
       case 'Mining':
         setBidButtonContent({ loading: true, content: <></> });

@@ -7,6 +7,7 @@ import braveLogo from '../../assets/wallet-brand-assets/brave.svg';
 import ledgerLogo from '../../assets/wallet-brand-assets/ledger.svg';
 import trezorLogo from '../../assets/wallet-brand-assets/trezor.svg';
 import coinbaseWalletLogo from '../../assets/wallet-brand-assets/coinbase-wallet-dot.svg';
+import safeLogo from '../../assets/wallet-brand-assets/safe.svg';
 
 export enum WALLET_TYPE {
   metamask = 'Metamask',
@@ -16,6 +17,7 @@ export enum WALLET_TYPE {
   fortmatic = 'Fortmatic',
   trezor = 'Trezor',
   coinbaseWallet = 'Coinbase Wallet',
+  safe = 'Safe',
 }
 
 const logo = (walletType: WALLET_TYPE) => {
@@ -34,6 +36,8 @@ const logo = (walletType: WALLET_TYPE) => {
       return trezorLogo;
     case WALLET_TYPE.coinbaseWallet:
       return coinbaseWalletLogo;
+    case WALLET_TYPE.safe:
+      return safeLogo;
     default:
       return '';
   }

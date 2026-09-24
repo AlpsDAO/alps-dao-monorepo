@@ -1,9 +1,13 @@
 import { TransactionResponse, TransactionReceipt } from '@ethersproject/abstract-provider'
 import { ChainId } from '../config'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { errors } from 'ethers'
+import { WalletContext } from '../contexts/WalletContext'
+import { usePublicProvider } from './usePublicProvider'
+import { SafeTxProgress, waitForSafeExecution } from '../utils/safe'
 
-export type TransactionState = 'None' | 'PendingSignature' | 'Mining' | 'Success' | 'Fail' | 'Exception'
+// QueuedInSafe: proposed to the connected Safe, waiting for owner confirmations and execution
+export type TransactionState = 'None' | 'PendingSignature' | 'QueuedInSafe' | 'Mining' | 'Success' | 'Fail' | 'Exception'
 
 export interface TransactionStatus {
   status: TransactionState
@@ -11,12 +15,15 @@ export interface TransactionStatus {
   receipt?: TransactionReceipt
   chainId?: ChainId
   errorMessage?: string
+  safeTx?: SafeTxProgress
 }
 
 const isDroppedAndReplaced = (e: any) =>
   e?.code === errors.TRANSACTION_REPLACED && e?.replacement && (e?.reason === 'repriced' || e?.cancelled === false)
 
 export const useTransaction = (): { transact: (request: Promise<TransactionResponse>) => void, status: TransactionStatus, reset: () => void } => {
+  const { isSafe } = useContext(WalletContext);
+  const publicProvider = usePublicProvider();
   const [status, setStatus] = useState<TransactionStatus>({
     status: 'None'
   });
@@ -30,6 +37,16 @@ export const useTransaction = (): { transact: (request: Promise<TransactionRespo
     let transaction: TransactionResponse | undefined = undefined;
     try {
       transaction = await request;
+      if (isSafe) {
+        // The hash is the Safe's own transaction id; follow it through the Safe queue to execution
+        const txHash = await waitForSafeExecution(transaction.hash, publicProvider, safeTx =>
+          setStatus(s => ({ ...s, status: 'QueuedInSafe', transaction, safeTx })));
+        if (!txHash) return;
+        setStatus(s => ({ ...s, status: 'Mining', transaction }));
+        const receipt = await publicProvider.waitForTransaction(txHash);
+        setStatus(s => ({ ...s, status: receipt.status === 0 ? 'Fail' : 'Success', receipt }));
+        return;
+      }
       setStatus(s => ({ ...s, status: 'Mining', transaction, chainId: transaction?.chainId }));
       const receipt = await transaction.wait();
       setStatus(s => ({ ...s, status: 'Success', receipt }));

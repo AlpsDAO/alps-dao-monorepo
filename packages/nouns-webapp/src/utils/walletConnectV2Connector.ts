@@ -25,7 +25,9 @@ export class WalletConnectV2Connector extends AbstractConnector {
         return module.default.init({
           projectId: this.options.projectId,
           rpcMap: this.options.rpcMap || {},
-          chains: this.options.chains,
+          // Request everything as optional: a wallet rejects the whole session if it lacks any
+          // *required* chain, method or event (e.g. Safe{Mobile} can't personal_sign).
+          chains: [],
           optionalChains: [CHAIN_ID],
           showQrModal: true,
           // RPCs may not support the `test` method used for the ping.
@@ -39,16 +41,17 @@ export class WalletConnectV2Connector extends AbstractConnector {
           },
           // Methods and events based on what is used on nouns.wtf and the ethereum-provider lib found at:
           // https://github.com/WalletConnect/walletconnect-monorepo/blob/v2.0/providers/ethereum-provider/src/constants/rpc.ts
-          // If the wallet doesn't support non optional methods, it will not allow the connection.
-          methods: ['eth_sendTransaction', 'personal_sign'],
+          methods: [],
           optionalMethods: [
+            'eth_sendTransaction',
+            'personal_sign',
             'eth_accounts',
             'eth_requestAccounts',
             'wallet_switchEthereumChain',
             'wallet_addEthereumChain'
           ],
-          events: ['chainChanged', 'accountsChanged'],
-          optionalEvents: ['disconnect']
+          events: [],
+          optionalEvents: ['chainChanged', 'accountsChanged', 'disconnect']
         })
       }
     )

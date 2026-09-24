@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { WalletConnectV2Connector } from '../../utils/walletConnectV2Connector';
+import { isInIframe, SafeAppConnector } from '../../utils/safeAppConnector';
 import { TrezorConnector } from '@web3-react/trezor-connector';
 import { FortmaticConnector } from '@web3-react/fortmatic-connector';
 import config, { CHAIN_ID, WALLET_CONNECT_V2_PROJECT_ID } from '../../config';
@@ -20,6 +21,12 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
 
   const wallets = (
     <div className={classes.walletConnectModal}>
+      {isInIframe() && (
+        <WalletButton
+          onClick={() => activate?.(new SafeAppConnector())}
+          walletType={WALLET_TYPE.safe}
+        />
+      )}
       <WalletButton
         onClick={() => {
           const injected = new InjectedConnector({
@@ -44,7 +51,6 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           const walletConnectV2 = new WalletConnectV2Connector({
             projectId: WALLET_CONNECT_V2_PROJECT_ID,
             showQrModal: true,
-            chains: supportedChainIds,
             optionalChains: [CHAIN_ID],
             rpcMap: {
               [CHAIN_ID]: config.app.jsonRpcUri,

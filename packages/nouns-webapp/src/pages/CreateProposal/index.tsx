@@ -16,6 +16,7 @@ import ProposalEditor from '../../components/ProposalEditor';
 import CreateProposalButton from '../../components/CreateProposalButton';
 import ProposalTransactions from '../../components/ProposalTransactions';
 import ProposalTransactionFormModal from '../../components/ProposalTransactionFormModal';
+import SafeTxNotice from '../../components/SafeTxNotice';
 import { withStepProgress } from 'react-stepz';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
@@ -101,6 +102,14 @@ const CreateProposalPage = () => {
   useEffect(() => {
     switch (proposeState.status) {
       case 'None':
+        setProposePending(false);
+        break;
+      case 'QueuedInSafe':
+        setModal({
+          title: <Trans>Sent to your Safe</Trans>,
+          message: proposeState.safeTx && <SafeTxNotice safeTx={proposeState.safeTx} />,
+          show: true,
+        });
         setProposePending(false);
         break;
       case 'Mining':

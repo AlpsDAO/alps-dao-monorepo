@@ -4,10 +4,11 @@ import classes from './VoteModal.module.css';
 import { useCastVote, useCastVoteWithReason, Vote } from '../../wrappers/alpsDao';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { TransactionStatus } from '../../hooks/useTransaction';
-import NavBarButton, { NavBarButtonStyle } from '../NavBarButton';
 import clsx from 'clsx';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
+import { SafeTxProgress } from '../../utils/safe';
+import SafeTxNotice from '../SafeTxNotice';
 
 interface VoteModalProps {
   show: boolean;
@@ -28,6 +29,8 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
   const [isVoteFailed, setIsVoteFailed] = useState(false);
   const [failureCopy, setFailureCopy] = useState<ReactNode>('');
   const [errorMessage, setErrorMessage] = useState<ReactNode>('');
+  // Set while the vote waits in the connected Safe's queue; kept across closing the modal
+  const [safeTx, setSafeTx] = useState<SafeTxProgress>();
 
   const getVoteErrorMessage = (error: string | undefined) => {
     if (error?.match(/voter already voted/)) {
@@ -41,6 +44,10 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
       case 'None':
         setIsLoading(false);
         break;
+      case 'QueuedInSafe':
+        setIsLoading(false);
+        setSafeTx(state.safeTx);
+        break;
       case 'Mining':
         setIsLoading(true);
         break;
@@ -53,6 +60,7 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
         setErrorMessage(state?.errorMessage || <Trans>Please try again.</Trans>);
         setIsLoading(false);
         setIsVoteFailed(true);
+        setSafeTx(undefined);
         break;
       case 'Exception':
         setFailureCopy(<Trans>Error</Trans>);
@@ -61,6 +69,7 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
         );
         setIsLoading(false);
         setIsVoteFailed(true);
+        setSafeTx(undefined);
         break;
     }
   }, []);
@@ -91,6 +100,38 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
     setIsVoteFailed(false);
   }, [show]);
 
+  const voteOptions = [
+    {
+      vote: Vote.FOR,
+      className: classes.voteFor,
+      label:
+        availableVotes > 1 ? (
+          <Trans>
+            Cast {i18n.number(availableVotes)} votes for Prop {i18n.number(parseInt(proposalId || '0'))}
+          </Trans>
+        ) : (
+          <Trans>Cast 1 vote for Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
+        ),
+    },
+    {
+      vote: Vote.AGAINST,
+      className: classes.voteAgainst,
+      label:
+        availableVotes > 1 ? (
+          <Trans>
+            Cast {i18n.number(availableVotes)} votes against Prop {i18n.number(parseInt(proposalId || '0'))}
+          </Trans>
+        ) : (
+          <Trans>Cast 1 vote against Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
+        ),
+    },
+    {
+      vote: Vote.ABSTAIN,
+      className: classes.voteAbstain,
+      label: <Trans>Abstain from voting on Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>,
+    },
+  ];
+
   const voteModalContent = (
     <>
       {isVoteSucessful && (
@@ -116,64 +157,32 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
           </div>
         </div>
       )}
-      {!isVoteFailed && !isVoteSucessful && (
+      {safeTx && !isVoteFailed && !isVoteSucessful && (
+        <div className={classes.transactionStatus}>
+          <p>
+            <SafeTxNotice safeTx={safeTx} />
+          </p>
+        </div>
+      )}
+      {!safeTx && !isVoteFailed && !isVoteSucessful && (
         <div className={clsx(classes.votingButtonsWrapper, isLoading ? classes.disabled : '')}>
-          <div onClick={() => setVote(Vote.FOR)}>
-            <NavBarButton
-              buttonText={
-                availableVotes > 1 ? (
-                  <Trans>
-                    Cast {i18n.number(availableVotes)} votes for Prop{' '}
-                    {i18n.number(parseInt(proposalId || '0'))}
-                  </Trans>
-                ) : (
-                  <Trans>Cast 1 vote for Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
-                )
-              }
-              buttonIcon={<></>}
-              buttonStyle={
-                vote === Vote.FOR
-                  ? NavBarButtonStyle.WHITE_ACTIVE_VOTE_SUBMIT
-                  : NavBarButtonStyle.WHITE_INFO
-              }
-            />
-          </div>
-          <br />
-          <div onClick={() => setVote(Vote.AGAINST)}>
-            <NavBarButton
-              buttonText={
-                availableVotes > 1 ? (
-                  <Trans>
-                    Cast {i18n.number(availableVotes)} votes against Prop{' '}
-                    {i18n.number(parseInt(proposalId || '0'))}
-                  </Trans>
-                ) : (
-                  <Trans>Cast 1 vote against Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
-                )
-              }
-              buttonIcon={<></>}
-              buttonStyle={
-                vote === Vote.AGAINST
-                  ? NavBarButtonStyle.WHITE_ACTIVE_VOTE_SUBMIT
-                  : NavBarButtonStyle.WHITE_INFO
-              }
-            />
-          </div>
-          <br />
-          <div onClick={() => setVote(Vote.ABSTAIN)}>
-            <NavBarButton
-              buttonText={
-                <Trans>
-                  Abstain from voting on Prop {i18n.number(parseInt(proposalId || '0'))}
-                </Trans>
-              }
-              buttonIcon={<></>}
-              buttonStyle={
-                vote === Vote.ABSTAIN
-                  ? NavBarButtonStyle.WHITE_ACTIVE_VOTE_SUBMIT
-                  : NavBarButtonStyle.WHITE_INFO
-              }
-            />
+          <div className={classes.voteOptions}>
+            {voteOptions.map(option => (
+              <button
+                key={option.vote}
+                type="button"
+                aria-pressed={vote === option.vote}
+                disabled={isLoading}
+                onClick={() => setVote(option.vote)}
+                className={clsx(
+                  classes.voteOption,
+                  option.className,
+                  vote === option.vote && classes.selected,
+                )}
+              >
+                {option.label}
+              </button>
+            ))}
           </div>
           <br />
           <FloatingLabel controlId="reasonTextarea" label={<Trans>Reason (Optional)</Trans>}>

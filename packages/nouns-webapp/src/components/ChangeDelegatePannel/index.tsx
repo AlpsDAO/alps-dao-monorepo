@@ -12,6 +12,7 @@ import { usePickByState } from '../../utils/pickByState';
 import { buildEtherscanTxLink } from '../../utils/etherscan';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import BrandSpinner from '../BrandSpinner';
+import SafeTxNotice from '../SafeTxNotice';
 import { usePublicProvider } from '../../hooks/usePublicProvider';
 import { WalletContext } from '../../contexts/WalletContext';
 
@@ -73,7 +74,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
       setChangeDelegateState(ChangeDelegateState.CHANGE_FAILURE);
     }
 
-    if (delegateVotesState.status === 'Mining') {
+    if (delegateVotesState.status === 'Mining' || delegateVotesState.status === 'QueuedInSafe') {
       setChangeDelegateState(ChangeDelegateState.CHANGING);
     }
   }, [delegateVotesState]);
@@ -103,6 +104,8 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
   }, [delegateAddress, delegateTo, hasResolvedDeepLinkedENS]);
 
   const etherscanTxLink = buildEtherscanTxLink(delegateVotesState.transaction?.hash ?? '');
+  // A Safe's transaction id isn't an Ethereum tx hash, so link to the Safe's queue instead
+  const safeTx = delegateVotesState.safeTx;
 
   const primaryButton = usePickByState(
     changeDelegateState,
@@ -147,10 +150,10 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
         }
       />,
       <NavBarButton
-        buttonText={<Trans>View on Etherscan</Trans>}
+        buttonText={safeTx ? <Trans>View in Safe</Trans> : <Trans>View on Etherscan</Trans>}
         buttonStyle={NavBarButtonStyle.DELEGATE_PRIMARY}
         onClick={() => {
-          window.open(etherscanTxLink, '_blank')?.focus();
+          window.open(safeTx?.url ?? etherscanTxLink, '_blank')?.focus();
         }}
         disabled={false}
       />,
@@ -177,10 +180,14 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
         Enter the Ethereum address or ENS name of the account you would like to delegate your votes
         to.
       </Trans>,
-      <Trans>
-        Your <span style={{ fontWeight: 'bold' }}>{availableVotes}</span> votes are being delegated
-        to a new account.
-      </Trans>,
+      safeTx && delegateVotesState.status === 'QueuedInSafe' ? (
+        <SafeTxNotice safeTx={safeTx} />
+      ) : (
+        <Trans>
+          Your <span style={{ fontWeight: 'bold' }}>{availableVotes}</span> votes are being delegated
+          to a new account.
+        </Trans>
+      ),
       <Trans>
         Your <span style={{ fontWeight: 'bold' }}>{availableVotes}</span> votes have been delegated
         to a new account.

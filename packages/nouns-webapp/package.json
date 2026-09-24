@@ -18,6 +18,8 @@
     "@nouns/assets": "^0.4.0",
     "@nouns/sdk": "^0.2.1",
     "@reduxjs/toolkit": "^1.6.0",
+    "@safe-global/safe-apps-provider": "0.16.0",
+    "@safe-global/safe-apps-sdk": "7.10.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
