@@ -27,6 +27,7 @@ const AlpImageVoteTable: React.FC<AlpImageVoteTableProps> = props => {
     const rowLength = isXLScreen ? 5 : 4;
 
     const paddedAlpIds = shuffledAlpIds
+      .slice(page * NOUNS_PER_VOTE_CARD_DESKTOP, (page + 1) * NOUNS_PER_VOTE_CARD_DESKTOP)
       .map((alpId: string) => {
         return (
           <HoverCard
@@ -38,7 +39,6 @@ const AlpImageVoteTable: React.FC<AlpImageVoteTableProps> = props => {
           </HoverCard>
         );
       })
-      .slice(page * NOUNS_PER_VOTE_CARD_DESKTOP, (page + 1) * NOUNS_PER_VOTE_CARD_DESKTOP)
       .concat(Array(NOUNS_PER_VOTE_CARD_DESKTOP).fill(<GrayCircle />));
 
     return Array(rows)

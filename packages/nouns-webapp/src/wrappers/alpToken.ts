@@ -2,7 +2,7 @@ import { BigNumber as EthersBN, ethers } from 'ethers';
 import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
 import { seedsQuery } from './subgraph';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useContracts } from '../hooks/useContracts';
 import { useTransaction } from '../hooks/useTransaction';
 import { WalletContext } from '../contexts/WalletContext';
@@ -77,63 +77,65 @@ const seedArrayToObject = (seeds: (IAlpSeed & { id: string })[]) => {
   }, {});
 };
 
-const useAlpSeeds = () => {
-  const cache = localStorage.getItem(seedCacheKey);
-  const cachedSeeds = cache ? JSON.parse(cache) : undefined;
-  const { data } = useQuery(seedsQuery(), {
-    skip: !!cachedSeeds,
-  });
+// Seeds never change once an Alp is minted, so they're cached for good: parsed from localStorage once,
+// kept in memory, and written back as new ones arrive
+let seedCache: Record<string, IAlpSeed> | undefined;
 
-  useEffect(() => {
-    if (!cachedSeeds && data?.seeds?.length) {
-      localStorage.setItem(seedCacheKey, JSON.stringify(seedArrayToObject(data.seeds)));
+const readSeedCache = (): Record<string, IAlpSeed> => {
+  if (!seedCache) {
+    try {
+      seedCache = JSON.parse(localStorage.getItem(seedCacheKey) ?? '{}') ?? {};
+    } catch {
+      seedCache = {};
     }
-  }, [data, cachedSeeds]);
+  }
+  return seedCache!;
+};
 
-  return cachedSeeds;
+const cacheSeeds = (seeds: Record<string, IAlpSeed>) => {
+  const current = readSeedCache();
+  if (Object.keys(seeds).every(id => current[id])) return;
+  seedCache = { ...current, ...seeds };
+  try {
+    localStorage.setItem(seedCacheKey, JSON.stringify(seedCache));
+  } catch {}
 };
 
 export const useAlpSeed = (alpId?: EthersBN) => {
-  const seeds = useAlpSeeds();
-  const seed = seeds?.[alpId?.toString() ?? ''];
-  
-  const [response, setResponse] = useState<IAlpSeed | undefined>();
-  const { alpsDaoToken } = useContracts();
+  // Keyed by the id string: callers pass a new BigNumber on every render
+  const id = alpId?.toString();
+  const cached = id !== undefined ? readSeedCache()[id] : undefined;
 
+  // One query for every seed (shared through Apollo's cache) fills in Alps missing from the cache,
+  // e.g. ones minted since it was written
+  const { data, error } = useQuery(seedsQuery(), { skip: id === undefined || !!cached });
+  const indexed = useMemo(() => (data?.seeds ? seedArrayToObject(data.seeds) : undefined), [data]);
   useEffect(() => {
-    async function getSeeds(alpId?: ethers.BigNumber) {
-      if (!alpId || !alpsDaoToken) {
-        setResponse(undefined);
-        return;
-      }
-      try {
-        const seedsResponse = await alpsDaoToken.seeds(alpId);
-        setResponse(seedsResponse);
-      }
-      catch {}
-    }
-    
-    getSeeds(alpId);
-  }, [alpId]);
-  
-  if (alpId && response) {
-    const seedCache = localStorage.getItem(seedCacheKey);
-    if (seedCache && isSeedValid(response)) {
-      const updatedSeedCache = JSON.stringify({
-        ...JSON.parse(seedCache),
-        [alpId.toString()]: {
-          accessory: response.accessory,
-          background: response.background,
-          body: response.body,
-          glasses: response.glasses,
-          head: response.head,
-        },
-      });
-      localStorage.setItem(seedCacheKey, updatedSeedCache);
-    }
-    return response;
-  }
-  return seed;
+    if (indexed) cacheSeeds(indexed);
+  }, [indexed]);
+
+  // Only Alps too new for the subgraph are read from the token contract
+  const [fromChain, setFromChain] = useState<IAlpSeed | undefined>();
+  const { alpsDaoToken } = useContracts();
+  const needsChain = id !== undefined && !cached && ((indexed && !indexed[id]) || !!error);
+  useEffect(() => {
+    if (!needsChain || !alpsDaoToken || id === undefined) return;
+    let cancelled = false;
+    alpsDaoToken
+      .seeds(id)
+      .then(seed => {
+        if (cancelled || !isSeedValid(seed)) return;
+        const { accessory, background, body, glasses, head } = seed;
+        cacheSeeds({ [id]: { accessory, background, body, glasses, head } });
+        setFromChain({ accessory, background, body, glasses, head });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [needsChain, id, alpsDaoToken]);
+
+  return cached ?? (id !== undefined ? indexed?.[id] : undefined) ?? fromChain;
 };
 
 export const useUserVotes = (): number | undefined => {

@@ -23,8 +23,10 @@ interface StandaloneAlpWithSeedProps {
   shouldLinkToProfile: boolean;
 }
 
-export const getAlp = (alpId: string | EthersBN, seed: IAlpSeed) => {
-  const id = alpId.toString();
+// Building an Alp's SVG is costly and the same seed always gives the same image, so build each once
+const alpCache = new Map<string, ReturnType<typeof buildAlp>>();
+
+const buildAlp = (id: string, seed: IAlpSeed) => {
   const name = `Alp ${id}`;
   const description = `Alp ${id} is a member of the Alps DAO`;
   const { parts, background } = getAlpData(seed);
@@ -36,6 +38,17 @@ export const getAlp = (alpId: string | EthersBN, seed: IAlpSeed) => {
     image,
     parts,
   };
+};
+
+export const getAlp = (alpId: string | EthersBN, seed: IAlpSeed) => {
+  const id = alpId.toString();
+  const key = [id, seed.background, seed.body, seed.accessory, seed.head, seed.glasses].join('-');
+  let alp = alpCache.get(key);
+  if (!alp) {
+    alp = buildAlp(id, seed);
+    alpCache.set(key, alp);
+  }
+  return alp;
 };
 
 const StandaloneAlp: React.FC<StandaloneAlpProps> = (props: StandaloneAlpProps) => {
