@@ -107,3 +107,9 @@
 .whiteInfo:hover {
   background-color: #e2e3e8;
 }
+
+@media (max-width: 568px) {
+  .wrapper {
+    height: 36px;
+  }
+}

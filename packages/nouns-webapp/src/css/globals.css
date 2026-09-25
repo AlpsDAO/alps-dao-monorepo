@@ -7,6 +7,15 @@
   }
 }
 
+/* The header's navy shows behind the iOS status bar and when overscrolling past the top, instead of white
+   that makes the status bar's dark icons vanish; the page itself stays white */
+html {
+  background-color: #213343;
+}
+
 body {
   overflow-x: hidden;
+  background-color: white;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }

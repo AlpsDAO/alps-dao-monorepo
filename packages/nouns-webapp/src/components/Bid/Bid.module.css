@@ -171,3 +171,16 @@
   margin: 0;
   padding: 0;
 }
+
+@media (max-width: 568px) {
+  .bidInput {
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .customPlaceholderBidAmt {
+    font-size: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

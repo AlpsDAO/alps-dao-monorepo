@@ -108,3 +108,26 @@
     color: var(--brand-black) !important;
   }
 }
+
+@media (max-width: 568px) {
+  /* Label and value on one baseline */
+  .section {
+    align-items: baseline;
+  }
+
+  .section h4 {
+    font-size: 16px;
+    margin-top: 2px;
+  }
+
+  .section h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 568px) {
+  .timerSection span,
+  .timerSectionFinal span {
+    font-size: 20px;
+  }
+}

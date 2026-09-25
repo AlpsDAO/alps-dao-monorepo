@@ -14,7 +14,8 @@
 }
 
 .navBarCustom {
-  padding: 1.5rem;
+  /* Extends up behind the status bar when the browser draws the page underneath it */
+  padding: calc(1.5rem + env(safe-area-inset-top)) 1.5rem 1.5rem;
 }
 
 /* connect button displays differently to default NavBarItems, thus the !importants */
@@ -86,4 +87,19 @@
   height: 44px;
   padding: 0.25rem 0.5rem;
   border-color: white !important;
+}
+
+/* Phones: a slimmer header */
+@media (max-width: 568px) {
+  .navBarCustom {
+    padding: calc(0.75rem + env(safe-area-inset-top)) 1rem 0.75rem;
+  }
+
+  .navBarLogo {
+    height: 32px;
+  }
+
+  .navBarToggle {
+    height: 38px;
+  }
 }
