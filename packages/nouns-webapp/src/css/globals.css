@@ -7,15 +7,16 @@
   }
 }
 
-/* The header's navy shows behind the iOS status bar and when overscrolling past the top, instead of white
-   that makes the status bar's dark icons vanish; the page itself stays white */
-html {
+/* The header's navy behind the iOS status bar / Dynamic Island and in overscroll, instead of white that
+   hides the status bar's icons. Browsers differ in what they sample there (theme-color, the root or body
+   background), so both are navy; the app's content sets its own white background (App .wrapper) */
+html,
+body {
   background-color: #213343;
 }
 
 body {
   overflow-x: hidden;
-  background-color: white;
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }

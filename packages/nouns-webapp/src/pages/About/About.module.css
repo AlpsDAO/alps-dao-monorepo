@@ -29,10 +29,22 @@
 }
 
 .toc {
+  /* Stays at the top while scrolling, so any section is one tap away; one swipeable row */
+  position: sticky;
+  top: env(safe-area-inset-top);
+  z-index: 5;
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
-  margin: 1.5rem 0 1rem;
+  margin: 1.5rem -1rem 0;
+  padding: 0.6rem 1rem;
+  overflow-x: auto;
+  background-color: white;
+  border-bottom: 1px solid var(--brand-gray-border);
+  scrollbar-width: none;
+}
+
+.toc::-webkit-scrollbar {
+  display: none;
 }
 
 .page .tocLink {
@@ -50,10 +62,15 @@
   background-color: var(--brand-gray-border);
 }
 
+.page .tocLink.active {
+  background-color: #213343;
+  color: white;
+}
+
 .section {
   padding-top: 2rem;
-  /* Clear the page top when jumping to a section */
-  scroll-margin-top: 1rem;
+  /* Land below the sticky section bar when jumping to a section */
+  scroll-margin-top: 3.5rem;
 }
 
 .section h2 {
@@ -104,11 +121,15 @@
 
 @media (max-width: 568px) {
   .page {
-    padding-top: 1rem;
+    padding-top: 0;
   }
 
+  /* Full-bleed hero on phones */
   .banner {
-    border-radius: 12px;
+    width: calc(100% + 2rem);
+    max-width: none;
+    margin: 0 -1rem;
+    border-radius: 0;
   }
 
   .title {
@@ -120,19 +141,6 @@
     font-size: 1.1rem;
   }
 
-  /* One swipeable row of section links instead of several wrapped lines */
-  .toc {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    padding: 0 1rem 0.25rem;
-    scrollbar-width: none;
-  }
-
-  .toc::-webkit-scrollbar {
-    display: none;
-  }
 
   .section {
     padding-top: 1.5rem;

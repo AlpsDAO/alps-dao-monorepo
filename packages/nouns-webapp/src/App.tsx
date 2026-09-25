@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setActiveAccount } from './state/slices/account';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { setAlertModal } from './state/slices/application';
 import classes from './App.module.css';
 import '../src/css/globals.css';
@@ -25,6 +25,23 @@ import DelegatePage from './pages/DelegatePage';
 import { useWallet } from './hooks/useWallet';
 import { usePublicProvider } from './hooks/usePublicProvider';
 import { WalletContext } from './contexts/WalletContext';
+
+// A new page starts at the top, instead of wherever the previous page was scrolled to. Done before paint
+// and instantly: Bootstrap makes scrolling smooth site-wide, which would visibly glide up from the old spot
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+  useLayoutEffect(() => {
+    if (hash) return;
+    const root = document.documentElement;
+    const behavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    // Apply the override before scrolling; otherwise the browser may still use smooth
+    void getComputedStyle(root).scrollBehavior;
+    window.scrollTo(0, 0);
+    root.style.scrollBehavior = behavior;
+  }, [pathname, hash]);
+  return null;
+};
 
 function App() {
   const wallet = useWallet();
@@ -55,6 +72,7 @@ function App() {
             provider={wallet.chainId === ChainId.Mainnet ? publicProvider : undefined}
             batchLookups={true}
           >
+            <ScrollToTop />
             <NavBar />
             <Switch>
               <Route exact path="/" component={AuctionPage} />

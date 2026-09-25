@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faGavel } from '@fortawesome/free-solid-svg-icons';
 import NavBarTreasury from '../NavBarTreasury';
 import NavWallet from '../NavWallet';
 import { Trans } from '@lingui/macro';
@@ -98,6 +99,13 @@ const NavBar = () => {
             </svg>
           </Navbar.Toggle>
           <Navbar.Collapse className="justify-content-end">
+            <Nav.Link as={Link} to="/" className={classes.alpsNavLink} onClick={closeNav}>
+              <NavBarButton
+                buttonText={<Trans>Auction</Trans>}
+                buttonIcon={<FontAwesomeIcon icon={faGavel} />}
+                buttonStyle={nonWalletButtonStyle}
+              />
+            </Nav.Link>
             <Nav.Link as={Link} to="/vote" className={classes.alpsNavLink} onClick={closeNav}>
               <NavBarButton
                 buttonText={<Trans>Governance</Trans>}

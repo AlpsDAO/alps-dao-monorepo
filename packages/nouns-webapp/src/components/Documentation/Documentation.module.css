@@ -88,23 +88,52 @@
   margin-bottom: 0.6rem;
 }
 
+/* Buttons in the header's navy: About as the primary, Playground as the outlined secondary */
 .links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 2rem;
-  margin: 1.5rem 0 3rem;
-  font-family: 'PT Root UI', sans-serif;
-  font-size: 1.2rem;
-  font-weight: bold;
+  gap: 0.75rem;
+  margin: 2rem 0 3rem;
 }
 
 .links a {
-  color: var(--brand-dark-red);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.4rem;
+  border: 2px solid #213343;
+  border-radius: 12px;
+  background-color: #213343;
+  color: white;
+  font-family: 'PT Root UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.links a:hover {
+  background-color: #2e4760;
+  border-color: #2e4760;
+  color: white;
+}
+
+.links a + a {
+  background-color: transparent;
+  color: #213343;
+}
+
+.links a + a:hover {
+  background-color: #213343;
+  color: white;
 }
 
 @media (max-width: 568px) {
-  .summary,
-  .links {
+  .summary {
     font-size: 1.05rem;
+  }
+
+  .links {
+    flex-direction: column;
   }
 }

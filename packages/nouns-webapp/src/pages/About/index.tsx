@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
@@ -23,6 +23,32 @@ const AboutPage = () => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
   }, [hash]);
 
+  // Highlight the section being read in the sticky section bar, and keep its chip in view
+  const [activeId, setActiveId] = useState(aboutSections[0].id);
+  const tocRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        const visible = entries.filter(e => e.isIntersecting);
+        if (visible.length) setActiveId(visible[0].target.id);
+      },
+      // A section counts as current while it crosses a band just below the section bar
+      { rootMargin: '-20% 0px -70% 0px' },
+    );
+    aboutSections.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    const toc = tocRef.current;
+    const chip = toc?.querySelector<HTMLElement>(`a[href="#${activeId}"]`);
+    if (toc && chip) {
+      toc.scrollTo({ left: chip.offsetLeft - (toc.clientWidth - chip.clientWidth) / 2, behavior: 'smooth' });
+    }
+  }, [activeId]);
+
   return (
     <div className={classes.page}>
       <img
@@ -33,9 +59,14 @@ const AboutPage = () => {
       <h1 className={classes.title}>About Alps</h1>
       <p className={classes.intro}>{aboutIntro}</p>
 
-      <nav className={classes.toc} aria-label="About sections">
+      <nav ref={tocRef} className={classes.toc} aria-label="About sections">
         {aboutSections.map(section => (
-          <a key={section.id} href={`#${section.id}`} className={classes.tocLink}>
+          <a
+            key={section.id}
+            href={`#${section.id}`}
+            className={section.id === activeId ? `${classes.tocLink} ${classes.active}` : classes.tocLink}
+            aria-current={section.id === activeId ? 'true' : undefined}
+          >
             {section.title}
           </a>
         ))}

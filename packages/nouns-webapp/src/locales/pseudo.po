@@ -397,6 +397,10 @@ msgstr ""
 #~ msgid "Artwork is generative and stored directly onchain (not IPFS)."
 #~ msgstr ""
 
+#: src/components/NavBar/index.tsx
+msgid "Auction"
+msgstr ""
+
 #: src/components/AuctionTimer/index.tsx
 #: src/components/AuctionTimer/index.tsx
 msgid "Auction ended"
