@@ -133,7 +133,7 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
     const snapshotNote = snapshotTimestamp ? (
       <p className={classes.snapshotNote}>
         <Trans>
-          Only Alps you owned or were delegated to you before{' '}
+          Only Alp tokens you owned or were delegated to you before{' '}
           {i18n.date(new Date(snapshotTimestamp * 1000), {
             dateStyle: 'long',
             timeStyle: 'long',

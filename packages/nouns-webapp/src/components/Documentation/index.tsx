@@ -81,7 +81,7 @@ const Documentation = () => {
             <Accordion.Body>
               <ul>
                 <li>
-                  <Trans>Alps token artwork is in the <PublicDomainLink />.</Trans>
+                  <Trans>Alp token artwork is in the <PublicDomainLink />.</Trans>
                 </li>
                 <li>
                   <Trans>One Alp is trustlessly auctioned every 3 hours, forever.</Trans>
@@ -93,31 +93,31 @@ const Documentation = () => {
                   <Trans>Settlement of one auction kicks off the next.</Trans>
                 </li>
                 <li>
-                  <Trans>All Alp tokens are members of Alps DAO.</Trans>
+                  <Trans>All Alp tokens are members of Alps.</Trans>
                 </li>
                 <li>
                   <Trans>Alps uses a fork of <CompoundGovLink />.</Trans>
                 </li>
                 <li><Trans>One Alp is equal to one vote.</Trans></li>
-                <li><Trans>The treasury is controlled exclusively by Alps via governance.</Trans></li>
+                <li><Trans>The treasury is controlled exclusively by Alp token holders via governance.</Trans></li>
                 <li><Trans>Artwork is generative and stored directly onchain (not IPFS).</Trans></li>
                 <li>
                   <Trans>
-                    No explicit rules exist for attribute scarcity; all Alps are equally rare but
+                    No explicit rules exist for attribute scarcity; all Alp tokens are equally rare but
                     trait occurrence can vary, creating dynamics around rarity.
                   </Trans>
                 </li>
                 <li>
-                  <Trans>Founders receive rewards in the form of Alps (10% of supply for first 5 years).</Trans>
+                  <Trans>Founders receive rewards in the form of Alp tokens (10% of supply for first 5 years).</Trans>
                 </li>
                 <li>
                   <Trans>
-                    The Alpine Council receives rewards in the form of Alps (10% of supply for first 5 years).
+                    The Alpine Council receives rewards in the form of Alp tokens (10% of supply for first 5 years).
                   </Trans>
                 </li>
                 <li>
                   <Trans>
-                    Alps that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet
+                    Alp tokens that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet
                     for rescue opportunities and burn events.
                   </Trans>
                 </li>
@@ -134,7 +134,7 @@ const Documentation = () => {
                 <Trans>
                   The Alps Auction Contract will act as a self-sufficient Alp generation and
                   distribution mechanism, auctioning one Alp every 3 hours, forever. 100% of auction
-                  proceeds (ETH) are automatically deposited in the Alps DAO treasury.
+                  proceeds (ETH) are automatically deposited in the Alps treasury.
                 </Trans>
               </p>
 
@@ -154,12 +154,12 @@ const Documentation = () => {
 
           <Accordion.Item eventKey="2" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Alps DAO</Trans>
+              <Trans>Governance</Trans>
             </Accordion.Header>
             <Accordion.Body>
               <Trans>
                 Alps utilises <NounsDAOLink />'s fork of <CompoundGovLink /> and governs the Alps ecosystem.
-                Each Alp represents one vote in governance matters, with votes delegatable but
+                Each Alp token represents one vote in governance matters, with votes delegatable but
                 non-transferable.
               </Trans>
             </Accordion.Body>
@@ -186,7 +186,7 @@ const Documentation = () => {
             <Accordion.Body>
               <p>
                 <Trans>
-                  Alps are generated pseudo-randomly, with no rules governing trait scarcity. Current
+                  Alp tokens are generated pseudo-randomly, with no rules governing trait scarcity. Current
                   traits include:
                 </Trans>
               </p>

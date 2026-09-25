@@ -59,7 +59,7 @@ export const useWallet = (): Wallet => {
                 dispatch(setAlertModal({
                     show: true,
                     title: 'Wrong network',
-                    message: 'Alps DAO is on Ethereum Mainnet. Switch your wallet (or Safe) to Ethereum Mainnet and connect again.',
+                    message: 'Alps is on Ethereum Mainnet. Switch your wallet (or Safe) to Ethereum Mainnet and connect again.',
                 }));
                 return false;
             }

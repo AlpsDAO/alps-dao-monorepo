@@ -145,8 +145,8 @@ const AlpersPage = () => {
         </h3>
         <p style={{ textAlign: 'justify' }}>
           <Trans>
-            All Alp auction proceeds are sent to the Alps DAO. For this reason, we, the project's
-            founders (‘Alpers’) have chosen to compensate ourselves with Alps. Every 10th alp for
+            All Alp auction proceeds are sent to the Alps treasury. For this reason, we, the project's
+            founders (‘Alpers’) have chosen to compensate ourselves with Alp tokens. Every 10th alp for
             the first 5 years of the project will be sent to our multisig (5/10), where it will be
             vested and distributed to individual Alpers.
           </Trans>

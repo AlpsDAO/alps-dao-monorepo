@@ -18,8 +18,8 @@ const GovernancePage = () => {
   const treasuryBalanceUSD = useTreasuryUSDValue(treasuryBalance);
 
   // Note: We have to extract this copy out of the <span> otherwise the Lingui macro gets confused
-  const alpSingular = <Trans>Alp</Trans>;
-  const alpPlural = <Trans>Alps</Trans>;
+  const alpSingular = <Trans>Alp token</Trans>;
+  const alpPlural = <Trans>Alp tokens</Trans>;
 
   return (
     <Section fullWidth={false} className={classes.section}>
@@ -29,12 +29,12 @@ const GovernancePage = () => {
             <Trans>Governance</Trans>
           </span>
           <h1>
-            <Trans>Alps DAO</Trans>
+            <Trans>Alps</Trans>
           </h1>
         </Row>
         <p className={classes.subheading}>
           <Trans>
-            Alps govern <span className={classes.boldText}>Alps DAO</span>. Alps can vote on
+            Alp tokens govern <span className={classes.boldText}>Alps</span>. Alp tokens can vote on
             proposals or delegate their vote to a third party. A minimum of{' '}
             <span className={classes.boldText}>
               {alpsRequired} {threshold === 0 ? alpSingular : alpPlural}
@@ -71,9 +71,8 @@ const GovernancePage = () => {
           </Col>
           <Col className={classes.treasuryInfoText}>
             <Trans>
-              This treasury exists for <span className={classes.boldText}>Alps DAO</span>{' '}
-              participants to allocate resources for the long-term growth and prosperity of the Alps
-              DAO project.
+              This treasury exists for <span className={classes.boldText}>Alps</span> participants
+              to allocate resources for the long-term growth and prosperity of the Alps project.
             </Trans>
           </Col>
         </Row>
