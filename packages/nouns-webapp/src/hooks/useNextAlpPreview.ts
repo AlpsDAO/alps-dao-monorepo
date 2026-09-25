@@ -15,6 +15,8 @@ export interface NextAlpPreview {
   seed: IAlpSeed;
   blockNumber: number;
   blockHash: string;
+  // Unix seconds: the start of the block's 12-second slot, i.e. when this preview's window opened
+  blockTimestamp: number;
 }
 
 /**
@@ -59,6 +61,7 @@ export const useNextAlpPreview = (auction: Auction | undefined, isLastAuction: b
               seed: getAlpSeedFromBlockHash(alpId, block.hash),
               blockNumber: block.number,
               blockHash: block.hash,
+              blockTimestamp: block.timestamp,
             },
       );
     };

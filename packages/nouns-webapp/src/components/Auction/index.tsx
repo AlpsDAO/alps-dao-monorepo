@@ -1,11 +1,12 @@
 import { Col } from 'react-bootstrap';
-import { getAlp, StandaloneAlpWithSeed } from '../StandaloneAlp';
+import { StandaloneAlpWithSeed } from '../StandaloneAlp';
 import AuctionActivity from '../AuctionActivity';
 import { Row, Container } from 'react-bootstrap';
 import { setStateBackgroundColor } from '../../state/slices/application';
-import Alp, { LoadingAlp } from '../Alp';
+import { LoadingAlp } from '../Alp';
 import { Trans } from '@lingui/macro';
 import { useNextAlpPreview } from '../../hooks/useNextAlpPreview';
+import NextAlpPreview from '../NextAlpPreview';
 import { Auction as IAuction } from '../../wrappers/alpsAuction';
 import classes from './Auction.module.css';
 import { IAlpSeed } from '../../wrappers/alpToken';
@@ -78,17 +79,7 @@ const Auction: React.FC<AuctionProps> = props => {
           {endedAlp}
         </div>
         <div className={classes.pairItem}>
-          <span className={classes.pairLabel}>
-            <Trans>Up next: Alp {nextAlp.alpId.toNumber()}</Trans>
-            <small>
-              <Trans>if kicked off now</Trans>
-            </small>
-          </span>
-          <Alp
-            imgPath={getAlp(nextAlp.alpId, nextAlp.seed).image}
-            alt={`Alp ${nextAlp.alpId.toNumber()}, which kicking off the next auction would mint now`}
-            className={classes.nextAlpImg}
-          />
+          <NextAlpPreview preview={nextAlp} labelClassName={classes.pairLabel} />
         </div>
       </div>
     ) : (

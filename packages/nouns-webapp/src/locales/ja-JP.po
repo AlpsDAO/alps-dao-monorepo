@@ -1278,8 +1278,12 @@ msgstr "投票ありがとうございます。"
 #~ msgstr "Alpシーダー契約は、ミントのプロセスでAlpsの特徴を決定するために使用されます。シーダー契約は、今後の特徴生成アルゴリズムのアップグレードを可能にするために変更することができ、さらに、今後のアップデートを防ぐためにAlps DAOによってロックすることも可能です。現在、Alpsの特徴は擬似乱数生成を用い決められています。"
 
 #: src/components/KickOffAuction/index.tsx
-msgid "The Alp shown beside this one is the one it would mint right now: its traits come from the latest block, so it changes with each new block (about every 12 seconds). Anyone can kick off the next auction; it only costs gas."
+msgid "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
 msgstr ""
+
+#: src/components/KickOffAuction/index.tsx
+#~ msgid "The Alp shown beside this one is the one it would mint right now: its traits come from the latest block, so it changes with each new block (about every 12 seconds). Anyone can kick off the next auction; it only costs gas."
+#~ msgstr ""
 
 #: src/pages/Alpers/index.tsx
 #~ msgid "The Alpers"
@@ -1469,7 +1473,11 @@ msgid "Until Alp #14,600, every 10th Alp goes to the founders and every other 5t
 msgstr ""
 
 #: src/components/Auction/index.tsx
-msgid "Up next: Alp {0}"
+#~ msgid "Up next: Alp {0}"
+#~ msgstr ""
+
+#: src/components/NextAlpPreview/index.tsx
+msgid "Up next: Alp {alpId}"
 msgstr ""
 
 #: src/components/ChangeDelegatePannel/index.tsx
@@ -1761,12 +1769,16 @@ msgstr "時間"
 #~ msgstr ""
 
 #: src/components/Auction/index.tsx
-msgid "if kicked off now"
-msgstr ""
+#~ msgid "if kicked off now"
+#~ msgstr ""
 
 #: src/components/AuctionTimer/index.tsx
 msgid "m"
 msgstr "分"
+
+#: src/components/BlockCountdown/index.tsx
+msgid "next block any moment"
+msgstr ""
 
 #: src/components/Bid/index.tsx
 msgid "or more"
@@ -1803,6 +1815,10 @@ msgstr "{0}<0>イーサリアムアドレス</0>"
 #: src/pages/Vote/index.tsx
 msgid "{0} votes"
 msgstr "{0} 票"
+
+#: src/components/BlockCountdown/index.tsx
+msgid "{0}s left"
+msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "{moveStateButtonAction} Proposal ⌐◧-◧"

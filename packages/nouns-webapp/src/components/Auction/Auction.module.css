@@ -91,10 +91,6 @@
   color: var(--brand-gray-dark-text);
 }
 
-.nextAlpImg {
-  border-radius: 12px 12px 0 0;
-}
-
 @media (max-width: 568px) {
   .alpPair {
     margin-top: 1rem;
