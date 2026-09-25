@@ -75,3 +75,36 @@
     padding-left: 20px;
   }
 }
+
+.summary {
+  margin: 2rem 0 0;
+  padding-left: 1.4rem;
+  font-family: 'PT Root UI', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.summary li {
+  margin-bottom: 0.6rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  margin: 1.5rem 0 3rem;
+  font-family: 'PT Root UI', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.links a {
+  color: var(--brand-dark-red);
+}
+
+@media (max-width: 568px) {
+  .summary,
+  .links {
+    font-size: 1.05rem;
+  }
+}

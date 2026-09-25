@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import classes from './About.module.css';
@@ -16,32 +16,44 @@ const MarkdownLink: React.FC<{ href?: string }> = ({ href = '', children }) =>
     </a>
   );
 
-const AboutPage = () => (
-  <div className={classes.page}>
-    <img className={classes.banner} src={banner} alt="Alps characters riding a gondola above the mountains" />
-    <h1 className={classes.title}>About Alps</h1>
-    <p className={classes.intro}>{aboutIntro}</p>
+const AboutPage = () => {
+  // In-app links like /about#governance don't scroll by themselves
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [hash]);
 
-    <nav className={classes.toc} aria-label="About sections">
+  return (
+    <div className={classes.page}>
+      <img
+        className={classes.banner}
+        src={banner}
+        alt="Alps characters riding a gondola above the mountains"
+      />
+      <h1 className={classes.title}>About Alps</h1>
+      <p className={classes.intro}>{aboutIntro}</p>
+
+      <nav className={classes.toc} aria-label="About sections">
+        {aboutSections.map(section => (
+          <a key={section.id} href={`#${section.id}`} className={classes.tocLink}>
+            {section.title}
+          </a>
+        ))}
+      </nav>
+
       {aboutSections.map(section => (
-        <a key={section.id} href={`#${section.id}`} className={classes.tocLink}>
-          {section.title}
-        </a>
+        <section key={section.id} id={section.id} className={classes.section}>
+          <h2>{section.title}</h2>
+          <ReactMarkdown
+            className={classes.markdown}
+            children={section.markdown}
+            remarkPlugins={[remarkBreaks]}
+            components={{ a: MarkdownLink }}
+          />
+        </section>
       ))}
-    </nav>
-
-    {aboutSections.map(section => (
-      <section key={section.id} id={section.id} className={classes.section}>
-        <h2>{section.title}</h2>
-        <ReactMarkdown
-          className={classes.markdown}
-          children={section.markdown}
-          remarkPlugins={[remarkBreaks]}
-          components={{ a: MarkdownLink }}
-        />
-      </section>
-    ))}
-  </div>
-);
+    </div>
+  );
+};
 
 export default AboutPage;

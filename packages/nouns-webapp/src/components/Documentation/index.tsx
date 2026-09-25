@@ -1,206 +1,66 @@
 import Section from '../../layout/Section';
 import { Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import classes from './Documentation.module.css';
-import Accordion from 'react-bootstrap/Accordion';
-import Link from '../Link';
 import { Trans } from '@lingui/macro';
 
-// Define reusable Link components outside of Trans for efficiency and clarity
-const PlaygroundLink = () => (
-  <Link
-    text={<Trans>Playground</Trans>}
-    url="/playground"
-    leavesPage={false}
-  />
-);
-
-const PublicDomainLink = () => (
-  <Link
-    text={<Trans>public domain</Trans>}
-    url="https://creativecommons.org/publicdomain/zero/1.0/"
-    leavesPage={true}
-  />
-);
-
-const CompoundGovLink = () => (
-  <Link
-    text={<Trans>Compound Governance</Trans>}
-    url="https://compound.finance/governance"
-    leavesPage={true}
-  />
-);
-
-const NounsDAOLink = () => (
-  <Link
-    text={<Trans>Nouns DAO</Trans>}
-    url="https://nouns.wtf/"
-    leavesPage={true}
-  />
-);
-
-const GnarsLink = () => (
-  <Link
-    text={<Trans>Gnars</Trans>}
-    url="https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/?tab=about"
-    leavesPage={true}
-  />
-);
-
+// A short summary on the home page; the full story lives on /about
 const Documentation = () => {
   return (
     <Section fullWidth={false}>
       <Col lg={{ span: 10, offset: 1 }}>
         <div className={classes.headerWrapper}>
-          <h1><Trans>WTF?</Trans></h1>
+          <h1>
+            <Trans>WTF?</Trans>
+          </h1>
           <p className={classes.aboutText}>
             <Trans>
-              We take ⌐◨-◨ deep into the pristine pow of the world. Alps is a club where membership fees go into
-              a treasury governed by the membership tokens. If you love mountain culture, skiing, snowboarding,
-              or snow in general, join us by bidding above.
-              </Trans>
-          </p>
-          <p className={classes.aboutText}>
-            <Trans>
-              Alps is an extension of <NounsDAOLink /> and <GnarsLink />, focused on establishing
-              long-term relationships with alpine resorts to proliferate Alps, provide unique membership perks
-              to members, and support proposals that enhance on-mountain environments and experiences.
-            </Trans>
-          </p>
-          <p className={classes.aboutText} style={{ paddingBottom: '4rem' }}>
-            <Trans>
-              Learn more about Alps below or create your own Alps off-chain using our <PlaygroundLink />.
+              We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers,
+              snowboarders and mountain lovers of every kind, with a treasury its members run together.
+              If that’s you, join us by bidding above.
             </Trans>
           </p>
         </div>
-
-        <Accordion flush>
-          <Accordion.Item eventKey="0" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Summary</Trans>
-            </Accordion.Header>
-            <Accordion.Body>
-              <ul>
-                <li>
-                  <Trans>Alp token artwork is in the <PublicDomainLink />.</Trans>
-                </li>
-                <li>
-                  <Trans>One Alp is trustlessly auctioned every 3 hours, forever.</Trans>
-                </li>
-                <li>
-                  <Trans>100% of Alp auction proceeds are trustlessly sent to the treasury.</Trans>
-                </li>
-                <li>
-                  <Trans>Settlement of one auction kicks off the next.</Trans>
-                </li>
-                <li>
-                  <Trans>All Alp tokens are members of Alps.</Trans>
-                </li>
-                <li>
-                  <Trans>Alps uses a fork of <CompoundGovLink />.</Trans>
-                </li>
-                <li><Trans>One Alp is equal to one vote.</Trans></li>
-                <li><Trans>The treasury is controlled exclusively by Alp token holders via governance.</Trans></li>
-                <li><Trans>Artwork is generative and stored directly onchain (not IPFS).</Trans></li>
-                <li>
-                  <Trans>
-                    No explicit rules exist for attribute scarcity; all Alp tokens are equally rare but
-                    trait occurrence can vary, creating dynamics around rarity.
-                  </Trans>
-                </li>
-                <li>
-                  <Trans>Founders receive rewards in the form of Alp tokens (10% of supply for first 5 years).</Trans>
-                </li>
-                <li>
-                  <Trans>
-                    The Alpine Council receives rewards in the form of Alp tokens (10% of supply for first 5 years).
-                  </Trans>
-                </li>
-                <li>
-                  <Trans>
-                    Alp tokens that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet
-                    for rescue opportunities and burn events.
-                  </Trans>
-                </li>
-              </ul>
-            </Accordion.Body>
-          </Accordion.Item>
-
-          <Accordion.Item eventKey="1" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Auctions</Trans>
-            </Accordion.Header>
-            <Accordion.Body>
-              <p className={classes.aboutText}>
-                <Trans>
-                  The Alps Auction Contract will act as a self-sufficient Alp generation and
-                  distribution mechanism, auctioning one Alp every 3 hours, forever. 100% of auction
-                  proceeds (ETH) are automatically deposited in the Alps treasury.
-                </Trans>
-              </p>
-
-              <p className={classes.aboutText}>
-                <Trans>
-                  Each auction settlement triggers a new Alp mint and begins a new 3-hour auction.
-                </Trans>
-              </p>
-              <p>
-                <Trans>
-                  While the winning bidder is incentivised to settle the auction, anyone can trigger
-                  settlement, ensuring continuous auctions as long as Ethereum is operational.
-                </Trans>
-              </p>
-            </Accordion.Body>
-          </Accordion.Item>
-
-          <Accordion.Item eventKey="2" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Governance</Trans>
-            </Accordion.Header>
-            <Accordion.Body>
-              <Trans>
-                Alps utilises <NounsDAOLink />'s fork of <CompoundGovLink /> and governs the Alps ecosystem.
-                Each Alp token represents one vote in governance matters, with votes delegatable but
-                non-transferable.
-              </Trans>
-            </Accordion.Body>
-          </Accordion.Item>
-
-          <Accordion.Item eventKey="3" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Governance ‘Slow Start’</Trans>
-            </Accordion.Header>
-            <Accordion.Body>
-              <p>
-                <Trans>
-                  Founders hold a temporary veto right to block malicious proposals during initial
-                  distribution. This right will be revoked once the community is sufficiently engaged.
-                </Trans>
-              </p>
-            </Accordion.Body>
-          </Accordion.Item>
-
-          <Accordion.Item eventKey="4" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Alp Traits</Trans>
-            </Accordion.Header>
-            <Accordion.Body>
-              <p>
-                <Trans>
-                  Alp tokens are generated pseudo-randomly, with no rules governing trait scarcity. Current
-                  traits include:
-                </Trans>
-              </p>
-              <ul>
-                <li><Trans>Backgrounds (7)</Trans></li>
-                <li><Trans>Bodies (32)</Trans></li>
-                <li><Trans>Accessories (182)</Trans></li>
-                <li><Trans>Heads (248)</Trans></li>
-                <li><Trans>Glasses (200)</Trans></li>
-              </ul>
-              <Trans>Experiment with Alp generation using the <PlaygroundLink />.</Trans>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+        <ul className={classes.summary}>
+          <li>
+            <Trans>
+              One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one
+              vote.
+            </Trans>
+          </li>
+          <li>
+            <Trans>
+              100% of auction proceeds go to the club treasury, which members spend by proposing and
+              voting.
+            </Trans>
+          </li>
+          <li>
+            <Trans>
+              Anyone can kick off the next auction once one ends. Alps that get no bids go to the
+              Warming Hut.
+            </Trans>
+          </li>
+          <li>
+            <Trans>
+              Until Alp #14,600, every 10th Alp goes to the founders and every other 5th Alp to the
+              Alpine Council.
+            </Trans>
+          </li>
+          <li>
+            <Trans>
+              Alp art is 32×32 pixels, generated from 7 backgrounds, 32 bodies, 182 accessories, 248
+              heads and 200 glasses, stored entirely on-chain and in the public domain.
+            </Trans>
+          </li>
+        </ul>
+        <p className={classes.links}>
+          <Link to="/about">
+            <Trans>Read more about Alps</Trans> →
+          </Link>
+          <Link to="/playground">
+            <Trans>Make your own Alps in the Playground</Trans> →
+          </Link>
+        </p>
       </Col>
     </Section>
   );

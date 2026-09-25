@@ -48,8 +48,11 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
 
   const isCool = useAppSelector(state => state.application.isCoolBackground);
 
-  const [auctionEnded, setAuctionEnded] = useState(false);
+  // Re-renders on a timer so the auction flips to ended on time
   const [auctionTimer, setAuctionTimer] = useState(false);
+  // Derived during render rather than stored: stored, it lagged a render behind when a new auction
+  // replaced an ended one, briefly showing the new auction as ended with an empty winner
+  const auctionEnded = !!auction && Number(auction.endTime) <= Math.floor(Date.now() / 1000);
 
   const [showBidHistoryModal, setShowBidHistoryModal] = useState(false);
   const showBidModalHandler = () => {
@@ -65,10 +68,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
 
     const timeLeft = Number(auction.endTime) - Math.floor(Date.now() / 1000);
 
-    if (auction && timeLeft <= 0) {
-      setAuctionEnded(true);
-    } else {
-      setAuctionEnded(false);
+    if (timeLeft > 0) {
       const timer = setTimeout(
         () => {
           setAuctionTimer(!auctionTimer);

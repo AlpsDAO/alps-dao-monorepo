@@ -12,7 +12,7 @@ const NotFoundPage = () => {
       </Col>
       <Col lg={8}>
         <h1 className={classes.heading}>
-          <Trans>404: This is not the person, place, or thing you're looking for...</Trans>
+          <Trans>404: You’ve gone off-piste. This page doesn’t exist.</Trans>
         </h1>
       </Col>
     </Section>

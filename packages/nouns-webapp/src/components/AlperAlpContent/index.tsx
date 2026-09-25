@@ -54,16 +54,11 @@ const AlperAlpContent: React.FC<{
             style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
             className={alpContentClasses.mobileText}
           >
-            {/* <Trans>All Alp auction proceeds are sent to the </Trans>{' '}
-            <Link to="/vote" className={alpContentClasses.link}>
-              <Trans>Alps DAO</Trans>
-            </Link>
-            .{' '} */}
             <p>
-              Because 100% of Alp auction proceeds are sent to the Alps treasury, the founders have
-              chosen to compensate themselves with Alp tokens. Every 10th Alp for the first 5 years of
-              the project (Alp IDs #0, #10, #20, #30 and so on) will be automatically sent to a
-              multisig to be vested and shared among the founding members of the project.
+              This Alp went straight to the founders instead of being auctioned. All auction
+              proceeds go to the club treasury, so until Alp #14,600 every 10th Alp (#0, #10, #20
+              and so on) is minted to the founders’ multisig as their reward for building and
+              running Alps.
             </p>
           </span>
         </li>
@@ -86,9 +81,9 @@ const AlperAlpContent: React.FC<{
             className={alpContentClasses.mobileText}
           >
             <p>
-              Every 10th Alp with ID ending in "5" for the first 5 years of the
-              project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to
-              The Alpine Council to be utilized by active Alpine Council members in voting.
+              This Alp went straight to the Alpine Council instead of being auctioned. Until Alp
+              #14,600, every Alp ending in 5 (#5, #15, #25 and so on) is minted to the Council’s
+              multisig, and Council members decide together how to vote with them.
             </p>
           </span>
         </li>
@@ -155,18 +150,6 @@ const AlperAlpContent: React.FC<{
       <Row className={auctionActivityClasses.activityRow}>
         <Col lg={12}>
           {block}
-          {/* <div
-            className={
-              isCool ? bidBtnClasses.bidHistoryWrapperCool : bidBtnClasses.bidHistoryWrapperWarm
-            }
-          >
-            <Link
-              to="/alpers"
-              className={isCool ? bidBtnClasses.bidHistoryCool : bidBtnClasses.bidHistoryWarm}
-            >
-              <Trans>Learn more</Trans> →
-            </Link>
-          </div> */}
         </Col>
       </Row>
     </AuctionActivityWrapper>

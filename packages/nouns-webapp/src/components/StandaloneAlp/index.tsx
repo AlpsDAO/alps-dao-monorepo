@@ -28,7 +28,7 @@ const alpCache = new Map<string, ReturnType<typeof buildAlp>>();
 
 const buildAlp = (id: string, seed: IAlpSeed) => {
   const name = `Alp ${id}`;
-  const description = `Alp ${id} is a member of Alps`;
+  const description = `Alp ${id}, a membership in Alps`;
   const { parts, background } = getAlpData(seed);
   const image = `data:image/svg+xml;base64,${btoa(buildSVG(parts, data.palette, background))}`;
 

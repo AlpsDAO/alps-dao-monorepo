@@ -49,3 +49,66 @@
     padding: 0rem;
   }
 }
+
+/* The ended auction's Alp and the one kicking off the next auction would mint, side by side in the
+   space a single Alp normally takes */
+.alpPair {
+  display: flex;
+  align-items: flex-end;
+  align-self: flex-end;
+  gap: 1rem;
+  width: 100%;
+}
+
+.pairItem {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Readable on any Alp background colour, including black and dark green */
+.pairLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  margin-bottom: 0.6rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--brand-black);
+  font-family: 'PT Root UI';
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.pairLabel small {
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--brand-gray-dark-text);
+}
+
+.nextAlpImg {
+  border-radius: 12px 12px 0 0;
+}
+
+@media (max-width: 568px) {
+  .alpPair {
+    margin-top: 1rem;
+    padding: 0 1rem;
+    gap: 0.75rem;
+  }
+
+  .pairLabel {
+    margin-bottom: 0.4rem;
+    padding: 0.2rem 0.6rem;
+    font-size: 13px;
+  }
+
+  .pairLabel small {
+    font-size: 11px;
+  }
+}

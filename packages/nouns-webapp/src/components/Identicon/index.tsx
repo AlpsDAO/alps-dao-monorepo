@@ -1,5 +1,6 @@
 import Davatar, { Image } from '@davatar/react';
 import { BaseProvider } from '@ethersproject/providers';
+import { utils } from 'ethers';
 import { Component } from 'react';
 
 interface IdenticonInnerProps {
@@ -48,7 +49,8 @@ class IdenticonInner extends Component<IdenticonInnerProps> {
 const Identicon: React.FC<IdenticonOutterProps> = props => {
   const { size, address, provider } = props;
 
-  if (!provider) {
+  // An empty or partial address (e.g. a winner not loaded yet) would make davatar's ENS lookup throw
+  if (!provider || !utils.isAddress(address)) {
     return <></>;
   }
 

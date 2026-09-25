@@ -4,12 +4,12 @@ import React, { useEffect, useState, useRef, ChangeEvent, useCallback } from 're
 import { utils, BigNumber as EthersBN } from 'ethers';
 import BigNumber from 'bignumber.js';
 import classes from './Bid.module.css';
-import { Spinner, InputGroup, FormControl, Button, Col } from 'react-bootstrap';
+import { Spinner, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { useAuctionMinBidIncPercentage } from '../../wrappers/alpsAuction';
 import { useAppDispatch } from '../../hooks';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import WalletConnectModal from '../WalletConnectModal';
-import SettleManuallyBtn from '../SettleManuallyBtn';
+import KickOffAuction from '../KickOffAuction';
 import SafeTxNotice from '../SafeTxNotice';
 import { Trans } from '@lingui/macro';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
@@ -95,6 +95,10 @@ const Bid: React.FC<{
   };
 
   const placeBidHandler = async () => {
+    if (!activeAccount) {
+      setShowConnectModal(true);
+      return;
+    }
     if (!auction || !bidInputRef.current || !bidInputRef.current.value || !alpsAuctionHouseProxy) {
       return;
     }
@@ -125,6 +129,11 @@ const Bid: React.FC<{
   };
 
   const settleAuctionHandler = () => {
+    // Anyone can kick off the next auction; they just need a wallet to pay the gas
+    if (!activeAccount) {
+      setShowConnectModal(true);
+      return;
+    }
     if (!alpsAuctionHouseProxy) return;
     settleAuction(alpsAuctionHouseProxy.settleCurrentAndCreateNewAuction());
   };
@@ -194,33 +203,23 @@ const Bid: React.FC<{
     }
   }, [placeBidState, auctionEnded, setModal]);
 
-  // settle auction transaction state hook
+  // Kick-off (settle) transaction state hook. Not tied to auctionEnded: by the time the transaction
+  // confirms, the new auction has usually already replaced the ended one
   useEffect(() => {
-    switch (auctionEnded && settleAuctionState.status) {
-      case 'None':
-        setBidButtonContent({
-          loading: false,
-          content: <Trans>Settle Auction</Trans>,
-        });
-        break;
+    switch (settleAuctionState.status) {
       case 'QueuedInSafe':
         setModal({
           title: <Trans>Sent to your Safe</Trans>,
           message: settleAuctionState.safeTx && <SafeTxNotice safeTx={settleAuctionState.safeTx} />,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
-        break;
-      case 'Mining':
-        setBidButtonContent({ loading: true, content: <></> });
         break;
       case 'Success':
         setModal({
           title: <Trans>Success</Trans>,
-          message: <Trans>Settled auction successfully!</Trans>,
+          message: <Trans>The next auction has started!</Trans>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
         break;
       case 'Fail':
         setModal({
@@ -228,7 +227,6 @@ const Bid: React.FC<{
           message: settleAuctionState?.errorMessage || <Trans>Please try again.</Trans>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
         break;
       case 'Exception':
         setModal({
@@ -236,17 +234,14 @@ const Bid: React.FC<{
           message: settleAuctionState?.errorMessage || <Trans>Please try again.</Trans>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
         break;
     }
-  }, [settleAuctionState, auctionEnded, setModal]);
+  }, [settleAuctionState, setModal]);
 
   if (!auction) return null;
 
-  const isDisabled =
-    placeBidState.status === 'Mining' || settleAuctionState.status === 'Mining' || !activeAccount;
-
-  const isWalletConnected = activeAccount !== undefined;
+  // Not disabled when disconnected: tapping opens the wallet picker instead
+  const isDisabled = placeBidState.status === 'Mining' || settleAuctionState.status === 'Mining';
 
   return (
     <>
@@ -291,14 +286,13 @@ const Bid: React.FC<{
             {bidButtonContent.loading ? <Spinner animation="border" /> : bidButtonContent.content}
           </Button>
         ) : (
-          <>
-            {/* Only show force settle button if wallet connected */}
-            {isWalletConnected && (
-              <Col lg={0}>
-                <SettleManuallyBtn settleAuctionHandler={settleAuctionHandler} auction={auction} />
-              </Col>
-            )}
-          </>
+          <KickOffAuction
+            auction={auction}
+            pending={
+              settleAuctionState.status === 'PendingSignature' || settleAuctionState.status === 'Mining'
+            }
+            onKickOff={settleAuctionHandler}
+          />
         )}
       </InputGroup>
     </>

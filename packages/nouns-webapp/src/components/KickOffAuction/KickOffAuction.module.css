@@ -1,0 +1,35 @@
+.kickOff {
+  width: 100%;
+}
+
+.kickOff .kickOffBtn {
+  width: 100%;
+  height: 3rem;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--brand-color-green);
+  font-family: 'PT Root UI';
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.kickOff .kickOffBtn:hover,
+.kickOff .kickOffBtn:focus,
+.kickOff .kickOffBtn:active {
+  background-color: var(--brand-color-green);
+  box-shadow: 0 0 0 0.2rem rgba(67, 179, 105, 0.5);
+}
+
+.kickOff .kickOffBtn:disabled {
+  background-color: var(--brand-color-green);
+  opacity: 0.6;
+}
+
+.explainer {
+  margin: 0.6rem 0 0;
+  font-family: 'PT Root UI';
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--brand-gray-dark-text);
+}

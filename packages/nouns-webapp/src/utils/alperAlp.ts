@@ -2,12 +2,26 @@ import { Auction } from '../wrappers/alpsAuction';
 import { AuctionState } from '../state/slices/auction';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const isAlperAlp = (alpId: BigNumber) => {
-  return alpId.mod(10).eq(0) || alpId.eq(0) || alpId.mod(5).eq(0);
-};
+// Reward Alps stop after this one: AlpsToken.mint() only diverts IDs <= 14600
+export const LAST_REWARD_ALP_ID = 14600;
 
-export const isAlpsCouncil = (nounId: BigNumber) => {
-  return nounId.mod(5).eq(0);
+// Every 10th Alp goes to the founders
+export const isFoundersAlp = (alpId: BigNumber) =>
+  alpId.lte(LAST_REWARD_ALP_ID) && alpId.mod(10).eq(0);
+
+// Every other 5th Alp (IDs ending in 5) goes to the Alpine Council
+export const isAlpsCouncil = (alpId: BigNumber) =>
+  alpId.lte(LAST_REWARD_ALP_ID) && alpId.mod(5).eq(0) && !alpId.mod(10).eq(0);
+
+// Minted to the founders or the Alpine Council instead of being auctioned
+export const isAlperAlp = (alpId: BigNumber) => isFoundersAlp(alpId) || isAlpsCouncil(alpId);
+
+/** The reward Alp minted along with the next auction's Alp when the current auction is settled, if any. */
+export const nextRewardAlp = (currentAlpId: BigNumber) => {
+  const next = currentAlpId.add(1);
+  if (isFoundersAlp(next)) return { alpId: next, recipient: 'founders' as const };
+  if (isAlpsCouncil(next)) return { alpId: next, recipient: 'council' as const };
+  return undefined;
 };
 
 const emptyAlperAuction = (onDisplayAuctionId: number): Auction => {

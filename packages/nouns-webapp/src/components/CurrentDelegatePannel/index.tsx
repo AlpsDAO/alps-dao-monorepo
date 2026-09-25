@@ -30,9 +30,9 @@ const CurrentDelegatePannel: React.FC<CurrentDelegatePannelProps> = props => {
 
           <p className={classes.copy}>
             <Trans>
-              Alp votes are not transferable, but are{' '}
-              <span className={classes.emph}>delegatable</span>, which means you can assign your
-              vote to someone else as long as you own your Alp.
+              Your Alps’ votes stay with your Alps, but they’re{' '}
+              <span className={classes.emph}>delegatable</span>: someone else can vote with them
+              while you keep your Alps.
             </Trans>
           </p>
         </div>

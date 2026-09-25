@@ -164,9 +164,9 @@ const CreateProposalPage = () => {
           </b>
           :
           <Trans>
-            Add one or more transactions and describe your proposal for the community. The proposal
-            cannot be modified after submission, so please verify all information before submitting.
-            The voting period will begin after 2 1/3 days and last for 3 days.
+            Add one or more transactions and describe your proposal for the club. Proposals can’t be
+            edited after submission, so check everything before you submit. Voting opens about 3
+            days after you submit and stays open for about 4 days.
           </Trans>
         </Alert>
         <div className="d-grid">

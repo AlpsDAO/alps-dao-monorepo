@@ -14,7 +14,6 @@ import AuctionPage from './pages/Auction';
 import GovernancePage from './pages/Governance';
 import CreateProposalPage from './pages/CreateProposal';
 import VotePage from './pages/Vote';
-import AlpersPage from './pages/Alpers';
 import NotFoundPage from './pages/NotFound';
 import Playground from './pages/Playground';
 import AboutPage from './pages/About';
@@ -65,7 +64,8 @@ function App() {
                 path="/alp/:id"
                 render={props => <AuctionPage initialAuctionId={Number(props.match.params.id)} />}
               />
-              <Route exact path="/alpers" component={AlpersPage} />
+              {/* The old founders page listed Nouns' founders; About covers the founders and Council */}
+              <Redirect exact from="/alpers" to="/about#get-involved" />
               <Route exact path="/create-proposal" component={CreateProposalPage} />
               <Route exact path="/vote" component={GovernancePage} />
               <Route exact path="/vote/:id" component={VotePage} />

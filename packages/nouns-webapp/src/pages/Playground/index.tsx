@@ -288,9 +288,9 @@ const Playground: React.FC = () => {
             </h1>
             <p>
               <Trans>
-                The playground was built using the {alpsProtocolLink}. Alp's traits are determined
-                by the Seed. The seed was generated using {alpsAssetsLink} , {gnarsAssetsLink},{' '}
-                {nounsAssetsLink} and rendered using the {alpsSDKLink}.
+                The playground is built with the {alpsProtocolLink}. An Alp’s traits come from its
+                seed, which draws on {alpsAssetsLink}, {gnarsAssetsLink} and {nounsAssetsLink}, and
+                is rendered with the {alpsSDKLink}.
               </Trans>
             </p>
           </Col>

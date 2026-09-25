@@ -1,9 +1,11 @@
 import { Col } from 'react-bootstrap';
-import { StandaloneAlpWithSeed } from '../StandaloneAlp';
+import { getAlp, StandaloneAlpWithSeed } from '../StandaloneAlp';
 import AuctionActivity from '../AuctionActivity';
 import { Row, Container } from 'react-bootstrap';
 import { setStateBackgroundColor } from '../../state/slices/application';
-import { LoadingAlp } from '../Alp';
+import Alp, { LoadingAlp } from '../Alp';
+import { Trans } from '@lingui/macro';
+import { useNextAlpPreview } from '../../hooks/useNextAlpPreview';
 import { Auction as IAuction } from '../../wrappers/alpsAuction';
 import classes from './Auction.module.css';
 import { IAlpSeed } from '../../wrappers/alpToken';
@@ -51,15 +53,47 @@ const Auction: React.FC<AuctionProps> = props => {
     currentAuction && history.push(`/alp/${currentAuction.alpId.toNumber() + 1}`);
   };
 
-  const alpContent = currentAuction && (
-    <div className={classes.alpWrapper}>
-      <StandaloneAlpWithSeed
-        alpId={currentAuction.alpId}
-        onLoadSeed={loadedAlpHandler}
-        shouldLinkToProfile={false}
-      />
-    </div>
+  const isLastAuction =
+    !!currentAuction && lastAlpId !== undefined && currentAuction.alpId.eq(lastAlpId);
+  const nextAlp = useNextAlpPreview(currentAuction, isLastAuction);
+
+  const endedAlp = currentAuction && (
+    <StandaloneAlpWithSeed
+      alpId={currentAuction.alpId}
+      onLoadSeed={loadedAlpHandler}
+      shouldLinkToProfile={false}
+    />
   );
+
+  // Once the latest auction has ended, show the Alp that kicking off the next auction would mint beside
+  // it, in the same space
+  const alpContent =
+    currentAuction &&
+    (nextAlp ? (
+      <div className={classes.alpPair}>
+        <div className={classes.pairItem}>
+          <span className={classes.pairLabel}>
+            <Trans>Alp {currentAuction.alpId.toNumber()} · ended</Trans>
+          </span>
+          {endedAlp}
+        </div>
+        <div className={classes.pairItem}>
+          <span className={classes.pairLabel}>
+            <Trans>Up next: Alp {nextAlp.alpId.toNumber()}</Trans>
+            <small>
+              <Trans>if kicked off now</Trans>
+            </small>
+          </span>
+          <Alp
+            imgPath={getAlp(nextAlp.alpId, nextAlp.seed).image}
+            alt={`Alp ${nextAlp.alpId.toNumber()}, which kicking off the next auction would mint now`}
+            className={classes.nextAlpImg}
+          />
+        </div>
+      </div>
+    ) : (
+      <div className={classes.alpWrapper}>{endedAlp}</div>
+    ));
 
   const loadingAlp = (
     <div className={classes.alpWrapper}>

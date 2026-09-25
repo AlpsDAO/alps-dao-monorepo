@@ -1,4 +1,5 @@
 import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Section from '../../layout/Section';
 import { useAllProposals, useProposalThreshold } from '../../wrappers/alpsDao';
 import Proposals from '../../components/Proposals';
@@ -18,8 +19,8 @@ const GovernancePage = () => {
   const treasuryBalanceUSD = useTreasuryUSDValue(treasuryBalance);
 
   // Note: We have to extract this copy out of the <span> otherwise the Lingui macro gets confused
-  const alpSingular = <Trans>Alp token</Trans>;
-  const alpPlural = <Trans>Alp tokens</Trans>;
+  const alpSingular = <Trans>Alp</Trans>;
+  const alpPlural = <Trans>Alps</Trans>;
 
   return (
     <Section fullWidth={false} className={classes.section}>
@@ -34,12 +35,13 @@ const GovernancePage = () => {
         </Row>
         <p className={classes.subheading}>
           <Trans>
-            Alp tokens govern <span className={classes.boldText}>Alps</span>. Alp tokens can vote on
-            proposals or delegate their vote to a third party. A minimum of{' '}
+            Each Alp is a membership in the club and one vote. Members vote on proposals to spend
+            the treasury, or delegate their votes to someone else. Submitting a proposal takes at
+            least{' '}
             <span className={classes.boldText}>
               {alpsRequired} {threshold === 0 ? alpSingular : alpPlural}
-            </span>{' '}
-            is required to submit proposals.
+            </span>
+            . <Link to="/about#governance">How governance works</Link>
           </Trans>
         </p>
 
@@ -71,8 +73,8 @@ const GovernancePage = () => {
           </Col>
           <Col className={classes.treasuryInfoText}>
             <Trans>
-              This treasury exists for <span className={classes.boldText}>Alps</span> participants
-              to allocate resources for the long-term growth and prosperity of the Alps project.
+              The club treasury holds 100% of auction proceeds, and is only spent when members vote
+              for it.
             </Trans>
           </Col>
         </Row>

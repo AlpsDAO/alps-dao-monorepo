@@ -133,12 +133,12 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
     const snapshotNote = snapshotTimestamp ? (
       <p className={classes.snapshotNote}>
         <Trans>
-          Only Alp tokens you owned or were delegated to you before{' '}
+          Only Alps you held, or that were delegated to you, when this proposal was created (
           {i18n.date(new Date(snapshotTimestamp * 1000), {
             dateStyle: 'long',
-            timeStyle: 'long',
-          })}{' '}
-          are eligible to vote.
+            timeStyle: 'short',
+          })}
+          ) can vote on it.
         </Trans>
       </p>
     ) : null;
