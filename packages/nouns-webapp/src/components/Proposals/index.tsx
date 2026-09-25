@@ -2,7 +2,7 @@ import { Proposal, ProposalState, useProposalThreshold } from '../../wrappers/al
 import { Alert, Button } from 'react-bootstrap';
 import ProposalStatus from '../ProposalStatus';
 import classes from './Proposals.module.css';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { isMobileScreen } from '../../utils/isMobile';
 import clsx from 'clsx';
 import { useUserAlpTokenBalance, useUserVotes } from '../../wrappers/alpToken';
@@ -182,9 +182,9 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
             );
 
             return (
-              <a
+              <Link
                 className={clsx(classes.proposalLink, classes.proposalLinkWithCountdown)}
-                href={`/vote/${p.id}`}
+                to={`/vote/${p.id}`}
                 key={i}
               >
                 <div className={classes.proposalInfoWrapper}>
@@ -204,7 +204,7 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
                 {isPropInStateToHaveCountDown && (
                   <div className={classes.mobileCountdownWrapper}>{countdownPill}</div>
                 )}
-              </a>
+              </Link>
             );
           })
       ) : (

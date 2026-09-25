@@ -457,13 +457,16 @@ msgid "Connect"
 msgstr "接続する"
 
 #: src/components/ProposalHeader/index.tsx
-#: src/components/VotePanel/index.tsx
 msgid "Connect a wallet to vote."
 msgstr "投票するためにウォレットを接続してください。"
 
 #: src/components/Proposals/index.tsx
 msgid "Connect wallet to make a proposal."
 msgstr "提案するためにはウォレットに接続してください。"
+
+#: src/components/VotePanel/index.tsx
+msgid "Connect wallet to vote"
+msgstr ""
 
 #: src/components/WalletConnectModal/index.tsx
 msgid "Connect your wallet"

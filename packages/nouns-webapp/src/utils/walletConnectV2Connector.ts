@@ -8,11 +8,14 @@ export class WalletConnectV2Connector extends AbstractConnector {
   provider?: typeof WalletConnectProvider.prototype
 
   private readonly options: EthereumProviderOptions
+  // Only resume a saved session: never show the QR code
+  private readonly restoreOnly: boolean
 
-  constructor(options: EthereumProviderOptions) {
+  constructor(options: EthereumProviderOptions, restoreOnly = false) {
     super({ supportedChainIds: Object.keys(options.rpcMap || {}).map(k => Number(k)) })
 
     this.options = options
+    this.restoreOnly = restoreOnly
   }
 
   static clearStorage = (storage: Storage) => {
@@ -55,6 +58,10 @@ export class WalletConnectV2Connector extends AbstractConnector {
         })
       }
     )
+
+    if (this.restoreOnly && !provider.session) {
+      throw new Error('No WalletConnect session to restore')
+    }
 
     const accounts = await provider.enable()
 

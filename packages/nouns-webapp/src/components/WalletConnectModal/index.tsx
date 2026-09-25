@@ -2,13 +2,7 @@ import Modal from '../Modal';
 import WalletButton from '../WalletButton';
 import { WALLET_TYPE } from '../WalletButton';
 import clsx from 'clsx';
-import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-import { WalletConnectV2Connector } from '../../utils/walletConnectV2Connector';
-import { isInIframe, SafeAppConnector } from '../../utils/safeAppConnector';
-import { TrezorConnector } from '@web3-react/trezor-connector';
-import { FortmaticConnector } from '@web3-react/fortmatic-connector';
-import config, { CHAIN_ID, WALLET_CONNECT_V2_PROJECT_ID } from '../../config';
+import { isInIframe } from '../../utils/safeAppConnector';
 import classes from './WalletConnectModal.module.css';
 import { Trans } from '@lingui/macro';
 import { useContext } from 'react';
@@ -16,71 +10,21 @@ import { WalletContext } from '../../contexts/WalletContext';
 
 const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
   const { onDismiss } = props;
-  const { activate } = useContext(WalletContext);
-  const supportedChainIds = [CHAIN_ID];
+  const { connect } = useContext(WalletContext);
 
   const wallets = (
     <div className={classes.walletConnectModal}>
       {isInIframe() && (
-        <WalletButton
-          onClick={() => activate?.(new SafeAppConnector())}
-          walletType={WALLET_TYPE.safe}
-        />
+        <WalletButton onClick={() => connect?.('safe')} walletType={WALLET_TYPE.safe} />
       )}
+      <WalletButton onClick={() => connect?.('injected')} walletType={WALLET_TYPE.metamask} />
+      <WalletButton onClick={() => connect?.('fortmatic')} walletType={WALLET_TYPE.fortmatic} />
       <WalletButton
-        onClick={() => {
-          const injected = new InjectedConnector({
-            supportedChainIds,
-          });
-          activate?.(injected);
-        }}
-        walletType={WALLET_TYPE.metamask}
-      />
-      <WalletButton
-        onClick={() => {
-          const fortmatic = new FortmaticConnector({
-            apiKey: 'pk_live_60FAF077265B4CBA',
-            chainId: CHAIN_ID,
-          });
-          activate?.(fortmatic);
-        }}
-        walletType={WALLET_TYPE.fortmatic}
-      />
-      <WalletButton
-        onClick={() => {
-          const walletConnectV2 = new WalletConnectV2Connector({
-            projectId: WALLET_CONNECT_V2_PROJECT_ID,
-            showQrModal: true,
-            optionalChains: [CHAIN_ID],
-            rpcMap: {
-              [CHAIN_ID]: config.app.jsonRpcUri,
-            },
-          });
-          activate?.(walletConnectV2);
-        }}
+        onClick={() => connect?.('walletconnect')}
         walletType={WALLET_TYPE.walletconnect}
       />
-      <WalletButton
-        onClick={() => {
-          const walletlink = new WalletLinkConnector({
-            appName: 'Alps.WTF',
-            appLogoUrl: 'https://alps.wtf/static/media/logo.cdea1650.svg',
-            url: config.app.jsonRpcUri,
-            supportedChainIds,
-          });
-          activate?.(walletlink);
-        }}
-        walletType={WALLET_TYPE.coinbaseWallet}
-      />
-      <WalletButton
-        onClick={() => {
-          const injected = new InjectedConnector({
-            supportedChainIds,
-          });
-          activate?.(injected);
-        }}
-        walletType={WALLET_TYPE.brave}
-      />
+      <WalletButton onClick={() => connect?.('coinbase')} walletType={WALLET_TYPE.coinbaseWallet} />
+      <WalletButton onClick={() => connect?.('injected')} walletType={WALLET_TYPE.brave} />
       {/* <WalletButton
         onClick={() => {
           const ledger = new LedgerConnector({
@@ -92,18 +36,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
         }}
         walletType={WALLET_TYPE.ledger}
       /> */}
-      <WalletButton
-        onClick={() => {
-          const trezor = new TrezorConnector({
-            chainId: CHAIN_ID,
-            url: config.app.jsonRpcUri,
-            manifestAppUrl: 'https://alps.wtf',
-            manifestEmail: 'alpops+trezorconnect@protonmail.com',
-          });
-          activate?.(trezor);
-        }}
-        walletType={WALLET_TYPE.trezor}
-      />
+      <WalletButton onClick={() => connect?.('trezor')} walletType={WALLET_TYPE.trezor} />
       <div
         className={clsx(classes.clickable, classes.walletConnectData)}
         onClick={() => localStorage.removeItem('walletconnect')}

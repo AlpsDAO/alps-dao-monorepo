@@ -448,12 +448,15 @@ msgid "Connect"
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-#: src/components/VotePanel/index.tsx
 msgid "Connect a wallet to vote."
 msgstr ""
 
 #: src/components/Proposals/index.tsx
 msgid "Connect wallet to make a proposal."
+msgstr ""
+
+#: src/components/VotePanel/index.tsx
+msgid "Connect wallet to vote"
 msgstr ""
 
 #: src/components/WalletConnectModal/index.tsx

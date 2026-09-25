@@ -9,6 +9,7 @@ import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
 import { SafeTxProgress } from '../../utils/safe';
 import SafeTxNotice from '../SafeTxNotice';
+import WalletConnectModal from '../WalletConnectModal';
 import { ProposalVoteEntry } from '../../hooks/useProposalVotes';
 import { VoteSupportLabel } from '../ProposalActivityFeed';
 
@@ -39,6 +40,7 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
     const [errorMessage, setErrorMessage] = useState<ReactNode>('');
     // Set while the vote waits in the connected Safe's queue
     const [safeTx, setSafeTx] = useState<SafeTxProgress>();
+    const [showConnectModal, setShowConnectModal] = useState(false);
 
     const getVoteErrorMessage = (error: string | undefined) => {
       if (error?.match(/voter already voted/)) {
@@ -189,9 +191,12 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
       }
       if (!isWalletConnected) {
         return (
-          <p className={classes.panelNote}>
-            <Trans>Connect a wallet to vote.</Trans>
-          </p>
+          <>
+            <Button className={classes.submitBtn} onClick={() => setShowConnectModal(true)}>
+              <Trans>Connect wallet to vote</Trans>
+            </Button>
+            {showConnectModal && <WalletConnectModal onDismiss={() => setShowConnectModal(false)} />}
+          </>
         );
       }
       if (!availableVotes) {
