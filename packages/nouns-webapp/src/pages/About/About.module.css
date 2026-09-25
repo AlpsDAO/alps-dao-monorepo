@@ -115,6 +115,10 @@
   background-color: var(--brand-gray-background);
 }
 
+.markdown p {
+  margin: 0 0 1rem;
+}
+
 .markdown blockquote p {
   margin: 0;
 }

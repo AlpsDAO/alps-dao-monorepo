@@ -28,7 +28,8 @@
   font-weight: bold;
 }
 
-p {
+/* Scoped to this page: as a bare "p" it applied to every paragraph in the app */
+.section p {
   padding-top: 1rem;
 }
 

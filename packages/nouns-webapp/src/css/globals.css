@@ -15,6 +15,18 @@ body {
   background-color: #213343;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  height: env(safe-area-inset-top);
+  background-color: #213343;
+  pointer-events: none;
+}
+
 body {
   overflow-x: hidden;
   padding-left: env(safe-area-inset-left);
