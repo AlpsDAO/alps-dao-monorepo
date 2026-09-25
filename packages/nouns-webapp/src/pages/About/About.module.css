@@ -1,0 +1,148 @@
+.page {
+  /* Full width up to 760px: as a flex item with auto margins it would otherwise shrink to its widest
+     content (the one-line section menu on phones) and overflow the screen */
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  font-family: 'PT Root UI';
+  color: var(--brand-black);
+}
+
+.banner {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.title {
+  margin: 1.5rem 0 0.5rem;
+  font-family: 'Londrina Solid';
+  font-size: 56px;
+}
+
+.intro {
+  font-size: 1.25rem;
+  color: var(--brand-gray-light-text);
+}
+
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.page .tocLink {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background-color: var(--brand-gray-background);
+  color: var(--brand-black);
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.page .tocLink:hover {
+  background-color: var(--brand-gray-border);
+}
+
+.section {
+  padding-top: 2rem;
+  /* Clear the page top when jumping to a section */
+  scroll-margin-top: 1rem;
+}
+
+.section h2 {
+  font-family: 'Londrina Solid';
+  font-size: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.markdown h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.markdown a {
+  color: var(--brand-dark-red);
+}
+
+.markdown ul,
+.markdown ol {
+  padding-left: 1.4rem;
+}
+
+.markdown li {
+  margin-bottom: 0.35rem;
+}
+
+.markdown em {
+  color: var(--brand-gray-dark-text);
+}
+
+.markdown blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background-color: var(--brand-gray-background);
+}
+
+.markdown blockquote p {
+  margin: 0;
+}
+
+@media (max-width: 568px) {
+  .page {
+    padding-top: 1rem;
+  }
+
+  .banner {
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 40px;
+    margin-top: 1rem;
+  }
+
+  .intro {
+    font-size: 1.1rem;
+  }
+
+  /* One swipeable row of section links instead of several wrapped lines */
+  .toc {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0 1rem 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .toc::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section {
+    padding-top: 1.5rem;
+  }
+
+  .section h2 {
+    font-size: 1.9rem;
+  }
+
+  .markdown {
+    font-size: 1.05rem;
+  }
+}

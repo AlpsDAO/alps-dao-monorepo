@@ -105,13 +105,7 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <Nav.Link
-              href={'https://alpsdao.gitbook.io/about/'}
-              className={classes.alpsNavLink}
-              target="_blank"
-              rel="noreferrer"
-              onClick={closeNav}
-            >
+            <Nav.Link as={Link} to="/about" className={classes.alpsNavLink} onClick={closeNav}>
               <NavBarButton
                 buttonText={<Trans>About</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faBookOpen} />}
