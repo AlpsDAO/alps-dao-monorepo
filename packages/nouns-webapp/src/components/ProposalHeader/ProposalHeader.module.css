@@ -190,3 +190,65 @@
     margin-left: 0.5rem;
   }
 }
+
+/* Phones: a smaller title that uses the full width, not indented beside the back button */
+@media (max-width: 991px) {
+  .backButton {
+    position: relative;
+    z-index: 1;
+  }
+
+  .headerRow {
+    margin-left: -3rem;
+  }
+
+  .headerRow > span:first-child {
+    display: block;
+    padding-left: 3rem;
+  }
+
+  .headerRow span {
+    font-size: 20px;
+  }
+
+  .headerRow h1 {
+    margin-top: 0.75rem;
+    font-size: 30px;
+    line-height: 1.1;
+  }
+
+  .proposalTitleWrapper {
+    padding-right: 0;
+  }
+
+  .byLineWrapper {
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  .byLineWrapper h3 {
+    font-size: 20px;
+  }
+
+  .byLineWrapper > h3 {
+    margin-left: 0;
+  }
+
+  .proposalByLineWrapperJp {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .headerRow h1 {
+    font-size: 26px;
+  }
+
+  .byLineWrapper {
+    flex-direction: row;
+  }
+
+  .byLineContentWrapper {
+    margin-left: 0;
+  }
+}

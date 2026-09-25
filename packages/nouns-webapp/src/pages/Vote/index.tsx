@@ -22,7 +22,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import clsx from 'clsx';
 import ProposalHeader from '../../components/ProposalHeader';
-import ProposalContent from '../../components/ProposalContent';
+import { ProposalDescription, ProposalTransactions } from '../../components/ProposalContent';
+import ProposalTabs from '../../components/ProposalTabs';
+import { isMobileScreen } from '../../utils/isMobile';
+import { useBlockTimestamp } from '../../hooks/useBlockTimestamp';
 import VoteCard, { VoteCardVariant } from '../../components/VoteCard';
 import { useQuery } from '@apollo/client';
 import {
@@ -123,6 +126,7 @@ const VotePage = ({
 
   // Only count available votes as of the proposal created block
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock ?? undefined);
+  const snapshotTimestamp = useBlockTimestamp(proposal?.createdBlock);
 
   const currentQuorum = useCurrentQuorum(
     proposal && proposal.id ? parseInt(proposal.id) : 0,
@@ -297,6 +301,30 @@ const VotePage = ({
   const abstainAlps = getAlpVotes(data, 2);
   const isV2Prop = dqInfo.proposal.quorumCoefficient > 0;
 
+  const votePanel = isActiveForVoting && (
+    <VotePanel
+      ref={votePanelRef}
+      proposalId={proposal.id}
+      availableVotes={availableVotes || 0}
+      isWalletConnected={isWalletConnected}
+      userVote={userVote}
+      snapshotTimestamp={snapshotTimestamp}
+      onVoteCast={recordReceipt}
+    />
+  );
+  const activityTab = {
+    key: 'activity',
+    label: <Trans>Activity</Trans>,
+    count: votes.length,
+    content: <ProposalActivityFeed proposal={liveProposal} votes={votes} currentBlock={currentBlock} />,
+  };
+  const transactionsTab = {
+    key: 'transactions',
+    label: <Trans>Transactions</Trans>,
+    count: proposal.details.length,
+    content: <ProposalTransactions proposal={proposal} />,
+  };
+
   return (
     <Section fullWidth={false} className={classes.votePage}>
       {showDynamicQuorumInfoModal && (
@@ -460,24 +488,36 @@ const VotePage = ({
           </Col>
         </Row>
 
-        <Row>
-          <Col lg={7}>
-            <ProposalContent proposal={proposal} />
-          </Col>
-          <Col lg={5} className={classes.sidebar}>
-            {isActiveForVoting && (
-              <VotePanel
-                ref={votePanelRef}
-                proposalId={proposal.id}
-                availableVotes={availableVotes || 0}
-                isWalletConnected={isWalletConnected}
-                userVote={userVote}
-                onVoteCast={recordReceipt}
-              />
-            )}
-            <ProposalActivityFeed proposal={liveProposal} votes={votes} currentBlock={currentBlock} />
-          </Col>
-        </Row>
+        {isMobileScreen() ? (
+          // Phones: voting, then everything else one tap away instead of below the description
+          <div className={classes.mobileSections}>
+            {votePanel}
+            <ProposalTabs
+              tabs={[
+                {
+                  key: 'description',
+                  label: <Trans>Description</Trans>,
+                  content: <ProposalDescription proposal={proposal} />,
+                },
+                activityTab,
+                transactionsTab,
+              ]}
+            />
+          </div>
+        ) : (
+          <Row>
+            <Col lg={7} className={classes.section}>
+              <h5>
+                <Trans>Description</Trans>
+              </h5>
+              <ProposalDescription proposal={proposal} />
+            </Col>
+            <Col lg={5} className={classes.sidebar}>
+              {votePanel}
+              <ProposalTabs tabs={[activityTab, transactionsTab]} />
+            </Col>
+          </Row>
+        )}
       </Col>
     </Section>
   );

@@ -1,5 +1,4 @@
 export enum ExternalURL {
-  warpcast,
   discord,
   twitter,
   notion,
@@ -9,8 +8,6 @@ export enum ExternalURL {
 
 export const externalURL = (externalURL: ExternalURL) => {
   switch (externalURL) {
-    case ExternalURL.warpcast:
-      return 'https://warpcast.com/~/channel/alps';
     case ExternalURL.discord:
       return 'https://discord.gg/V2uNwrwXga';
     case ExternalURL.twitter:

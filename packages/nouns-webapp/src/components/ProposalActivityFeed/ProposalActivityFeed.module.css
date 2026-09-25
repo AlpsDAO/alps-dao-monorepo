@@ -2,12 +2,6 @@
   font-family: 'PT Root UI';
 }
 
-.title {
-  font-family: 'Londrina Solid';
-  font-size: 1.7rem;
-  margin-bottom: 1rem;
-}
-
 .empty {
   color: var(--brand-gray-light-text);
   font-weight: bold;

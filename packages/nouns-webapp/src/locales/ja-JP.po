@@ -110,7 +110,7 @@ msgstr "実行されました"
 
 #: src/components/ProfileActivityFeed/index.tsx
 #: src/components/ProfileActivityFeed/index.tsx
-#: src/components/ProposalActivityFeed/index.tsx
+#: src/pages/Vote/index.tsx
 msgid "Activity"
 msgstr "アクティビティ"
 
@@ -539,6 +539,8 @@ msgid "Delegation"
 msgstr "デリゲーション"
 
 #: src/components/ProposalContent/index.tsx
+#: src/pages/Vote/index.tsx
+#: src/pages/Vote/index.tsx
 msgid "Description"
 msgstr "説明"
 
@@ -884,7 +886,7 @@ msgstr ""
 msgid "Only 32x32 PNG images are accepted"
 msgstr "32x32 PNG画像のみ受け付けています"
 
-#: src/components/ProposalHeader/index.tsx
+#: src/components/VotePanel/index.tsx
 msgid "Only Alps you owned or were delegated to you before {0} are eligible to vote."
 msgstr "投票できるのは {0} 以前に所有していた、または委任されたAlpsのみです。"
 
@@ -1271,6 +1273,10 @@ msgstr "取引に失敗しました"
 msgid "Transaction Successful!"
 msgstr "取引に成功しました！"
 
+#: src/pages/Vote/index.tsx
+msgid "Transactions"
+msgstr ""
+
 #: src/components/NavBarTreasury/index.tsx
 #: src/pages/Governance/index.tsx
 msgid "Treasury"
@@ -1392,8 +1398,8 @@ msgid "Waiting for"
 msgstr "待機"
 
 #: src/components/Footer/index.tsx
-msgid "Warpcast"
-msgstr ""
+#~ msgid "Warpcast"
+#~ msgstr ""
 
 #: src/components/Documentation/index.tsx
 msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is a club where membership fees go into a treasury governed by the membership tokens. If you love mountain culture, skiing, snowboarding, or snow in general, join us by bidding above."
@@ -1430,8 +1436,8 @@ msgid "You"
 msgstr "あなた"
 
 #: src/components/ProposalHeader/index.tsx
-msgid "You <0>Abstained</0> from this proposal"
-msgstr "あなたはこの提案から<0>棄権</0>しました"
+#~ msgid "You <0>Abstained</0> from this proposal"
+#~ msgstr "あなたはこの提案から<0>棄権</0>しました"
 
 #: src/components/CreateProposalButton/index.tsx
 msgid "You already have an active or pending proposal"
@@ -1471,12 +1477,12 @@ msgid "You voted <0/> with {0} votes"
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-msgid "You voted <0>Against</0> this proposal"
-msgstr "あなたはこの提案に<0>反対</0>を投票しました"
+#~ msgid "You voted <0>Against</0> this proposal"
+#~ msgstr "あなたはこの提案に<0>反対</0>を投票しました"
 
 #: src/components/ProposalHeader/index.tsx
-msgid "You voted <0>For</0> this proposal"
-msgstr "あなたはこの提案<0>に</0>投票しました"
+#~ msgid "You voted <0>For</0> this proposal"
+#~ msgstr "あなたはこの提案<0>に</0>投票しました"
 
 #: src/components/ChangeDelegatePannel/index.tsx
 msgid "You've already delegated to this address"

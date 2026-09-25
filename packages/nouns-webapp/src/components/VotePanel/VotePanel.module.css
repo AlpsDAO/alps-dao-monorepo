@@ -202,3 +202,9 @@
 .voteOptions .voteOption:disabled {
   cursor: not-allowed;
 }
+
+.snapshotNote {
+  margin: 0.75rem 0 0;
+  font-size: 14px;
+  color: var(--brand-gray-light-text);
+}

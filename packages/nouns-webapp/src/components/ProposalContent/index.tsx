@@ -33,9 +33,46 @@ export const transactionLink = (content: string) => {
   );
 };
 
-const ProposalContent: React.FC<ProposalContentProps> = props => {
-  const { proposal } = props;
+export const ProposalDescription: React.FC<ProposalContentProps> = ({ proposal }) => (
+  <>
+    {proposal?.description && (
+      <ReactMarkdown
+        className={classes.markdown}
+        children={processProposalDescriptionText(proposal.description, proposal.title)}
+        remarkPlugins={[remarkBreaks]}
+      />
+    )}
+  </>
+);
 
+export const ProposalTransactions: React.FC<ProposalContentProps> = ({ proposal }) => (
+  <ol className={classes.transactions}>
+    {proposal?.details?.map((d, i) => {
+      return (
+        <li key={i} className="m-0">
+          {linkIfAddress(d.target)}.{d.functionSig}
+          {d.value}(
+          <br />
+          {d.callData.split(',').map((content, i) => {
+            return (
+              <Fragment key={i}>
+                <span key={i}>
+                  &emsp;
+                  {linkIfAddress(content)}
+                  {d.callData.split(',').length - 1 === i ? '' : ','}
+                </span>
+                <br />
+              </Fragment>
+            );
+          })}
+          )
+        </li>
+      );
+    })}
+  </ol>
+);
+
+const ProposalContent: React.FC<ProposalContentProps> = props => {
   return (
     <>
       <Row>
@@ -43,13 +80,7 @@ const ProposalContent: React.FC<ProposalContentProps> = props => {
           <h5>
             <Trans>Description</Trans>
           </h5>
-          {proposal?.description && (
-            <ReactMarkdown
-              className={classes.markdown}
-              children={processProposalDescriptionText(proposal.description, proposal.title)}
-              remarkPlugins={[remarkBreaks]}
-            />
-          )}
+          <ProposalDescription {...props} />
         </Col>
       </Row>
       <Row>
@@ -57,30 +88,7 @@ const ProposalContent: React.FC<ProposalContentProps> = props => {
           <h5>
             <Trans>Proposed Transactions</Trans>
           </h5>
-          <ol>
-            {proposal?.details?.map((d, i) => {
-              return (
-                <li key={i} className="m-0">
-                  {linkIfAddress(d.target)}.{d.functionSig}
-                  {d.value}(
-                  <br />
-                  {d.callData.split(',').map((content, i) => {
-                    return (
-                      <Fragment key={i}>
-                        <span key={i}>
-                          &emsp;
-                          {linkIfAddress(content)}
-                          {d.callData.split(',').length - 1 === i ? '' : ','}
-                        </span>
-                        <br />
-                      </Fragment>
-                    );
-                  })}
-                  )
-                </li>
-              );
-            })}
-          </ol>
+          <ProposalTransactions {...props} />
         </Col>
       </Row>
     </>

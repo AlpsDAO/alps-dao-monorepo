@@ -18,6 +18,8 @@ interface VotePanelProps {
   isWalletConnected: boolean;
   // The connected account's vote, once it has voted
   userVote?: ProposalVoteEntry;
+  // When the proposal was created: voting power is fixed as of then
+  snapshotTimestamp?: number;
   onVoteCast?: (receipt: TransactionReceipt) => void;
 }
 
@@ -25,7 +27,7 @@ interface VotePanelProps {
  * Inline voting form for an active proposal: pick for/against/abstain, optionally give a reason, submit.
  */
 const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
-  ({ proposalId, availableVotes, isWalletConnected, userVote, onVoteCast }, ref) => {
+  ({ proposalId, availableVotes, isWalletConnected, userVote, snapshotTimestamp, onVoteCast }, ref) => {
     const { castVote, castVoteState } = useCastVote();
     const { castVoteWithReason, castVoteWithReasonState } = useCastVoteWithReason();
     const [vote, setVote] = useState<Vote>();
@@ -126,6 +128,19 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
       },
     ];
 
+    const snapshotNote = snapshotTimestamp ? (
+      <p className={classes.snapshotNote}>
+        <Trans>
+          Only Alps you owned or were delegated to you before{' '}
+          {i18n.date(new Date(snapshotTimestamp * 1000), {
+            dateStyle: 'long',
+            timeStyle: 'long',
+          })}{' '}
+          are eligible to vote.
+        </Trans>
+      </p>
+    ) : null;
+
     const content = (() => {
       if (isVoteFailed) {
         return (
@@ -181,9 +196,12 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
       }
       if (!availableVotes) {
         return (
-          <p className={classes.panelNote}>
-            <Trans>You have no votes.</Trans>
-          </p>
+          <>
+            <p className={classes.panelNote}>
+              <Trans>You have no votes.</Trans>
+            </p>
+            {snapshotNote}
+          </>
         );
       }
       return (
@@ -235,6 +253,7 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
           >
             {isLoading ? <Spinner animation="border" /> : <Trans>Submit Vote</Trans>}
           </Button>
+          {snapshotNote}
         </div>
       );
     })();

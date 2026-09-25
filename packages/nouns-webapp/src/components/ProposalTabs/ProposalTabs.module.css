@@ -1,0 +1,54 @@
+.tabList {
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--brand-gray-border);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  margin-bottom: -1px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-family: 'Londrina Solid';
+  font-size: 1.5rem;
+  color: var(--brand-gray-light-text);
+  transition: color 0.125s ease-in-out;
+}
+
+.tab:hover {
+  color: var(--brand-black);
+}
+
+.tab.active {
+  color: var(--brand-black);
+  border-bottom-color: var(--brand-black);
+}
+
+.count {
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background-color: var(--brand-gray-background);
+  font-family: 'PT Root UI';
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: var(--brand-gray-light-text);
+}
+
+.panel {
+  padding-top: 1rem;
+}
+
+@media (max-width: 450px) {
+  .tabList {
+    gap: 1rem;
+  }
+
+  .tab {
+    font-size: 1.3rem;
+  }
+}

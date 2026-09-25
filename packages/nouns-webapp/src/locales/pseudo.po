@@ -105,7 +105,7 @@ msgstr ""
 
 #: src/components/ProfileActivityFeed/index.tsx
 #: src/components/ProfileActivityFeed/index.tsx
-#: src/components/ProposalActivityFeed/index.tsx
+#: src/pages/Vote/index.tsx
 msgid "Activity"
 msgstr ""
 
@@ -530,6 +530,8 @@ msgid "Delegation"
 msgstr ""
 
 #: src/components/ProposalContent/index.tsx
+#: src/pages/Vote/index.tsx
+#: src/pages/Vote/index.tsx
 msgid "Description"
 msgstr ""
 
@@ -875,7 +877,7 @@ msgstr ""
 msgid "Only 32x32 PNG images are accepted"
 msgstr ""
 
-#: src/components/ProposalHeader/index.tsx
+#: src/components/VotePanel/index.tsx
 msgid "Only Alps you owned or were delegated to you before {0} are eligible to vote."
 msgstr ""
 
@@ -1262,6 +1264,10 @@ msgstr ""
 msgid "Transaction Successful!"
 msgstr ""
 
+#: src/pages/Vote/index.tsx
+msgid "Transactions"
+msgstr ""
+
 #: src/components/NavBarTreasury/index.tsx
 #: src/pages/Governance/index.tsx
 msgid "Treasury"
@@ -1387,8 +1393,8 @@ msgid "Waiting for"
 msgstr ""
 
 #: src/components/Footer/index.tsx
-msgid "Warpcast"
-msgstr ""
+#~ msgid "Warpcast"
+#~ msgstr ""
 
 #: src/components/Documentation/index.tsx
 msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is a club where membership fees go into a treasury governed by the membership tokens. If you love mountain culture, skiing, snowboarding, or snow in general, join us by bidding above."
@@ -1425,8 +1431,8 @@ msgid "You"
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-msgid "You <0>Abstained</0> from this proposal"
-msgstr ""
+#~ msgid "You <0>Abstained</0> from this proposal"
+#~ msgstr ""
 
 #: src/components/CreateProposalButton/index.tsx
 msgid "You already have an active or pending proposal"
@@ -1466,12 +1472,12 @@ msgid "You voted <0/> with {0} votes"
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-msgid "You voted <0>Against</0> this proposal"
-msgstr ""
+#~ msgid "You voted <0>Against</0> this proposal"
+#~ msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-msgid "You voted <0>For</0> this proposal"
-msgstr ""
+#~ msgid "You voted <0>For</0> this proposal"
+#~ msgstr ""
 
 #: src/components/ChangeDelegatePannel/index.tsx
 msgid "You've already delegated to this address"

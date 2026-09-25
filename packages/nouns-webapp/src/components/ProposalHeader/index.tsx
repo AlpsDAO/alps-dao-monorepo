@@ -1,14 +1,13 @@
 import React from 'react';
-import { Alert, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProposalStatus from '../ProposalStatus';
 import classes from './ProposalHeader.module.css';
 import navBarButtonClasses from '../NavBarButton/NavBarButton.module.css';
-import { Proposal, useHasVotedOnProposal, useProposalVote } from '../../wrappers/alpsDao';
+import { Proposal, useHasVotedOnProposal } from '../../wrappers/alpsDao';
 import clsx from 'clsx';
 import { isMobileScreen } from '../../utils/isMobile';
 import { useUserVotesAsOfBlock } from '../../wrappers/alpToken';
-import { useBlockTimestamp } from '../../hooks/useBlockTimestamp';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
@@ -28,39 +27,13 @@ interface ProposalHeaderProps {
   submitButtonClickHandler: () => void;
 }
 
-const getTranslatedVoteCopyFromString = (proposalVote: string) => {
-  if (proposalVote === 'For') {
-    return (
-      <Trans>
-        You voted <strong>For</strong> this proposal
-      </Trans>
-    );
-  }
-  if (proposalVote === 'Against') {
-    return (
-      <Trans>
-        You voted <strong>Against</strong> this proposal
-      </Trans>
-    );
-  }
-  return (
-    <Trans>
-      You <strong>Abstained</strong> from this proposal
-    </Trans>
-  );
-};
-
 const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
   const { proposal, isActiveForVoting, isWalletConnected, userVote, submitButtonClickHandler } =
     props;
 
   const isMobile = isMobileScreen();
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock) ?? 0;
-  const receiptHasVoted = useHasVotedOnProposal(proposal?.id);
-  const receiptVote = useProposalVote(proposal?.id);
-  const hasVoted = receiptHasVoted || !!userVote;
-  const proposalVote = userVote ? ['Against', 'For', 'Abstain'][userVote.support] : receiptVote;
-  const proposalCreationTimestamp = useBlockTimestamp(proposal?.createdBlock);
+  const hasVoted = useHasVotedOnProposal(proposal?.id) || !!userVote;
   const disableVoteButton = !isWalletConnected || !availableVotes || hasVoted;
   const activeLocale = useActiveLocale();
 
@@ -180,28 +153,6 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
         )}
       </div>
 
-      {isMobile && (
-        <div className={classes.mobileSubmitProposalButton}>{isActiveForVoting && voteButton}</div>
-      )}
-
-      {proposal && isActiveForVoting && hasVoted && (
-        <Alert variant="success" className={classes.voterIneligibleAlert}>
-          {getTranslatedVoteCopyFromString(proposalVote)}
-        </Alert>
-      )}
-
-      {proposal && isActiveForVoting && proposalCreationTimestamp && !!availableVotes && !hasVoted && (
-        <Alert variant="success" className={classes.voterIneligibleAlert}>
-          <Trans>
-            Only Alps you owned or were delegated to you before{' '}
-            {i18n.date(new Date(proposalCreationTimestamp * 1000), {
-              dateStyle: 'long',
-              timeStyle: 'long',
-            })}{' '}
-            are eligible to vote.
-          </Trans>
-        </Alert>
-      )}
     </>
   );
 };

@@ -145,9 +145,6 @@ const ProposalActivityFeed: React.FC<{
 
   return (
     <div className={classes.feed}>
-      <h5 className={classes.title}>
-        <Trans>Activity</Trans>
-      </h5>
       {!votes.length && (
         <p className={classes.empty}>
           <Trans>No votes yet.</Trans>

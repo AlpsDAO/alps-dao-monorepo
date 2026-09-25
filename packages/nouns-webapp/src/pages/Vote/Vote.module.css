@@ -167,11 +167,30 @@
   cursor: pointer;
 }
 
-/* Voting panel + activity feed, beside the description on desktop and below it on mobile */
+/* Desktop: voting panel + activity/transactions tabs beside the description */
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding-top: 2rem;
   margin-top: 2rem;
+}
+
+/* Phones: voting panel + tabs straight after the vote summary */
+.mobileSections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .voteInfoCard {
+    margin-top: 0.5rem;
+  }
+
+  .voteMetadataRow h1,
+  .voteMetadataRow h3 {
+    margin-bottom: 0;
+  }
 }
