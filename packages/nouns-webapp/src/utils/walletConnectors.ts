@@ -1,22 +1,30 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
-import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-import { TrezorConnector } from '@web3-react/trezor-connector';
-import { FortmaticConnector } from '@web3-react/fortmatic-connector';
 import config, { CHAIN_ID, WALLET_CONNECT_V2_PROJECT_ID } from '../config';
 import { WalletConnectV2Connector } from './walletConnectV2Connector';
 import { SafeAppConnector } from './safeAppConnector';
+import { findInjectedWallet, InjectedWalletConnector } from './injectedWallets';
 
-export type WalletType = 'injected' | 'walletconnect' | 'coinbase' | 'fortmatic' | 'trezor' | 'safe';
+// Browser/in-app wallets are detected individually (EIP-6963); every other wallet, including mobile
+// and hardware-backed ones like Rainbow, Zerion, Safe and Ledger Live, connects over WalletConnect
+export type WalletType = 'injected' | 'walletconnect' | 'safe';
 
-/**
- * @param restoreOnly reconnect an existing session only, never prompting the user (used on page load)
- */
-export const createConnector = (type: WalletType, restoreOnly = false): AbstractConnector => {
-  const supportedChainIds = [CHAIN_ID];
+export interface ConnectOptions {
+  // Which injected wallet, by its EIP-6963 id
+  walletId?: string;
+  // Reconnect an existing session only, never prompting the user (used on page load)
+  restoreOnly?: boolean;
+}
+
+export const createConnector = (
+  type: WalletType,
+  { walletId, restoreOnly = false }: ConnectOptions = {},
+): AbstractConnector => {
   switch (type) {
-    case 'injected':
-      return new InjectedConnector({ supportedChainIds });
+    case 'injected': {
+      const wallet = findInjectedWallet(walletId);
+      if (!wallet) throw new Error('No browser wallet found');
+      return new InjectedWalletConnector(wallet.provider);
+    }
     case 'walletconnect':
       return new WalletConnectV2Connector(
         {
@@ -29,25 +37,6 @@ export const createConnector = (type: WalletType, restoreOnly = false): Abstract
         },
         restoreOnly,
       );
-    case 'coinbase':
-      return new WalletLinkConnector({
-        appName: 'Alps.WTF',
-        appLogoUrl: 'https://alps.wtf/static/media/logo.cdea1650.svg',
-        url: config.app.jsonRpcUri,
-        supportedChainIds,
-      });
-    case 'fortmatic':
-      return new FortmaticConnector({
-        apiKey: 'pk_live_60FAF077265B4CBA',
-        chainId: CHAIN_ID,
-      });
-    case 'trezor':
-      return new TrezorConnector({
-        chainId: CHAIN_ID,
-        url: config.app.jsonRpcUri,
-        manifestAppUrl: 'https://alps.wtf',
-        manifestEmail: 'alpops+trezorconnect@protonmail.com',
-      });
     case 'safe':
       return new SafeAppConnector();
   }

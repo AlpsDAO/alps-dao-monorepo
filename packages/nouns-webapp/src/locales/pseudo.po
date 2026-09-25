@@ -430,8 +430,8 @@ msgid "Change"
 msgstr ""
 
 #: src/components/WalletConnectModal/index.tsx
-msgid "Clear WalletConnect Data"
-msgstr ""
+#~ msgid "Clear WalletConnect Data"
+#~ msgstr ""
 
 #: src/components/ChangeDelegatePannel/index.tsx
 #: src/components/ChangeDelegatePannel/index.tsx
@@ -536,6 +536,10 @@ msgstr ""
 #: src/pages/Vote/index.tsx
 #: src/pages/Vote/index.tsx
 msgid "Description"
+msgstr ""
+
+#: src/components/WalletConnectModal/index.tsx
+msgid "Detected in this browser"
 msgstr ""
 
 #: src/components/NavWallet/index.tsx
@@ -818,6 +822,10 @@ msgstr ""
 msgid "No arguments required"
 msgstr ""
 
+#: src/components/WalletConnectModal/index.tsx
+msgid "No browser wallet detected. Use WalletConnect to connect a wallet on your phone."
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "No explicit rules exist for attribute scarcity; all Alps are equally rare but trait occurrence can vary which does create some dynamics around rarity."
 #~ msgstr ""
@@ -1004,6 +1012,10 @@ msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "Quorum"
+msgstr ""
+
+#: src/components/WalletConnectModal/index.tsx
+msgid "Rainbow, Zerion, Safe, Ledger Live and other mobile wallets"
 msgstr ""
 
 #: src/components/VotePanel/index.tsx
@@ -1229,6 +1241,10 @@ msgstr ""
 
 #: src/components/ProfileActivityFeed/index.tsx
 msgid "This Alp has no activity, since it was just created. Check back soon!"
+msgstr ""
+
+#: src/components/WalletConnectModal/index.tsx
+msgid "This Safe"
 msgstr ""
 
 #: src/pages/Governance/index.tsx

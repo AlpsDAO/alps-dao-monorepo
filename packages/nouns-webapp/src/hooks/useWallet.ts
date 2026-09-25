@@ -7,7 +7,8 @@ import { useAppDispatch } from "../hooks";
 import { setAlertModal } from "../state/slices/application";
 import { isSafeAccount, withSafeTxLookups } from "../utils/safe";
 import { isInIframe, SafeAppConnector } from "../utils/safeAppConnector";
-import { createConnector, WalletType } from "../utils/walletConnectors";
+import { ConnectOptions, createConnector, WalletType } from "../utils/walletConnectors";
+import { findInjectedWallet } from "../utils/injectedWallets";
 
 export interface Wallet {
     account?: string;
@@ -15,23 +16,23 @@ export interface Wallet {
     provider?: ethers.providers.BaseProvider;
     // The account is a Safe: its transactions wait in the Safe queue for owner confirmations
     isSafe?: boolean;
-    connect?: (type: WalletType) => void;
+    connect?: (type: WalletType, options?: ConnectOptions) => void;
     deactivate?: () => void;
 }
 
-// The wallet last connected with, so it can be restored on the next page load
+// The wallet last connected with ("injected:<wallet id>" or "walletconnect"), restored on the next page load
 const LAST_WALLET_KEY = 'alps-last-wallet';
 
-const rememberWallet = (type: WalletType | undefined) => {
+const rememberWallet = (wallet: string | undefined) => {
     try {
-        if (type) localStorage.setItem(LAST_WALLET_KEY, type);
+        if (wallet) localStorage.setItem(LAST_WALLET_KEY, wallet);
         else localStorage.removeItem(LAST_WALLET_KEY);
     } catch { }
 };
 
-const lastWallet = (): WalletType | undefined => {
+const lastWallet = (): string | undefined => {
     try {
-        return (localStorage.getItem(LAST_WALLET_KEY) as WalletType) ?? undefined;
+        return localStorage.getItem(LAST_WALLET_KEY) ?? undefined;
     } catch {
         return undefined;
     }
@@ -76,6 +77,17 @@ export const useWallet = (): Wallet => {
             setIsSafe(isSafeWallet);
             // Not every injected provider is an EventEmitter
             result.provider.once?.('disconnect', deactivate);
+            // Follow account and network switches made in the wallet
+            connector.on('Web3ReactUpdate', ({ account: switched, chainId: switchedChain }) => {
+                if (switchedChain !== undefined && Number(switchedChain) !== CHAIN_ID) {
+                    deactivate();
+                    return;
+                }
+                if (!switched) return;
+                setAccount(switched);
+                isSafeAccount(publicProvider, switched).then(setIsSafe);
+            });
+            connector.on('Web3ReactDeactivate', deactivate);
             return true;
         }
         catch {
@@ -83,17 +95,23 @@ export const useWallet = (): Wallet => {
         }
     };
 
-    const connect = async (type: WalletType, restoreOnly = false) => {
-        const connected = await activate(createConnector(type, restoreOnly));
-        if (connected && type !== 'safe') rememberWallet(type);
+    const connect = async (type: WalletType, options: ConnectOptions = {}) => {
+        let connected = false;
+        try {
+            connected = await activate(createConnector(type, options));
+        } catch { }
+        if (connected && type !== 'safe') {
+            rememberWallet(type === 'injected' ? `injected:${options.walletId ?? ''}` : type);
+        }
         // A saved session that no longer exists: stop trying to restore it
-        if (!connected && restoreOnly) rememberWallet(undefined);
+        if (!connected && options.restoreOnly) rememberWallet(undefined);
     };
 
     const deactivate = () => {
         const connector = connectorRef.current;
         connectorRef.current = undefined;
         rememberWallet(undefined);
+        connector?.removeAllListeners();
         try {
             // Ends the WalletConnect session too, so it isn't restored on the next visit
             connector?.deactivate();
@@ -111,18 +129,18 @@ export const useWallet = (): Wallet => {
             connect('safe');
             return;
         }
-        const type = lastWallet();
-        const ethereum = (window as any).ethereum;
-        if (type === 'injected' && ethereum?.request) {
+        const last = lastWallet();
+        if (last?.startsWith('injected')) {
+            const walletId = last.split(':')[1] || undefined;
             // Only if the site is still authorized, so this never opens a wallet prompt
-            ethereum
+            findInjectedWallet(walletId)?.provider
                 .request({ method: 'eth_accounts' })
                 .then((accounts: string[]) => {
-                    if (accounts?.length) connect('injected');
+                    if (accounts?.length) connect('injected', { walletId, restoreOnly: true });
                 })
                 .catch(() => { });
-        } else if (type === 'walletconnect') {
-            connect('walletconnect', true);
+        } else if (last === 'walletconnect') {
+            connect('walletconnect', { restoreOnly: true });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

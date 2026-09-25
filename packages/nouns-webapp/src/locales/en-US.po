@@ -430,8 +430,8 @@ msgid "Change"
 msgstr "Change"
 
 #: src/components/WalletConnectModal/index.tsx
-msgid "Clear WalletConnect Data"
-msgstr "Clear WalletConnect Data"
+#~ msgid "Clear WalletConnect Data"
+#~ msgstr "Clear WalletConnect Data"
 
 #: src/components/ChangeDelegatePannel/index.tsx
 #: src/components/ChangeDelegatePannel/index.tsx
@@ -537,6 +537,10 @@ msgstr "Delegation"
 #: src/pages/Vote/index.tsx
 msgid "Description"
 msgstr "Description"
+
+#: src/components/WalletConnectModal/index.tsx
+msgid "Detected in this browser"
+msgstr "Detected in this browser"
 
 #: src/components/NavWallet/index.tsx
 msgid "Disconnect"
@@ -818,6 +822,10 @@ msgstr "Next"
 msgid "No arguments required"
 msgstr "No arguments required"
 
+#: src/components/WalletConnectModal/index.tsx
+msgid "No browser wallet detected. Use WalletConnect to connect a wallet on your phone."
+msgstr "No browser wallet detected. Use WalletConnect to connect a wallet on your phone."
+
 #: src/components/Documentation/index.tsx
 #~ msgid "No explicit rules exist for attribute scarcity; all Alps are equally rare but trait occurrence can vary which does create some dynamics around rarity."
 #~ msgstr "No explicit rules exist for attribute scarcity; all Alps are equally rare but trait occurrence can vary which does create some dynamics around rarity."
@@ -1005,6 +1013,10 @@ msgstr "Queued"
 #: src/pages/Vote/index.tsx
 msgid "Quorum"
 msgstr "Quorum"
+
+#: src/components/WalletConnectModal/index.tsx
+msgid "Rainbow, Zerion, Safe, Ledger Live and other mobile wallets"
+msgstr "Rainbow, Zerion, Safe, Ledger Live and other mobile wallets"
 
 #: src/components/VotePanel/index.tsx
 msgid "Reason (Optional)"
@@ -1230,6 +1242,10 @@ msgstr "There was an error voting for your account."
 #: src/components/ProfileActivityFeed/index.tsx
 msgid "This Alp has no activity, since it was just created. Check back soon!"
 msgstr "This Alp has no activity, since it was just created. Check back soon!"
+
+#: src/components/WalletConnectModal/index.tsx
+msgid "This Safe"
+msgstr "This Safe"
 
 #: src/pages/Governance/index.tsx
 msgid "This treasury exists for <0>Alps DAO</0> participants to allocate resources for the long-term growth and prosperity of the Alps DAO project."
