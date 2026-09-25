@@ -1273,8 +1273,12 @@ msgstr "Thank you for voting."
 #~ msgstr "The Alp Seeder contract is used to determine Alp traits during the minting process. The seeder contract can be replaced to allow for future trait generation algorithm upgrades. Additionally, it can be locked by the Alps DAO to prevent any future updates. Currently, Alp traits are determined using pseudo-random number generation:"
 
 #: src/components/KickOffAuction/index.tsx
-msgid "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
-msgstr "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
+msgid "The Alp beside this one is the one it mints right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); the bar shows how long this one has left. Anyone can kick off the next auction; it only costs gas."
+msgstr "The Alp beside this one is the one it mints right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); the bar shows how long this one has left. Anyone can kick off the next auction; it only costs gas."
+
+#: src/components/KickOffAuction/index.tsx
+#~ msgid "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
+#~ msgstr "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
 
 #: src/components/KickOffAuction/index.tsx
 #~ msgid "The Alp shown beside this one is the one it would mint right now: its traits come from the latest block, so it changes with each new block (about every 12 seconds). Anyone can kick off the next auction; it only costs gas."
@@ -1776,8 +1780,8 @@ msgid "m"
 msgstr "m"
 
 #: src/components/BlockCountdown/index.tsx
-msgid "next block any moment"
-msgstr "next block any moment"
+#~ msgid "next block any moment"
+#~ msgstr "next block any moment"
 
 #: src/components/Bid/index.tsx
 msgid "or more"
@@ -1816,8 +1820,8 @@ msgid "{0} votes"
 msgstr "{0} votes"
 
 #: src/components/BlockCountdown/index.tsx
-msgid "{0}s left"
-msgstr "{0}s left"
+#~ msgid "{0}s left"
+#~ msgstr "{0}s left"
 
 #: src/pages/Vote/index.tsx
 msgid "{moveStateButtonAction} Proposal ⌐◧-◧"

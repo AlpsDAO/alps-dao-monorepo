@@ -1,8 +1,10 @@
 .date {
   font-family: 'PT Root UI';
-  font-weight: bold;
-  font-size: 17px;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 27px;
+  /* Secondary detail: toned down on any background (the colour is set inline for light/dark ones) */
+  opacity: 0.6;
   margin-top: 0.22rem;
 }
 
@@ -11,7 +13,10 @@
   width: auto;
 }
 
-@media (max-width: 568px) {
+
+
+/* Below desktop the auction details sit on white, whatever the Alp's background */
+@media (max-width: 991px) {
   .date {
     color: var(--brand-black) !important;
   }

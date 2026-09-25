@@ -24,10 +24,6 @@
   transition: width 0.1s linear;
 }
 
-.bar.closing {
-  background-color: var(--brand-color-red);
-}
-
 .seconds {
   margin-top: 0.15rem;
   font-size: 12px;

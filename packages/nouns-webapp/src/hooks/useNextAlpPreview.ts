@@ -7,16 +7,21 @@ import { IAlpSeed } from '../wrappers/alpToken';
 import { nextRewardAlp } from '../utils/alperAlp';
 import { usePublicProvider } from './usePublicProvider';
 
-// Safety net only; new blocks normally arrive instantly over the WebSocket subscription
-const FALLBACK_POLL_MS = 12000;
+// Safety net for when the new-block subscription is still connecting or has dropped: it only polls while
+// the subscription hasn't delivered a block for longer than a block takes
+const FALLBACK_POLL_MS = 3000;
+const SUBSCRIPTION_QUIET_MS = 13000;
+// Blocks usually reach us this long after their slot starts
+const TYPICAL_ARRIVAL_DELAY_S = 2.5;
 
 export interface NextAlpPreview {
   alpId: BigNumber;
   seed: IAlpSeed;
   blockNumber: number;
   blockHash: string;
-  // Unix seconds: the start of the block's 12-second slot, i.e. when this preview's window opened
-  blockTimestamp: number;
+  // Unix seconds when this Alp became the one a kick-off mints: when its block reached us, so the
+  // countdown runs block arrival to block arrival
+  since: number;
 }
 
 /**
@@ -50,8 +55,10 @@ export const useNextAlpPreview = (auction: Auction | undefined, isLastAuction: b
     const alpId = reward ? reward.alpId.add(1) : BigNumber.from(currentAlpId).add(1);
 
     let cancelled = false;
-    const show = (block: ethers.providers.Block | null | undefined) => {
+    // fresh: pushed by the new-block subscription as it landed; otherwise polled, possibly mid-block
+    const show = (block: ethers.providers.Block | null | undefined, fresh: boolean) => {
       if (cancelled || !block?.hash) return;
+      const since = fresh ? Date.now() / 1000 : block.timestamp + TYPICAL_ARRIVAL_DELAY_S;
       setPreview(current =>
         // Ignore a slower response for an older block, and repeats of the one already shown
         current && (current.blockNumber > block.number || current.blockHash === block.hash)
@@ -61,7 +68,7 @@ export const useNextAlpPreview = (auction: Auction | undefined, isLastAuction: b
               seed: getAlpSeedFromBlockHash(alpId, block.hash),
               blockNumber: block.number,
               blockHash: block.hash,
-              blockTimestamp: block.timestamp,
+              since,
             },
       );
     };
@@ -69,10 +76,19 @@ export const useNextAlpPreview = (auction: Auction | undefined, isLastAuction: b
     // A kick-off sent now lands in the next block and mints from the latest block's hash, so the preview
     // has to switch the moment a new block arrives: subscribe to new blocks rather than poll
     const ws = new ethers.providers.WebSocketProvider(config.app.wsRpcUri);
+    let lastPushedAt = 0;
     ws.on('block', (blockNumber: number) => {
-      ws.getBlock(blockNumber).then(show).catch(() => undefined);
+      lastPushedAt = Date.now();
+      ws.getBlock(blockNumber)
+        .then(block => show(block, true))
+        .catch(() => undefined);
     });
-    const poll = () => publicProvider.getBlock('latest').then(show).catch(() => undefined);
+    const poll = () =>
+      Date.now() - lastPushedAt > SUBSCRIPTION_QUIET_MS &&
+      publicProvider
+        .getBlock('latest')
+        .then(block => show(block, false))
+        .catch(() => undefined);
     poll();
     const timer = setInterval(poll, FALLBACK_POLL_MS);
     return () => {

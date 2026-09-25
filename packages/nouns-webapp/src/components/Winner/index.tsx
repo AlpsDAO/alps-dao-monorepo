@@ -77,7 +77,7 @@ const Winner: React.FC<WinnerProps> = props => {
           }}
           className={classes.mobileText}
         >
-          <ShortAddress size={40} address={resolvedWinner} avatar={true} />
+          <ShortAddress size={window.innerWidth <= 568 ? 24 : 40} address={resolvedWinner} avatar={true} />
         </span>
       </Tooltip>
     </a>

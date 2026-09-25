@@ -54,7 +54,7 @@ const Holder: React.FC<HolderProps> = props => {
           }}
           className={classes.mobileText}
         >
-          <ShortAddress size={40} address={holder} avatar={true} />
+          <ShortAddress size={window.innerWidth <= 568 ? 24 : 40} address={holder} avatar={true} />
         </span>
       </Tooltip>
     </a>

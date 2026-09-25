@@ -130,3 +130,14 @@
     color: var(--brand-black) !important;
   }
 }
+
+/* Phones: match the bid and timer rows (16px labels, 20px values) */
+@media (max-width: 568px) {
+  .section h4 {
+    font-size: 16px;
+  }
+
+  .section h2 {
+    font-size: 20px;
+  }
+}

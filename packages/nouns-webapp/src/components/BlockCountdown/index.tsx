@@ -1,36 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
-import { Trans } from '@lingui/macro';
 import classes from './BlockCountdown.module.css';
 
-// Ethereum makes a block every 12-second slot
-const SLOT_SECONDS = 12;
-// Inside this, a transaction sent now may miss the next block
-const CUTTING_IT_CLOSE_SECONDS = 3;
+// Ethereum makes a block every 12 seconds
+const BLOCK_SECONDS = 12;
 
-/** A draining bar for the time left in the current block's 12-second slot. */
+/** A draining bar for how long the current block (and so the previewed Alp) has left. */
 const BlockCountdown: React.FC<{ remaining: number }> = ({ remaining }) => (
   <span className={classes.countdown}>
     <span className={classes.track}>
-      <span
-        className={clsx(classes.bar, remaining <= CUTTING_IT_CLOSE_SECONDS && classes.closing)}
-        style={{ width: `${(remaining / SLOT_SECONDS) * 100}%` }}
-      />
+      <span className={classes.bar} style={{ width: `${(remaining / BLOCK_SECONDS) * 100}%` }} />
     </span>
-    <span className={classes.seconds}>
-      {remaining > 0 ? <Trans>{Math.ceil(remaining)}s left</Trans> : <Trans>next block any moment</Trans>}
-    </span>
+    <span className={classes.seconds}>{Math.ceil(remaining)}s</span>
   </span>
 );
 
-/** Seconds left in the slot that started at blockTimestamp, ticking 10 times a second. */
-export const useSlotRemaining = (blockTimestamp: number) => {
+/** Seconds left of the block that became current at `since` (Unix seconds), ticking 10 times a second. */
+export const useBlockRemaining = (since: number) => {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const timer = setInterval(() => setNow(Date.now()), 100);
     return () => clearInterval(timer);
   }, []);
-  return Math.max(0, SLOT_SECONDS - Math.max(0, now / 1000 - blockTimestamp));
+  return Math.min(BLOCK_SECONDS, Math.max(0, BLOCK_SECONDS - (now / 1000 - since)));
 };
 
 export default BlockCountdown;
