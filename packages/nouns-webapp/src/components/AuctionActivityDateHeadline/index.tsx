@@ -19,7 +19,7 @@ const AuctionActivityDateHeadline: React.FC<{ startTime: BigNumber }> = props =>
         className={classes.date}
         style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
       >
-        {i18n.date(auctionStartTimeUTC, { month: 'long', year: 'numeric', day: '2-digit' })}
+        {i18n.date(auctionStartTimeUTC, { month: 'short', year: 'numeric', day: 'numeric' })}
       </h4>
     </div>
   );

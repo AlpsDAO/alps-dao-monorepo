@@ -12,7 +12,6 @@ import CurrentBid, { BID_N_A } from '../CurrentBid';
 import Winner from '../Winner';
 
 import { useAppSelector } from '../../hooks';
-import { useCallback, useEffect } from 'react';
 
 const AlperAlpContent: React.FC<{
   mintTimestamp: BigNumber;
@@ -91,31 +90,7 @@ const AlperAlpContent: React.FC<{
     );
   }
 
-  // Page through Alps via keyboard
-  // handle what happens on key press
-  const handleKeyPress = useCallback(
-    event => {
-      console.log(event);
-      if (event.key === 'ArrowLeft') {
-        onPrevAuctionClick();
-      }
-      if (event.key === 'ArrowRight') {
-        onNextAuctionClick();
-      }
-    },
-    [onNextAuctionClick, onPrevAuctionClick],
-  );
-
-  useEffect(() => {
-    // attach the event listener
-    document.addEventListener('keydown', handleKeyPress);
-
-    // remove the event listener
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [handleKeyPress]);
-
+  // AuctionNavigation below handles the arrow keys
   return (
     <AuctionActivityWrapper>
       <div className={auctionActivityClasses.informationRow}>

@@ -4,24 +4,33 @@ import Alp from '../Alp';
 import { getAlp } from '../StandaloneAlp';
 import BlockCountdown, { useBlockRemaining } from '../BlockCountdown';
 import { NextAlpPreview as Preview } from '../../hooks/useNextAlpPreview';
-import classes from './NextAlpPreview.module.css';
+import { alpBackgroundColor } from '../../utils/alpBgColors';
 
-/** The Alp a kick-off would mint right now, with how long the current block has left. */
-const NextAlpPreview: React.FC<{ preview: Preview; labelClassName: string }> = ({ preview, labelClassName }) => {
+/**
+ * The half of the art panel showing the Alp a kick-off would mint right now, on its own background colour,
+ * with how long the current block (and so this Alp) has left.
+ */
+const NextAlpPreview: React.FC<{
+  preview: Preview;
+  className: string;
+  labelClassName: string;
+  artClassName: string;
+}> = ({ preview, className, labelClassName, artClassName }) => {
   const remaining = useBlockRemaining(preview.since);
   const alpId = preview.alpId.toNumber();
   return (
-    <>
+    <div className={className} style={{ backgroundColor: alpBackgroundColor(preview.seed) }}>
       <span className={labelClassName}>
-        <Trans>Up next: Alp {alpId}</Trans>
+        <Trans>Next · Alp {alpId}</Trans>
         <BlockCountdown remaining={remaining} />
       </span>
-      <Alp
-        imgPath={getAlp(preview.alpId, preview.seed).image}
-        alt={`Alp ${alpId}, which kicking off the next auction would mint now`}
-        className={classes.img}
-      />
-    </>
+      <div className={artClassName}>
+        <Alp
+          imgPath={getAlp(preview.alpId, preview.seed).image}
+          alt={`Alp ${alpId}, which kicking off the next auction would mint now`}
+        />
+      </div>
+    </div>
   );
 };
 

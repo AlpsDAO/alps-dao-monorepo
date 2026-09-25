@@ -15,17 +15,19 @@ const Documentation = () => {
           </h1>
           <p className={classes.aboutText}>
             <Trans>
-              We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers,
-              snowboarders and mountain lovers of every kind, with a treasury its members run together.
-              If that’s you, join us by bidding above.
+              Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a
+              treasury its members run together.
             </Trans>
+          </p>
+          <p className={classes.aboutText}>
+            <Trans>If that’s you, join us by bidding above.</Trans>
           </p>
         </div>
         <ul className={classes.summary}>
           <li>
             <Trans>
-              One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one
-              vote.
+              Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time,
+              and each auction runs for 3 hours, so there are never more than 8 new Alps a day.
             </Trans>
           </li>
           <li>
@@ -36,8 +38,8 @@ const Documentation = () => {
           </li>
           <li>
             <Trans>
-              Anyone can kick off the next auction once one ends. Alps that get no bids go to the
-              Warming Hut.
+              When an auction ends, anyone can kick off the next one; until someone does, it simply
+              waits. Alps that get no bids go to the Warming Hut.
             </Trans>
           </li>
           <li>

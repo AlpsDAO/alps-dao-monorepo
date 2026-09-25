@@ -1,5 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThLarge } from '@fortawesome/free-solid-svg-icons';
+import { Trans } from '@lingui/macro';
 import classes from './AuctionNavigation.module.css';
+import AlpBrowser from '../AlpBrowser';
 import { useAppSelector } from '../../hooks';
 import { useHistory } from 'react-router';
 import useOnDisplayAuction from '../../wrappers/onDisplayAuction';
@@ -16,11 +20,17 @@ const AuctionNavigation: React.FC<{
   const onDisplayAuction = useOnDisplayAuction();
   const lastAuctionAlpId = useAppSelector(state => state.onDisplayAuction.lastAuctionAlpId);
   const onDisplayAuctionAlpId = onDisplayAuction?.alpId.toNumber();
+  const [browsing, setBrowsing] = useState(false);
+  const closeBrowser = useCallback(() => setBrowsing(false), []);
 
   // Page through Alps via keyboard
   // handle what happens on key press
   const handleKeyPress = useCallback(
     event => {
+      // Arrow keys belong to whatever's being typed in (a bid, the browser's search)
+      if (browsing || (event.target as HTMLElement).closest?.('input, textarea, select, [contenteditable]')) {
+        return;
+      }
       if (event.key === 'ArrowLeft') {
         // This is a hack. If we don't put this the first keystoke
         // from the alp at / doesn't work (i.e. to go from current alp to current alp - 1 would take two arrow presses)
@@ -39,6 +49,7 @@ const AuctionNavigation: React.FC<{
       }
     },
     [
+      browsing,
       history,
       isFirstAuction,
       isLastAuction,
@@ -75,6 +86,15 @@ const AuctionNavigation: React.FC<{
       >
         →
       </button>
+      <button
+        onClick={() => setBrowsing(true)}
+        className={`${classes.browse} ${isCool ? classes.browseCool : classes.browseWarm}`}
+        aria-haspopup="dialog"
+      >
+        <FontAwesomeIcon icon={faThLarge} />
+        <Trans>Browse</Trans>
+      </button>
+      {browsing && <AlpBrowser currentId={onDisplayAuctionAlpId} onDismiss={closeBrowser} />}
     </div>
   );
 };

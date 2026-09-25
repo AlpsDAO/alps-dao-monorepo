@@ -1,33 +1,33 @@
 .countdown {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  width: 100%;
-  margin-top: 0.25rem;
+  gap: 0.25rem;
+}
+
+.ring {
+  width: 1em;
+  height: 1em;
+  /* Drain clockwise from 12 o'clock */
+  transform: rotate(-90deg);
+}
+
+.track,
+.progress {
+  fill: none;
+  stroke-width: 2.5;
 }
 
 .track {
-  display: block;
-  width: 100%;
-  min-width: 90px;
-  height: 5px;
-  border-radius: 999px;
-  background-color: var(--brand-gray-border);
-  overflow: hidden;
+  stroke: rgba(0, 0, 0, 0.15);
 }
 
-.bar {
-  display: block;
-  height: 100%;
-  border-radius: 999px;
-  background-color: var(--brand-color-green);
-  transition: width 0.1s linear;
+.progress {
+  stroke: currentColor;
+  transition: stroke-dashoffset 0.1s linear;
 }
 
 .seconds {
-  margin-top: 0.15rem;
-  font-size: 12px;
-  font-weight: normal;
-  color: var(--brand-gray-dark-text);
+  min-width: 2.1em;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
 }

@@ -236,8 +236,12 @@ msgid "Alp {0}"
 msgstr "Alp {0}"
 
 #: src/components/Auction/index.tsx
-msgid "Alp {0} · ended"
-msgstr "Alp {0} · ended"
+#~ msgid "Alp {0} · ended"
+#~ msgstr "Alp {0} · ended"
+
+#: src/components/AlpBrowser/index.tsx
+msgid "Alp {typed} hasn’t been minted yet. The latest is Alp {lastId}."
+msgstr "Alp {typed} hasn’t been minted yet. The latest is Alp {lastId}."
 
 #: src/components/Documentation/index.tsx
 #~ msgid "Alper distributions don't interfere with the cadence of 24 hour auctions. Alps are sent directly to the Alper's Multisig, and auctions continue on schedule with the next available Alp ID."
@@ -338,6 +342,10 @@ msgstr "Alps Protocol"
 #~ msgstr "Alps govern <0>Alps DAO</0>. Alps can vote on proposals or delegate their vote to a third party. A minimum of <1>{alpsRequired} {0}</1> is required to submit proposals."
 
 #: src/components/Documentation/index.tsx
+msgid "Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together."
+msgstr "Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together."
+
+#: src/components/Documentation/index.tsx
 #~ msgid "Alps is an extension of <0/> and <1/>, focused on establishing long-term relationships with alpine resorts to proliferate Alps, provide unique membership perks to members, and support proposals that enhance on-mountain environments and experiences."
 #~ msgstr "Alps is an extension of <0/> and <1/>, focused on establishing long-term relationships with alpine resorts to proliferate Alps, provide unique membership perks to members, and support proposals that enhance on-mountain environments and experiences."
 
@@ -382,8 +390,8 @@ msgstr "Already has"
 #~ msgstr "Anyone can do this; it only costs gas."
 
 #: src/components/Documentation/index.tsx
-msgid "Anyone can kick off the next auction once one ends. Alps that get no bids go to the Warming Hut."
-msgstr "Anyone can kick off the next auction once one ends. Alps that get no bids go to the Warming Hut."
+#~ msgid "Anyone can kick off the next auction once one ends. Alps that get no bids go to the Warming Hut."
+#~ msgstr "Anyone can kick off the next auction once one ends. Alps that get no bids go to the Warming Hut."
 
 #: src/components/ProposalTransactionFormModal/index.tsx
 msgid "Arguments"
@@ -471,6 +479,14 @@ msgstr "Body"
 #: src/components/AlpInfoRowBirthday/index.tsx
 msgid "Born"
 msgstr "Born"
+
+#: src/components/AuctionNavigation/index.tsx
+msgid "Browse"
+msgstr "Browse"
+
+#: src/components/AlpBrowser/index.tsx
+msgid "Browse Alps"
+msgstr "Browse Alps"
 
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
@@ -632,8 +648,8 @@ msgid "Dynamic Quorum"
 msgstr "Dynamic Quorum"
 
 #: src/components/Banner/index.tsx
-msgid "EVERY 3 HOURS,"
-msgstr "EVERY 3 HOURS,"
+#~ msgid "EVERY 3 HOURS,"
+#~ msgstr "EVERY 3 HOURS,"
 
 #: src/components/Banner/index.tsx
 #~ msgid "EVERY DAY,"
@@ -642,6 +658,10 @@ msgstr "EVERY 3 HOURS,"
 #: src/pages/Governance/index.tsx
 msgid "Each Alp is a membership in the club and one vote. Members vote on proposals to spend the treasury, or delegate their votes to someone else. Submitting a proposal takes at least <0>{alpsRequired} {0}</0>. <1>How governance works</1>"
 msgstr "Each Alp is a membership in the club and one vote. Members vote on proposals to spend the treasury, or delegate their votes to someone else. Submitting a proposal takes at least <0>{alpsRequired} {0}</0>. <1>How governance works</1>"
+
+#: src/components/Documentation/index.tsx
+msgid "Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time, and each auction runs for 3 hours, so there are never more than 8 new Alps a day."
+msgstr "Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time, and each auction runs for 3 hours, so there are never more than 8 new Alps a day."
 
 #: src/components/Documentation/index.tsx
 #~ msgid "Each auction settlement triggers a new Alp mint and begins a new 3-hour auction."
@@ -658,6 +678,10 @@ msgstr "Each Alp is a membership in the club and one vote. Members vote on propo
 #: src/pages/Vote/index.tsx
 msgid "Ended"
 msgstr "Ended"
+
+#: src/components/Auction/index.tsx
+msgid "Ended · Alp {0}"
+msgstr "Ended · Alp {0}"
 
 #: src/pages/Vote/index.tsx
 msgid "Ends"
@@ -810,6 +834,10 @@ msgstr "Glasses"
 #~ msgid "Gnars"
 #~ msgstr "Gnars"
 
+#: src/components/AlpBrowser/index.tsx
+msgid "Go"
+msgstr "Go"
+
 #: src/components/NavBar/index.tsx
 #: src/pages/Governance/index.tsx
 msgid "Governance"
@@ -849,6 +877,10 @@ msgid "Holder changed from<0><1/></0> to <2><3/></2>"
 msgstr "Holder changed from<0><1/></0> to <2><3/></2>"
 
 #: src/components/Documentation/index.tsx
+msgid "If that’s you, join us by bidding above."
+msgstr "If that’s you, join us by bidding above."
+
+#: src/components/Documentation/index.tsx
 #~ msgid "In addition to the precautions taken by Compound Governance, Alpers have given themselves a special veto right to ensure that no malicious proposals can be passed while the Alp supply is low. This veto right will only be used if an obviously harmful governance proposal has been passed, and is intended as a last resort."
 #~ msgstr "In addition to the precautions taken by Compound Governance, Alpers have given themselves a special veto right to ensure that no malicious proposals can be passed while the Alp supply is low. This veto right will only be used if an obviously harmful governance proposal has been passed, and is intended as a last resort."
 
@@ -875,6 +907,10 @@ msgstr "Kick off the next auction"
 #: src/components/NavLocaleSwitcher/index.tsx
 msgid "Language"
 msgstr "Language"
+
+#: src/components/AlpBrowser/index.tsx
+msgid "Latest"
+msgstr "Latest"
 
 #: src/components/AlperAlpContent/index.tsx
 #~ msgid "Learn more"
@@ -911,6 +947,10 @@ msgstr "More details on how dynamic quorum works can be found <0>here</0>."
 #: src/components/ProposalTransactionFormModal/index.tsx
 msgid "Next"
 msgstr "Next"
+
+#: src/components/NextAlpPreview/index.tsx
+msgid "Next · Alp {alpId}"
+msgstr "Next · Alp {alpId}"
 
 #: src/components/ProposalTransactionFormModal/index.tsx
 msgid "No arguments required"
@@ -963,8 +1003,12 @@ msgid "Now has"
 msgstr "Now has"
 
 #: src/components/Banner/index.tsx
-msgid "ONE ALP,"
-msgstr "ONE ALP,"
+msgid "ONE ALP AT A TIME,"
+msgstr "ONE ALP AT A TIME,"
+
+#: src/components/Banner/index.tsx
+#~ msgid "ONE ALP,"
+#~ msgstr "ONE ALP,"
 
 #: src/components/Banner/index.tsx
 #~ msgid "ONE NOUN,"
@@ -975,8 +1019,8 @@ msgstr "ONE ALP,"
 #~ msgstr "On-Chain Artwork"
 
 #: src/components/Documentation/index.tsx
-msgid "One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one vote."
-msgstr "One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one vote."
+#~ msgid "One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one vote."
+#~ msgstr "One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one vote."
 
 #: src/components/Documentation/index.tsx
 #~ msgid "One Alp is equal to one vote."
@@ -1273,12 +1317,16 @@ msgstr "Thank you for voting."
 #~ msgstr "The Alp Seeder contract is used to determine Alp traits during the minting process. The seeder contract can be replaced to allow for future trait generation algorithm upgrades. Additionally, it can be locked by the Alps DAO to prevent any future updates. Currently, Alp traits are determined using pseudo-random number generation:"
 
 #: src/components/KickOffAuction/index.tsx
-msgid "The Alp beside this one is the one it mints right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); the bar shows how long this one has left. Anyone can kick off the next auction; it only costs gas."
-msgstr "The Alp beside this one is the one it mints right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); the bar shows how long this one has left. Anyone can kick off the next auction; it only costs gas."
+#~ msgid "The Alp beside this one is the one it mints right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); the bar shows how long this one has left. Anyone can kick off the next auction; it only costs gas."
+#~ msgstr "The Alp beside this one is the one it mints right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); the bar shows how long this one has left. Anyone can kick off the next auction; it only costs gas."
 
 #: src/components/KickOffAuction/index.tsx
 #~ msgid "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
 #~ msgstr "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
+
+#: src/components/KickOffAuction/index.tsx
+msgid "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
+msgstr "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
 
 #: src/components/KickOffAuction/index.tsx
 #~ msgid "The Alp shown beside this one is the one it would mint right now: its traits come from the latest block, so it changes with each new block (about every 12 seconds). Anyone can kick off the next auction; it only costs gas."
@@ -1461,6 +1509,10 @@ msgstr "Try again"
 #~ msgid "Twitter"
 #~ msgstr "Twitter"
 
+#: src/components/Banner/index.tsx
+msgid "UP TO 8 A DAY,"
+msgstr "UP TO 8 A DAY,"
+
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
 #: src/components/ProposalStatusCopy/index.tsx
@@ -1476,8 +1528,8 @@ msgstr "Until Alp #14,600, every 10th Alp goes to the founders and every other 5
 #~ msgstr "Up next: Alp {0}"
 
 #: src/components/NextAlpPreview/index.tsx
-msgid "Up next: Alp {alpId}"
-msgstr "Up next: Alp {alpId}"
+#~ msgid "Up next: Alp {alpId}"
+#~ msgstr "Up next: Alp {alpId}"
 
 #: src/components/ChangeDelegatePannel/index.tsx
 #: src/components/CurrentDelegatePannel/index.tsx
@@ -1593,13 +1645,17 @@ msgstr "Waiting for"
 #~ msgstr "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is a club where membership fees go into a treasury governed by the membership tokens. If you love mountain culture, skiing, snowboarding, or snow in general, join us by bidding above."
 
 #: src/components/Documentation/index.tsx
-msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
-msgstr "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
+#~ msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
+#~ msgstr "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
 
 #: src/components/Winner/index.tsx
 #: src/components/Winner/index.tsx
 #~ msgid "What now?"
 #~ msgstr "What now?"
+
+#: src/components/Documentation/index.tsx
+msgid "When an auction ends, anyone can kick off the next one; until someone does, it simply waits. Alps that get no bids go to the Warming Hut."
+msgstr "When an auction ends, anyone can kick off the next one; until someone does, it simply waits. Alps that get no bids go to the Warming Hut."
 
 #: src/components/Documentation/index.tsx
 #~ msgid "While settlement is most heavily incentivized for the winning bidder, it can be triggered by anyone, allowing the system to trustlessly auction Alps as long as Ethereum is operational and there are interested bidders."

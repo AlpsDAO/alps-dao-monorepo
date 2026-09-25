@@ -45,9 +45,9 @@ const KickOffAuction: React.FC<{
           <Trans>It also mints Alp {reward.alpId.toNumber()} for the Alpine Council.</Trans>
         )}{' '}
         <Trans>
-          The Alp beside this one is the one it mints right now. Its traits come from the latest block,
-          so it changes with every new block (about every 12 seconds); the bar shows how long this one
-          has left. Anyone can kick off the next auction; it only costs gas.
+          The Alp labelled Next is the one it would mint right now. Its traits come from the latest
+          block, so it changes with every new block (about every 12 seconds); its timer shows how long
+          it has left. Anyone can kick off the next auction; it only costs gas.
         </Trans>
       </p>
     </div>

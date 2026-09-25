@@ -18,7 +18,7 @@ import {
   setNextOnDisplayAuctionAlpId,
   setPrevOnDisplayAuctionAlpId,
 } from '../../state/slices/onDisplayAuction';
-import { beige } from '../../utils/alpBgColors';
+import { alpBackgroundColor } from '../../utils/alpBgColors';
 
 interface AuctionProps {
   auction?: IAuction;
@@ -33,16 +33,7 @@ const Auction: React.FC<AuctionProps> = props => {
   const lastAlpId = useAppSelector(state => state.onDisplayAuction.lastAuctionAlpId);
 
   const loadedAlpHandler = (seed: IAlpSeed) => {
-    const backgroundColors = [
-      '#63a0f9',
-      '#018146',
-      '#000000',
-      '#76858b',
-      '#f8d689',
-      '#d5d7e1',
-      '#e1d7d5',
-    ];
-    dispatch(setStateBackgroundColor(backgroundColors[seed.background] ?? beige));
+    dispatch(setStateBackgroundColor(alpBackgroundColor(seed)));
   };
 
   const prevAuctionHandler = () => {
@@ -56,7 +47,9 @@ const Auction: React.FC<AuctionProps> = props => {
 
   const isLastAuction =
     !!currentAuction && lastAlpId !== undefined && currentAuction.alpId.eq(lastAlpId);
-  const nextAlp = useNextAlpPreview(currentAuction, isLastAuction);
+  // Kept up to date while older Alps are on display, so it's there the moment the latest is back
+  const latestNextAlp = useNextAlpPreview();
+  const nextAlp = isLastAuction ? latestNextAlp : undefined;
 
   const endedAlp = currentAuction && (
     <StandaloneAlpWithSeed
@@ -66,21 +59,24 @@ const Auction: React.FC<AuctionProps> = props => {
     />
   );
 
-  // Once the latest auction has ended, show the Alp that kicking off the next auction would mint beside
-  // it, in the same space
+  // Once the latest auction has ended, split the art panel: the ended Alp on the left, and on the right,
+  // on its own background colour, the Alp that kicking off the next auction would mint right now
   const alpContent =
     currentAuction &&
     (nextAlp ? (
       <div className={classes.alpPair}>
-        <div className={classes.pairItem}>
+        <div className={classes.pairHalf}>
           <span className={classes.pairLabel}>
-            <Trans>Alp {currentAuction.alpId.toNumber()} · ended</Trans>
+            <Trans>Ended · Alp {currentAuction.alpId.toNumber()}</Trans>
           </span>
-          {endedAlp}
+          <div className={classes.pairArt}>{endedAlp}</div>
         </div>
-        <div className={classes.pairItem}>
-          <NextAlpPreview preview={nextAlp} labelClassName={classes.pairLabel} />
-        </div>
+        <NextAlpPreview
+          preview={nextAlp}
+          className={classes.pairHalf}
+          labelClassName={classes.pairLabel}
+          artClassName={classes.pairArt}
+        />
       </div>
     ) : (
       <div className={classes.alpWrapper}>{endedAlp}</div>

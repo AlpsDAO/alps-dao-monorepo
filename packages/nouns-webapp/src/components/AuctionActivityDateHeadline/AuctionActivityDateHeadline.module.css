@@ -5,15 +5,14 @@
   line-height: 27px;
   /* Secondary detail: toned down on any background (the colour is set inline for light/dark ones) */
   opacity: 0.6;
-  margin-top: 0.22rem;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .wrapper {
-  margin-left: 5rem;
-  width: auto;
+  margin-left: 0.75rem;
+  min-width: 0;
 }
-
-
 
 /* Below desktop the auction details sit on white, whatever the Alp's background */
 @media (max-width: 991px) {

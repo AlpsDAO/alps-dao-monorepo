@@ -1,5 +1,36 @@
 .navArrowsContainer {
-  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.browse {
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2rem;
+  margin-left: 0.3rem;
+  padding: 0 0.8rem;
+  border: none;
+  border-radius: 999px;
+  font-family: 'PT Root UI';
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.browse svg {
+  font-size: 12px;
+}
+
+.browseCool {
+  color: var(--brand-cool-dark-text);
+  background-color: var(--brand-cool-accent);
+}
+
+.browseWarm {
+  color: var(--brand-warm-dark-text);
+  background-color: var(--brand-warm-accent);
 }
 
 .leftArrowCool {
@@ -74,7 +105,8 @@ buttons looking disabled when they were not */
   .leftArrowWarm:hover,
   .leftArrowCool:hover,
   .rightArrowWarm:hover,
-  .rightArrowCool:hover {
+  .rightArrowCool:hover,
+  .browse:hover {
     opacity: 0.9;
     background-color: var(--brand-gray-hover);
   }
@@ -86,11 +118,4 @@ buttons looking disabled when they were not */
 .rightArrowCool:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-@-moz-document url-prefix() {
-  .navArrowsContainer {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
 }
