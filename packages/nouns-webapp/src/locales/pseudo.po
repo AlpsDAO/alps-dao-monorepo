@@ -488,6 +488,10 @@ msgstr ""
 msgid "Browse Alps"
 msgstr ""
 
+#: src/components/Documentation/index.tsx
+msgid "Build an Alp in bricks"
+msgstr ""
+
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
 #: src/components/ProposalStatusCopy/index.tsx
@@ -1306,6 +1310,10 @@ msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "Taken at block"
+msgstr ""
+
+#: src/pages/Playground/index.tsx
+msgid "Tap any Alp to download it, or to turn it into a brick bust you can really build with <0>Alps to Bricks</0>."
 msgstr ""
 
 #: src/components/VotePanel/index.tsx

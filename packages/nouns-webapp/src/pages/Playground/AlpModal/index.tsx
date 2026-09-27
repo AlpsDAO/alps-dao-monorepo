@@ -13,8 +13,8 @@ const downloadAlpPNG = (png: string) => {
   downloadEl.click();
 };
 
-const AlpModal: React.FC<{ onDismiss: () => void; svg: string }> = props => {
-  const { onDismiss, svg } = props;
+const AlpModal: React.FC<{ onDismiss: () => void; svg: string; bricksUrl?: string }> = props => {
+  const { onDismiss, svg, bricksUrl } = props;
 
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [png, setPng] = useState<string | null>();
@@ -68,6 +68,15 @@ const AlpModal: React.FC<{ onDismiss: () => void; svg: string }> = props => {
               >
                 Download
               </Button>
+            )}
+            {bricksUrl ? (
+              <a className={classes.bricksLink} href={bricksUrl} target="_blank" rel="noreferrer">
+                🧱 Build it in bricks
+              </a>
+            ) : (
+              <span className={classes.bricksNote}>
+                Brick builds work with the standard traits, not uploaded ones.
+              </span>
             )}
           </div>
         </div>,

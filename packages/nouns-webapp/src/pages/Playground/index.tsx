@@ -68,6 +68,23 @@ const alpsSDKLink = (
 
 const DEFAULT_TRAIT_TYPE = 'heads';
 
+const BRICKS_URL = 'https://bricks.alps.wtf';
+// Seed keys and the image lists they index, in the order the brick builder's ?seed= link takes them
+const SEED_PARTS: [string, string | null][] = [
+  ['background', null],
+  ['body', 'bodies'],
+  ['accessory', 'accessories'],
+  ['head', 'heads'],
+  ['glasses', 'glasses'],
+];
+
+interface PlaygroundAlp {
+  svg: string;
+  // the brick builder's link for this Alp, or undefined if it wears a custom trait (the builder only
+  // knows the standard ones)
+  bricksUrl?: string;
+}
+
 const encoder = new PNGCollectionEncoder(ImageData.palette);
 
 const traitKeyToTitle: Record<string, string> = {
@@ -103,7 +120,9 @@ const traitKeyToLocalizedTraitKeyFirstLetterCapitalized = (s: string): ReactNode
 };
 
 const Playground: React.FC = () => {
-  const [alpSvgs, setAlpSvgs] = useState<string[]>();
+  const [alpSvgs, setAlpSvgs] = useState<PlaygroundAlp[]>();
+  // uploaded traits go to the front of their list, shifting the standard ones along
+  const [customCounts, setCustomCounts] = useState<Record<string, number>>({});
   const [traits, setTraits] = useState<Trait[]>();
   const [modSeed, setModSeed] = useState<{ [key: string]: number }>();
   const [initLoad, setInitLoad] = useState<boolean>(true);
@@ -121,13 +140,19 @@ const Playground: React.FC = () => {
         const seed = { ...getRandomAlpSeed(), ...modSeed };
         const { parts, background } = getAlpData(seed);
         const svg = buildSVG(parts, encoder.data.palette, background);
+        const indexes = seed as Record<string, number>;
+        const standard = SEED_PARTS.map(([key, list]) => indexes[key] - (list ? customCounts[list] ?? 0 : 0));
+        const alp = {
+          svg,
+          bricksUrl: standard.every(i => i >= 0) ? `${BRICKS_URL}/?seed=${standard.join('-')}` : undefined,
+        };
         setAlpSvgs(prev => {
-          return prev ? [svg, ...prev] : [svg];
+          return prev ? [alp, ...prev] : [alp];
         });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pendingTrait, modSeed],
+    [pendingTrait, modSeed, customCounts],
   );
 
   useEffect(() => {
@@ -252,6 +277,7 @@ const Playground: React.FC = () => {
         filename,
         data,
       });
+      setCustomCounts(prev => ({ ...prev, [type]: (prev[type] ?? 0) + 1 }));
       const title = traitKeyToTitle[type];
       const trait = traits?.find(t => t.title === title);
 
@@ -273,7 +299,8 @@ const Playground: React.FC = () => {
           onDismiss={() => {
             setDisplayAlp(false);
           }}
-          svg={alpSvgs[indexOfAlpToDisplay]}
+          svg={alpSvgs[indexOfAlpToDisplay].svg}
+          bricksUrl={alpSvgs[indexOfAlpToDisplay].bricksUrl}
         />
       )}
 
@@ -291,6 +318,15 @@ const Playground: React.FC = () => {
                 The playground is built with the {alpsProtocolLink}. An Alp’s traits come from its
                 seed, which draws on {alpsAssetsLink}, {gnarsAssetsLink} and {nounsAssetsLink}, and
                 is rendered with the {alpsSDKLink}.
+              </Trans>
+            </p>
+            <p>
+              <Trans>
+                Tap any Alp to download it, or to turn it into a brick bust you can really build with{' '}
+                <a href={BRICKS_URL} target="_blank" rel="noreferrer">
+                  Alps to Bricks
+                </a>
+                .
               </Trans>
             </p>
           </Col>
@@ -401,7 +437,7 @@ const Playground: React.FC = () => {
           <Col lg={9}>
             <Row>
               {alpSvgs &&
-                alpSvgs.map((svg, i) => {
+                alpSvgs.map(({ svg }, i) => {
                   return (
                     <Col xs={4} lg={3} key={i}>
                       <div

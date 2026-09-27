@@ -62,6 +62,9 @@ const Documentation = () => {
           <Link to="/playground">
             <Trans>Make your own Alps in the Playground</Trans> →
           </Link>
+          <a href="https://bricks.alps.wtf" target="_blank" rel="noreferrer">
+            <Trans>Build an Alp in bricks</Trans> ↗
+          </a>
         </p>
       </Col>
     </Section>

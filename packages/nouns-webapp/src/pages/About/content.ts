@@ -184,6 +184,7 @@ The **founders** steer Alps through its early years and aim to hand control over
 For your safety, only use these official links:
 
 - **Auctions:** [alps.wtf](/)
+- **Brick builder:** [bricks.alps.wtf](https://bricks.alps.wtf), turn any Alp into a brick bust you can really build
 - **Discord:** [discord.gg/V2uNwrwXga](${DISCORD})
 - **X:** [@AlpsDAO](https://x.com/AlpsDAO)
 - **OpenSea:** [opensea.io/collection/alpsdao](${OPENSEA})

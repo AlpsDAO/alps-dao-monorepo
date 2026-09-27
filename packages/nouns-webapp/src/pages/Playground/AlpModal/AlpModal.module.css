@@ -32,6 +32,26 @@
   box-shadow: none !important;
 }
 
+.bricksLink {
+  margin-top: 0.75rem;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #213343;
+  font-weight: bold;
+  text-decoration: none;
+}
+.bricksLink:hover {
+  background: #fff;
+  color: #213343;
+}
+.displayAlpFooter .bricksNote {
+  margin: 0.75rem 0 0;
+  font-size: 13px;
+  font-weight: normal;
+  opacity: 0.85;
+}
+
 .alpImg {
   border-radius: 16px;
 }
