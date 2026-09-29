@@ -14,6 +14,8 @@ import { useAppSelector } from '../../hooks';
 import config from '../../config';
 import { buildEtherscanTokenLink } from '../../utils/etherscan';
 import { Trans } from '@lingui/macro';
+import { BigNumber as EthersBN } from 'ethers';
+import AlpDownloadButtons from '../AlpDownloadButtons';
 
 interface AlpInfoCardProps {
   alpId: number;
@@ -47,6 +49,9 @@ const AlpInfoCard: React.FC<AlpInfoCardProps> = props => {
           btnText={<Trans>Etherscan</Trans>}
           onClickHandler={etherscanButtonClickHandler}
         />
+      </Col>
+      <Col lg={12} className={classes.alpInfoRow}>
+        <AlpDownloadButtons alpId={EthersBN.from(alpId)} />
       </Col>
     </>
   );
