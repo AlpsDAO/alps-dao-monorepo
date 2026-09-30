@@ -4,9 +4,6 @@ import AuctionActivity from '../AuctionActivity';
 import { Row, Container } from 'react-bootstrap';
 import { setStateBackgroundColor } from '../../state/slices/application';
 import { LoadingAlp } from '../Alp';
-import { Trans } from '@lingui/macro';
-import { useNextAlpPreview } from '../../hooks/useNextAlpPreview';
-import NextAlpPreview from '../NextAlpPreview';
 import { Auction as IAuction } from '../../wrappers/alpsAuction';
 import classes from './Auction.module.css';
 import { IAlpSeed } from '../../wrappers/alpToken';
@@ -45,42 +42,15 @@ const Auction: React.FC<AuctionProps> = props => {
     currentAuction && history.push(`/alp/${currentAuction.alpId.toNumber() + 1}`);
   };
 
-  const isLastAuction =
-    !!currentAuction && lastAlpId !== undefined && currentAuction.alpId.eq(lastAlpId);
-  // Kept up to date while older Alps are on display, so it's there the moment the latest is back
-  const latestNextAlp = useNextAlpPreview();
-  const nextAlp = isLastAuction ? latestNextAlp : undefined;
-
-  const endedAlp = currentAuction && (
-    <StandaloneAlpWithSeed
-      alpId={currentAuction.alpId}
-      onLoadSeed={loadedAlpHandler}
-      shouldLinkToProfile={false}
-    />
+  const alpContent = currentAuction && (
+    <div className={classes.alpWrapper}>
+      <StandaloneAlpWithSeed
+        alpId={currentAuction.alpId}
+        onLoadSeed={loadedAlpHandler}
+        shouldLinkToProfile={false}
+      />
+    </div>
   );
-
-  // Once the latest auction has ended, split the art panel: the ended Alp on the left, and on the right,
-  // on its own background colour, the Alp that kicking off the next auction would mint right now
-  const alpContent =
-    currentAuction &&
-    (nextAlp ? (
-      <div className={classes.alpPair}>
-        <div className={classes.pairHalf}>
-          <span className={classes.pairLabel}>
-            <Trans>Ended · Alp {currentAuction.alpId.toNumber()}</Trans>
-          </span>
-          <div className={classes.pairArt}>{endedAlp}</div>
-        </div>
-        <NextAlpPreview
-          preview={nextAlp}
-          className={classes.pairHalf}
-          labelClassName={classes.pairLabel}
-          artClassName={classes.pairArt}
-        />
-      </div>
-    ) : (
-      <div className={classes.alpWrapper}>{endedAlp}</div>
-    ));
 
   const loadingAlp = (
     <div className={classes.alpWrapper}>

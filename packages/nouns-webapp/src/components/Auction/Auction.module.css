@@ -9,7 +9,9 @@
 
 .auctionActivityCol {
   padding-right: 5rem;
-  padding-bottom: 0rem;
+  /* room above and below when the panel is taller than the art (an ended auction's kick-off) */
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   align-self: center;
 }
 
@@ -50,76 +52,9 @@
   }
 }
 
-/* Once an auction has ended the art panel splits in two: the ended Alp on the left (on the section's
-   colour, which is its own) and the next Alp on the right, on its own background colour */
-.alpPair {
-  display: flex;
-  align-self: stretch;
-  width: 100%;
-}
-
-.pairHalf {
-  display: flex;
-  flex: 1 1 0;
-  flex-direction: column;
-  align-items: center;
-  min-width: 0;
-  padding-top: 1.25rem;
-}
-
-/* Identical single-line pills on both halves, readable on any Alp background */
-.pairLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  height: 30px;
-  padding: 0 0.8rem;
-  border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.92);
-  color: var(--brand-black);
-  font-family: 'PT Root UI';
-  font-size: 14px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-/* Each Alp stands on the bottom edge of its half */
-.pairArt {
-  width: 100%;
-  max-width: 300px;
-  margin-top: auto;
-  padding-top: 1rem;
-}
-
 @media (max-width: 991px) {
   .alpContentCol {
     padding-left: 0;
     padding-right: 0;
-  }
-}
-
-@media (max-width: 568px) {
-  .pairHalf {
-    padding-top: 0.75rem;
-  }
-
-  .pairLabel {
-    gap: 0.35rem;
-    height: 26px;
-    padding: 0 0.6rem;
-    font-size: 12.5px;
-  }
-
-  .pairArt {
-    padding-top: 0.6rem;
-  }
-}
-
-/* The smallest phones: keep "Next · Alp 1234" and its timer inside its half */
-@media (max-width: 360px) {
-  .pairLabel {
-    gap: 0.25rem;
-    padding: 0 0.5rem;
-    font-size: 12px;
   }
 }

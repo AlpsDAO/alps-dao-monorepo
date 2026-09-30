@@ -5,6 +5,8 @@ import { Trans } from '@lingui/macro';
 import { Auction } from '../../wrappers/alpsAuction';
 import { nextRewardAlp } from '../../utils/alperAlp';
 import ShortAddress from '../ShortAddress';
+import NextAlpPreview from '../NextAlpPreview';
+import { useNextAlpPreview } from '../../hooks/useNextAlpPreview';
 import classes from './KickOffAuction.module.css';
 
 /**
@@ -20,9 +22,11 @@ const KickOffAuction: React.FC<{
   const hasWinner = auction.bidder !== constants.AddressZero && !auction.amount.isZero();
   const reward = nextRewardAlp(auction.alpId);
   const nextAuctionAlpId = (reward ? reward.alpId.add(1) : auction.alpId.add(1)).toNumber();
+  const preview = useNextAlpPreview();
 
   return (
     <div className={classes.kickOff}>
+      {preview && <NextAlpPreview preview={preview} />}
       <Button className={classes.kickOffBtn} onClick={onKickOff} disabled={pending}>
         {pending ? <Spinner animation="border" size="sm" /> : <Trans>Kick off the next auction</Trans>}
       </Button>
@@ -45,9 +49,9 @@ const KickOffAuction: React.FC<{
           <Trans>It also mints Alp {reward.alpId.toNumber()} for the Alpine Council.</Trans>
         )}{' '}
         <Trans>
-          The Alp labelled Next is the one it would mint right now. Its traits come from the latest
-          block, so it changes with every new block (about every 12 seconds); its timer shows how long
-          it has left. Anyone can kick off the next auction; it only costs gas.
+          Next up is the Alp it would mint right now: its traits come from the latest block, so it
+          changes with every new block, about every 12 seconds. Anyone can kick off the next auction;
+          it only costs gas.
         </Trans>
       </p>
     </div>
