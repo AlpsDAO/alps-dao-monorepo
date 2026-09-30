@@ -1,209 +1,398 @@
-import { Col, Alert, Button } from 'react-bootstrap';
-import Section from '../../layout/Section';
-import {
-  ProposalState,
-  ProposalTransaction,
-  useProposal,
-  useProposalCount,
-  useProposalThreshold,
-  usePropose,
-} from '../../wrappers/alpsDao';
-import { useUserVotes } from '../../wrappers/alpToken';
-import classes from './CreateProposal.module.css';
+import React, { ReactNode, useCallback, useContext, useEffect, useState } from 'react';
+import { Button, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { AlertModal, setAlertModal } from '../../state/slices/application';
-import ProposalEditor from '../../components/ProposalEditor';
-import CreateProposalButton from '../../components/CreateProposalButton';
-import ProposalTransactions from '../../components/ProposalTransactions';
-import ProposalTransactionFormModal from '../../components/ProposalTransactionFormModal';
-import SafeTxNotice from '../../components/SafeTxNotice';
-import { withStepProgress } from 'react-stepz';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useAppDispatch } from '../../hooks';
 import { Trans } from '@lingui/macro';
-import { ethers } from 'ethers';
+import clsx from 'clsx';
+import { ExclamationCircleIcon, PlusIcon } from '@heroicons/react/outline';
+import Section from '../../layout/Section';
 import { WalletContext } from '../../contexts/WalletContext';
+import { useDaoSettings } from '../../hooks/useDaoSettings';
+import { useProposerEligibility } from '../../hooks/useProposerEligibility';
+import {
+  duplicateActionIndexes,
+  formatEth,
+  totalValue,
+} from '../../utils/proposalActions/encoding';
+import { MAX_PROPOSAL_ACTIONS } from '../../utils/proposalActions/contracts';
+import { BlocksDuration } from '../../components/ProposalActionSummary';
+import ProposalTextEditor from '../../components/ProposalBuilder/ProposalTextEditor';
+import ActionList, { AddActionMenu } from '../../components/ProposalBuilder/ActionList';
+import ActionEditorModal from '../../components/ProposalBuilder/ActionEditorModal';
+import EligibilityNotice from '../../components/ProposalBuilder/EligibilityNotice';
+import ReviewStep from '../../components/ProposalBuilder/ReviewStep';
+import { useActionChecks } from '../../components/ProposalBuilder/ActionCheck';
+import {
+  clearDraft,
+  emptyDraft,
+  loadDraft,
+  ProposalDraft,
+  saveDraft,
+} from '../../components/ProposalBuilder/draft';
+import { ActionKind, BuilderAction } from '../../components/ProposalBuilder/types';
+import builder from '../../components/ProposalBuilder/ProposalBuilder.module.css';
+import classes from './CreateProposal.module.css';
+
+type Mode = 'edit' | 'review';
+
+const Steps: React.FC<{ mode: Mode }> = ({ mode }) => (
+  <ol className={classes.steps}>
+    <li className={clsx(mode === 'edit' && classes.currentStep)}>
+      <span>1</span>
+      <Trans>Write</Trans>
+    </li>
+    <li className={clsx(mode === 'review' && classes.currentStep)}>
+      <span>2</span>
+      <Trans>Review and submit</Trans>
+    </li>
+  </ol>
+);
 
 const CreateProposalPage = () => {
   const { account } = useContext(WalletContext);
-  const latestProposalId = useProposalCount();
-  const latestProposal = useProposal(latestProposalId ?? 0);
-  const availableVotes = useUserVotes();
-  const proposalThreshold = useProposalThreshold();
+  const eligibility = useProposerEligibility(account);
+  const settings = useDaoSettings();
+  const checks = useActionChecks();
 
-  const { propose, proposeState } = usePropose();
-
-  const [proposalTransactions, setProposalTransactions] = useState<ProposalTransaction[]>([]);
-  const [titleValue, setTitleValue] = useState('');
-  const [bodyValue, setBodyValue] = useState('');
-
-  const handleAddProposalAction = useCallback(
-    (transaction: ProposalTransaction) => {
-      if (!transaction.address.startsWith('0x')) {
-        transaction.address = `0x${transaction.address}`;
-      }
-      if (!transaction.calldata.startsWith('0x')) {
-        transaction.calldata = `0x${transaction.calldata}`;
-      }
-      setProposalTransactions([...proposalTransactions, transaction]);
-      setShowTransactionFormModal(false);
-    },
-    [proposalTransactions],
-  );
-
-  const handleRemoveProposalAction = useCallback(
-    (index: number) => {
-      setProposalTransactions(proposalTransactions.filter((_, i) => i !== index));
-    },
-    [proposalTransactions],
-  );
-
-  const handleTitleInput = useCallback(
-    (title: string) => {
-      setTitleValue(title);
-    },
-    [setTitleValue],
-  );
-
-  const handleBodyInput = useCallback(
-    (body: string) => {
-      setBodyValue(body);
-    },
-    [setBodyValue],
-  );
-
-  const isFormInvalid = useMemo(
-    () => !proposalTransactions.length || titleValue === '' || bodyValue === '',
-    [proposalTransactions, titleValue, bodyValue],
-  );
-
-  const hasEnoughVote = Boolean(
-    availableVotes && proposalThreshold !== undefined && availableVotes > proposalThreshold,
-  );
-
-  const handleCreateProposal = async () => {
-    if (!proposalTransactions?.length) return;
-
-    await propose(
-      proposalTransactions.map(({ address }) => address), // Targets
-      proposalTransactions.map(({ value }) => ethers.BigNumber.from(value ?? 0)), // Values
-      proposalTransactions.map(({ signature }) => signature), // Signatures
-      proposalTransactions.map(({ calldata }) => calldata), // Calldatas
-      `# ${titleValue}\n\n${bodyValue}`, // Description
-    );
-  };
-
-  const [showTransactionFormModal, setShowTransactionFormModal] = useState(false);
-  const [isProposePending, setProposePending] = useState(false);
-
-  const dispatch = useAppDispatch();
-  const setModal = useCallback((modal: AlertModal) => dispatch(setAlertModal(modal)), [dispatch]);
+  const [draft, setDraft] = useState<ProposalDraft>(loadDraft);
+  const [mode, setMode] = useState<Mode>('edit');
+  const [editor, setEditor] = useState<{ kind: ActionKind; index?: number }>();
+  const [showMenu, setShowMenu] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const [submitted, setSubmitted] = useState<{ id?: number }>();
 
   useEffect(() => {
-    switch (proposeState.status) {
-      case 'None':
-        setProposePending(false);
-        break;
-      case 'QueuedInSafe':
-        setModal({
-          title: <Trans>Sent to your Safe</Trans>,
-          message: proposeState.safeTx && <SafeTxNotice safeTx={proposeState.safeTx} />,
-          show: true,
-        });
-        setProposePending(false);
-        break;
-      case 'Mining':
-        setProposePending(true);
-        break;
-      case 'Success':
-        setModal({
-          title: <Trans>Success</Trans>,
-          message: <Trans>Proposal Created!</Trans>,
-          show: true,
-        });
-        setProposePending(false);
-        break;
-      case 'Fail':
-        setModal({
-          title: <Trans>Transaction Failed</Trans>,
-          message: proposeState?.errorMessage || <Trans>Please try again.</Trans>,
-          show: true,
-        });
-        setProposePending(false);
-        break;
-      case 'Exception':
-        setModal({
-          title: <Trans>Error</Trans>,
-          message: proposeState?.errorMessage || <Trans>Please try again.</Trans>,
-          show: true,
-        });
-        setProposePending(false);
-        break;
-    }
-  }, [proposeState, setModal]);
+    if (!submitted) saveDraft(draft);
+  }, [draft, submitted]);
+
+  const { title, body, actions } = draft;
+  const txs = actions.map(a => a.tx);
+  const total = totalValue(txs);
+  const duplicates = duplicateActionIndexes(txs);
+  const hasContent = !!(title || body || actions.length);
+
+  const update = (changes: Partial<ProposalDraft>) => setDraft(d => ({ ...d, ...changes }));
+  const setActions = (next: BuilderAction[]) => update({ actions: next });
+
+  const goTo = (next: Mode) => {
+    setMode(next);
+    window.scrollTo({ top: 0 });
+  };
+
+  const saveAction = (action: BuilderAction) => {
+    const index = editor?.index;
+    setActions(
+      index === undefined
+        ? [...actions, action]
+        : actions.map((existing, i) => (i === index ? action : existing)),
+    );
+    setEditor(undefined);
+    setShowMenu(false);
+  };
+
+  const moveAction = (index: number, direction: -1 | 1) => {
+    const target = index + direction;
+    if (target < 0 || target >= actions.length) return;
+    const next = [...actions];
+    [next[index], next[target]] = [next[target], next[index]];
+    setActions(next);
+  };
+
+  const startOver = () => {
+    clearDraft();
+    setDraft(emptyDraft());
+    setConfirmReset(false);
+    setShowMenu(false);
+    setSubmitted(undefined);
+    goTo('edit');
+  };
+
+  const onSubmitted = useCallback((id?: number) => {
+    clearDraft();
+    setSubmitted({ id });
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  const blockers: ReactNode[] = [];
+  if (!title.trim()) blockers.push(<Trans>Give the proposal a title.</Trans>);
+  if (!body.trim()) blockers.push(<Trans>Write a description.</Trans>);
+  if (!actions.length) blockers.push(<Trans>Add at least one action.</Trans>);
+  if (actions.length > MAX_PROPOSAL_ACTIONS) {
+    blockers.push(<Trans>A proposal can have at most 10 actions. Remove some, or split it in two.</Trans>);
+  }
+  const duplicateBlockers = duplicates.map(([first, second]) => {
+    const a = first + 1;
+    const b = second + 1;
+    return (
+      <Trans>
+        Actions {a} and {b} are identical, and the governor can't queue two identical actions.
+        Change or remove one.
+      </Trans>
+    );
+  });
+  blockers.push(...duplicateBlockers);
+
+  const warnings: ReactNode[] = [];
+  if (settings?.treasuryEth && total.gt(settings.treasuryEth)) {
+    const sending = formatEth(total, 4);
+    const held = formatEth(settings.treasuryEth, 4);
+    warnings.push(
+      <Trans>
+        This proposal sends {sending} ETH, more than the {held} ETH the treasury holds right now.
+      </Trans>,
+    );
+  }
+
+  const header = (
+    <>
+      <Link to="/vote" className={classes.backLink}>
+        ← <Trans>All proposals</Trans>
+      </Link>
+      <div className={classes.headerRow}>
+        <div>
+          <span>
+            <Trans>Governance</Trans>
+          </span>
+          <h1>
+            <Trans>New proposal</Trans>
+          </h1>
+        </div>
+        {hasContent && !submitted && mode === 'edit' && (
+          <div className={classes.startOver}>
+            {confirmReset ? (
+              <>
+                <span>
+                  <Trans>Clear the title, description and every action?</Trans>
+                </span>
+                <button type="button" className={builder.linkButton} onClick={startOver}>
+                  <Trans>Clear everything</Trans>
+                </button>
+                <button
+                  type="button"
+                  className={builder.linkButton}
+                  onClick={() => setConfirmReset(false)}
+                >
+                  <Trans>Keep it</Trans>
+                </button>
+              </>
+            ) : (
+              <button type="button" className={builder.linkButton} onClick={() => setConfirmReset(true)}>
+                <Trans>Start over</Trans>
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </>
+  );
+
+  if (submitted) {
+    const id = submitted.id;
+    return (
+      <Section fullWidth={false} className={classes.createProposalPage}>
+        <Col lg={10} className={classes.wrapper}>
+          {header}
+          <section className={clsx(builder.card, classes.success)}>
+            <h2 className={builder.cardTitle}>
+              {id ? <Trans>Prop {id} is submitted</Trans> : <Trans>Your proposal is submitted</Trans>}
+            </h2>
+            <p className={builder.cardIntro}>
+              {settings?.votingDelay ? (
+                <Trans>
+                  Voting opens in about <BlocksDuration blocks={settings.votingDelay} />. Let the club
+                  know it's coming, so members have time to read it and ask questions.
+                </Trans>
+              ) : (
+                <Trans>Let the club know it's coming, so members have time to read it.</Trans>
+              )}
+            </p>
+            <div className={classes.successButtons}>
+              {id ? (
+                <Link to={`/vote/${id}`} className={clsx('btn', builder.primaryButton)}>
+                  <Trans>View Prop {id}</Trans>
+                </Link>
+              ) : (
+                <Link to="/vote" className={clsx('btn', builder.primaryButton)}>
+                  <Trans>See all proposals</Trans>
+                </Link>
+              )}
+              <Button className={builder.secondaryButton} onClick={startOver}>
+                <Trans>Write another</Trans>
+              </Button>
+            </div>
+          </section>
+        </Col>
+      </Section>
+    );
+  }
+
+  const atLimit = actions.length >= MAX_PROPOSAL_ACTIONS;
+  const menuOpen = !atLimit && (showMenu || !actions.length);
 
   return (
     <Section fullWidth={false} className={classes.createProposalPage}>
-      <ProposalTransactionFormModal
-        show={showTransactionFormModal}
-        onHide={() => setShowTransactionFormModal(false)}
-        onProposalTransactionAdded={handleAddProposalAction}
-      />
-      <Col lg={{ span: 8, offset: 2 }}>
-        <Link to="/vote">
-          ← <Trans>All Proposals</Trans>
-        </Link>
+      <Col lg={10} className={classes.wrapper}>
+        {header}
+        <Steps mode={mode} />
+        {mode === 'edit' && (
+          <p className={classes.intro}>
+            <Trans>
+              A proposal asks the club to approve actions that the treasury then carries out:
+              payments, setting changes, any contract call. Say what you want and why, add the
+              actions, then review and submit. Your draft is saved in this browser as you go.
+            </Trans>
+          </p>
+        )}
+        <EligibilityNotice account={account} eligibility={eligibility} />
+
+        {mode === 'review' ? (
+          <ReviewStep
+            title={title}
+            body={body}
+            actions={actions}
+            account={account}
+            eligibility={eligibility}
+            settings={settings}
+            blockers={blockers}
+            warnings={warnings}
+            onBack={() => goTo('edit')}
+            onSubmitted={onSubmitted}
+          />
+        ) : (
+          <>
+            <section className={builder.card}>
+              <h2 className={builder.cardTitle}>
+                <Trans>Describe it</Trans>
+              </h2>
+              <p className={builder.cardIntro}>
+                <Trans>
+                  Members vote on what they read here: say what the proposal does, why it's good
+                  for the club, and what it costs.
+                </Trans>
+              </p>
+              <ProposalTextEditor
+                title={title}
+                body={body}
+                onTitleChange={value => update({ title: value })}
+                onBodyChange={value => update({ body: value })}
+              />
+            </section>
+
+            <section className={builder.card}>
+              <div className={builder.sectionHeader}>
+                <h2 className={builder.cardTitle}>
+                  <Trans>Actions</Trans>
+                </h2>
+                <span className={classes.count}>
+                  <Trans>
+                    {actions.length} of {MAX_PROPOSAL_ACTIONS}
+                  </Trans>
+                </span>
+              </div>
+              <p className={builder.cardIntro}>
+                <Trans>
+                  What happens if the proposal passes. The treasury carries out the actions in
+                  order, all in one go.
+                </Trans>
+              </p>
+
+              <ActionList
+                actions={actions}
+                checks={checks}
+                onEdit={index => setEditor({ kind: actions[index].kind, index })}
+                onRemove={index => setActions(actions.filter((_, i) => i !== index))}
+                onMove={moveAction}
+              />
+
+              {duplicateBlockers.map((b, i) => (
+                <div key={i} className={builder.errorBox}>
+                  <ExclamationCircleIcon />
+                  <span>{b}</span>
+                </div>
+              ))}
+              {warnings.map((w, i) => (
+                <div key={i} className={builder.warning}>
+                  <ExclamationCircleIcon />
+                  <span>{w}</span>
+                </div>
+              ))}
+              {total.gt(0) && !warnings.length && (
+                <p className={classes.total}>
+                  <Trans>
+                    In total this proposal sends {formatEth(total)} ETH from the treasury.
+                  </Trans>
+                  {settings?.treasuryEth && (
+                    <>
+                      {' '}
+                      <Trans>It holds {formatEth(settings.treasuryEth, 4)} ETH right now.</Trans>
+                    </>
+                  )}
+                </p>
+              )}
+
+              {menuOpen ? (
+                <div className={classes.menu}>
+                  <div className={classes.menuHeader}>
+                    <span className={builder.label}>
+                      {actions.length ? (
+                        <Trans>Add another action</Trans>
+                      ) : (
+                        <Trans>Add the first action</Trans>
+                      )}
+                    </span>
+                    {actions.length > 0 && (
+                      <button
+                        type="button"
+                        className={builder.linkButton}
+                        onClick={() => setShowMenu(false)}
+                      >
+                        <Trans>Cancel</Trans>
+                      </button>
+                    )}
+                  </div>
+                  <AddActionMenu onPick={kind => setEditor({ kind })} />
+                </div>
+              ) : atLimit ? (
+                <p className={builder.hint}>
+                  <Trans>That's 10 actions, the most one proposal can have.</Trans>
+                </p>
+              ) : (
+                <Button className={clsx(builder.darkButton, classes.addButton)} onClick={() => setShowMenu(true)}>
+                  <PlusIcon className={classes.buttonIcon} aria-hidden />
+                  <Trans>Add another action</Trans>
+                </Button>
+              )}
+            </section>
+
+            <div className={classes.footer}>
+              {blockers.length > 0 && hasContent && (
+                <ul className={classes.missing}>
+                  {blockers.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              )}
+              <Button
+                className={builder.primaryButton}
+                disabled={blockers.length > 0}
+                onClick={() => goTo('review')}
+              >
+                <Trans>Review proposal</Trans> →
+              </Button>
+            </div>
+          </>
+        )}
       </Col>
-      <Col lg={{ span: 8, offset: 2 }} className={classes.createProposalForm}>
-        <h3 className={classes.heading}>
-          <Trans>Create Proposal</Trans>
-        </h3>
-        <Alert variant="secondary" className={classes.voterIneligibleAlert}>
-          <b>
-            <Trans>Tip:</Trans>
-          </b>
-          :
-          <Trans>
-            Add one or more transactions and describe your proposal for the club. Proposals can’t be
-            edited after submission, so check everything before you submit. Voting opens about 3
-            days after you submit and stays open for about 4 days.
-          </Trans>
-        </Alert>
-        <div className="d-grid">
-          <Button
-            className={classes.addTransactionButton}
-            variant="dark"
-            onClick={() => setShowTransactionFormModal(true)}
-          >
-            <Trans>Add Transaction</Trans>
-          </Button>
-        </div>
-        <ProposalTransactions
-          proposalTransactions={proposalTransactions}
-          onRemoveProposalTransaction={handleRemoveProposalAction}
+
+      {editor && (
+        <ActionEditorModal
+          kind={editor.kind}
+          editing={editor.index !== undefined ? actions[editor.index] : undefined}
+          onSave={saveAction}
+          onClose={() => setEditor(undefined)}
         />
-        <ProposalEditor
-          title={titleValue}
-          body={bodyValue}
-          onTitleInput={handleTitleInput}
-          onBodyInput={handleBodyInput}
-        />
-        <CreateProposalButton
-          className={classes.createProposalButton}
-          isLoading={isProposePending}
-          proposalThreshold={proposalThreshold}
-          hasActiveOrPendingProposal={
-            (latestProposal?.status === ProposalState.ACTIVE ||
-              latestProposal?.status === ProposalState.PENDING) &&
-            latestProposal.proposer === account
-          }
-          hasEnoughVote={hasEnoughVote}
-          isFormInvalid={isFormInvalid}
-          handleCreateProposal={handleCreateProposal}
-        />
-      </Col>
+      )}
     </Section>
   );
 };
 
-export default withStepProgress(CreateProposalPage);
+export default CreateProposalPage;

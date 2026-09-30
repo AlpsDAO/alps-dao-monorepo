@@ -1,0 +1,169 @@
+.summary {
+  font-family: 'PT Root UI';
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+  overflow-wrap: anywhere;
+}
+
+.summary .address,
+.summary .address:hover {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--brand-gray-light-text);
+  text-underline-offset: 2px;
+}
+
+.code {
+  padding: 0 0.25rem;
+  border-radius: 4px;
+  background-color: var(--brand-cool-accent);
+  color: var(--brand-gray-dark-text);
+  font-size: 0.9em;
+}
+
+.tag {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0 0.4rem;
+  border-radius: 6px;
+  background-color: var(--brand-color-blue-translucent);
+  color: var(--brand-color-blue);
+  font-size: 12px;
+  font-weight: bold;
+  vertical-align: 2px;
+}
+
+.card {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--brand-gray-border);
+  border-radius: 12px;
+  background-color: var(--brand-gray-background);
+  font-family: 'PT Root UI';
+}
+
+.card + .card {
+  margin-top: 0.75rem;
+}
+
+.cardHeader {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.index {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background-color: var(--brand-black);
+  color: white;
+  font-family: 'Londrina Solid';
+  font-size: 1rem;
+  line-height: 1.75rem;
+  text-align: center;
+}
+
+.cardBody {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 17px;
+  line-height: 1.4;
+  padding-top: 0.1rem;
+}
+
+.cardActions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.toggle {
+  display: block;
+  margin-top: 0.25rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--brand-gray-light-text);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.toggle:hover {
+  color: var(--brand-gray-dark-text);
+  text-decoration: underline;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0.75rem 0 0 2.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 14px;
+}
+
+.details dt {
+  color: var(--brand-gray-light-text);
+  font-weight: bold;
+}
+
+.details dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.hex {
+  color: var(--brand-gray-dark-text);
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.calldata {
+  display: block;
+  max-height: 9rem;
+  overflow-y: auto;
+}
+
+.muted {
+  color: var(--brand-gray-light-text);
+}
+
+.args {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.argValue {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 576px) {
+  .cardHeader {
+    flex-wrap: wrap;
+  }
+
+  .cardBody {
+    flex-basis: 0;
+  }
+
+  .cardActions {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 2.5rem;
+  }
+
+  .details {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+
+  .details dd {
+    margin-bottom: 0.4rem;
+  }
+}

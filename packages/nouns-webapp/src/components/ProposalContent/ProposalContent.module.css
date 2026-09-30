@@ -44,5 +44,9 @@
 
 .transactions {
   font-family: 'PT Root UI';
-  padding-left: 1.25rem;
+}
+
+.actionsNote {
+  font-family: 'PT Root UI';
+  color: var(--brand-gray-light-text);
 }

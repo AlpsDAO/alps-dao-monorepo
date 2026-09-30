@@ -1,26 +1,184 @@
+.createProposalPage {
+  padding-bottom: 3rem;
+}
+
 .createProposalPage a {
   color: var(--brand-dark-red);
 }
 
-.createProposalForm {
-  border-radius: 5px;
-  padding: 1rem 2.5rem;
-  margin-top: 1em;
-  background-color: white;
+.wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'PT Root UI';
 }
 
-.heading {
-  margin: 1rem 0;
-}
-
-.section {
-  border-top: 1px solid #e9ecef;
-  word-wrap: break-word;
-  padding-top: 2rem;
-  margin-top: 2rem;
-}
-
-.addTransactionButton,
-.createProposalButton {
+.backLink {
+  display: inline-block;
   margin-top: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.headerRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.5rem 1rem;
+  margin-top: 1rem;
+}
+
+.headerRow span {
+  color: var(--brand-gray-light-text);
+  font-size: 24px;
+  font-family: 'Londrina Solid';
+}
+
+.headerRow h1 {
+  margin: 0;
+  color: var(--brand-gray-dark-text);
+  font-size: 42px;
+  font-family: 'Londrina Solid';
+}
+
+.startOver {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 0.6rem;
+}
+
+.startOver span {
+  font-family: 'PT Root UI';
+  font-size: 14px;
+  color: var(--brand-gray-dark-text);
+}
+
+.steps {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: bold;
+  color: var(--brand-gray-light-text);
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.steps li span {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background-color: var(--brand-gray-border);
+  color: var(--brand-gray-light-text);
+  font-family: 'Londrina Solid';
+  line-height: 1.6rem;
+  text-align: center;
+}
+
+.steps .currentStep {
+  color: var(--brand-gray-dark-text);
+}
+
+.steps .currentStep span {
+  background-color: var(--brand-black);
+  color: white;
+}
+
+.intro {
+  margin: 1rem 0 0;
+  max-width: 48rem;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--brand-gray-dark-text);
+}
+
+.count {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--brand-gray-light-text);
+}
+
+.total {
+  margin: 1rem 0 0;
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+}
+
+.menu {
+  margin-top: 1.25rem;
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+}
+
+.buttonIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.missing {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: right;
+  font-size: 14px;
+  color: var(--brand-gray-light-text);
+}
+
+.success {
+  text-align: left;
+}
+
+.successButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.createProposalPage .successButtons a {
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  .headerRow h1 {
+    font-size: 36px;
+  }
+
+  .footer {
+    align-items: stretch;
+  }
+
+  .missing {
+    text-align: left;
+  }
 }

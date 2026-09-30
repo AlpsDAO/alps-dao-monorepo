@@ -1,0 +1,735 @@
+/* Shared by the proposal builder's forms, lists and review step */
+
+.field {
+  margin-bottom: 1.25rem;
+  font-family: 'PT Root UI';
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.labelRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.label {
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--brand-gray-dark-text);
+}
+
+.current {
+  font-size: 14px;
+  color: var(--brand-gray-light-text);
+}
+
+.current strong {
+  color: var(--brand-gray-dark-text);
+}
+
+.hint {
+  margin-top: 0.35rem;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--brand-gray-light-text);
+}
+
+.error {
+  margin-top: 0.35rem;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--brand-color-red);
+}
+
+.ok {
+  margin-top: 0.35rem;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--brand-color-green);
+  overflow-wrap: anywhere;
+}
+
+.pending {
+  margin-top: 0.35rem;
+  font-size: 14px;
+  color: var(--brand-gray-light-text);
+}
+
+.warning {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  background-color: rgba(245, 184, 0, 0.12);
+  color: #7a5c00;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.warning svg,
+.errorBox svg {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.05rem;
+}
+
+.errorBox {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  background-color: var(--brand-color-red-translucent);
+  color: var(--brand-color-red);
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.input,
+.input:focus {
+  border-radius: 10px;
+  font-family: 'PT Root UI';
+  font-size: 16px;
+}
+
+.input:focus {
+  border-color: var(--brand-gray-light-text);
+  box-shadow: 0 0 0 0.2rem var(--brand-gray-light-text-translucent);
+}
+
+.mono,
+.mono:focus {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.inputGroup .input:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.inputGroup .unit {
+  border-radius: 0 10px 10px 0;
+  background-color: var(--brand-gray-background);
+  font-family: 'PT Root UI';
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+}
+
+.unitToggle {
+  border: 1px solid #ced4da;
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  background-color: var(--brand-gray-background);
+  padding: 0 0.75rem;
+  font-family: 'PT Root UI';
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--brand-gray-light-text);
+}
+
+.unitToggle.active {
+  background-color: var(--brand-black);
+  border-color: var(--brand-black);
+  color: white;
+}
+
+/* Choice cards: pick a token, a setting, an ABI source... */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.5rem;
+}
+
+.choice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid var(--brand-gray-border);
+  border-radius: 10px;
+  background-color: white;
+  text-align: left;
+  font-family: 'PT Root UI';
+  color: var(--brand-gray-dark-text);
+  transition: border-color 0.1s ease-in-out;
+}
+
+.choice:hover {
+  border-color: var(--brand-gray-light-text);
+}
+
+.choice.selected {
+  border-color: var(--brand-black);
+  box-shadow: inset 0 0 0 1px var(--brand-black);
+}
+
+.choiceTitle {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.choiceDetail {
+  font-size: 13px;
+  color: var(--brand-gray-light-text);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  padding: 0.3rem 0.8rem;
+  border: 2px solid var(--brand-gray-border);
+  border-radius: 999px;
+  background-color: white;
+  font-family: 'PT Root UI';
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+}
+
+.chip:hover {
+  border-color: var(--brand-gray-light-text);
+}
+
+.chip.selected {
+  border-color: var(--brand-black);
+  background-color: var(--brand-black);
+  color: white;
+}
+
+/* Buttons */
+.primaryButton,
+.primaryButton:focus,
+.primaryButton:hover,
+.primaryButton:active,
+.primaryButton:disabled {
+  min-height: 3rem;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--brand-color-green) !important;
+  font-family: 'PT Root UI';
+  font-size: 18px;
+  font-weight: bold;
+  color: white !important;
+}
+
+.primaryButton:focus,
+.primaryButton:hover {
+  box-shadow: 0 0 0 0.2rem rgba(67, 179, 105, 0.5);
+}
+
+.primaryButton:disabled {
+  opacity: 0.5;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.darkButton,
+.darkButton:focus,
+.darkButton:hover,
+.darkButton:active,
+.darkButton:disabled {
+  min-height: 2.75rem;
+  padding: 0.4rem 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--brand-black) !important;
+  font-family: 'PT Root UI';
+  font-size: 16px;
+  font-weight: bold;
+  color: white !important;
+}
+
+.darkButton:hover {
+  opacity: 0.85;
+}
+
+.darkButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.secondaryButton,
+.secondaryButton:focus,
+.secondaryButton:active {
+  min-height: 2.75rem;
+  padding: 0.4rem 1.1rem;
+  border: 1px solid var(--brand-gray-border) !important;
+  border-radius: 10px;
+  background-color: white !important;
+  font-family: 'PT Root UI';
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--brand-gray-dark-text) !important;
+  box-shadow: none !important;
+}
+
+.secondaryButton:hover {
+  border-color: var(--brand-gray-light-text) !important;
+  background-color: var(--brand-gray-hover) !important;
+  color: var(--brand-gray-dark-text) !important;
+}
+
+.secondaryButton:disabled {
+  opacity: 0.5;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--brand-gray-border);
+  border-radius: 8px;
+  background-color: white;
+  font-family: 'PT Root UI';
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+}
+
+.iconButton:hover:not(:disabled) {
+  border-color: var(--brand-gray-light-text);
+}
+
+.iconButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.iconButton svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.iconButton.danger:hover:not(:disabled) {
+  border-color: var(--brand-color-red);
+  color: var(--brand-color-red);
+}
+
+.linkButton {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: 'PT Root UI';
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.linkButton:hover {
+  color: var(--brand-black);
+}
+
+/* Nested ABI parameters: arrays and tuples */
+.group {
+  padding: 0.75rem;
+  border: 1px dashed var(--brand-cool-border);
+  border-radius: 10px;
+  background-color: rgba(233, 235, 243, 0.35);
+}
+
+.groupItem {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.groupItem + .groupItem {
+  margin-top: 0.6rem;
+}
+
+.groupItemBody {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.groupEmpty {
+  font-size: 14px;
+  color: var(--brand-gray-light-text);
+  margin-bottom: 0.5rem;
+}
+
+.paramType {
+  margin-left: 0.4rem;
+  padding: 0 0.35rem;
+  border-radius: 4px;
+  background-color: var(--brand-cool-accent);
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--brand-cool-dark-text);
+}
+
+.switchRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+}
+
+.card {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--brand-gray-border);
+  border-radius: 16px;
+  background-color: white;
+  font-family: 'PT Root UI';
+}
+
+.cardTitle {
+  margin: 0 0 0.25rem;
+  font-family: 'Londrina Solid';
+  font-size: 1.9rem;
+  color: var(--brand-gray-dark-text);
+}
+
+.cardIntro {
+  margin: 0 0 1.25rem;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--brand-gray-dark-text);
+}
+
+@media (max-width: 576px) {
+  .card {
+    padding: 1.1rem;
+  }
+
+  .choices {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+}
+
+/* Proposal text */
+.titleInput,
+.titleInput:focus {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+textarea.bodyInput,
+textarea.bodyInput:focus {
+  min-height: 22rem;
+  line-height: 1.5;
+}
+
+.tabs {
+  display: inline-flex;
+  padding: 0.2rem;
+  border-radius: 10px;
+  background-color: var(--brand-gray-background);
+}
+
+.tab {
+  padding: 0.2rem 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font-family: 'PT Root UI';
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--brand-gray-light-text);
+}
+
+.tab.activeTab {
+  background-color: white;
+  color: var(--brand-gray-dark-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.preview {
+  min-height: 10rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--brand-gray-border);
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+.previewTitle {
+  margin-bottom: 1rem;
+  font-family: 'Londrina Solid';
+  font-size: 2.2rem;
+  color: var(--brand-gray-dark-text);
+}
+
+.previewPlaceholder {
+  color: var(--brand-gray-light-text);
+}
+
+.markdown {
+  font-family: 'PT Root UI';
+  font-size: 1.1rem;
+}
+
+.markdown h1 {
+  font-size: 1.7rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.markdown h2 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.markdown h3 {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Eligibility */
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 12px;
+  font-family: 'PT Root UI';
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.noticeIcon {
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.noticeBody {
+  flex: 1 1 16rem;
+}
+
+.noticeNeutral {
+  background-color: var(--brand-gray-background);
+  color: var(--brand-gray-dark-text);
+}
+
+.noticeOk {
+  background-color: var(--brand-color-green-translucent);
+  color: #1f6b3a;
+}
+
+.noticeWarning {
+  background-color: rgba(245, 184, 0, 0.14);
+  color: #6b5000;
+}
+
+.notice a {
+  color: inherit !important;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Add-action menu */
+.templateGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.6rem;
+}
+
+.templateCard {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.8rem 0.9rem;
+  border: 2px solid var(--brand-gray-border);
+  border-radius: 12px;
+  background-color: white;
+  text-align: left;
+  font-family: 'PT Root UI';
+  color: var(--brand-gray-dark-text);
+  transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.templateCard:hover,
+.templateCard:focus-visible {
+  border-color: var(--brand-black);
+  background-color: var(--brand-gray-hover);
+}
+
+.templateCard > span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.templateIcon {
+  flex: 0 0 auto;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--brand-gray-light-text);
+}
+
+/* Action editor dialog */
+.modalContent {
+  border: none;
+  border-radius: 16px;
+  font-family: 'PT Root UI';
+}
+
+.modalHeader {
+  border-bottom: none;
+  padding: 1.25rem 1.5rem 0.25rem;
+}
+
+.modalTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Londrina Solid';
+  font-size: 2rem;
+}
+
+.modalIcon {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--brand-gray-light-text);
+}
+
+.modalBody {
+  padding: 1rem 1.5rem 1.25rem;
+}
+
+.modalFooter {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem 1.25rem;
+  border-top: 1px solid var(--brand-gray-border);
+  background-color: var(--brand-gray-background);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.modalFooter > * {
+  margin: 0;
+}
+
+.modalPreview {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.previewLabel {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand-gray-light-text);
+}
+
+.previewEmpty {
+  font-size: 15px;
+  color: var(--brand-gray-light-text);
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Checks */
+.checkResult {
+  margin: 0.5rem 0 0 2.5rem;
+}
+
+.checkResult > span {
+  margin: 0;
+}
+
+/* Review */
+.submitRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.submitStatus {
+  margin: 1rem 0 0;
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+}
+
+@media (max-width: 576px) {
+  .modalHeader,
+  .modalBody,
+  .modalFooter {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .modalFooter {
+    border-radius: 0;
+  }
+
+  .modalButtons > * {
+    flex: 1 1 0;
+  }
+
+  .submitRow > * {
+    flex: 1 1 100%;
+  }
+
+  .checkResult {
+    margin-left: 0;
+  }
+}
+
+.statusIcon {
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: -0.2em;
+}
+
+/* The dialog renders outside the page, so it doesn't get the page's link colour */
+.modalContent a {
+  color: var(--brand-dark-red);
+}

@@ -31,16 +31,8 @@ export const buildEtherscanHoldingsLink = (address: string): string => {
   return new URL(path, BASE_URL).toString();
 };
 
-const getApiBaseURL = (network: ChainId) => {
-  switch (network) {
-    case ChainId.Rinkeby:
-      return `https://api-rinkeby.etherscan.io/`;
-    default:
-      return 'https://api.etherscan.io/';
-  }
-};
-
-const API_BASE_URL = getApiBaseURL(CHAIN_ID);
+// Etherscan's V2 API serves every chain from one host, picked by `chainid`
+const API_BASE_URL = 'https://api.etherscan.io/v2/api';
 
 export const buildEtherscanApiQuery = (
   address: string,
@@ -48,11 +40,11 @@ export const buildEtherscanApiQuery = (
   action = 'getsourcecode',
 ): string => {
   const params = new URLSearchParams({
+    chainid: String(CHAIN_ID),
     module,
     action,
     address,
     apikey: ETHERSCAN_API_KEY,
   });
-  const path = `api?${params.toString()}`;
-  return new URL(path, API_BASE_URL).toString();
+  return `${API_BASE_URL}?${params.toString()}`;
 };

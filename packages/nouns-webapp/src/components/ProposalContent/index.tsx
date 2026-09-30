@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import React from 'react';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 import { processProposalDescriptionText } from '../../utils/processProposalDescriptionText';
 import { Proposal } from '../../wrappers/alpsDao';
@@ -9,6 +9,8 @@ import { utils } from 'ethers';
 import classes from './ProposalContent.module.css';
 import { Trans } from '@lingui/macro';
 import EnsOrLongAddress from '../EnsOrLongAddress';
+import { ProposalActionCard } from '../ProposalActionSummary';
+import { useProposalActions } from '../../hooks/useProposalActions';
 
 interface ProposalContentProps {
   proposal?: Proposal;
@@ -45,32 +47,29 @@ export const ProposalDescription: React.FC<ProposalContentProps> = ({ proposal }
   </>
 );
 
-export const ProposalTransactions: React.FC<ProposalContentProps> = ({ proposal }) => (
-  <ol className={classes.transactions}>
-    {proposal?.details?.map((d, i) => {
-      return (
-        <li key={i} className="m-0">
-          {linkIfAddress(d.target)}.{d.functionSig}
-          {d.value}(
-          <br />
-          {d.callData.split(',').map((content, i) => {
-            return (
-              <Fragment key={i}>
-                <span key={i}>
-                  &emsp;
-                  {linkIfAddress(content)}
-                  {d.callData.split(',').length - 1 === i ? '' : ','}
-                </span>
-                <br />
-              </Fragment>
-            );
-          })}
-          )
-        </li>
-      );
-    })}
-  </ol>
-);
+/**
+ * The proposal's actions in plain words, each with its exact target, value, signature and calldata
+ * a click away. Raw calldata (no signature) is shown as such, never as a plain transfer.
+ */
+export const ProposalTransactions: React.FC<ProposalContentProps> = ({ proposal }) => {
+  const { txs, failed } = useProposalActions(proposal?.id);
+  if (!txs) {
+    return failed ? (
+      <p className={classes.actionsNote}>
+        <Trans>Couldn't load this proposal's actions.</Trans>
+      </p>
+    ) : (
+      <Spinner animation="border" size="sm" />
+    );
+  }
+  return (
+    <div className={classes.transactions}>
+      {txs.map((tx, i) => (
+        <ProposalActionCard key={i} index={i} tx={tx} />
+      ))}
+    </div>
+  );
+};
 
 const ProposalContent: React.FC<ProposalContentProps> = props => {
   return (

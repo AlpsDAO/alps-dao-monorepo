@@ -25,6 +25,10 @@ msgstr ""
 msgid "... and {0} more"
 msgstr ""
 
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "1 action"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "100% of Alp auction proceeds are trustlessly sent to the treasury."
 #~ msgstr ""
@@ -75,8 +79,36 @@ msgstr ""
 msgid "<0>Proposed by: </0><1>{proposer}</1><2>{proposedAtTransactionHash}</2>"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "= {secondsText} seconds."
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "= {wei} wei"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "A bid in an auction's last moments extends it, so it can't end less than this long after the latest bid."
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "A proposal asks the club to approve actions that the treasury then carries out: payments, setting changes, any contract call. Say what you want and why, add the actions, then review and submit. Your draft is saved in this browser as you go."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "A proposal can have at most 10 actions."
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "A proposal can have at most 10 actions. Remove some, or split it in two."
+msgstr ""
+
 #: src/components/NavBar/index.tsx
 msgid "About"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "About <0/>."
 msgstr ""
 
 #: src/components/AlpProfileVoteRow/index.tsx
@@ -86,7 +118,6 @@ msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
-#: src/components/VotePanel/index.tsx
 msgid "Abstain"
 msgstr ""
 
@@ -106,6 +137,14 @@ msgstr ""
 msgid "Accessory"
 msgstr ""
 
+#: src/pages/CreateProposal/index.tsx
+msgid "Actions"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Actions {a} and {b} are identical, and the governor can't queue two identical actions. Change or remove one."
+msgstr ""
+
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
 #: src/components/ProposalStatusCopy/index.tsx
@@ -119,17 +158,33 @@ msgid "Activity"
 msgstr ""
 
 #: src/components/ProposalTransactionFormModal/index.tsx
-#: src/pages/CreateProposal/index.tsx
-msgid "Add Transaction"
-msgstr ""
+#~ msgid "Add Transaction"
+#~ msgstr ""
 
 #: src/components/ProposalTransactionFormModal/index.tsx
-msgid "Add a Proposal Transaction"
+#~ msgid "Add a Proposal Transaction"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ActionEditorModal.tsx
+msgid "Add action"
 msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
-msgid "Add one or more transactions and describe your proposal for the club. Proposals can’t be edited after submission, so check everything before you submit. Voting opens about 3 days after you submit and stays open for about 4 days."
+#: src/pages/CreateProposal/index.tsx
+msgid "Add another action"
 msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Add at least one action."
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "Add item"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+#~ msgid "Add one or more transactions and describe your proposal for the club. Proposals can’t be edited after submission, so check everything before you submit. Voting opens about 3 days after you submit and stays open for about 4 days."
+#~ msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
 #~ msgid "Add one or more transactions and describe your proposal for the community. The proposal cannot be modified after submission, so please verify all information before submitting. The voting period will begin after 2 1/3 days and last for 3 days."
@@ -139,17 +194,21 @@ msgstr ""
 #~ msgid "Add one or more transactions and describe your proposal for the community. The proposal cannot modified after submission, so please verify all information before submitting. The voting period will begin after 2 1/3 days and last for 3 days."
 #~ msgstr ""
 
+#: src/pages/CreateProposal/index.tsx
+msgid "Add the first action"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "Additionally, the founders have chosen to establish The Alpine Council which is a group that consists of the founders plus founding/early team members and compensate this group with Alps. Every 5th Alp for the first 5 years of the project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to a multisig to be vested and shared among The Alpine Council members."
 #~ msgstr ""
 
 #: src/components/ProposalTransactionFormModal/index.tsx
-msgid "Address"
-msgstr ""
+#~ msgid "Address"
+#~ msgstr ""
 
 #: src/components/ProposalTransactionFormModal/index.tsx
-msgid "Address (Callee or Recipient)"
-msgstr ""
+#~ msgid "Address (Callee or Recipient)"
+#~ msgstr ""
 
 #: src/components/VoteCard/index.tsx
 msgid "Addresses"
@@ -157,7 +216,6 @@ msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
-#: src/components/VotePanel/index.tsx
 msgid "Against"
 msgstr ""
 
@@ -186,9 +244,18 @@ msgstr ""
 #~ msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
-msgid "All Proposals"
+#~ msgid "All Proposals"
+#~ msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "All proposals"
 msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Allow {0} to spend <0/> from the treasury"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
 #: src/pages/Governance/index.tsx
 msgid "Alp"
 msgstr ""
@@ -240,6 +307,14 @@ msgstr ""
 #: src/components/Auction/index.tsx
 #~ msgid "Alp {0} · ended"
 #~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "Alp {alpId} belongs to <0/>, not the treasury, so this would fail unless the treasury holds it by the time the proposal executes."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "Alp {alpId} doesn't exist yet."
+msgstr ""
 
 #: src/components/AlpBrowser/index.tsx
 msgid "Alp {typed} hasn’t been minted yet. The latest is Alp {lastId}."
@@ -339,9 +414,17 @@ msgstr ""
 #~ msgid "Alps artwork is in the {publicDomainLink}."
 #~ msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Alps auction house"
+msgstr ""
+
 #: src/pages/Governance/index.tsx
 #~ msgid "Alps govern <0>Alps DAO</0>. Alps can vote on proposals or delegate their vote to a third party. A minimum of <1>{alpsRequired} {0}</1> is required to submit proposals."
 #~ msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Alps governor"
+msgstr ""
 
 #: src/components/Documentation/index.tsx
 msgid "Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together."
@@ -359,6 +442,11 @@ msgstr ""
 #~ msgid "Alps that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet for rescue opportunities and burn events."
 #~ msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Alps token"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "Alps token artwork is in the <0/>."
 #~ msgstr ""
@@ -366,6 +454,10 @@ msgstr ""
 #: src/components/Documentation/index.tsx
 #~ msgid "Alps token artwork is in the {publicDomainLink}."
 #~ msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Alps treasury"
+msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "Alps uses a fork of <0/>."
@@ -387,6 +479,27 @@ msgstr ""
 msgid "Already has"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Also send ETH with this call"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Amount"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "And {0} more on Etherscan."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Another token"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Any function on any contract, from its ABI"
+msgstr ""
+
 #: src/components/KickOffAuction/index.tsx
 #~ msgid "Anyone can do this; it only costs gas."
 #~ msgstr ""
@@ -395,8 +508,12 @@ msgstr ""
 #~ msgid "Anyone can kick off the next auction once one ends. Alps that get no bids go to the Warming Hut."
 #~ msgstr ""
 
-#: src/components/ProposalTransactionFormModal/index.tsx
+#: src/components/ProposalActionSummary/index.tsx
 msgid "Arguments"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Arguments data"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -406,6 +523,10 @@ msgstr ""
 #: src/components/Documentation/index.tsx
 #~ msgid "Artwork is generative and stored directly onchain (not IPFS)."
 #~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "At 0%, a new bid only has to beat the last one by 1 wei."
+msgstr ""
 
 #: src/components/NavBar/index.tsx
 msgid "Auction"
@@ -420,12 +541,40 @@ msgstr ""
 msgid "Auction ends in"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Auction house"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Auction settings"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "Auctions"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Auctions are already paused, so this would fail unless they're resumed before the proposal executes."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Auctions are already running, so this would fail unless they're paused before the proposal executes."
+msgstr ""
+
+#: src/components/KickOffAuction/index.tsx
+msgid "Auctions are paused by the DAO, so no new auction starts until a proposal resumes them. Anyone can still settle Alp {alpId}, which sends it to {0}."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Auctions start again, beginning with a new one if none is running."
+msgstr ""
+
 #: src/components/ProposalTransactionFormModal/index.tsx
-msgid "Back"
+#~ msgid "Back"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Back to editing"
 msgstr ""
 
 #: src/pages/Playground/index.tsx
@@ -494,6 +643,44 @@ msgstr ""
 msgid "Build an Alp in bricks"
 msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Call <0>{name}</0> on {0}"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Call <0>{signature}</0> on {0}, with data that doesn't match that signature"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Call a contract"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Call {0} with raw calldata"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Calldata"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Calldata starts with a 4-byte function selector."
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Calls"
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionEditorModal.tsx
+#: src/pages/CreateProposal/index.tsx
+msgid "Cancel"
+msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Cancel your proposal"
+msgstr ""
+
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
 #: src/components/ProposalStatusCopy/index.tsx
@@ -524,9 +711,37 @@ msgstr ""
 #~ msgid "Changes with every block"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/ActionCheck.tsx
+msgid "Check"
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Check again"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "Checking which Alps the treasury holds…"
+msgstr ""
+
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Checking your votes…"
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+msgid "Checking…"
+msgstr ""
+
 #: src/components/WalletConnectModal/index.tsx
 #~ msgid "Clear WalletConnect Data"
 #~ msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Clear everything"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Clear the title, description and every action?"
+msgstr ""
 
 #: src/components/ChangeDelegatePannel/index.tsx
 #: src/components/ChangeDelegatePannel/index.tsx
@@ -538,16 +753,36 @@ msgstr ""
 #~ msgid "Compound Governance"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Confirm in your wallet"
+msgstr ""
+
 #: src/components/NavWallet/WalletConnectButton/index.tsx
 msgid "Connect"
+msgstr ""
+
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Connect a wallet to submit. You can start writing now: your draft is saved in this browser as you go."
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
 msgid "Connect a wallet to vote."
 msgstr ""
 
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Connect wallet"
+msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Connect wallet to execute"
+msgstr ""
+
 #: src/components/Proposals/index.tsx
 msgid "Connect wallet to make a proposal."
+msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Connect wallet to queue"
 msgstr ""
 
 #: src/components/VotePanel/index.tsx
@@ -562,10 +797,33 @@ msgstr ""
 #~ msgid "Consequently, the Alps Foundation anticipates being the steward of the veto power until Alps DAO is ready to implement an alternative, and therefore wishes to clarify the conditions under which it would exercise this power."
 #~ msgstr ""
 
-#: src/components/CreateProposalButton/index.tsx
-#: src/pages/CreateProposal/index.tsx
-msgid "Create Proposal"
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Contract"
 msgstr ""
+
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Couldn't check your votes right now. You can still write your proposal."
+msgstr ""
+
+#: src/components/ProposalContent/index.tsx
+msgid "Couldn't load this proposal's actions."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Couldn't read an ERC-20 token at this address."
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+msgid "Couldn't run the check. Try again in a moment."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Couldn't submit:"
+msgstr ""
+
+#: src/components/CreateProposalButton/index.tsx
+#~ msgid "Create Proposal"
+#~ msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "Cryptopunks"
@@ -627,6 +885,11 @@ msgstr ""
 msgid "Delegation"
 msgstr ""
 
+#: src/pages/CreateProposal/index.tsx
+msgid "Describe it"
+msgstr ""
+
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
 #: src/components/ProposalContent/index.tsx
 #: src/pages/Vote/index.tsx
 #: src/pages/Vote/index.tsx
@@ -657,6 +920,14 @@ msgstr ""
 msgid "Dynamic Quorum"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "ETH to send with the call"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "ETH value"
+msgstr ""
+
 #: src/components/Banner/index.tsx
 #~ msgid "EVERY 3 HOURS,"
 #~ msgstr ""
@@ -670,7 +941,15 @@ msgid "Each Alp is a membership in the club and one vote. Members vote on propos
 msgstr ""
 
 #: src/components/Documentation/index.tsx
-msgid "Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time, and each auction runs for 3 hours, so there are never more than 8 new Alps a day."
+#~ msgid "Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time, and each auction runs for 3 hours, so there are never more than 8 new Alps a day."
+#~ msgstr ""
+
+#: src/components/Documentation/index.tsx
+msgid "Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time, and each auction runs for {0}, so there are never more than {1} new Alps a day."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Each action is checked by running it as if the treasury sent it right now, on its own. A check can't know about earlier actions in this proposal, or what changes before it executes."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -684,6 +963,10 @@ msgstr ""
 #: src/components/Documentation/index.tsx
 #~ msgid "Each time an auction is settled, the settlement transaction will also cause a new Alp to be minted and a new 3 hour auction to begin."
 #~ msgstr ""
+
+#: src/components/ProposalBuilder/ActionList.tsx
+msgid "Edit"
+msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "Ended"
@@ -705,14 +988,80 @@ msgstr ""
 msgid "Ends {0}"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "Enter a number of days, like 2 or 2.5"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Enter a whole number"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Enter a whole number of seconds"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Enter a whole percentage from 0 to 255"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "Enter an address or ENS name"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AddressInput.tsx
+msgid "Enter an address starting with 0x, or an ENS name like alps.eth"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Enter an amount above 0"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Enter an amount of ETH, like 0.1"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Enter an amount of ETH, like 0.5"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+msgid "Enter an amount of ETH, like 1.5"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "Enter an amount of ETH, with at most 18 decimals"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Enter an amount of {symbol}, with at most {decimals} decimals"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "Enter hex bytes, like 0x1234abcd"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Enter hex bytes, like 0xa9059cbb…"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "Enter the Alp's number, like 123"
+msgstr ""
+
 #: src/components/ChangeDelegatePannel/index.tsx
 msgid "Enter the Ethereum address or ENS name of the account you would like to delegate your votes to."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Enter the contract first; its ABI is looked up on Etherscan and Sourcify."
 msgstr ""
 
 #: src/components/Bid/index.tsx
 #: src/components/Bid/index.tsx
 #: src/components/VotePanel/index.tsx
-#: src/pages/CreateProposal/index.tsx
 #: src/pages/Vote/index.tsx
 msgid "Error"
 msgstr ""
@@ -726,8 +1075,24 @@ msgstr ""
 msgid "Etherscan"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Exactly what the governor stores. With a function signature, the data is only the ABI-encoded arguments; without one, it's the full calldata, selector included."
+msgstr ""
+
+#: src/components/Proposals/index.tsx
+msgid "Executable {0}"
+msgstr ""
+
 #: src/pages/Vote/index.tsx
-msgid "Execute"
+#~ msgid "Execute"
+#~ msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Execute in {0}"
+msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Execute proposal"
 msgstr ""
 
 #: src/components/AlpProfileVoteRow/index.tsx
@@ -771,9 +1136,16 @@ msgstr ""
 msgid "Failed to fetch Alp info"
 msgstr ""
 
+#: src/components/ProposalBuilder/ActionEditorModal.tsx
+msgid "Fill in the details and you'll see here what this action will do."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Find the ABI"
+msgstr ""
+
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
-#: src/components/VotePanel/index.tsx
 msgid "For"
 msgstr ""
 
@@ -817,12 +1189,17 @@ msgstr ""
 #~ msgid "Founders receive rewards in the form of Alps (10% of supply for first 5 years)."
 #~ msgstr ""
 
-#: src/components/ProposalTransactionFormModal/index.tsx
+#: src/components/ProposalActionSummary/index.tsx
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "Function"
 msgstr ""
 
 #: src/components/ProposalTransactionFormModal/index.tsx
-msgid "Function (Optional)"
+#~ msgid "Function (Optional)"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Function signature (optional)"
 msgstr ""
 
 #: src/pages/Playground/index.tsx
@@ -832,6 +1209,10 @@ msgstr ""
 #: src/pages/Playground/index.tsx
 #~ msgid "Generate Alpss"
 #~ msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Give the proposal a title."
+msgstr ""
 
 #: src/pages/Playground/index.tsx
 msgid "Glasses"
@@ -850,13 +1231,22 @@ msgid "Go"
 msgstr ""
 
 #: src/components/NavBar/index.tsx
+#: src/pages/CreateProposal/index.tsx
 #: src/pages/Governance/index.tsx
 msgid "Governance"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Governance settings"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "Governance ‘Slow Start’"
 #~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Governor"
+msgstr ""
 
 #: src/components/DelegationCandidateInfo/index.tsx
 msgid "Has"
@@ -879,12 +1269,40 @@ msgstr ""
 #~ msgid "Help mint the next Alp"
 #~ msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Hide transaction data"
+msgstr ""
+
 #: src/components/profileEvent/event/DesktopTransferEvent/index.tsx
 msgid "Holder changed from <0><1/></0> to <2><3/></2>"
 msgstr ""
 
 #: src/components/profileEvent/event/MobileTransferEvent/index.tsx
 msgid "Holder changed from<0><1/></0> to <2><3/></2>"
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "How it will look"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "How long a proposal waits in the treasury after it passes before anyone can execute it, giving everyone time to react. Between 2 and 30 days. Proposals already queued keep their timing."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "How long after a proposal is submitted voting opens, in blocks (a block is about 12 seconds). Between {minText} and {maxText} blocks."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "How long passed proposals wait before they can execute"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "How long voting stays open, in blocks (a block is about 12 seconds). Between {minText} and {maxText} blocks."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "How much each bid has to beat the one before it by."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -899,6 +1317,10 @@ msgstr ""
 #~ msgid "In addition to the precautions taken by Compound Governance, the founders have given themselves a special veto right to ensure that no malicious proposals can be passed while the Alp supply is low. This veto right will only be used if an obviously harmful governance proposal has been passed, and is intended as a last resort."
 #~ msgstr ""
 
+#: src/pages/CreateProposal/index.tsx
+msgid "In total this proposal sends {0} ETH from the treasury."
+msgstr ""
+
 #: src/components/Bid/index.tsx
 msgid "Insufficient bid amount 🤏"
 msgstr ""
@@ -911,6 +1333,18 @@ msgstr ""
 msgid "It also mints Alp {0} for the founders."
 msgstr ""
 
+#: src/pages/CreateProposal/index.tsx
+msgid "It holds {0} ETH right now."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "It's a proxy, so these are the functions of its implementation, <0/>, plus the proxy's own."
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Keep it"
+msgstr ""
+
 #: src/components/KickOffAuction/index.tsx
 msgid "Kick off the next auction"
 msgstr ""
@@ -921,6 +1355,10 @@ msgstr ""
 
 #: src/components/AlpBrowser/index.tsx
 msgid "Latest"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Latest auction income"
 msgstr ""
 
 #: src/components/AlperAlpContent/index.tsx
@@ -940,11 +1378,23 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-msgid "Leave a message"
+#~ msgid "Leave a message"
+#~ msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Let the club know it's coming, so members have time to read it."
 msgstr ""
 
 #: src/components/AlpInfoRowHolder/index.tsx
 msgid "Loading..."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Looking up the contract's ABI…"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AddressInput.tsx
+msgid "Looking up {0}…"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -955,17 +1405,69 @@ msgstr ""
 msgid "Making a proposal requires {threshold} votes"
 msgstr ""
 
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
+msgid "Markdown works: ## for headings, **bold**, - for lists, [text](https://link) for links, ![](https://image-url) for images."
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Members vote on what they read here: say what the proposal does, why it's good for the club, and what it costs."
+msgstr ""
+
 #: src/components/VotePanel/index.tsx
-msgid "Message"
+#~ msgid "Message"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Minimum bid increase"
 msgstr ""
 
 #: src/components/DynamicQuorumInfoModal/index.tsx
 msgid "More details on how dynamic quorum works can be found <0>here</0>."
 msgstr ""
 
-#: src/components/ProposalTransactionFormModal/index.tsx
-msgid "Next"
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Move Alp {alpId} from {0} to {1}"
 msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "Must be exactly {expected} bytes; this is {actual}"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "NFTs"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "Needs exactly {expected} items"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "New delay"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "New minimum bid increase"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "New proposal"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "New reserve price"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "New time buffer"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "New value"
+msgstr ""
+
+#: src/components/ProposalTransactionFormModal/index.tsx
+#~ msgid "Next"
+#~ msgstr ""
 
 #: src/components/KickOffAuction/index.tsx
 msgid "Next up is the Alp it would mint right now: its traits come from the latest block, so it changes with every new block, about every 12 seconds. Anyone can kick off the next auction; it only costs gas."
@@ -979,8 +1481,16 @@ msgstr ""
 #~ msgid "Next · Alp {alpId}"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/inputs/AddressInput.tsx
+msgid "No address is set for {0}"
+msgstr ""
+
 #: src/components/ProposalTransactionFormModal/index.tsx
-msgid "No arguments required"
+#~ msgid "No arguments required"
+#~ msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "No bids"
 msgstr ""
 
 #: src/components/WalletConnectModal/index.tsx
@@ -1003,6 +1513,14 @@ msgstr ""
 #~ msgid "No explicit rules exist for attribute scarcity; all Alps are equally rare."
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "No items yet."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "No new auctions start while paused. An auction that's already running can still be bid on, and settled once it ends."
+msgstr ""
+
 #: src/components/Proposals/index.tsx
 msgid "No proposals found"
 msgstr ""
@@ -1012,21 +1530,76 @@ msgid "No votes yet."
 msgstr ""
 
 #: src/components/KickOffAuction/index.tsx
-msgid "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new 3-hour auction."
+#~ msgid "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new 3-hour auction."
+#~ msgstr ""
+
+#: src/components/KickOffAuction/index.tsx
+msgid "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new {length} auction."
 msgstr ""
 
-#: src/components/ProposalTransactionFormModal/index.tsx
-#: src/components/ProposalTransactionFormModal/index.tsx
-#: src/components/ProposalTransactionFormModal/index.tsx
+#: src/components/ProposalActionSummary/index.tsx
+#: src/components/ProposalActionSummary/index.tsx
 msgid "None"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "None: a plain ETH transfer"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "None: the calldata below includes its own function selector"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Nothing right now. Payouts show here once a proposal passes."
+msgstr ""
+
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
+msgid "Nothing written yet."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "Nouns DAO"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Now <0/>"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "Now <0><1/></0>"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Now <0>{buffer} seconds</0>"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Now <0>{increment}%</0>"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Now <0>{reserve} ETH</0>"
+msgstr ""
+
 #: src/components/DelegationCandidateInfo/index.tsx
 msgid "Now has"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Now {formatted} basis points ({percent})"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Now {formatted} blocks (about <0/>)"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Now {increment}%"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Now {reserve} ETH"
 msgstr ""
 
 #: src/components/Banner/index.tsx
@@ -1044,6 +1617,10 @@ msgstr ""
 #: src/components/Documentation/index.tsx
 #~ msgid "On-Chain Artwork"
 #~ msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Once submitted, voting opens in about <0/> and stays open for about <1/>. If it passes, it waits in the treasury for <2/>, then anyone can execute it within <3/>. The actions run in order, all together. A proposal can't be edited once submitted, though you can cancel it."
+msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one vote."
@@ -1077,6 +1654,35 @@ msgstr ""
 #~ msgid "Only Alps you owned or were delegated to you before {0} are eligible to vote."
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Optional. Only functions marked payable accept ETH."
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Passed, waiting to be queued"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Paste the ABI"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Pause auctions"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Pause the auctions"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Paused now"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+msgid "Pay someone from the treasury"
+msgstr ""
+
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
 #: src/components/ProposalStatusCopy/index.tsx
@@ -1105,18 +1711,25 @@ msgstr ""
 #: src/components/Bid/index.tsx
 #: src/components/VotePanel/index.tsx
 #: src/components/VotePanel/index.tsx
-#: src/pages/CreateProposal/index.tsx
-#: src/pages/CreateProposal/index.tsx
 #: src/pages/Vote/index.tsx
 #: src/pages/Vote/index.tsx
 msgid "Please try again."
 msgstr ""
 
-#: src/components/VotePanel/index.tsx
-msgid "Post message"
+#: src/pages/Treasury/index.tsx
+msgid "Plus {0} unrecognised tokens and {1} NFT collections that look like spam, sent to the treasury by strangers. Some link to scams, so they aren't listed here."
 msgstr ""
 
-#: src/components/ProposalEditor/index.tsx
+#: src/pages/Treasury/index.tsx
+#~ msgid "Plus {0} unrecognised tokens someone sent to the treasury. These are usually spam, and some link to scams, so they aren't listed here."
+#~ msgstr ""
+
+#: src/components/VotePanel/index.tsx
+#~ msgid "Post message"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ActionEditorModal.tsx
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
 msgid "Preview"
 msgstr ""
 
@@ -1124,17 +1737,25 @@ msgstr ""
 #~ msgid "Preview:"
 #~ msgstr ""
 
-#: src/components/ProposalEditor/index.tsx
-msgid "Proposal"
+#: src/pages/Treasury/index.tsx
+msgid "Prop {0}"
 msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Prop {id} is submitted"
+msgstr ""
+
+#: src/components/ProposalEditor/index.tsx
+#~ msgid "Proposal"
+#~ msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "Proposal <0>succeeded</0>"
 msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
-msgid "Proposal Created!"
-msgstr ""
+#~ msgid "Proposal Created!"
+#~ msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "Proposal Executed!"
@@ -1144,8 +1765,20 @@ msgstr ""
 msgid "Proposal Queued!"
 msgstr ""
 
+#: src/pages/Vote/index.tsx
+msgid "Proposal canceled."
+msgstr ""
+
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "Proposal expired before it was executed"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Proposal threshold"
+msgstr ""
+
+#: src/pages/Vote/index.tsx
+msgid "Proposal vetoed."
 msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
@@ -1189,7 +1822,11 @@ msgid "Proposed Transactions"
 msgstr ""
 
 #: src/pages/Vote/index.tsx
-msgid "Queue"
+#~ msgid "Queue"
+#~ msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Queue proposal"
 msgstr ""
 
 #: src/components/AlpProfileVoteRow/index.tsx
@@ -1198,6 +1835,15 @@ msgstr ""
 msgid "Queued"
 msgstr ""
 
+#: src/pages/Treasury/index.tsx
+msgid "Queued, executable {0}"
+msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Queued. It can be executed in <0>{0}</0>, on {1}."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 #: src/pages/Vote/index.tsx
 msgid "Quorum"
 msgstr ""
@@ -1206,25 +1852,135 @@ msgstr ""
 msgid "Rainbow, Zerion, Safe, Ledger Live and other mobile wallets"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Raw transaction"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 msgid "Read more about Alps"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Reading the token…"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Ready to execute"
+msgstr ""
+
+#: src/components/Proposals/index.tsx
+msgid "Ready to execute · expires {0}"
+msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Ready to execute. Anyone can, until {0}, when it expires."
+msgstr ""
+
+#: src/components/Proposals/index.tsx
+msgid "Ready to queue"
 msgstr ""
 
 #: src/components/VotePanel/index.tsx
 msgid "Reason (Optional)"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Recipient"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Remove the selector {selector} from the start"
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "Required"
+msgstr ""
+
 #: src/components/DynamicQuorumInfoModal/index.tsx
 msgid "Required % of Alps to Pass"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Reserve price"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Reserve price, time buffer, minimum bid, pause or resume"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Resume auctions"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Resume the auctions"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Review and submit"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Review proposal"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Running now"
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionEditorModal.tsx
+msgid "Save changes"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "See all proposals"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "See them on Etherscan ↗"
+msgstr ""
+
+#: src/pages/Governance/index.tsx
+msgid "See what it holds →"
 msgstr ""
 
 #: src/components/LanguageSelectionModal/index.tsx
 msgid "Select Language"
 msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Send <0/> from the treasury to {0}"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Send Alp {alpId} from the treasury to {0}"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+msgid "Send ETH"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Send all"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "Send an Alp"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Send tokens"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Send {amount} ETH from the treasury to {0}"
+msgstr ""
+
 #: src/components/Bid/index.tsx
 #: src/components/Bid/index.tsx
-#: src/pages/CreateProposal/index.tsx
 #: src/pages/Vote/index.tsx
 msgid "Sent to your Safe"
 msgstr ""
@@ -1237,8 +1993,44 @@ msgstr ""
 msgid "Sent to your Safe. It will execute once {confirmationsRequired} owners have confirmed it ({confirmationsSubmitted} so far) and one of them executes it."
 msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the auction reserve price to {amount} ETH"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the auction time buffer to <0/>"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the minimum bid increase to {percent}%"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the proposal threshold to {bps} basis points ({percent} of all Alps)"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the quorum to {bps} basis points ({percent} of all Alps)"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the treasury's execution delay to <0/>"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the voting delay to {blocks} blocks (about <0/>)"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Set the voting period to {blocks} blocks (about <0/>)"
+msgstr ""
+
 #: src/components/Bid/index.tsx
 msgid "Settle"
+msgstr ""
+
+#: src/components/KickOffAuction/index.tsx
+msgid "Settle Alp {alpId}"
 msgstr ""
 
 #: src/components/Bid/index.tsx
@@ -1273,6 +2065,10 @@ msgstr ""
 msgid "Show fewer"
 msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Show transaction data"
+msgstr ""
+
 #: src/components/NavWallet/index.tsx
 msgid "Sign out"
 msgstr ""
@@ -1281,12 +2077,32 @@ msgstr ""
 #~ msgid "Start The Next Auction"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
+msgid "Start from an outline"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Start over"
+msgstr ""
+
 #: src/pages/Vote/index.tsx
 msgid "Starts"
 msgstr ""
 
 #: src/components/Proposals/index.tsx
 msgid "Starts {0}"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Stored as <0>{0}</0>"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Stored on-chain as <0>{signature}</0>"
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Submit"
 msgstr ""
 
 #: src/components/Proposals/index.tsx
@@ -1298,8 +2114,32 @@ msgstr ""
 msgid "Submit Vote"
 msgstr ""
 
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Submit proposal"
+msgstr ""
+
 #: src/components/ProposalHeader/index.tsx
 msgid "Submit vote"
+msgstr ""
+
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Submitting a proposal takes at least 1 vote, and this wallet has none. Win an Alp at auction, or ask a member to delegate their votes to you. You can keep drafting in the meantime."
+msgstr ""
+
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Submitting a proposal takes at least {needed} votes, and this wallet has {votesText}. Win an Alp at auction, or ask members to delegate their votes to you. You can keep drafting in the meantime."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Submitting from <0/>. It costs gas, and nothing else."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Submitting your proposal. This takes a few seconds once the transaction is sent."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "Submitting…"
 msgstr ""
 
 #: src/components/AlpProfileVoteRow/index.tsx
@@ -1310,7 +2150,6 @@ msgstr ""
 
 #: src/components/Bid/index.tsx
 #: src/components/Bid/index.tsx
-#: src/pages/CreateProposal/index.tsx
 #: src/pages/Vote/index.tsx
 msgid "Success"
 msgstr ""
@@ -1343,8 +2182,66 @@ msgstr ""
 msgid "Tap any Alp to download it, or to turn it into a brick bust you can really build with <0>Alps to Bricks</0>."
 msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Target"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "Target, value and calldata, for developers"
+msgstr ""
+
 #: src/components/VotePanel/index.tsx
 msgid "Thank you for voting."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "That isn't ABI JSON with any functions in it."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "That isn't a function signature. It looks like transfer(address to, uint256 amount)."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "That isn't a function signature. It looks like transfer(address,uint256)."
+msgstr ""
+
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
+msgid "That number doesn't fit in a {type}"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "That's 10 actions, the most one proposal can have."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "That's already the current delay."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "That's already the current value."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "That's longer than a whole auction."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "That's more than the treasury holds right now. It would fail unless the treasury has enough by the time the proposal executes."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+msgid "That's more than the {held} ETH the treasury holds right now. It would fail unless the treasury has enough by the time the proposal executes."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+msgid "That's the treasury itself, so nothing would move."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+msgid "That's the zero address: anything sent there is lost for good."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -1415,17 +2312,49 @@ msgstr ""
 msgid "The Quorum (minimum number of For votes required to pass a proposal) is set as a function of the number of Against votes a proposal has recieved. The number of For votes required to pass Proposal {0} is given by the following curve:"
 msgstr ""
 
+#: src/components/Bid/index.tsx
+msgid "The auction is settled."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "The check failed for action {0}. Make sure that's expected (say, it depends on an earlier action) before you submit."
+msgstr ""
+
 #: src/pages/Governance/index.tsx
 msgid "The club treasury holds 100% of auction proceeds, and is only spent when members vote for it."
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "The club treasury holds 100% of auction proceeds. It only pays out when a proposal passes, is queued, and waits out the 2-day delay."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "The compressed parts are efficiently converted into a single base64 encoded SVG image on-chain. To accomplish this, each part is decoded into an intermediate format before being converted into a series of SVG rects using batched, on-chain string concatenation. Once the entire SVG has been generated, it is base64 encoded."
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "The data doesn't decode as this function's arguments, so the call would likely fail."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "The data starts with this function's selector. With a signature, leave the selector out: the treasury adds it."
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "The founders will provably revoke this veto right when they deem it safe to do so. This decision will be based on a healthy Alp distribution and a community that is engaged in the governance process."
 #~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "The function's name and parameter types, as in its Solidity source. Parameter names are optional."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "The governor only accepts {minText} to {maxText}"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "The lowest first bid an auction accepts."
+msgstr ""
 
 #: src/components/Bid/index.tsx
 msgid "The next auction has started!"
@@ -1455,6 +2384,34 @@ msgstr ""
 #~ msgid "The proposal veto right was initially envisioned as a temporary solution to the problem of ‘51% attacks’ on the Alps DAO treasury. While Alpers initially believed that a healthy distribution of Alps would be sufficient protection for the DAO, a more complete understanding of the incentives and risks has led to general consensus within the Alpers, the Alps Foundation, and the wider community that a more robust game-theoretic solution should be implemented before the right is removed."
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "The share of all Alps someone needs to submit a proposal, in basis points: 100 basis points is 1%. Between {minText} and {maxText}."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "The share of all Alps that must vote for a proposal for it to pass, in basis points: 100 basis points is 1%. Each proposal keeps the quorum it was submitted with. Between {minText} and {maxText}."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "The transaction failed."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "The transaction failed:"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "The treasury doesn't hold any Alps right now."
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+msgid "The treasury doesn't hold enough ETH for this right now."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "The treasury holds Alp {alpId}"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "The treasury is controlled exclusively by Alp token holders via governance."
 #~ msgstr ""
@@ -1463,12 +2420,24 @@ msgstr ""
 #~ msgid "The treasury is controlled exclusively by Alps via governance."
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "The treasury only accepts 2 to 30 days"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "There are unfortunately no algorithmic solutions for making these determinations in advance (if there were, the veto would not be required), and proposals must be considered on a case by case basis."
 #~ msgstr ""
 
 #: src/components/VotePanel/index.tsx
 msgid "There was an error voting for your account."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "There's no contract at this address. To send it ETH, use Send ETH instead."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "These arguments couldn't be encoded for this function."
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -1483,8 +2452,44 @@ msgstr ""
 msgid "This Safe"
 msgstr ""
 
+#: src/components/ProposalBuilder/inputs/AddressInput.tsx
+msgid "This address's capitalization doesn't match its checksum, so it may have a typo. Paste it again, or type it all in lowercase."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "This contract's owner is <0/>, not the treasury, so any function only its owner can call would fail."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+#~ msgid "This contract's owner is <0/>, not the treasury, so functions only its owner can call would fail."
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "This contract's source isn't verified on Etherscan or Sourcify. Paste its ABI, or type the function you want to call."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "This function isn't payable, so sending ETH with it would make the call fail."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "This function takes no arguments."
+msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "This proposal passed. Queue it to start the treasury's 2-day delay, after which it can be executed. Anyone can do this."
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "This proposal sends {sending} ETH, more than the {held} ETH the treasury holds right now."
+msgstr ""
+
 #: src/components/KickOffAuction/index.tsx
-msgid "This sends Alp {alpId} to its winner, <0/>, and mints Alp {nextAuctionAlpId} for a new 3-hour auction."
+#~ msgid "This sends Alp {alpId} to its winner, <0/>, and mints Alp {nextAuctionAlpId} for a new 3-hour auction."
+#~ msgstr ""
+
+#: src/components/KickOffAuction/index.tsx
+msgid "This sends Alp {alpId} to its winner, <0/>, and mints Alp {nextAuctionAlpId} for a new {length} auction."
 msgstr ""
 
 #: src/pages/Governance/index.tsx
@@ -1499,8 +2504,24 @@ msgstr ""
 #~ msgid "This treasury exists for <0>Alps</0> participants to allocate resources for the long-term growth and prosperity of the Alps project."
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "This wallet can't submit yet: see the note at the top."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "This wallet doesn't have enough ETH to pay for gas."
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "This wallet doesn't have enough votes to propose. Votes count as of the block before you submit, so votes delegated to you just now count from the next block."
+msgstr ""
+
 #: src/pages/Vote/index.tsx
 msgid "Threshold"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "Time buffer"
 msgstr ""
 
 #: src/components/AuctionTimer/index.tsx
@@ -1508,7 +2529,23 @@ msgid "Time left"
 msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
-msgid "Tip:"
+#~ msgid "Tip:"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
+msgid "Title"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Token"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Token contract"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Total value"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -1518,7 +2555,6 @@ msgstr ""
 #: src/components/Bid/index.tsx
 #: src/components/Bid/index.tsx
 #: src/components/VotePanel/index.tsx
-#: src/pages/CreateProposal/index.tsx
 #: src/pages/Vote/index.tsx
 msgid "Transaction Failed"
 msgstr ""
@@ -1531,9 +2567,31 @@ msgstr ""
 msgid "Transactions"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+msgid "Transfer an Alp the treasury holds"
+msgstr ""
+
 #: src/components/NavBarTreasury/index.tsx
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
 #: src/pages/Governance/index.tsx
+#: src/pages/Treasury/index.tsx
 msgid "Treasury"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Treasury address"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "Treasury delay"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendEth.tsx
+msgid "Treasury holds <0>{held} ETH</0>"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "Treasury holds <0>{held} {symbol}</0>"
 msgstr ""
 
 #: src/components/VotePanel/index.tsx
@@ -1544,8 +2602,16 @@ msgstr ""
 #~ msgid "Twitter"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Type the function"
+msgstr ""
+
 #: src/components/Banner/index.tsx
-msgid "UP TO 8 A DAY,"
+#~ msgid "UP TO 8 A DAY,"
+#~ msgstr ""
+
+#: src/components/Banner/index.tsx
+msgid "UP TO {perDay} A DAY,"
 msgstr ""
 
 #: src/components/AlpProfileVoteRow/index.tsx
@@ -1556,6 +2622,14 @@ msgstr ""
 
 #: src/components/Documentation/index.tsx
 msgid "Until Alp #14,600, every 10th Alp goes to the founders and every other 5th Alp to the Alpine Council."
+msgstr ""
+
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
+msgid "Untitled"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Unwrap {amount} of the treasury's WETH into ETH"
 msgstr ""
 
 #: src/components/Auction/index.tsx
@@ -1587,12 +2661,33 @@ msgstr ""
 msgid "User Already Voted"
 msgstr ""
 
-#: src/components/ProposalTransactionFormModal/index.tsx
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Using the ABI built into this site."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Using the verified ABI from Etherscan."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Using the verified ABI from Sourcify."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/ContractCall.tsx
+msgid "Using the verified ABI of {name} from Etherscan."
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+#: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
 msgid "Value"
 msgstr ""
 
 #: src/components/ProposalTransactionFormModal/index.tsx
-msgid "Value in ETH (Optional)"
+#~ msgid "Value in ETH (Optional)"
+#~ msgstr ""
+
+#: src/components/ProposalActions/index.tsx
+msgid "Veto proposal"
 msgstr ""
 
 #: src/components/AlpProfileVoteRow/index.tsx
@@ -1603,6 +2698,10 @@ msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "View Dynamic Quorum Info"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "View Prop {id}"
 msgstr ""
 
 #: src/components/BidHistoryBtn/index.tsx
@@ -1628,6 +2727,10 @@ msgstr ""
 #: src/components/profileEvent/event/DesktopTransferEvent/index.tsx
 #: src/components/profileEvent/event/DesktopTransferEvent/index.tsx
 msgid "View on Etherscan"
+msgstr ""
+
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "View transaction"
 msgstr ""
 
 #: src/components/Bid/index.tsx
@@ -1658,8 +2761,28 @@ msgstr ""
 msgid "Voted with<0>{numVotesForProp}</0>Alps"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Voting delay"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Voting delay and period, proposal threshold, quorum"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Voting opens in about <0/>. Let the club know it's coming, so members have time to read it and ask questions."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "Voting period"
+msgstr ""
+
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "Voting started"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "WETH, USDC, stETH or any ERC-20 the treasury holds"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -1669,6 +2792,10 @@ msgstr ""
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/profileEvent/eventData/ProposalVoteHeadline/index.tsx
 msgid "Waiting for"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "Waiting to be paid out"
 msgstr ""
 
 #: src/components/Footer/index.tsx
@@ -1683,10 +2810,23 @@ msgstr ""
 #~ msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
 #~ msgstr ""
 
+#: src/pages/CreateProposal/index.tsx
+msgid "What happens if the proposal passes. The treasury carries out the actions in order, all in one go."
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "What it holds"
+msgstr ""
+
 #: src/components/Winner/index.tsx
 #: src/components/Winner/index.tsx
 #~ msgid "What now?"
 #~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "What to change"
+msgstr ""
 
 #: src/components/Documentation/index.tsx
 msgid "When an auction ends, anyone can kick off the next one; until someone does, it simply waits. Alps that get no bids go to the Warming Hut."
@@ -1713,6 +2853,39 @@ msgstr ""
 msgid "Winning bid"
 msgstr ""
 
+#: src/components/ProposalBuilder/templates/RawTransaction.tsx
+msgid "With no data and no ETH, this action does nothing."
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+msgid "Works if the treasury sent it right now."
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+msgid "Would fail right now, without saying why."
+msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+msgid "Would fail right now: {reason}"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "Wrap {amount} ETH from the treasury into WETH"
+msgstr ""
+
+#: src/components/ProposalBuilder/ProposalTextEditor.tsx
+#: src/pages/CreateProposal/index.tsx
+msgid "Write"
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Write a description."
+msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Write another"
+msgstr ""
+
 #: src/components/Footer/index.tsx
 msgid "X"
 msgstr ""
@@ -1725,9 +2898,13 @@ msgstr ""
 #~ msgid "You <0>Abstained</0> from this proposal"
 #~ msgstr ""
 
-#: src/components/CreateProposalButton/index.tsx
-msgid "You already have an active or pending proposal"
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "You already have a proposal that's pending or being voted on."
 msgstr ""
+
+#: src/components/CreateProposalButton/index.tsx
+#~ msgid "You already have an active or pending proposal"
+#~ msgstr ""
 
 #: src/components/Documentation/index.tsx
 #~ msgid "You can experiment with off-chain Alp generation at the {playgroundLink}."
@@ -1741,8 +2918,16 @@ msgstr ""
 #~ msgid "You can settle manually in {0} minutes"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "You cancelled the transaction in your wallet."
+msgstr ""
+
 #: src/components/CreateProposalButton/index.tsx
-msgid "You don't have enough votes to submit a proposal"
+#~ msgid "You don't have enough votes to submit a proposal"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "You have 1 vote, enough to submit a proposal."
 msgstr ""
 
 #: src/components/Proposals/index.tsx
@@ -1750,11 +2935,19 @@ msgid "You have no Votes."
 msgstr ""
 
 #: src/components/VotePanel/index.tsx
-msgid "You have no votes on this proposal, but you can leave a message on-chain. It's recorded with the proposal for everyone to see and doesn't change the result. You can leave one per proposal."
+#~ msgid "You have no votes on this proposal, but you can leave a message on-chain. It's recorded with the proposal for everyone to see and doesn't change the result. You can leave one per proposal."
+#~ msgstr ""
+
+#: src/components/VotePanel/index.tsx
+msgid "You have no votes on this proposal, but you can still vote to leave an on-chain signal. It won't affect the outcome."
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-msgid "You have no votes, but you can leave a message."
+#~ msgid "You have no votes, but you can leave a message."
+#~ msgstr ""
+
+#: src/components/ProposalHeader/index.tsx
+msgid "You have no votes, so yours is a signal only."
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
@@ -1762,13 +2955,17 @@ msgstr ""
 #~ msgid "You have no votes."
 #~ msgstr ""
 
-#: src/components/VotePanel/index.tsx
-msgid "You left a message (<0/>, no votes). It's in the proposal's activity."
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "You have {votesText} votes, enough to submit a proposal."
 msgstr ""
 
+#: src/components/VotePanel/index.tsx
+#~ msgid "You left a message (<0/>, no votes). It's in the proposal's activity."
+#~ msgstr ""
+
 #: src/components/CreateProposalButton/index.tsx
-msgid "You must have {0} votes to submit a proposal"
-msgstr ""
+#~ msgid "You must have {0} votes to submit a proposal"
+#~ msgstr ""
 
 #: src/components/VotePanel/index.tsx
 msgid "You voted <0/> with {0} votes"
@@ -1798,6 +2995,14 @@ msgstr ""
 msgid "You've successfully voted on prop {0}"
 msgstr ""
 
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Your <0>Prop {id}</0> is being voted on. Each member can have one live proposal at a time, so you can submit this one once voting on Prop {id} ends. Keep drafting in the meantime."
+msgstr ""
+
+#: src/components/ProposalBuilder/EligibilityNotice.tsx
+msgid "Your <0>Prop {id}</0> is waiting for voting to start. Each member can have one live proposal at a time, so you can submit this one once voting on Prop {id} ends. Keep drafting in the meantime."
+msgstr ""
+
 #: src/components/ChangeDelegatePannel/index.tsx
 msgid "Your <0>{availableVotes}</0> votes are being delegated to a new account."
 msgstr ""
@@ -1811,7 +3016,11 @@ msgid "Your Alps’ votes stay with your Alps, but they’re <0>delegatable</0>:
 msgstr ""
 
 #: src/components/VotePanel/index.tsx
-msgid "Your message is on-chain."
+#~ msgid "Your message is on-chain."
+#~ msgstr ""
+
+#: src/pages/CreateProposal/index.tsx
+msgid "Your proposal is submitted"
 msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
@@ -1846,6 +3055,14 @@ msgstr ""
 #~ msgid "backgrounds (7)"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "basis points"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "blocks"
+msgstr ""
+
 #: src/components/Documentation/index.tsx
 #~ msgid "bodies (30)"
 #~ msgstr ""
@@ -1856,6 +3073,10 @@ msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "created the proposal"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
+msgid "days"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
@@ -1883,16 +3104,24 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
-msgid "left a message · <0/>, no votes"
-msgstr ""
+#~ msgid "left a message · <0/>, no votes"
+#~ msgstr ""
 
 #: src/components/AuctionTimer/index.tsx
 msgid "m"
 msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "matches"
+msgstr ""
+
 #: src/components/BlockCountdown/index.tsx
 #~ msgid "next block any moment"
 #~ msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "on"
+msgstr ""
 
 #: src/components/Bid/index.tsx
 msgid "or more"
@@ -1902,8 +3131,33 @@ msgstr ""
 #~ msgid "public domain"
 #~ msgstr ""
 
+#: src/components/ProposalActionSummary/index.tsx
+msgid "raw calldata"
+msgstr ""
+
 #: src/components/AuctionTimer/index.tsx
 msgid "s"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/AuctionSettings.tsx
+msgid "seconds"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "sending {amount} ETH with it"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+#: src/pages/Treasury/index.tsx
+msgid "to"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "unlimited <0/>"
+msgstr ""
+
+#: src/pages/Treasury/index.tsx
+msgid "unverified"
 msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
@@ -1912,6 +3166,18 @@ msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "voted for"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "{0, plural, one {# day} other {# days}}"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "{0, plural, one {# hour} other {# hours}}"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "{0, plural, one {# minute} other {# minutes}}"
 msgstr ""
 
 #: src/components/VoteCard/index.tsx
@@ -1926,16 +3192,48 @@ msgstr ""
 msgid "{0} <0>Addresses</0>"
 msgstr ""
 
+#: src/pages/CreateProposal/index.tsx
+msgid "{0} of {MAX_PROPOSAL_ACTIONS}"
+msgstr ""
+
 #: src/pages/Vote/index.tsx
 msgid "{0} votes"
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendToken.tsx
+msgid "{0}, {1} decimals"
 msgstr ""
 
 #: src/components/BlockCountdown/index.tsx
 #~ msgid "{0}s left"
 #~ msgstr ""
 
+#: src/components/ProposalBuilder/ReviewStep.tsx
+msgid "{count} actions"
+msgstr ""
+
 #: src/pages/Vote/index.tsx
-msgid "{moveStateButtonAction} Proposal ⌐◧-◧"
+#~ msgid "{moveStateButtonAction} Proposal ⌐◧-◧"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "{percent} of all Alps."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "{percent} of all Alps. With {supplyText} Alps today, a proposal would need at least {votes} votes for it to pass."
+msgstr ""
+
+#: src/components/ProposalBuilder/templates/GovernorSettings.tsx
+msgid "{percent} of all Alps. With {supplyText} Alps today, proposers would need at least {needed} votes."
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "{seconds, plural, one {# second} other {# seconds}}"
+msgstr ""
+
+#: src/components/ProposalActionSummary/index.tsx
+msgid "{units} base units of token <0/>"
 msgstr ""
 
 #: src/components/DelegationCandidateVoteCountInfo/index.tsx
@@ -1957,3 +3255,23 @@ msgstr ""
 #: src/components/profileEvent/eventData/ProposalVoteHeadline/index.tsx
 msgid "{voterComponent} voted for"
 msgstr ""
+
+#: src/components/ProposalBuilder/templates/SendAlp.tsx
+#~ msgid "✓ The treasury holds Alp {alpId}"
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+#~ msgid "✓ Works if the treasury sent it right now."
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+#~ msgid "✗ The treasury doesn't hold enough ETH for this right now."
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+#~ msgid "✗ Would fail right now, without saying why."
+#~ msgstr ""
+
+#: src/components/ProposalBuilder/ActionCheck.tsx
+#~ msgid "✗ Would fail right now: {reason}"
+#~ msgstr ""
