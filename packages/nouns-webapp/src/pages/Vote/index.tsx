@@ -2,7 +2,6 @@ import { Row, Col, Card, Spinner } from 'react-bootstrap';
 import Section from '../../layout/Section';
 import {
   ProposalState,
-  useCurrentQuorum,
   useExecuteProposal,
   useProposal,
   useQueueProposal,
@@ -28,20 +27,13 @@ import { isMobileScreen } from '../../utils/isMobile';
 import { useBlockTimestamp } from '../../hooks/useBlockTimestamp';
 import VoteCard, { VoteCardVariant } from '../../components/VoteCard';
 import { useQuery } from '@apollo/client';
-import {
-  delegateAlpsAtBlockQuery,
-  Delegates,
-  propUsingDynamicQuorum,
-} from '../../wrappers/subgraph';
+import { delegateAlpsAtBlockQuery, Delegates } from '../../wrappers/subgraph';
 import { useProposalVotes } from '../../hooks/useProposalVotes';
 import { getAlpVotes } from '../../utils/getAlpsVotes';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
 import { ReactNode } from 'react-markdown/lib/react-markdown';
 import { AVERAGE_BLOCK_TIME_IN_SECS } from '../../utils/constants';
-import { SearchIcon } from '@heroicons/react/solid';
-import ReactTooltip from 'react-tooltip';
-import DynamicQuorumInfoModal from '../../components/DynamicQuorumInfoModal';
 import SafeTxNotice from '../../components/SafeTxNotice';
 import { useBlockNumber } from '../../hooks/useBlockNumber';
 import ProposalActions from '../../components/ProposalActions';
@@ -59,7 +51,6 @@ const VotePage = ({
   const proposal = useProposal(id);
 
   const votePanelRef = useRef<HTMLDivElement>(null);
-  const [showDynamicQuorumInfoModal, setShowDynamicQuorumInfoModal] = useState<boolean>(false);
   // Toggle between Alp centric view and delegate view
   const [isDelegateView, setIsDelegateView] = useState(false);
 
@@ -70,11 +61,6 @@ const VotePage = ({
 
   const dispatch = useAppDispatch();
   const setModal = useCallback((modal: AlertModal) => dispatch(setAlertModal(modal)), [dispatch]);
-  const {
-    data: dqInfo,
-    loading: loadingDQInfo,
-    error: dqError,
-  } = useQuery(propUsingDynamicQuorum(id ?? '0'));
 
   const { queueProposal, queueProposalState } = useQueueProposal();
   const { executeProposal, executeProposalState } = useExecuteProposal();
@@ -135,10 +121,6 @@ const VotePage = ({
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock ?? undefined);
   const snapshotTimestamp = useBlockTimestamp(proposal?.createdBlock);
 
-  const currentQuorum = useCurrentQuorum(
-    proposal && proposal.id ? parseInt(proposal.id) : 0,
-    dqInfo && dqInfo.proposal ? dqInfo.proposal.quorumCoefficient === '0' : true,
-  );
 
   const startOrEndTimeCopy = () => {
     if (startDate?.isBefore(now) && endDate?.isAfter(now)) {
@@ -271,7 +253,7 @@ const VotePage = ({
     }
   }, [showToast]);
 
-  if (!proposal || !liveProposal || loading || loadingDQInfo || !dqInfo) {
+  if (!proposal || !liveProposal || loading) {
     return (
       <div className={classes.spinner}>
         <Spinner animation="border" />
@@ -279,7 +261,7 @@ const VotePage = ({
     );
   }
 
-  if (error || dqError) {
+  if (error) {
     return <Trans>Failed to fetch</Trans>;
   }
 
@@ -289,7 +271,6 @@ const VotePage = ({
   const forAlps = getAlpVotes(data, 1);
   const againstAlps = getAlpVotes(data, 0);
   const abstainAlps = getAlpVotes(data, 2);
-  const isV2Prop = dqInfo.proposal.quorumCoefficient > 0;
 
   const votePanel = isActiveForVoting && (
     <VotePanel
@@ -317,13 +298,6 @@ const VotePage = ({
 
   return (
     <Section fullWidth={false} className={classes.votePage}>
-      {showDynamicQuorumInfoModal && (
-        <DynamicQuorumInfoModal
-          proposal={proposal}
-          againstVotesAbsolute={againstAlps.length}
-          onDismiss={() => setShowDynamicQuorumInfoModal(false)}
-        />
-      )}
       <Col lg={10} className={classes.wrapper}>
         {proposal && (
           <ProposalHeader
@@ -402,27 +376,12 @@ const VotePage = ({
                       <Trans>Threshold</Trans>
                     </h1>
                   </div>
-                  {isV2Prop && (
-                    <ReactTooltip
-                      id={'view-dq-info'}
-                      className={classes.delegateHover}
-                      getContent={dataTip => {
-                        return <Trans>View Dynamic Quorum Info</Trans>;
-                      }}
-                    />
-                  )}
-                  <div
-                    data-for="view-dq-info"
-                    data-tip="View Dynamic Quorum Info"
-                    onClick={() => setShowDynamicQuorumInfoModal(true && isV2Prop)}
-                    className={clsx(classes.thresholdInfo, isV2Prop ? classes.cursorPointer : '')}
-                  >
-                    <span>{isV2Prop ? <Trans>Current Quorum</Trans> : <Trans>Quorum</Trans>}</span>
+                  <div className={classes.thresholdInfo}>
+                    <span>
+                      <Trans>Quorum</Trans>
+                    </span>
                     <h3>
-                      <Trans>
-                        {isV2Prop ? i18n.number(currentQuorum ?? 0) : proposal.quorumVotes} votes
-                      </Trans>
-                      {isV2Prop && <SearchIcon className={classes.dqIcon} />}
+                      <Trans>{proposal.quorumVotes} votes</Trans>
                     </h3>
                   </div>
                 </div>

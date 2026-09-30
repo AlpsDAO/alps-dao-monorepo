@@ -8,6 +8,7 @@ export interface Log {
   topics: Array<string>;
   transactionHash: string;
   data: string;
+  blockNumber?: number;
 }
 
 /**

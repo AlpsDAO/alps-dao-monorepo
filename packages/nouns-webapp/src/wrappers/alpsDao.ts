@@ -1,8 +1,7 @@
-import { AlpsDAOV2ABI } from '@nouns/sdk';
+import { AlpsDaoLogicV1Factory } from '@nouns/sdk';
 import { utils, BigNumber as EthersBN } from 'ethers';
 import { defaultAbiCoder, Result } from 'ethers/lib/utils';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { useLogs } from '../hooks/useLogs';
 import * as R from 'ramda';
 import { useQuery } from '@apollo/client';
 import { proposalsQuery } from './subgraph';
@@ -10,14 +9,9 @@ import BigNumber from 'bignumber.js';
 import { useBlockTimestamp } from '../hooks/useBlockTimestamp';
 import { useBlockNumber } from '../hooks/useBlockNumber';
 import { useContracts } from '../hooks/useContracts';
+import config, { CHAIN_ID, ETHERSCAN_API_KEY } from '../config';
 import { useTransaction } from '../hooks/useTransaction';
 import { WalletContext } from '../contexts/WalletContext';
-
-export interface DynamicQuorumParams {
-  minQuorumVotesBPS: number;
-  maxQuorumVotesBPS: number;
-  quorumCoefficient: number;
-}
 
 export enum Vote {
   AGAINST = 0,
@@ -149,78 +143,27 @@ const removeItalics = (text: string | null): string | null =>
 
 const removeMarkdownStyle = R.compose(removeBold, removeItalics);
 
-export const useCurrentQuorum = (
-  proposalId: number,
-  skip: boolean = false,
-): number | undefined => {
-  const [quorum, setQuorum] = useState<EthersBN | undefined>();
-  const { alpsDaoProxyV2 } = useContracts();
-
-  useEffect(() => {
-    async function getQuorum(proposalId: number, skip: boolean) {
-      if (skip || !alpsDaoProxyV2) {
-        setQuorum(undefined);
-        return;
-      }
-      try {
-        const quorumResponse = await alpsDaoProxyV2.quorumVotes(proposalId);
-        setQuorum(quorumResponse);
-      }
-      catch {}
-    }
-
-    getQuorum(proposalId, skip);
-  }, [proposalId, skip]);
-  
-  return quorum?.toNumber();
-};
-
-export const useDynamicQuorumProps = (
-  block: number,
-): DynamicQuorumParams | undefined => {
-  const [params, setParams] = useState<DynamicQuorumParams | undefined>();
-  const { alpsDaoProxyV2 } = useContracts();
-
-  useEffect(() => {
-    async function getParams(block: number) {
-      if (!alpsDaoProxyV2) {
-        setParams(undefined);
-        return;
-      }
-      try {
-        const paramsResponse = await alpsDaoProxyV2.getDynamicQuorumParamsAt(block);
-        setParams(paramsResponse);
-      }
-      catch {}
-    }
-
-    getParams(block);
-  }, [block]);
-
-  return params;
-};
-
 const useVoteReceipt = (proposalId: string | undefined): { hasVoted: boolean, support: number } => {
   const [receipt, setReceipt] = useState<{ hasVoted: boolean, support: number }>({ hasVoted: false, support: -1 });
   const { account } = useContext(WalletContext);
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
 
   // Fetch a voting receipt for the passed proposal id
   useEffect(() => {
     async function getReceipt(proposalId?: string, account?: string) {
-      if (!proposalId || !account || !alpsDaoProxyV2) {
+      if (!proposalId || !account || !alpsDaoProxyV1) {
         setReceipt({ hasVoted: false, support: -1 });
         return;
       }
       try {
-        const receipt = await alpsDaoProxyV2.getReceipt(proposalId, account);
+        const receipt = await alpsDaoProxyV1.getReceipt(proposalId, account);
         setReceipt(receipt);
       }
       catch {}
     }
 
     getReceipt(proposalId, account);
-  }, [proposalId, account]);
+  }, [proposalId, account, alpsDaoProxyV1]);
 
   return receipt;
 };
@@ -248,74 +191,50 @@ export const useProposalVote = (proposalId: string | undefined): string => {
 
 export const useProposalCount = (): number | undefined => {
   const [count, setCount] = useState<EthersBN | undefined>();
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
 
   // Fetch a voting receipt for the passed proposal id
   useEffect(() => {
     async function getCount() {
       try {
-        if (!alpsDaoProxyV2) {
+        if (!alpsDaoProxyV1) {
           setCount(undefined);
           return;
         }
-        const proposalCount = await alpsDaoProxyV2.proposalCount();
+        const proposalCount = await alpsDaoProxyV1.proposalCount();
         setCount(proposalCount);
       }
       catch {}
     }
 
     getCount();
-  }, []);
+  }, [alpsDaoProxyV1]);
 
   return count?.toNumber();
 };
 
 export const useProposalThreshold = (): number | undefined => {
   const [threshold, setThreshold] = useState<EthersBN | undefined>();
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
 
   // Fetch a voting receipt for the passed proposal id
   useEffect(() => {
     async function getThreshold() {
       try {
-        if (!alpsDaoProxyV2) {
+        if (!alpsDaoProxyV1) {
           setThreshold(undefined);
           return;
         }
-        const proposalThreshold = await alpsDaoProxyV2.proposalThreshold();
+        const proposalThreshold = await alpsDaoProxyV1.proposalThreshold();
         setThreshold(proposalThreshold);
       }
       catch {}
     }
 
     getThreshold();
-  }, []);
+  }, [alpsDaoProxyV1]);
 
   return threshold?.toNumber();
-};
-
-const useVotingDelay = (): number | undefined => {
-  const [blockDelay, setBlockDelay] = useState<EthersBN | undefined>();
-  const { alpsDaoProxyV2 } = useContracts();
-
-  // Fetch a voting receipt for the passed proposal id
-  useEffect(() => {
-    async function getBlockDelay() {
-      try {
-        if (!alpsDaoProxyV2) {
-          setBlockDelay(undefined);
-          return;
-        }
-        const delay = await alpsDaoProxyV2.votingDelay();
-        setBlockDelay(delay);
-      }
-      catch {}
-    }
-
-    getBlockDelay();
-  }, []);
-
-  return blockDelay?.toNumber();
 };
 
 const countToIndices = (count: number | undefined) => {
@@ -348,33 +267,51 @@ const formatProposalTransactionDetails = (details: ProposalTransactionDetails | 
   });
 };
 
-const useFormattedProposalCreatedLogs = (skip: boolean, fromBlock?: number) => {
-  const { alpsDaoProxyV2 } = useContracts();
-  const proposalCreatedFilter = {
-    ...alpsDaoProxyV2?.filters?.ProposalCreated(null, null, null, null, null, null, null, null, null),
-    fromBlock,
-  };
+const daoInterface = AlpsDaoLogicV1Factory.createInterface();
 
-  const filter = useMemo(
-    () => ({
-      ...proposalCreatedFilter,
-      ...(fromBlock ? { fromBlock } : {}),
-    }),
-    [fromBlock],
-  );
-  const useLogsResult = useLogs(!skip ? filter : undefined);
+interface ProposalCreatedLog {
+  id: string;
+  description: string;
+  createdBlock: number;
+  transactionHash: string;
+  details: ProposalDetail[];
+}
 
-  return useMemo(() => {
-    return useLogsResult?.logs?.map(log => {
-      const abi = new utils.Interface(AlpsDAOV2ABI);
-      const { args: parsed } = abi.parseLog(log);
-      return {
-        description: parsed.description,
-        transactionHash: log.transactionHash,
-        details: formatProposalTransactionDetails(parsed),
-      };
-    });
-  }, [useLogsResult]);
+/**
+ * Every ProposalCreated log, for when the subgraph is down. Read from Etherscan's logs API: one request
+ * covers the governor's whole history, where RPCs cap how many blocks a single log request may span.
+ */
+const useFormattedProposalCreatedLogs = (skip: boolean): ProposalCreatedLog[] | undefined => {
+  const [logs, setLogs] = useState<ProposalCreatedLog[]>();
+  useEffect(() => {
+    if (skip) return;
+    let cancelled = false;
+    const topic = daoInterface.getEventTopic('ProposalCreated');
+    fetch(
+      `https://api.etherscan.io/v2/api?chainid=${CHAIN_ID}&module=logs&action=getLogs&address=${config.addresses.alpsDAOProxy}&topic0=${topic}&fromBlock=0&toBlock=latest&page=1&offset=1000&apikey=${ETHERSCAN_API_KEY}`,
+    )
+      .then(response => response.json())
+      .then(response => {
+        if (cancelled || !Array.isArray(response.result)) return;
+        setLogs(
+          response.result.map((log: { topics: string[]; data: string; blockNumber: string; transactionHash: string }) => {
+            const { args } = daoInterface.parseLog({ topics: log.topics, data: log.data });
+            return {
+              id: args.id.toString(),
+              description: args.description,
+              createdBlock: parseInt(log.blockNumber, 16),
+              transactionHash: log.transactionHash,
+              details: formatProposalTransactionDetails(args),
+            };
+          }),
+        );
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [skip]);
+  return logs;
 };
 
 const getProposalState = (
@@ -454,65 +391,70 @@ export const useAllProposalsViaSubgraph = (): ProposalData => {
   };
 };
 
+/**
+ * The proposals read straight from the governor, for when the subgraph is down: each proposal and its
+ * state, with the title, description and actions from its ProposalCreated log.
+ */
 export const useAllProposalsViaChain = (skip = false): ProposalData => {
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
   const proposalCount = useProposalCount();
-  const votingDelay = useVotingDelay();
+  const [onchain, setOnchain] = useState<{ proposals: ProposalCallResult[]; states: ProposalState[] }>();
 
-  const [proposals, setProposals] = useState<Array<ProposalCallResult | undefined>>([]);
-  const [proposalStates, setProposalStates] = useState<Array<ProposalState | undefined>>([]);
-
-  const govProposalIndexes = useMemo(() => {
-    return countToIndices(proposalCount);
-  }, [proposalCount]);
-
-  if (!skip && alpsDaoProxyV2) {
-    (async () => {
-      const localProposals = [];
-      const localStates = [];
-      for (const index of govProposalIndexes) {
-        localProposals[index] = await alpsDaoProxyV2.proposal(index);
-        localStates[index] = await alpsDaoProxyV2.state(index);
-      }
-      setProposals(localProposals);
-      setProposalStates(localStates);
-    })();
-  }
+  useEffect(() => {
+    if (skip || !alpsDaoProxyV1 || !proposalCount) return;
+    let cancelled = false;
+    Promise.all(
+      countToIndices(proposalCount).map(id =>
+        Promise.all([alpsDaoProxyV1.proposals(id), alpsDaoProxyV1.state(id)]),
+      ),
+    )
+      .then(results => {
+        if (cancelled) return;
+        setOnchain({
+          proposals: results.map(([proposal]) => proposal as unknown as ProposalCallResult),
+          states: results.map(([, state]) => state as ProposalState),
+        });
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [skip, alpsDaoProxyV1, proposalCount]);
 
   const formattedLogs = useFormattedProposalCreatedLogs(skip);
 
-  // Early return until events are fetched
   return useMemo(() => {
+    if (skip) return { data: [], loading: false };
     const logs = formattedLogs ?? [];
-    if (!proposals.length || !logs.length) {
-      return { data: [], loading: true };
-    }
-
+    if (!onchain || !logs.length) return { data: [], loading: true };
+    const logById = new Map(logs.map(log => [log.id, log]));
     return {
-      data: proposals.map((proposal, i) => {
-        const description = logs[i]?.description?.replace(/\\n/g, '\n');
+      data: onchain.proposals.map((proposal, i) => {
+        const id = proposal.id.toString();
+        const log = logById.get(id);
+        const description = log?.description?.replace(/\\n/g, '\n');
         return {
-          id: proposal?.id.toString(),
+          id,
           title: R.pipe(extractTitle, removeMarkdownStyle)(description) ?? 'Untitled',
           description: description ?? 'No description.',
-          proposer: proposal?.proposer,
-          status: proposalStates[i] ?? ProposalState.UNDETERMINED,
-          proposalThreshold: parseInt(proposal?.proposalThreshold?.toString() ?? '0'),
-          quorumVotes: parseInt(proposal?.quorumVotes?.toString() ?? '0'),
-          forCount: parseInt(proposal?.forVotes?.toString() ?? '0'),
-          againstCount: parseInt(proposal?.againstVotes?.toString() ?? '0'),
-          abstainCount: parseInt(proposal?.abstainVotes?.toString() ?? '0'),
-          createdBlock: parseInt(proposal?.startBlock.sub(votingDelay ?? 0)?.toString() ?? ''),
-          startBlock: parseInt(proposal?.startBlock?.toString() ?? ''),
-          endBlock: parseInt(proposal?.endBlock?.toString() ?? ''),
-          eta: proposal?.eta ? new Date(proposal?.eta?.toNumber() * 1000) : undefined,
-          details: logs[i]?.details,
-          transactionHash: logs[i]?.transactionHash,
+          proposer: proposal.proposer,
+          status: onchain.states[i] ?? ProposalState.UNDETERMINED,
+          proposalThreshold: proposal.proposalThreshold.toNumber(),
+          quorumVotes: proposal.quorumVotes.toNumber(),
+          forCount: proposal.forVotes.toNumber(),
+          againstCount: proposal.againstVotes.toNumber(),
+          abstainCount: proposal.abstainVotes.toNumber(),
+          createdBlock: log?.createdBlock ?? 0,
+          startBlock: proposal.startBlock.toNumber(),
+          endBlock: proposal.endBlock.toNumber(),
+          eta: proposal.eta?.gt(0) ? new Date(proposal.eta.toNumber() * 1000) : undefined,
+          details: log?.details ?? [],
+          transactionHash: log?.transactionHash ?? '',
         };
       }),
       loading: false,
     };
-  }, [formattedLogs, JSON.stringify(proposalStates), JSON.stringify(proposals), votingDelay]);
+  }, [skip, formattedLogs, onchain]);
 };
 
 export const useAllProposals = (): ProposalData => {
@@ -528,11 +470,11 @@ export const useProposal = (id: string | number): Proposal | undefined => {
 
 export const useCastVote = () => {
   const { transact, status } = useTransaction();
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
 
   const castVote = (proposalId: string, vote: Vote) => {
-    if (!alpsDaoProxyV2) return;
-    transact(alpsDaoProxyV2.castVote(proposalId, vote));
+    if (!alpsDaoProxyV1) return;
+    transact(alpsDaoProxyV1.castVote(proposalId, vote));
   };
 
   return { castVote, castVoteState: status };
@@ -540,11 +482,11 @@ export const useCastVote = () => {
 
 export const useCastVoteWithReason = () => {
   const { transact, status } = useTransaction();
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
 
   const castVoteWithReason = (proposalId: string, vote: Vote, voteReason: string) => {
-    if (!alpsDaoProxyV2) return;
-    transact(alpsDaoProxyV2.castVoteWithReason(proposalId, vote, voteReason));
+    if (!alpsDaoProxyV1) return;
+    transact(alpsDaoProxyV1.castVoteWithReason(proposalId, vote, voteReason));
   };
   
   return { castVoteWithReason, castVoteWithReasonState: status };
@@ -552,11 +494,11 @@ export const useCastVoteWithReason = () => {
 
 export const usePropose = () => {
   const { transact, status } = useTransaction();
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
   
   const propose = (targets: string[], values: EthersBN[], signatures: string[], calldatas: string[], description: string) => {
-    if (!alpsDaoProxyV2) return;
-    transact(alpsDaoProxyV2.propose(targets, values, signatures, calldatas, description));
+    if (!alpsDaoProxyV1) return;
+    transact(alpsDaoProxyV1.propose(targets, values, signatures, calldatas, description));
   }
   
   return { propose, proposeState: status };
@@ -564,11 +506,11 @@ export const usePropose = () => {
 
 export const useQueueProposal = () => {
   const { transact, status } = useTransaction();
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
 
   const queueProposal = (proposalId: string) => {
-    if (!alpsDaoProxyV2) return;
-    transact(alpsDaoProxyV2.queue(proposalId));
+    if (!alpsDaoProxyV1) return;
+    transact(alpsDaoProxyV1.queue(proposalId));
   };
 
   return { queueProposal, queueProposalState: status };
@@ -576,11 +518,11 @@ export const useQueueProposal = () => {
 
 export const useExecuteProposal = () => {
   const { transact, status } = useTransaction();
-  const { alpsDaoProxyV2 } = useContracts();
+  const { alpsDaoProxyV1 } = useContracts();
 
   const executeProposal = (proposalId: string) => {
-    if (!alpsDaoProxyV2) return;
-    transact(alpsDaoProxyV2.execute(proposalId));
+    if (!alpsDaoProxyV1) return;
+    transact(alpsDaoProxyV1.execute(proposalId));
   };
   
   return { executeProposal, executeProposalState: status };

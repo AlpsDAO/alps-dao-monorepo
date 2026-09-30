@@ -1,4 +1,4 @@
-import { AlpsAuctionHouseFactory, AlpsDaoLogicV1Factory, AlpsDAOV2ABI, AlpsTokenFactory } from "@nouns/sdk";
+import { AlpsAuctionHouseFactory, AlpsDaoLogicV1Factory, AlpsTokenFactory } from "@nouns/sdk";
 import config from "../config";
 import { useContext, useMemo } from "react";
 import { Contract, ethers, utils } from "ethers";
@@ -13,7 +13,6 @@ export const useContracts = () => {
 
     const alpsDaoToken = useMemo(() => provider && AlpsTokenFactory.connect(config.addresses.alpsToken, signer ? signer : provider), [provider, signer]);
     const alpsDaoProxyV1 = useMemo(() => provider && AlpsDaoLogicV1Factory.connect(config.addresses.alpsDAOProxy, signer ? signer : provider), [provider, signer]);
-    const alpsDaoProxyV2 = useMemo(() => provider && new Contract(config.addresses.alpsDAOProxy, AlpsDAOV2ABI, signer ? signer : provider), [provider, signer]);
     const alpsAuctionHouseProxy = useMemo(() => provider && AlpsAuctionHouseFactory.connect(config.addresses.alpsAuctionHouseProxy, signer ? signer : provider), [provider, signer]);
     
     const lidoToken = useMemo(() => {
@@ -21,5 +20,5 @@ export const useContracts = () => {
         return new Contract(config.addresses.lidoToken, erc20Interface, signer ? signer : provider)
     }, [erc20Interface, provider, signer]);
 
-    return { alpsDaoToken, alpsDaoProxyV1, alpsDaoProxyV2, alpsAuctionHouseProxy, lidoToken };
+    return { alpsDaoToken, alpsDaoProxyV1, alpsAuctionHouseProxy, lidoToken };
 };
