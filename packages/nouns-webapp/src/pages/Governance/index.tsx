@@ -75,7 +75,10 @@ const GovernancePage = () => {
             <Trans>
               The club treasury holds 100% of auction proceeds, and is only spent when members vote
               for it.
-            </Trans>
+            </Trans>{' '}
+            <Link to="/treasury">
+              <Trans>See what it holds →</Trans>
+            </Link>
           </Col>
         </Row>
         <Proposals proposals={proposals} />

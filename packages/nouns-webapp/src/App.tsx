@@ -17,6 +17,7 @@ import VotePage from './pages/Vote';
 import NotFoundPage from './pages/NotFound';
 import Playground from './pages/Playground';
 import AboutPage from './pages/About';
+import TreasuryPage from './pages/Treasury';
 import { CHAIN_ID, ChainId } from './config';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { AvatarProvider } from '@davatar/react';
@@ -89,6 +90,7 @@ function App() {
               <Route exact path="/vote/:id" component={VotePage} />
               <Route exact path="/playground" component={Playground} />
               <Route exact path="/about" component={AboutPage} />
+              <Route exact path="/treasury" component={TreasuryPage} />
               <Route exact path="/delegate" component={DelegatePage} />
               <Route component={NotFoundPage} />
             </Switch>

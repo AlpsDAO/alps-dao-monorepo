@@ -5,9 +5,8 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import testnetAlp from '../../assets/testnet-alp.png';
-import config, { CHAIN_ID } from '../../config';
+import { CHAIN_ID } from '../../config';
 import { utils } from 'ethers';
-import { buildEtherscanHoldingsLink } from '../../utils/etherscan';
 import NavBarButton, { NavBarButtonStyle } from '../NavBarButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +25,6 @@ const NavBar = () => {
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const history = useHistory();
   const treasuryBalance = useTreasuryBalance();
-  const daoEtherscanLink = buildEtherscanHoldingsLink(config.addresses.alpsDaoExecutor);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const isMobile = window.innerWidth < 992;
 
@@ -64,12 +62,7 @@ const NavBar = () => {
             )}
             <Nav.Item>
               {treasuryBalance && (
-                <Nav.Link
-                  href={daoEtherscanLink}
-                  className={classes.alpsNavLink}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <Nav.Link as={Link} to="/treasury" className={classes.alpsNavLink}>
                   <NavBarTreasury
                     treasuryBalance={Number(utils.formatEther(treasuryBalance)).toFixed(3)}
                     treasuryStyle={nonWalletButtonStyle}

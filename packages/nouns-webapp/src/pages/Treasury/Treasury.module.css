@@ -1,0 +1,222 @@
+.page {
+  padding-bottom: 4rem;
+}
+
+.title {
+  font-family: 'Londrina Solid';
+  font-size: 56px;
+  margin: 2rem 0 0.5rem;
+}
+
+.lead {
+  font-family: 'PT Root UI';
+  font-size: 18px;
+  color: var(--brand-cool-light-text);
+  max-width: 44rem;
+}
+
+.totalCard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background-color: var(--brand-gray-background);
+  font-family: 'PT Root UI';
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--brand-gray-light-text);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.total {
+  font-family: 'Londrina Solid';
+  font-size: 48px;
+  line-height: 1.1;
+  color: var(--brand-gray-dark-text);
+}
+
+.usd {
+  font-size: 18px;
+  color: var(--brand-cool-light-text);
+}
+
+.addressBlock {
+  min-width: 0;
+}
+
+.address {
+  display: block;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 14px;
+  color: var(--brand-gray-dark-text);
+  word-break: break-all;
+}
+
+.explorers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.explorer {
+  padding: 0.35rem 0.75rem;
+  border-radius: 10px;
+  background-color: white;
+  color: var(--brand-gray-dark-text);
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.explorer:hover {
+  text-decoration: underline;
+}
+
+.heading {
+  font-family: 'Londrina Solid';
+  font-size: 32px;
+  margin: 2rem 0 0.75rem;
+}
+
+.subheading {
+  font-family: 'PT Root UI';
+  font-weight: bold;
+  font-size: 18px;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.table {
+  width: 100%;
+  font-family: 'PT Root UI';
+  font-size: 17px;
+}
+
+.table td {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--brand-gray-border);
+}
+
+.num {
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 1rem !important;
+}
+
+.muted {
+  color: var(--brand-gray-light-text);
+  font-weight: normal;
+}
+
+.note {
+  font-family: 'PT Root UI';
+  font-size: 15px;
+  color: var(--brand-cool-light-text);
+  margin-top: 0.75rem;
+}
+
+.collection {
+  margin-bottom: 1.5rem;
+}
+
+.collection .subheading a {
+  color: var(--brand-gray-dark-text);
+}
+
+.unverified {
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background-color: var(--brand-gray-background);
+  color: var(--brand-gray-light-text);
+  font-size: 12px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* NFTs as a grid of square cards, grouped by collection */
+.nftGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.9rem;
+}
+
+.nft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  color: var(--brand-gray-dark-text);
+  font-family: 'PT Root UI';
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.nft:hover .nftName {
+  text-decoration: underline;
+}
+
+.nftImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--brand-gray-background);
+}
+
+.nftImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nftName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.payouts {
+  list-style: none;
+  padding: 0;
+  font-family: 'PT Root UI';
+}
+
+.payout {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--brand-gray-border);
+}
+
+.payoutHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.payoutHeader a {
+  color: var(--brand-gray-dark-text);
+}
+
+.pill {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background-color: var(--brand-gray-background);
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.actions {
+  margin: 0.5rem 0 0;
+  padding-left: 1.4rem;
+  color: var(--brand-cool-dark-text);
+}
