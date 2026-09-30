@@ -93,7 +93,18 @@ interface NftCollection {
   name: string;
   standard: 'erc721' | 'erc1155';
   tokenIds: string[];
+  /** minted straight to the treasury, or sent by the DAO's own wallets, rather than by a stranger */
+  trusted: boolean;
 }
+
+// The DAO's own wallets: the deployer, the founders' (Alpers DAO) and Council multisigs, the treasury
+const DAO_WALLETS = [
+  '0xef60fb8d56962277aed8db6d6625b1ac7767fd08',
+  '0x7f0fb27a2673adc49d583aeb6e5f799e7d7dc16f',
+  '0x6f895becd7bf90a5c7d1766a1eca13b1d087de05',
+  TREASURY.toLowerCase(),
+  '0x0000000000000000000000000000000000000000',
+];
 
 interface Received {
   /** unrecognised ERC-20s still held */
@@ -131,7 +142,7 @@ const useReceived = (): Received | undefined => {
         unknown.map(a => new Contract(a, erc20Abi, provider).balanceOf(TREASURY).then((b: EthersBN) => b.gt(0)).catch(() => false)),
       );
       // NFTs still held: received minus sent, per token (ERC-1155 by balance)
-      const owned = new Map<string, { contract: string; name: string; standard: NftCollection['standard']; tokenId: string; amount: number }>();
+      const owned = new Map<string, { contract: string; name: string; standard: NftCollection['standard']; tokenId: string; amount: number; trusted: boolean }>();
       const track = (list: any[], standard: NftCollection['standard']) => {
         for (const t of list) {
           const key = `${t.contractAddress.toLowerCase()}:${t.tokenID}`;
@@ -141,9 +152,13 @@ const useReceived = (): Received | undefined => {
             standard,
             tokenId: t.tokenID,
             amount: 0,
+            trusted: false,
           };
           const amount = standard === 'erc1155' ? Number(t.tokenValue || 1) : 1;
-          if (t.to.toLowerCase() === TREASURY.toLowerCase()) entry.amount += amount;
+          if (t.to.toLowerCase() === TREASURY.toLowerCase()) {
+            entry.amount += amount;
+            entry.trusted = entry.trusted || DAO_WALLETS.includes(t.from.toLowerCase());
+          }
           if (t.from.toLowerCase() === TREASURY.toLowerCase()) entry.amount -= amount;
           owned.set(key, entry);
         }
@@ -151,11 +166,12 @@ const useReceived = (): Received | undefined => {
       track(nftTxs, 'erc721');
       track(multiTxs, 'erc1155');
       const byContract = new Map<string, NftCollection>();
-      owned.forEach(({ contract, name, standard, tokenId, amount }) => {
+      owned.forEach(({ contract, name, standard, tokenId, amount, trusted }) => {
         // Alps are shown from the subgraph, with the site's own art
         if (amount <= 0 || contract.toLowerCase() === config.addresses.alpsToken.toLowerCase()) return;
-        const entry = byContract.get(contract) ?? { contract, name: name.slice(0, 60), standard, tokenIds: [] };
+        const entry = byContract.get(contract) ?? { contract, name: name.slice(0, 60), standard, tokenIds: [], trusted };
         entry.tokenIds.push(tokenId);
+        entry.trusted = entry.trusted && trusted;
         byContract.set(contract, entry);
       });
       const collections = Array.from(byContract.values());
@@ -357,7 +373,6 @@ const TreasuryPage = () => {
     { name: 'Etherscan', href: buildEtherscanAddressLink(TREASURY) },
     { name: 'Etherscan token holdings', href: buildEtherscanHoldingsLink(TREASURY) },
     { name: 'Blockscout', href: `https://eth.blockscout.com/address/${TREASURY}` },
-    { name: 'DeBank', href: `https://debank.com/profile/${TREASURY}` },
   ];
 
   return (
@@ -462,9 +477,11 @@ const TreasuryPage = () => {
                     {collection.name}
                   </a>{' '}
                   <span className={classes.muted}>× {collection.tokenIds.length}</span>{' '}
-                  <span className={classes.unverified} title="Sent to the treasury by someone else; not checked by Alps">
-                    <Trans>unverified</Trans>
-                  </span>
+                  {!collection.trusted && (
+                    <span className={classes.unverified} title="Sent to the treasury by someone outside the DAO">
+                      <Trans>unverified</Trans>
+                    </span>
+                  )}
                 </h3>
                 <div className={classes.nftGrid}>
                   {collection.tokenIds.slice(0, 48).map(id => (
