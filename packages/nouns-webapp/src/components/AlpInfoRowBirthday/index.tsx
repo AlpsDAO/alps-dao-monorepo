@@ -2,10 +2,8 @@ import { BigNumber } from '@ethersproject/bignumber';
 import React from 'react';
 import { isAlperAlp } from '../../utils/alperAlp';
 
-import classes from './AlpInfoRowBirthday.module.css';
 import _BirthdayIcon from '../../assets/icons/Birthday.svg';
-
-import { Image } from 'react-bootstrap';
+import AlpInfoRow from '../AlpInfoRow';
 import { useAppSelector } from '../../hooks';
 import { AuctionState } from '../../state/slices/auction';
 import { Trans } from '@lingui/macro';
@@ -26,7 +24,6 @@ export const getAlpBirthday = (alpId: number, pastAuctions: AuctionState[]) => {
 
 const AlpInfoRowBirthday: React.FC<AlpInfoRowBirthdayProps> = props => {
   const { alpId } = props;
-  const isCool = useAppSelector(state => state.application.isCoolBackground);
 
   // If the alp is a alper alp, use the next alp to get the mint date.
   // We do this because we use the auction start time to get the mint date and
@@ -46,24 +43,9 @@ const AlpInfoRowBirthday: React.FC<AlpInfoRowBirthdayProps> = props => {
   const birthday = new Date(Number(startTime._hex) * 1000);
 
   return (
-    <div className={classes.birthdayInfoContainer}>
-      <span
-        style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
-        className={classes.mobileText}
-      >
-        <span>
-          <Image
-            src={_BirthdayIcon}
-            className={classes.birthdayIcon}
-            style={{ filter: isCool ? '' : 'brightness(0) invert(1)' }}
-          />
-        </span>
-        <Trans>Born</Trans>
-        <span className={classes.alpInfoRowBirthday}>
-          {i18n.date(birthday, { month: 'long', year: 'numeric', day: '2-digit' })}
-        </span>
-      </span>
-    </div>
+    <AlpInfoRow icon={_BirthdayIcon} label={<Trans>Born</Trans>}>
+      {i18n.date(birthday, { month: 'long', year: 'numeric', day: '2-digit' })}
+    </AlpInfoRow>
   );
 };
 

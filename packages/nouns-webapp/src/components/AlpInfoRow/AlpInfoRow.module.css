@@ -1,0 +1,58 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  font-family: 'PT Root UI';
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.value {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* Phones and tablets: black on the white panel, the label on the left and the value on the right,
+   lined up with the winning bid and holder rows above (which sit 2px in and end 0.5rem + 6px in) */
+@media (max-width: 992px) {
+  .row {
+    justify-content: space-between;
+    padding-left: 2px;
+    padding-right: calc(0.5rem + 6px);
+    color: var(--brand-black) !important;
+  }
+
+  .icon {
+    filter: none !important;
+  }
+}
+
+/* Phones: the same size as the labels above */
+@media (max-width: 568px) {
+  .row {
+    font-size: 16px;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+}

@@ -2719,7 +2719,6 @@ msgstr ""
 msgid "View in Safe"
 msgstr ""
 
-#: src/components/AlpInfoRowHolder/index.tsx
 #: src/components/ChangeDelegatePannel/index.tsx
 #: src/components/Holder/index.tsx
 #: src/components/Winner/index.tsx
@@ -2855,7 +2854,6 @@ msgstr ""
 msgid "Will have"
 msgstr ""
 
-#: src/components/AlpInfoRowHolder/index.tsx
 #: src/components/Winner/index.tsx
 msgid "Winner"
 msgstr ""
@@ -2866,6 +2864,10 @@ msgstr ""
 
 #: src/components/ProposalBuilder/templates/RawTransaction.tsx
 msgid "With no data and no ETH, this action does nothing."
+msgstr ""
+
+#: src/components/AlpInfoRowHolder/index.tsx
+msgid "Won by"
 msgstr ""
 
 #: src/components/ProposalBuilder/ActionCheck.tsx

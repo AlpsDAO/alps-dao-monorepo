@@ -2719,7 +2719,6 @@ msgstr "View all bids"
 msgid "View in Safe"
 msgstr "View in Safe"
 
-#: src/components/AlpInfoRowHolder/index.tsx
 #: src/components/ChangeDelegatePannel/index.tsx
 #: src/components/Holder/index.tsx
 #: src/components/Winner/index.tsx
@@ -2855,7 +2854,6 @@ msgstr "When an auction ends, anyone can kick off the next one; until someone do
 msgid "Will have"
 msgstr "Will have"
 
-#: src/components/AlpInfoRowHolder/index.tsx
 #: src/components/Winner/index.tsx
 msgid "Winner"
 msgstr "Winner"
@@ -2867,6 +2865,10 @@ msgstr "Winning bid"
 #: src/components/ProposalBuilder/templates/RawTransaction.tsx
 msgid "With no data and no ETH, this action does nothing."
 msgstr "With no data and no ETH, this action does nothing."
+
+#: src/components/AlpInfoRowHolder/index.tsx
+msgid "Won by"
+msgstr "Won by"
 
 #: src/components/ProposalBuilder/ActionCheck.tsx
 msgid "Works if the treasury sent it right now."

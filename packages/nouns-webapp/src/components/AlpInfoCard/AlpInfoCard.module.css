@@ -36,3 +36,15 @@
   font-family: 'PT Root UI';
   font-family: bold;
 }
+
+/* Phones: the same spacing as the winning bid and holder rows above */
+@media (max-width: 568px) {
+  .alpInfoRow {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .alpInfoRow:last-child {
+    padding-top: 0.75rem;
+  }
+}
