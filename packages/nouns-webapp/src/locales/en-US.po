@@ -518,6 +518,10 @@ msgstr "Cast {0} votes for Prop {1}"
 msgid "Change"
 msgstr "Change"
 
+#: src/components/NextAlpPreview/index.tsx
+#~ msgid "Changes with every block"
+#~ msgstr "Changes with every block"
+
 #: src/components/WalletConnectModal/index.tsx
 #~ msgid "Clear WalletConnect Data"
 #~ msgstr "Clear WalletConnect Data"
@@ -684,8 +688,8 @@ msgid "Ended"
 msgstr "Ended"
 
 #: src/components/Auction/index.tsx
-msgid "Ended · Alp {0}"
-msgstr "Ended · Alp {0}"
+#~ msgid "Ended · Alp {0}"
+#~ msgstr "Ended · Alp {0}"
 
 #: src/pages/Vote/index.tsx
 msgid "Ends"
@@ -952,9 +956,17 @@ msgstr "More details on how dynamic quorum works can be found <0>here</0>."
 msgid "Next"
 msgstr "Next"
 
+#: src/components/KickOffAuction/index.tsx
+msgid "Next up is the Alp it would mint right now: its traits come from the latest block, so it changes with every new block, about every 12 seconds. Anyone can kick off the next auction; it only costs gas."
+msgstr "Next up is the Alp it would mint right now: its traits come from the latest block, so it changes with every new block, about every 12 seconds. Anyone can kick off the next auction; it only costs gas."
+
 #: src/components/NextAlpPreview/index.tsx
-msgid "Next · Alp {alpId}"
-msgstr "Next · Alp {alpId}"
+msgid "Next up · Alp {alpId}"
+msgstr "Next up · Alp {alpId}"
+
+#: src/components/NextAlpPreview/index.tsx
+#~ msgid "Next · Alp {alpId}"
+#~ msgstr "Next · Alp {alpId}"
 
 #: src/components/ProposalTransactionFormModal/index.tsx
 msgid "No arguments required"
@@ -1333,8 +1345,8 @@ msgstr "Thank you for voting."
 #~ msgstr "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
 
 #: src/components/KickOffAuction/index.tsx
-msgid "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
-msgstr "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
+#~ msgid "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
+#~ msgstr "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
 
 #: src/components/KickOffAuction/index.tsx
 #~ msgid "The Alp shown beside this one is the one it would mint right now: its traits come from the latest block, so it changes with each new block (about every 12 seconds). Anyone can kick off the next auction; it only costs gas."

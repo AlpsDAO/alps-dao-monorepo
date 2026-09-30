@@ -8,6 +8,7 @@ import classes from './StandaloneAlp.module.css';
 import { useDispatch } from 'react-redux';
 import { setOnDisplayAuctionAlpId } from '../../state/slices/onDisplayAuction';
 import alpClasses from '../Alp/Alp.module.css';
+import { alpBackgroundColor } from '../../utils/alpBgColors';
 
 interface StandaloneAlpProps {
   alpId: EthersBN;
@@ -137,7 +138,9 @@ export const StandaloneAlpWithSeed: React.FC<StandaloneAlpWithSeedProps> = (
 
   const { image, description, parts } = getAlp(alpId, seed);
 
-  const alp = <Alp imgPath={image} alt={description} parts={parts} />;
+  const alp = (
+    <Alp imgPath={image} alt={description} parts={parts} background={alpBackgroundColor(seed)} />
+  );
   const alpWithLink = (
     <Link to={'/alp/' + alpId.toString()} className={classes.clickableAlp} onClick={onClickHandler}>
       {alp}

@@ -527,6 +527,10 @@ msgstr "提案 \"{1}\" にする1票を投票\"{0}\"してください"
 msgid "Change"
 msgstr "代理人を変更する"
 
+#: src/components/NextAlpPreview/index.tsx
+#~ msgid "Changes with every block"
+#~ msgstr ""
+
 #: src/components/WalletConnectModal/index.tsx
 #~ msgid "Clear WalletConnect Data"
 #~ msgstr "WalletConnect データを消去"
@@ -693,8 +697,8 @@ msgid "Ended"
 msgstr "終了しました"
 
 #: src/components/Auction/index.tsx
-msgid "Ended · Alp {0}"
-msgstr ""
+#~ msgid "Ended · Alp {0}"
+#~ msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "Ends"
@@ -961,9 +965,17 @@ msgstr ""
 msgid "Next"
 msgstr "次へ"
 
-#: src/components/NextAlpPreview/index.tsx
-msgid "Next · Alp {alpId}"
+#: src/components/KickOffAuction/index.tsx
+msgid "Next up is the Alp it would mint right now: its traits come from the latest block, so it changes with every new block, about every 12 seconds. Anyone can kick off the next auction; it only costs gas."
 msgstr ""
+
+#: src/components/NextAlpPreview/index.tsx
+msgid "Next up · Alp {alpId}"
+msgstr ""
+
+#: src/components/NextAlpPreview/index.tsx
+#~ msgid "Next · Alp {alpId}"
+#~ msgstr ""
 
 #: src/components/ProposalTransactionFormModal/index.tsx
 msgid "No arguments required"
@@ -1342,8 +1354,8 @@ msgstr "投票ありがとうございます。"
 #~ msgstr ""
 
 #: src/components/KickOffAuction/index.tsx
-msgid "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
-msgstr ""
+#~ msgid "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
+#~ msgstr ""
 
 #: src/components/KickOffAuction/index.tsx
 #~ msgid "The Alp shown beside this one is the one it would mint right now: its traits come from the latest block, so it changes with each new block (about every 12 seconds). Anyone can kick off the next auction; it only costs gas."
