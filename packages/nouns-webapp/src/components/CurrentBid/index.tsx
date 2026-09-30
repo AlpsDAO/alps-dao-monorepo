@@ -20,7 +20,15 @@ type BidNa = typeof BID_N_A;
 const CurrentBid: React.FC<{ currentBid: BigNumber | BidNa; auctionEnded: boolean }> = props => {
   const { currentBid, auctionEnded } = props;
   const isCool = useAppSelector(state => state.application.isCoolBackground);
-  const titleContent = auctionEnded ? <Trans>Winning bid</Trans> : <Trans>Current bid</Trans>;
+  // An ended auction nobody bid on, or a reward Alp (never auctioned): there's no winning bid
+  const noBids = auctionEnded && (currentBid === BID_N_A || currentBid.isZero());
+  const titleContent = noBids ? (
+    <Trans>Bids</Trans>
+  ) : auctionEnded ? (
+    <Trans>Winning bid</Trans>
+  ) : (
+    <Trans>Current bid</Trans>
+  );
 
   return (
     <Row className={clsx(classes.wrapper, classes.container, classes.section)}>
@@ -39,7 +47,13 @@ const CurrentBid: React.FC<{ currentBid: BigNumber | BidNa; auctionEnded: boolea
           className={classes.currentBid}
           style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
         >
-          {currentBid === BID_N_A ? BID_N_A : <TruncatedAmount amount={currentBid && currentBid} />}
+          {noBids ? (
+            <Trans>None</Trans>
+          ) : currentBid === BID_N_A ? (
+            BID_N_A
+          ) : (
+            <TruncatedAmount amount={currentBid && currentBid} />
+          )}
         </h2>
       </Col>
     </Row>

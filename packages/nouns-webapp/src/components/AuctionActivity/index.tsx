@@ -18,7 +18,6 @@ import BidHistoryBtn from '../BidHistoryBtn';
 import config from '../../config';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import AlpInfoCard from '../AlpInfoCard';
-import AlpDownloadButtons from '../AlpDownloadButtons';
 import { useAppSelector } from '../../hooks';
 import BidHistoryModal from '../BidHistoryModal';
 import Holder from '../Holder';
@@ -119,7 +118,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
             <Col lg={6} className={classes.auctionTimerCol}>
               {auctionEnded ? (
                 isLastAuction ? (
-                  <Winner winner={auction.bidder} />
+                  <Winner winner={auction.bidder} settled={auction.settled} />
                 ) : (
                   <Holder alpId={auction.alpId.toNumber()} />
                 )
@@ -163,7 +162,6 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
               ) : (
                 <BidHistoryBtn onClick={openEtherscanBidHistory} />
               ))}
-            {isLastAuction && <AlpDownloadButtons alpId={auction.alpId} />}
           </Col>
         </Row>
       </AuctionActivityWrapper>

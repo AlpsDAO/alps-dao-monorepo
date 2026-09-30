@@ -12,7 +12,6 @@ import CurrentBid, { BID_N_A } from '../CurrentBid';
 import Winner from '../Winner';
 
 import { useAppSelector } from '../../hooks';
-import AlpDownloadButtons from '../AlpDownloadButtons';
 
 const AlperAlpContent: React.FC<{
   mintTimestamp: BigNumber;
@@ -126,7 +125,6 @@ const AlperAlpContent: React.FC<{
       <Row className={auctionActivityClasses.activityRow}>
         <Col lg={12}>
           {block}
-          <AlpDownloadButtons alpId={alpId} />
         </Col>
       </Row>
     </AuctionActivityWrapper>

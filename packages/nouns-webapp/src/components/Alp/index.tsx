@@ -5,6 +5,9 @@ import Image from 'react-bootstrap/Image';
 import AlpTraitsOverlay from '../AlpTraitsOverlay';
 import AlpTraitList from '../AlpTraitList';
 import { AlpTraits } from '../../utils/alpArt';
+import { downloadAlpPng, downloadAlpSvg } from '../../utils/downloadAlp';
+import TraitsIcon from '../../assets/icons/body.svg';
+import DownloadIcon from '../../assets/icons/Download.svg';
 
 export const LoadingAlp = () => {
   return (
@@ -14,6 +17,8 @@ export const LoadingAlp = () => {
   );
 };
 
+type Format = 'png' | 'svg';
+
 const Alp: React.FC<{
   imgPath: string;
   alt: string;
@@ -21,54 +26,83 @@ const Alp: React.FC<{
   wrapperClassName?: string;
   /** show these traits, on hover (desktop) or behind a button in the corner (phones) */
   traits?: AlpTraits;
+  /** offer the art as PNG and SVG files, on hover (desktop) or behind a button in the corner (phones) */
+  download?: { name: string; svg: () => string };
 }> = props => {
-  const { imgPath, alt, className, wrapperClassName, traits } = props;
-  const [showTraits, setShowTraits] = useState(false);
+  const { imgPath, alt, className, wrapperClassName, traits, download } = props;
+  // the panel open above the corner buttons on phones, if any
+  const [panel, setPanel] = useState<'traits' | 'download'>();
+
+  // the art sits inside a link on some pages: these clicks mustn't follow it
+  const handle = (action: () => void) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    action();
+  };
+  const toggle = (which: 'traits' | 'download') =>
+    handle(() => setPanel(open => (open === which ? undefined : which)));
+  const saveAs = (format: Format) =>
+    handle(() => {
+      if (!download) return;
+      if (format === 'png') downloadAlpPng(download.svg(), download.name);
+      else downloadAlpSvg(download.svg(), download.name);
+      setPanel(undefined);
+    });
+  const formatButtons = (className: string) =>
+    (['png', 'svg'] as Format[]).map(format => (
+      <button key={format} type="button" className={className} onClick={saveAs(format)}>
+        <img src={DownloadIcon} alt="" />
+        {format.toUpperCase()}
+      </button>
+    ));
 
   return (
-    <div className={`${classes.imgWrapper} ${wrapperClassName}`} data-tip data-for="alp-traits">
+    <div className={`${classes.imgWrapper} ${wrapperClassName}`}>
       <Image
         className={`${classes.img} ${className}`}
         src={imgPath ? imgPath : loadingAlp}
         alt={alt}
         fluid
+        // the hover tooltip, on the art only, so it stays out of the way of the download buttons
+        {...(traits ? { 'data-tip': true, 'data-for': 'alp-traits' } : {})}
       />
-      {traits && (
-        <>
-          <AlpTraitsOverlay traits={traits} />
-          <button
-            type="button"
-            className={classes.traitsButton}
-            aria-label="Traits"
-            aria-expanded={showTraits}
-            onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              setShowTraits(shown => !shown);
-            }}
-          >
-            <svg viewBox="0 0 20 20" aria-hidden="true">
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-          {showTraits && (
-            <div
-              className={classes.traitsPanel}
-              onClick={e => {
-                e.preventDefault();
-                e.stopPropagation();
-                setShowTraits(false);
-              }}
+      {traits && <AlpTraitsOverlay traits={traits} />}
+      {download && <div className={classes.hoverDownloads}>{formatButtons(classes.hoverButton)}</div>}
+      {(traits || download) && (
+        <div className={classes.cornerButtons}>
+          {download && (
+            <button
+              type="button"
+              className={classes.cornerButton}
+              aria-label="Download"
+              aria-expanded={panel === 'download'}
+              onClick={toggle('download')}
             >
-              <AlpTraitList traits={traits} variant="panel" />
-            </div>
+              <img src={DownloadIcon} alt="" />
+            </button>
           )}
-        </>
+          {traits && (
+            <button
+              type="button"
+              className={classes.cornerButton}
+              aria-label="Traits"
+              aria-expanded={panel === 'traits'}
+              onClick={toggle('traits')}
+            >
+              <img src={TraitsIcon} alt="" />
+            </button>
+          )}
+        </div>
+      )}
+      {panel === 'traits' && traits && (
+        <div className={classes.panel} onClick={handle(() => setPanel(undefined))}>
+          <AlpTraitList traits={traits} variant="panel" />
+        </div>
+      )}
+      {panel === 'download' && download && (
+        <div className={`${classes.panel} ${classes.downloadPanel}`}>
+          {formatButtons(classes.panelButton)}
+        </div>
       )}
     </div>
   );

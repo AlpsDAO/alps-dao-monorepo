@@ -1,4 +1,4 @@
-import { Button, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks';
 import classes from './Winner.module.css';
 import ShortAddress from '../ShortAddress';
@@ -14,6 +14,8 @@ interface WinnerProps {
   winner: string;
   isAlpers?: boolean;
   isAlpsCouncil?: boolean;
+  /** the auction has been settled, so the Alp has gone to its winner */
+  settled?: boolean;
 }
 
 // Constants for the Warming Hut Ethereum address and fallback link
@@ -22,7 +24,7 @@ const WARMING_HUT_ADDRESS = '0x3A83B519F8aE5A360466D4AF2Fa3c456f92AF1EC';
 const WARMING_HUT_LINK = `https://etherscan.io/token/0xf59eb3e1957f120f7c135792830f900685536f52?a=${WARMING_HUT_ADDRESS}#inventory`;
 
 const Winner: React.FC<WinnerProps> = props => {
-  const { winner, isAlpers, isAlpsCouncil } = props;
+  const { winner, isAlpers, isAlpsCouncil, settled } = props;
   const activeAccount = useAppSelector(state => state.account.activeAccount);
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const isMobile = isMobileScreen();
@@ -31,6 +33,16 @@ const Winner: React.FC<WinnerProps> = props => {
   // Use the Warming Hut address if the winner is the zero address
   const resolvedWinner = winner.toLowerCase() === ZERO_ADDRESS ? WARMING_HUT_ADDRESS : winner;
   const winnerLink = resolvedWinner === WARMING_HUT_ADDRESS ? WARMING_HUT_LINK : buildEtherscanAddressLink(resolvedWinner);
+  // Reward Alps and Alps nobody bid on weren't won: they went (or go, once settled) to their holder
+  const noBids = !isAlpers && !isAlpsCouncil && winner.toLowerCase() === ZERO_ADDRESS;
+  const title =
+    isAlpers || isAlpsCouncil || (noBids && settled) ? (
+      <Trans>Went to</Trans>
+    ) : noBids ? (
+      <Trans>Goes to</Trans>
+    ) : (
+      <Trans>Winner</Trans>
+    );
 
   const isWinnerYou =
     activeAccount !== undefined &&
@@ -133,7 +145,7 @@ const Winner: React.FC<WinnerProps> = props => {
             }}
             className={classes.winnerCopy}
           >
-            <Trans>Winner</Trans>
+            {title}
           </h4>
         </Col>
         <Col xs="auto" lg={12}>

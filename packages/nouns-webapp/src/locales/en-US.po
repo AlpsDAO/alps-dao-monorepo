@@ -607,6 +607,7 @@ msgid "Bid was placed successfully!"
 msgstr "Bid was placed successfully!"
 
 #: src/components/AlpInfoCard/index.tsx
+#: src/components/CurrentBid/index.tsx
 msgid "Bids"
 msgstr "Bids"
 
@@ -640,8 +641,8 @@ msgid "Browse Alps"
 msgstr "Browse Alps"
 
 #: src/components/Documentation/index.tsx
-msgid "Build an Alp in bricks"
-msgstr "Build an Alp in bricks"
+#~ msgid "Build an Alp in bricks"
+#~ msgstr "Build an Alp in bricks"
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Call <0>{name}</0> on {0}"
@@ -1230,6 +1231,10 @@ msgstr "Glasses"
 msgid "Go"
 msgstr "Go"
 
+#: src/components/Winner/index.tsx
+msgid "Goes to"
+msgstr "Goes to"
+
 #: src/components/NavBar/index.tsx
 #: src/pages/CreateProposal/index.tsx
 #: src/pages/Governance/index.tsx
@@ -1537,6 +1542,7 @@ msgstr "No votes yet."
 msgid "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new {length} auction."
 msgstr "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new {length} auction."
 
+#: src/components/CurrentBid/index.tsx
 #: src/components/ProposalActionSummary/index.tsx
 #: src/components/ProposalActionSummary/index.tsx
 msgid "None"
@@ -2810,6 +2816,11 @@ msgstr "Waiting to be paid out"
 #~ msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
 #~ msgstr "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
 
+#: src/components/AlpInfoRowHolder/index.tsx
+#: src/components/Winner/index.tsx
+msgid "Went to"
+msgstr "Went to"
+
 #: src/pages/CreateProposal/index.tsx
 msgid "What happens if the proposal passes. The treasury carries out the actions in order, all in one go."
 msgstr "What happens if the proposal passes. The treasury carries out the actions in order, all in one go."
@@ -2887,8 +2898,8 @@ msgid "Write another"
 msgstr "Write another"
 
 #: src/components/Footer/index.tsx
-msgid "X"
-msgstr "X"
+#~ msgid "X"
+#~ msgstr "X"
 
 #: src/components/Winner/index.tsx
 msgid "You"
@@ -3275,3 +3286,7 @@ msgstr "{voterComponent} voted for"
 #: src/components/ProposalBuilder/ActionCheck.tsx
 #~ msgid "✗ Would fail right now: {reason}"
 #~ msgstr "✗ Would fail right now: {reason}"
+
+#: src/components/Footer/index.tsx
+msgid "𝕏"
+msgstr "𝕏"

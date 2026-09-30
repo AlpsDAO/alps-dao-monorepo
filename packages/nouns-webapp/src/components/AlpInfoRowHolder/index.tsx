@@ -61,7 +61,7 @@ const AlpInfoRowHolder: React.FC<AlpInfoRowHolderProps> = ({ alpId }) => {
           style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
           className={classes.mobileText}
         >
-          <Trans>Winner</Trans>
+          {data?.auction.bidder?.id ? <Trans>Winner</Trans> : <Trans>Went to</Trans>}
         </span>
         <a
           className={

@@ -158,7 +158,16 @@ export const StandaloneAlpWithSeed: React.FC<StandaloneAlpWithSeedProps> = (
 
   const { image, description, traits } = getAlp(alpId, seed, art);
 
-  const alp = <Alp imgPath={image} alt={description} traits={traits} />;
+  const alp = (
+    <Alp
+      imgPath={image}
+      alt={description}
+      traits={traits}
+      download={
+        image ? { name: `alp-${alpId.toString()}`, svg: () => alpSvg(seed, art.art) } : undefined
+      }
+    />
+  );
   const alpWithLink = (
     <Link to={'/alp/' + alpId.toString()} className={classes.clickableAlp} onClick={onClickHandler}>
       {alp}

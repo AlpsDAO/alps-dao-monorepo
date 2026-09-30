@@ -45,9 +45,30 @@
   white-space: nowrap;
 }
 
-@media (max-width: 400px) {
+/* On phones the traits stack in one column, and the Alp is as tall as the title and traits beside it,
+   so the space around it is even on the left, top and bottom */
+@media (max-width: 568px) {
+  .card {
+    gap: 0.75rem;
+  }
+
   .art {
-    width: 80px;
-    height: 80px;
+    width: 135px;
+    height: 135px;
+  }
+
+  .header {
+    gap: 0.4rem;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
+
+/* The narrowest phones: the countdown goes under the title */
+@media (max-width: 374px) {
+  .header {
+    flex-wrap: wrap;
   }
 }

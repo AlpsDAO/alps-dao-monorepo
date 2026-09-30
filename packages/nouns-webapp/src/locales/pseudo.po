@@ -607,6 +607,7 @@ msgid "Bid was placed successfully!"
 msgstr ""
 
 #: src/components/AlpInfoCard/index.tsx
+#: src/components/CurrentBid/index.tsx
 msgid "Bids"
 msgstr ""
 
@@ -640,8 +641,8 @@ msgid "Browse Alps"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
-msgid "Build an Alp in bricks"
-msgstr ""
+#~ msgid "Build an Alp in bricks"
+#~ msgstr ""
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Call <0>{name}</0> on {0}"
@@ -1230,6 +1231,10 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
+#: src/components/Winner/index.tsx
+msgid "Goes to"
+msgstr ""
+
 #: src/components/NavBar/index.tsx
 #: src/pages/CreateProposal/index.tsx
 #: src/pages/Governance/index.tsx
@@ -1537,6 +1542,7 @@ msgstr ""
 msgid "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new {length} auction."
 msgstr ""
 
+#: src/components/CurrentBid/index.tsx
 #: src/components/ProposalActionSummary/index.tsx
 #: src/components/ProposalActionSummary/index.tsx
 msgid "None"
@@ -2810,6 +2816,11 @@ msgstr ""
 #~ msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
 #~ msgstr ""
 
+#: src/components/AlpInfoRowHolder/index.tsx
+#: src/components/Winner/index.tsx
+msgid "Went to"
+msgstr ""
+
 #: src/pages/CreateProposal/index.tsx
 msgid "What happens if the proposal passes. The treasury carries out the actions in order, all in one go."
 msgstr ""
@@ -2887,8 +2898,8 @@ msgid "Write another"
 msgstr ""
 
 #: src/components/Footer/index.tsx
-msgid "X"
-msgstr ""
+#~ msgid "X"
+#~ msgstr ""
 
 #: src/components/Winner/index.tsx
 msgid "You"
@@ -3275,3 +3286,7 @@ msgstr ""
 #: src/components/ProposalBuilder/ActionCheck.tsx
 #~ msgid "✗ Would fail right now: {reason}"
 #~ msgstr ""
+
+#: src/components/Footer/index.tsx
+msgid "𝕏"
+msgstr ""
