@@ -52,22 +52,20 @@
   }
 }
 
-/* Buttons in the art's bottom-right corner, traits and download: only on touch screens, which can't hover */
-.cornerButtons {
-  display: none;
+/* The traits panel in the art's bottom-right corner, and on phones the eye button that opens it */
+.menu {
   position: absolute;
-  right: 8px;
-  bottom: 8px;
+  right: 12px;
+  bottom: 12px;
   z-index: 2;
-  gap: 8px;
 }
 
-.cornerButton {
-  display: flex;
+.eyeButton {
+  display: none;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   padding: 8px;
   border: none;
   border-radius: 50%;
@@ -75,96 +73,73 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.cornerButton img {
+.eyeButton img {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-@media (hover: none) {
-  .cornerButtons {
-    display: flex;
-  }
-}
-
-/* What a corner button opens, just above the buttons */
 .panel {
+  display: none;
   position: absolute;
-  right: 8px;
-  bottom: 50px;
+  right: 0;
+  bottom: 0;
   z-index: 3;
-  max-width: calc(100% - 16px);
-  padding: 8px 14px;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  padding: 10px 14px;
   border-radius: 12px;
   background-color: white;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
 }
 
-.downloadPanel {
+.downloads {
   display: flex;
   gap: 8px;
-  padding: 8px;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--brand-gray-border);
 }
 
-.panelButton,
-.hoverButton {
+.downloadButton {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  padding: 4px 12px;
   border: none;
-  font-family: 'PT Root UI';
-  font-weight: bold;
+  border-radius: 8px;
+  background-color: var(--brand-gray-background);
+  font-family: 'Londrina Solid';
+  font-size: 19px;
   color: var(--brand-black);
 }
 
-.panelButton {
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: var(--brand-gray-background);
+.downloadButton:hover {
+  background-color: var(--brand-gray-border);
 }
 
-.panelButton img,
-.hoverButton img {
-  width: 16px;
-  height: 16px;
+.downloadButton img {
+  height: 20px;
 }
 
-/* Download buttons in the art's bottom-right corner, while the pointer is over the art (desktop) */
-.hoverDownloads {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  z-index: 2;
-  display: flex;
-  gap: 8px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease-in-out;
-}
-
-.hoverButton {
-  padding: 4px 10px;
-  border-radius: 10px;
-  font-size: 14px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.hoverButton:hover {
-  background-color: white;
-}
-
+/* Desktop: the panel shows while the pointer is over the art */
 @media (hover: hover) {
-  .imgWrapper:hover .hoverDownloads,
-  .hoverDownloads:has(:focus-visible) {
-    opacity: 1;
-    pointer-events: auto;
+  .imgWrapper:hover .panel {
+    display: block;
   }
 }
 
+/* Phones: the eye button opens the panel just above it */
 @media (hover: none) {
-  .hoverDownloads {
-    display: none;
+  .eyeButton {
+    display: flex;
+  }
+
+  .panel {
+    bottom: calc(100% + 8px);
+  }
+
+  .open .panel {
+    display: block;
   }
 }

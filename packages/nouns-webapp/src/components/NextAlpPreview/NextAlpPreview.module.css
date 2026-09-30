@@ -11,9 +11,14 @@
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
+.artBox {
+  position: relative;
+  flex: none;
+}
+
 /* The Alp on its own background colour, pixels kept sharp */
 .art {
-  flex: none;
+  display: block;
   width: 96px;
   height: 96px;
   border-radius: 8px;
@@ -28,17 +33,22 @@
   min-width: 0;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+/* The block countdown in the Alp's bottom-left corner */
+.countdown {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.85);
   font-family: 'PT Root UI';
-  font-size: 14px;
-  color: var(--brand-gray-dark-text);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--brand-black);
 }
 
 .title {
+  font-family: 'PT Root UI';
   font-size: 18px;
   font-weight: bold;
   color: var(--brand-black);
@@ -53,22 +63,7 @@
   }
 
   .art {
-    width: 135px;
-    height: 135px;
-  }
-
-  .header {
-    gap: 0.4rem;
-  }
-
-  .title {
-    font-size: 16px;
-  }
-}
-
-/* The narrowest phones: the countdown goes under the title */
-@media (max-width: 374px) {
-  .header {
-    flex-wrap: wrap;
+    width: 138px;
+    height: 138px;
   }
 }

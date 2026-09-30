@@ -16,23 +16,7 @@
   white-space: nowrap;
 }
 
-/* The hover tooltip on the main Alp (desktop) */
-.tooltip {
-  padding: 8px;
-}
-
-.tooltip li {
-  gap: 14px;
-  padding: 4px 0;
-  font-family: 'Londrina Solid';
-  font-size: 23px;
-}
-
-.tooltip .icon {
-  height: 24px;
-}
-
-/* The traits panel on the main Alp (phones) */
+/* The traits panel on the main Alp */
 .panel li {
   gap: 10px;
   padding: 3px 0;

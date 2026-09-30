@@ -32,7 +32,10 @@ const Winner: React.FC<WinnerProps> = props => {
 
   // Use the Warming Hut address if the winner is the zero address
   const resolvedWinner = winner.toLowerCase() === ZERO_ADDRESS ? WARMING_HUT_ADDRESS : winner;
-  const winnerLink = resolvedWinner === WARMING_HUT_ADDRESS ? WARMING_HUT_LINK : buildEtherscanAddressLink(resolvedWinner);
+  const winnerLink =
+    resolvedWinner === WARMING_HUT_ADDRESS
+      ? WARMING_HUT_LINK
+      : buildEtherscanAddressLink(resolvedWinner);
   // Reward Alps and Alps nobody bid on weren't won: they went (or go, once settled) to their holder
   const noBids = !isAlpers && !isAlpsCouncil && winner.toLowerCase() === ZERO_ADDRESS;
   const title =
@@ -45,8 +48,7 @@ const Winner: React.FC<WinnerProps> = props => {
     );
 
   const isWinnerYou =
-    activeAccount !== undefined &&
-    activeAccount.toLocaleLowerCase() === winner.toLocaleLowerCase();
+    activeAccount !== undefined && activeAccount.toLocaleLowerCase() === winner.toLocaleLowerCase();
 
   const nonAlperAlpContent = isWinnerYou ? (
     <Row className={classes.youSection}>
@@ -89,7 +91,11 @@ const Winner: React.FC<WinnerProps> = props => {
           }}
           className={classes.mobileText}
         >
-          <ShortAddress size={window.innerWidth <= 568 ? 24 : 40} address={resolvedWinner} avatar={true} />
+          <ShortAddress
+            size={window.innerWidth <= 568 ? 24 : 40}
+            address={resolvedWinner}
+            avatar={true}
+          />
         </span>
       </Tooltip>
     </a>
@@ -137,7 +143,14 @@ const Winner: React.FC<WinnerProps> = props => {
 
   return (
     <>
-      <Row className={clsx(classes.wrapper, classes.section)}>
+      {/* a reward Alp has no bid column beside this one to be set off from */}
+      <Row
+        className={clsx(
+          classes.wrapper,
+          classes.section,
+          (isAlpers || isAlpsCouncil) && classes.alone,
+        )}
+      >
         <Col xs={1} lg={12} className={classes.leftCol}>
           <h4
             style={{

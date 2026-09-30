@@ -4,6 +4,12 @@
   padding-left: 1.5rem;
 }
 
+/* A reward Alp's panel has no bid column beside this one to be set off from */
+.alone {
+  margin-left: 0;
+  padding-left: 0;
+}
+
 .youCopy {
   margin-top: 0.25rem;
 }

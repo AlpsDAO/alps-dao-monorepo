@@ -14,7 +14,7 @@ import { AlpTraits } from '../../utils/alpArt';
  */
 const AlpTraitList: React.FC<{
   traits: AlpTraits;
-  variant: 'tooltip' | 'panel' | 'compact';
+  variant: 'panel' | 'compact';
 }> = ({ traits, variant }) => {
   const rows = [
     { key: 'head', icon: HeadIcon, name: traits.head },

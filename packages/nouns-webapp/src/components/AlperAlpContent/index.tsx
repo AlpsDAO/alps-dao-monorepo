@@ -8,7 +8,6 @@ import AuctionTitleAndNavWrapper from '../AuctionTitleAndNavWrapper';
 import alpContentClasses from './AlperAlpContent.module.css';
 import auctionBidClasses from '../AuctionActivity/BidHistory.module.css';
 import auctionActivityClasses from '../AuctionActivity/AuctionActivity.module.css';
-import CurrentBid, { BID_N_A } from '../CurrentBid';
 import Winner from '../Winner';
 
 import { useAppSelector } from '../../hooks';
@@ -55,9 +54,8 @@ const AlperAlpContent: React.FC<{
           >
             <p>
               This Alp went straight to the founders instead of being auctioned. All auction
-              proceeds go to the club treasury, so until Alp #14,600 every 10th Alp (#0, #10, #20
-              and so on) is minted to the founders’ multisig as their reward for building and
-              running Alps.
+              proceeds go to the club treasury, and until Alp #14,600 every 10th Alp (#0, #10, #20
+              and so on) is minted to the founders’ multisig.
             </p>
           </span>
         </li>
@@ -109,11 +107,9 @@ const AlperAlpContent: React.FC<{
           </Col>
         </Row>
         <Row className={auctionActivityClasses.activityRow}>
-          <Col lg={4} className={auctionActivityClasses.currentBidCol}>
-            <CurrentBid currentBid={BID_N_A} auctionEnded={true} />
-          </Col>
+          {/* no bid column: nobody can bid on a reward Alp */}
           <Col
-            lg={5}
+            lg={12}
             className={`${auctionActivityClasses.currentBidCol} ${alpContentClasses.currentBidCol} ${auctionActivityClasses.auctionTimerCol}`}
           >
             <div className={auctionActivityClasses.section}>
@@ -123,9 +119,7 @@ const AlperAlpContent: React.FC<{
         </Row>
       </div>
       <Row className={auctionActivityClasses.activityRow}>
-        <Col lg={12}>
-          {block}
-        </Col>
+        <Col lg={12}>{block}</Col>
       </Row>
     </AuctionActivityWrapper>
   );

@@ -6,22 +6,11 @@ import { useAppSelector } from '../../hooks';
 import clsx from 'clsx';
 import { Trans } from '@lingui/macro';
 
-/**
- * Passible to CurrentBid as `currentBid` prop to indicate that
- * the bid amount is not applicable to this auction. (Alper Alp)
- */
-export const BID_N_A = 'n/a';
-
-/**
- * Special Bid type for not applicable auctions (Alper Alps)
- */
-type BidNa = typeof BID_N_A;
-
-const CurrentBid: React.FC<{ currentBid: BigNumber | BidNa; auctionEnded: boolean }> = props => {
+const CurrentBid: React.FC<{ currentBid: BigNumber; auctionEnded: boolean }> = props => {
   const { currentBid, auctionEnded } = props;
   const isCool = useAppSelector(state => state.application.isCoolBackground);
-  // An ended auction nobody bid on, or a reward Alp (never auctioned): there's no winning bid
-  const noBids = auctionEnded && (currentBid === BID_N_A || currentBid.isZero());
+  // An ended auction nobody bid on has no winning bid
+  const noBids = auctionEnded && currentBid.isZero();
   const titleContent = noBids ? (
     <Trans>Bids</Trans>
   ) : auctionEnded ? (
@@ -47,13 +36,7 @@ const CurrentBid: React.FC<{ currentBid: BigNumber | BidNa; auctionEnded: boolea
           className={classes.currentBid}
           style={{ color: isCool ? 'var(--brand-black)' : 'var(--brand-white)' }}
         >
-          {noBids ? (
-            <Trans>None</Trans>
-          ) : currentBid === BID_N_A ? (
-            BID_N_A
-          ) : (
-            <TruncatedAmount amount={currentBid && currentBid} />
-          )}
+          {noBids ? <Trans>None</Trans> : <TruncatedAmount amount={currentBid && currentBid} />}
         </h2>
       </Col>
     </Row>

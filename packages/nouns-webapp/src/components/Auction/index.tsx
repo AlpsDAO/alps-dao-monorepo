@@ -48,6 +48,7 @@ const Auction: React.FC<AuctionProps> = props => {
         alpId={currentAuction.alpId}
         onLoadSeed={loadedAlpHandler}
         shouldLinkToProfile={false}
+        menuClassName={classes.artMenu}
       />
     </div>
   );

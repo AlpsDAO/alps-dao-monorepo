@@ -58,3 +58,11 @@
     padding-right: 0;
   }
 }
+
+/* Phones and tablets: the art is centred in the full-width coloured area, so the traits button goes in
+   that area's bottom-right corner, as far from the right edge as from the bottom */
+@media (max-width: 991px) {
+  .alpWrapper .artMenu {
+    right: calc((100% - 100vw) / 2 + 12px);
+  }
+}

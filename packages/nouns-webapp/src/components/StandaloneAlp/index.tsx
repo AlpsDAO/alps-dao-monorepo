@@ -21,6 +21,8 @@ interface StandaloneAlpWithSeedProps {
   alpId: EthersBN;
   onLoadSeed?: (seed: IAlpSeed) => void;
   shouldLinkToProfile: boolean;
+  /** moves the traits button and panel (see Alp) */
+  menuClassName?: string;
 }
 
 // Building an Alp's SVG is costly and the same seed always gives the same image, so build each once
@@ -141,7 +143,7 @@ export const StandaloneAlpRoundedCorners: React.FC<StandaloneAlpProps> = (
 export const StandaloneAlpWithSeed: React.FC<StandaloneAlpWithSeedProps> = (
   props: StandaloneAlpWithSeedProps,
 ) => {
-  const { alpId, onLoadSeed, shouldLinkToProfile } = props;
+  const { alpId, onLoadSeed, shouldLinkToProfile, menuClassName } = props;
 
   const dispatch = useDispatch();
   const seed = useAlpSeed(alpId);
@@ -163,6 +165,7 @@ export const StandaloneAlpWithSeed: React.FC<StandaloneAlpWithSeedProps> = (
       imgPath={image}
       alt={description}
       traits={traits}
+      menuClassName={menuClassName}
       download={
         image ? { name: `alp-${alpId.toString()}`, svg: () => alpSvg(seed, art.art) } : undefined
       }
