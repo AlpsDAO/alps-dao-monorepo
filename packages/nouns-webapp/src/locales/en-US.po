@@ -86,6 +86,7 @@ msgstr "Absent for"
 
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
+#: src/components/VotePanel/index.tsx
 msgid "Abstain"
 msgstr "Abstain"
 
@@ -156,6 +157,7 @@ msgstr "Addresses"
 
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
+#: src/components/VotePanel/index.tsx
 msgid "Against"
 msgstr "Against"
 
@@ -771,6 +773,7 @@ msgstr "Failed to fetch Alp info"
 
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
+#: src/components/VotePanel/index.tsx
 msgid "For"
 msgstr "For"
 
@@ -936,6 +939,10 @@ msgstr "Latest"
 #~ msgid "Learn more below, or start creating Alps off-chain using the {playgroundLink}."
 #~ msgstr "Learn more below, or start creating Alps off-chain using the {playgroundLink}."
 
+#: src/components/ProposalHeader/index.tsx
+msgid "Leave a message"
+msgstr "Leave a message"
+
 #: src/components/AlpInfoRowHolder/index.tsx
 msgid "Loading..."
 msgstr "Loading..."
@@ -947,6 +954,10 @@ msgstr "Make your own Alps in the Playground"
 #: src/components/Proposals/index.tsx
 msgid "Making a proposal requires {threshold} votes"
 msgstr "Making a proposal requires {threshold} votes"
+
+#: src/components/VotePanel/index.tsx
+msgid "Message"
+msgstr "Message"
 
 #: src/components/DynamicQuorumInfoModal/index.tsx
 msgid "More details on how dynamic quorum works can be found <0>here</0>."
@@ -1100,6 +1111,10 @@ msgstr "Please place a bid higher than or equal to the minimum bid amount of {0}
 #: src/pages/Vote/index.tsx
 msgid "Please try again."
 msgstr "Please try again."
+
+#: src/components/VotePanel/index.tsx
+msgid "Post message"
+msgstr "Post message"
 
 #: src/components/ProposalEditor/index.tsx
 msgid "Preview"
@@ -1734,10 +1749,22 @@ msgstr "You don't have enough votes to submit a proposal"
 msgid "You have no Votes."
 msgstr "You have no Votes."
 
+#: src/components/VotePanel/index.tsx
+msgid "You have no votes on this proposal, but you can leave a message on-chain. It's recorded with the proposal for everyone to see and doesn't change the result. You can leave one per proposal."
+msgstr "You have no votes on this proposal, but you can leave a message on-chain. It's recorded with the proposal for everyone to see and doesn't change the result. You can leave one per proposal."
+
+#: src/components/ProposalHeader/index.tsx
+msgid "You have no votes, but you can leave a message."
+msgstr "You have no votes, but you can leave a message."
+
 #: src/components/ProposalHeader/index.tsx
 #: src/components/VotePanel/index.tsx
-msgid "You have no votes."
-msgstr "You have no votes."
+#~ msgid "You have no votes."
+#~ msgstr "You have no votes."
+
+#: src/components/VotePanel/index.tsx
+msgid "You left a message (<0/>, no votes). It's in the proposal's activity."
+msgstr "You left a message (<0/>, no votes). It's in the proposal's activity."
 
 #: src/components/CreateProposalButton/index.tsx
 msgid "You must have {0} votes to submit a proposal"
@@ -1782,6 +1809,10 @@ msgstr "Your <0>{availableVotes}</0> votes have been delegated to a new account.
 #: src/components/CurrentDelegatePannel/index.tsx
 msgid "Your Alps’ votes stay with your Alps, but they’re <0>delegatable</0>: someone else can vote with them while you keep your Alps."
 msgstr "Your Alps’ votes stay with your Alps, but they’re <0>delegatable</0>: someone else can vote with them while you keep your Alps."
+
+#: src/components/VotePanel/index.tsx
+msgid "Your message is on-chain."
+msgstr "Your message is on-chain."
 
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "abstained"
@@ -1850,6 +1881,10 @@ msgstr "h"
 #: src/components/Auction/index.tsx
 #~ msgid "if kicked off now"
 #~ msgstr "if kicked off now"
+
+#: src/components/ProposalActivityFeed/index.tsx
+msgid "left a message · <0/>, no votes"
+msgstr "left a message · <0/>, no votes"
 
 #: src/components/AuctionTimer/index.tsx
 msgid "m"

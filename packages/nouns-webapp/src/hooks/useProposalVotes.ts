@@ -37,8 +37,8 @@ export const useProposalVotes = (proposalId: string | undefined, isVotingOpen: b
         if (log.address.toLowerCase() !== config.addresses.alpsDAOProxy.toLowerCase()) return [];
         try {
           const { name, args } = daoInterface.parseLog(log);
-          // Zero-vote votes are left out, matching the subgraph query
-          if (name !== 'VoteCast' || args.proposalId.toString() !== proposalId || args.votes.isZero()) {
+          // Zero-weight votes are kept: they're on-chain messages
+          if (name !== 'VoteCast' || args.proposalId.toString() !== proposalId) {
             return [];
           }
           return [

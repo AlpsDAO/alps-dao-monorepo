@@ -282,7 +282,7 @@ export const createTimestampAllProposals = () => gql`
 
 export const proposalVotesQuery = (proposalId: string) => gql`
   {
-    votes(first: 1000, where: { proposal: "${proposalId}", votesRaw_gt: 0 }) {
+    votes(first: 1000, where: { proposal: "${proposalId}" }) {
       supportDetailed
       votes
       reason
