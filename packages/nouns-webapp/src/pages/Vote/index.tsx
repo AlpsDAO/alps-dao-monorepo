@@ -1,4 +1,4 @@
-import { Row, Col, Button, Card, Spinner } from 'react-bootstrap';
+import { Row, Col, Card, Spinner } from 'react-bootstrap';
 import Section from '../../layout/Section';
 import {
   ProposalState,
@@ -44,6 +44,8 @@ import ReactTooltip from 'react-tooltip';
 import DynamicQuorumInfoModal from '../../components/DynamicQuorumInfoModal';
 import SafeTxNotice from '../../components/SafeTxNotice';
 import { useBlockNumber } from '../../hooks/useBlockNumber';
+import ProposalActions from '../../components/ProposalActions';
+import { useCancelProposal, useVetoer, useVetoProposal } from '../../wrappers/proposalActions';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -63,6 +65,8 @@ const VotePage = ({
 
   const [isQueuePending, setQueuePending] = useState<boolean>(false);
   const [isExecutePending, setExecutePending] = useState<boolean>(false);
+  const [isCancelPending, setCancelPending] = useState<boolean>(false);
+  const [isVetoPending, setVetoPending] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const setModal = useCallback((modal: AlertModal) => dispatch(setAlertModal(modal)), [dispatch]);
@@ -74,6 +78,9 @@ const VotePage = ({
 
   const { queueProposal, queueProposalState } = useQueueProposal();
   const { executeProposal, executeProposalState } = useExecuteProposal();
+  const { cancelProposal, cancelProposalState } = useCancelProposal();
+  const { vetoProposal, vetoProposalState } = useVetoProposal();
+  const vetoer = useVetoer();
 
   // Get and format date from data
   const timestamp = Date.now();
@@ -133,17 +140,6 @@ const VotePage = ({
     dqInfo && dqInfo.proposal ? dqInfo.proposal.quorumCoefficient === '0' : true,
   );
 
-  const hasSucceeded = proposal?.status === ProposalState.SUCCEEDED;
-  const isAwaitingStateChange = () => {
-    if (hasSucceeded) {
-      return true;
-    }
-    if (proposal?.status === ProposalState.QUEUED) {
-      return new Date() >= (proposal?.eta ?? Number.MAX_SAFE_INTEGER);
-    }
-    return false;
-  };
-
   const startOrEndTimeCopy = () => {
     if (startDate?.isBefore(now) && endDate?.isAfter(now)) {
       return <Trans>Ends</Trans>;
@@ -160,22 +156,6 @@ const VotePage = ({
     }
     return endDate;
   };
-
-  const moveStateButtonAction = hasSucceeded ? <Trans>Queue</Trans> : <Trans>Execute</Trans>;
-  const moveStateAction = (() => {
-    if (hasSucceeded) {
-      return () => {
-        if (proposal?.id) {
-          return queueProposal(proposal.id);
-        }
-      };
-    }
-    return () => {
-      if (proposal?.id) {
-        return executeProposal(proposal.id);
-      }
-    };
-  })();
 
   const onTransactionStateChange = useCallback(
     (
@@ -250,6 +230,16 @@ const VotePage = ({
         setExecutePending,
       ),
     [executeProposalState, onTransactionStateChange, setModal],
+  );
+
+  useEffect(
+    () => onTransactionStateChange(cancelProposalState, <Trans>Proposal canceled.</Trans>, setCancelPending),
+    [cancelProposalState, onTransactionStateChange],
+  );
+
+  useEffect(
+    () => onTransactionStateChange(vetoProposalState, <Trans>Proposal vetoed.</Trans>, setVetoPending),
+    [vetoProposalState, onTransactionStateChange],
   );
 
   const voterIds = votes.map(v => v.voter);
@@ -348,24 +338,21 @@ const VotePage = ({
         )}
       </Col>
       <Col lg={10} className={clsx(classes.proposal, classes.wrapper)}>
-        {isAwaitingStateChange() && (
-          <Row className={clsx(classes.section, classes.transitionStateButtonSection)}>
-            <Col className="d-grid">
-              <Button
-                onClick={moveStateAction}
-                disabled={isQueuePending || isExecutePending}
-                variant="dark"
-                className={classes.transitionStateButton}
-              >
-                {isQueuePending || isExecutePending ? (
-                  <Spinner animation="border" />
-                ) : (
-                  <Trans>{moveStateButtonAction} Proposal ⌐◧-◧</Trans>
-                )}
-              </Button>
-            </Col>
-          </Row>
-        )}
+        <ProposalActions
+          proposal={proposal}
+          account={activeAccount}
+          vetoer={vetoer}
+          pending={{
+            queue: isQueuePending,
+            execute: isExecutePending,
+            cancel: isCancelPending,
+            veto: isVetoPending,
+          }}
+          onQueue={() => proposal.id && queueProposal(proposal.id)}
+          onExecute={() => proposal.id && executeProposal(proposal.id)}
+          onCancel={() => proposal.id && cancelProposal(proposal.id)}
+          onVeto={() => proposal.id && vetoProposal(proposal.id)}
+        />
 
         <p
           onClick={() => setIsDelegateView(!isDelegateView)}

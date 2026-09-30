@@ -44,6 +44,19 @@ const getCountdownCopy = (proposal: Proposal, currentBlock: number, locale: Supp
   const expiresDate = proposal && dayjs(proposal.eta).add(14, 'days');
 
   const now = dayjs();
+  const dayjsLocale = SUPPORTED_LOCALE_TO_DAYSJS_LOCALE[locale] || en;
+
+  // Out of voting, say what it's waiting for: queuing, the timelock, or someone to execute it
+  if (proposal.status === ProposalState.SUCCEEDED) {
+    return <Trans>Ready to queue</Trans>;
+  }
+  if (proposal.status === ProposalState.QUEUED && proposal.eta) {
+    const eta = dayjs(proposal.eta);
+    if (eta.isAfter(now)) {
+      return <Trans>Executable {eta.locale(dayjsLocale).fromNow()}</Trans>;
+    }
+    return <Trans>Ready to execute · expires {expiresDate.locale(dayjsLocale).fromNow()}</Trans>;
+  }
 
   if (startDate?.isBefore(now) && endDate?.isAfter(now)) {
     return (
@@ -164,6 +177,7 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
             const isPropInStateToHaveCountDown =
               p.status === ProposalState.PENDING ||
               p.status === ProposalState.ACTIVE ||
+              p.status === ProposalState.SUCCEEDED ||
               p.status === ProposalState.QUEUED;
 
             const countdownPill = (
