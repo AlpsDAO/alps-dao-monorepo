@@ -1,8 +1,10 @@
 import config from '../../config';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
+import { AuctionNumbers } from '../../wrappers/alpsAuction';
 
 // The About page, carried over from the old GitBook (about.alps.wtf) and updated. Each section is Markdown;
-// links starting with "/" stay inside the app. Governance numbers match the deployed contracts.
+// links starting with "/" stay inside the app. Governance numbers match the deployed contracts, and the
+// auction's (length, reserve, extension) are read from the chain, so they follow any change the DAO makes.
 
 export interface AboutSection {
   id: string;
@@ -18,7 +20,7 @@ const contract = (name: string, address: string, link: string) => `**${name}**  
 export const aboutIntro =
   'An alpine club for people who love the mountains, with a treasury its members run together. Here’s how it works.';
 
-export const aboutSections: AboutSection[] = [
+export const aboutSections = (auction: AuctionNumbers): AboutSection[] => [
   {
     id: 'what-is-alps',
     title: 'What is Alps?',
@@ -27,7 +29,7 @@ Alps is an alpine club for skiers, snowboarders and mountain lovers of every kin
 
 **Membership is an Alp.** Each Alp is a membership in the club and one vote. Alps are [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) tokens (NFTs) whose 32×32 pixel artwork and metadata live entirely on the Ethereum blockchain. Each Alp is made from hand-drawn traits layered generatively, so every one is unique.
 
-New Alps are [auctioned](/) one at a time, up to 8 a day, and Alps can also be bought on secondary markets such as [OpenSea](${OPENSEA}).
+New Alps are [auctioned](/) one at a time, up to ${auction.perDay} a day, and Alps can also be bought on secondary markets such as [OpenSea](${OPENSEA}).
 
 100% of auction proceeds go to the club treasury, and members decide together how it’s spent: each Alp is one vote on proposals to fund films, events, athletes, member perks and anything else that serves the club.
 
@@ -100,21 +102,25 @@ Touching snow is what we’re all about, though we encourage year-round adventur
     id: 'auctions',
     title: 'Auctions',
     markdown: `
-### One at a time, up to 8 a day
+### One at a time, up to ${auction.perDay} a day
 
-New Alps are auctioned one at a time, and each auction runs for 3 hours, so there are never more than 8 new Alps a day: one for each of the 8 largest alpine tundra biomes on Earth. They are the Himalayas, the Scottish Highlands, the Scandinavian Mountains, the American Cordillera, the Rift Mountains of Africa, the Carpathian and Pyrenees Mountains, the Caucasus Mountains and the Tibetan Plateau.
+New Alps are auctioned one at a time, and each auction runs for ${auction.length}, so there are never more than ${auction.perDay} new Alps a day${
+      auction.perDay === 8
+        ? ': one for each of the 8 largest alpine tundra biomes on Earth. They are the Himalayas, the Scottish Highlands, the Scandinavian Mountains, the American Cordillera, the Rift Mountains of Africa, the Carpathian and Pyrenees Mountains, the Caucasus Mountains and the Tibetan Plateau.'
+        : '.'
+    }
 
 ### Bidding
 
-Each auction runs for 3 hours with a reserve price of 0.08 ETH. A bid in the final minutes extends the auction by 3 minutes, so there’s always time to respond to a last-second bid.
+Each auction runs for ${auction.length} with a reserve price of ${auction.reserve} ETH. A bid in the last ${auction.buffer} moves the end to ${auction.buffer} after that bid, so there’s always time to respond to a last-second bid.
 
 Outbid? Your bid is refunded in full (less the gas you spent bidding), automatically, in the same transaction as the higher bid.
 
 ### Kicking off the next auction
 
-When an auction ends, anyone can kick off the next one (on-chain this is called settling). It’s a gas-only transaction that sends the finished Alp to its winner, or to the Warming Hut if nobody bid, and mints the next Alp for a new 3-hour auction. Until someone kicks it off, the next auction simply waits, so in quiet spells there can be a gap between auctions.
+When an auction ends, anyone can kick off the next one (on-chain this is called settling). It’s a gas-only transaction that sends the finished Alp to its winner, or to the Warming Hut if nobody bid, and mints the next Alp for a new ${auction.lengthAdjective} auction. Until someone kicks it off, the next auction simply waits, so in quiet spells there can be a gap between auctions.
 
-Until Alp #14,600, every 10th Alp goes to the founders and every other 5th Alp to the Alpine Council, 10% of supply each. The cut-off is set by Alp number, not by date: at the full pace of 8 a day it would take about 5 years. That’s also why kicking off after an Alp whose number ends in 4 or 9 costs a little more gas: it also mints the reward Alp that comes next.
+Until Alp #14,600, every 10th Alp goes to the founders and every other 5th Alp to the Alpine Council, 10% of supply each. The cut-off is set by Alp number, not by date: at the full pace of ${auction.perDay} a day it would take about ${Math.round(14600 / auction.perDay / 365)} years. That’s also why kicking off after an Alp whose number ends in 4 or 9 costs a little more gas: it also mints the reward Alp that comes next.
 
 ### Auctions with no bids
 

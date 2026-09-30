@@ -4,7 +4,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import classes from './About.module.css';
 import banner from '../../assets/about/gondola-banner.jpg';
-import { aboutIntro, aboutSections } from './content';
+import { aboutIntro, aboutSections as buildAboutSections } from './content';
+import { auctionNumbers, useAuctionSettings } from '../../wrappers/alpsAuction';
 
 // Internal links ("/vote") navigate in-app so the wallet stays connected; everything else opens a new tab
 const MarkdownLink: React.FC<{ href?: string }> = ({ href = '', children }) =>
@@ -17,6 +18,8 @@ const MarkdownLink: React.FC<{ href?: string }> = ({ href = '', children }) =>
   );
 
 const AboutPage = () => {
+  const settings = useAuctionSettings();
+  const aboutSections = React.useMemo(() => buildAboutSections(auctionNumbers(settings)), [settings]);
   // In-app links like /about#governance don't scroll by themselves
   const { hash } = useLocation();
   useEffect(() => {
@@ -26,6 +29,7 @@ const AboutPage = () => {
   // Highlight the section being read in the sticky section bar, and keep its chip in view
   const [activeId, setActiveId] = useState(aboutSections[0].id);
   const tocRef = useRef<HTMLElement>(null);
+  const sectionIds = aboutSections.map(s => s.id).join(' ');
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
@@ -35,12 +39,12 @@ const AboutPage = () => {
       // A section counts as current while it crosses a band just below the section bar
       { rootMargin: '-20% 0px -70% 0px' },
     );
-    aboutSections.forEach(s => {
-      const el = document.getElementById(s.id);
+    sectionIds.split(' ').forEach(id => {
+      const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [sectionIds]);
   useEffect(() => {
     const toc = tocRef.current;
     const chip = toc?.querySelector<HTMLElement>(`a[href="#${activeId}"]`);

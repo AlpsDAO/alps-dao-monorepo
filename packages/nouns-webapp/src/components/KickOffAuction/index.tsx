@@ -7,6 +7,7 @@ import { nextRewardAlp } from '../../utils/alperAlp';
 import ShortAddress from '../ShortAddress';
 import NextAlpPreview from '../NextAlpPreview';
 import { useNextAlpPreview } from '../../hooks/useNextAlpPreview';
+import { formatAuctionLengthAdjective, useAuctionSettings } from '../../wrappers/alpsAuction';
 import classes from './KickOffAuction.module.css';
 
 /**
@@ -23,6 +24,27 @@ const KickOffAuction: React.FC<{
   const reward = nextRewardAlp(auction.alpId);
   const nextAuctionAlpId = (reward ? reward.alpId.add(1) : auction.alpId.add(1)).toNumber();
   const preview = useNextAlpPreview();
+  const settings = useAuctionSettings();
+  const length = formatAuctionLengthAdjective(settings.duration);
+
+  // Paused by the DAO: the ended auction can still be settled, but no new Alp is minted until a
+  // proposal resumes auctions
+  if (settings.paused) {
+    return (
+      <div className={classes.kickOff}>
+        <Button className={classes.kickOffBtn} onClick={onKickOff} disabled={pending}>
+          {pending ? <Spinner animation="border" size="sm" /> : <Trans>Settle Alp {alpId}</Trans>}
+        </Button>
+        <p className={classes.explainer}>
+          <Trans>
+            Auctions are paused by the DAO, so no new auction starts until a proposal resumes them. Anyone
+            can still settle Alp {alpId}, which sends it to{' '}
+            {hasWinner ? <ShortAddress address={auction.bidder} /> : <Trans>the Warming Hut</Trans>}.
+          </Trans>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={classes.kickOff}>
@@ -34,12 +56,12 @@ const KickOffAuction: React.FC<{
         {hasWinner ? (
           <Trans>
             This sends Alp {alpId} to its winner, <ShortAddress address={auction.bidder} />, and mints
-            Alp {nextAuctionAlpId} for a new 3-hour auction.
+            Alp {nextAuctionAlpId} for a new {length} auction.
           </Trans>
         ) : (
           <Trans>
             Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp{' '}
-            {nextAuctionAlpId} for a new 3-hour auction.
+            {nextAuctionAlpId} for a new {length} auction.
           </Trans>
         )}{' '}
         {reward?.recipient === 'founders' && (

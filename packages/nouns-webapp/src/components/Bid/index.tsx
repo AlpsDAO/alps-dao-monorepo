@@ -5,7 +5,7 @@ import { utils, BigNumber as EthersBN } from 'ethers';
 import BigNumber from 'bignumber.js';
 import classes from './Bid.module.css';
 import { Spinner, InputGroup, FormControl, Button } from 'react-bootstrap';
-import { useAuctionMinBidIncPercentage } from '../../wrappers/alpsAuction';
+import { useAuctionSettings } from '../../wrappers/alpsAuction';
 import { useAppDispatch } from '../../hooks';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import WalletConnectModal from '../WalletConnectModal';
@@ -17,23 +17,19 @@ import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
 import { useTransaction } from '../../hooks/useTransaction';
 import { useContracts } from '../../hooks/useContracts';
 
+/** The least the contract accepts: the reserve price, and the current bid plus the minimum raise. */
 const computeMinimumNextBid = (
   currentBid: BigNumber,
-  minBidIncPercentage: BigNumber | undefined,
+  minBidIncPercentage: number,
+  reservePrice: EthersBN,
 ): BigNumber => {
-  if (!minBidIncPercentage) {
-    return new BigNumber(0);
-  }
-  return currentBid
-    .times(minBidIncPercentage.div(100).plus(1))
+  const raised = currentBid
+    .times(new BigNumber(minBidIncPercentage).div(100).plus(1))
     .decimalPlaces(0, BigNumber.ROUND_UP);
+  return BigNumber.max(raised, new BigNumber(reservePrice.toString()));
 };
 
 const minBidEth = (minBid: BigNumber): string => {
-  if (minBid.isZero()) {
-    return '0.08';
-  }
-
   const eth = utils.formatEther(EthersBN.from(minBid.toString()));
   return new BigNumber(eth).toFixed(4, BigNumber.ROUND_CEIL);
 };
@@ -74,10 +70,11 @@ const Bid: React.FC<{
   const dispatch = useAppDispatch();
   const setModal = useCallback((modal: AlertModal) => dispatch(setAlertModal(modal)), [dispatch]);
 
-  const minBidIncPercentage = useAuctionMinBidIncPercentage();
+  const settings = useAuctionSettings();
   const minBid = computeMinimumNextBid(
-    auction && new BigNumber(auction.amount.toString()),
-    minBidIncPercentage,
+    new BigNumber(auction ? auction.amount.toString() : 0),
+    settings.minBidIncrementPercentage,
+    settings.reservePrice,
   );
 
   const { transact: transactBid, status: placeBidState } = useTransaction();
@@ -135,7 +132,12 @@ const Bid: React.FC<{
       return;
     }
     if (!alpsAuctionHouseProxy) return;
-    settleAuction(alpsAuctionHouseProxy.settleCurrentAndCreateNewAuction());
+    // While the DAO has auctions paused, the ended one can still be settled, but no new one starts
+    settleAuction(
+      settings.paused
+        ? alpsAuctionHouseProxy.settleAuction()
+        : alpsAuctionHouseProxy.settleCurrentAndCreateNewAuction(),
+    );
   };
 
   const clearBidInput = () => {
@@ -217,7 +219,11 @@ const Bid: React.FC<{
       case 'Success':
         setModal({
           title: <Trans>Success</Trans>,
-          message: <Trans>The next auction has started!</Trans>,
+          message: settings.paused ? (
+            <Trans>The auction is settled.</Trans>
+          ) : (
+            <Trans>The next auction has started!</Trans>
+          ),
           show: true,
         });
         break;
@@ -236,7 +242,7 @@ const Bid: React.FC<{
         });
         break;
     }
-  }, [settleAuctionState, setModal]);
+  }, [settleAuctionState, setModal, settings.paused]);
 
   if (!auction) return null;
 

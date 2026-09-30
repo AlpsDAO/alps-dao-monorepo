@@ -3,9 +3,11 @@ import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import classes from './Documentation.module.css';
 import { Trans } from '@lingui/macro';
+import { auctionNumbers, useAuctionSettings } from '../../wrappers/alpsAuction';
 
 // A short summary on the home page; the full story lives on /about
 const Documentation = () => {
+  const auction = auctionNumbers(useAuctionSettings());
   return (
     <Section fullWidth={false}>
       <Col lg={{ span: 10, offset: 1 }}>
@@ -27,7 +29,8 @@ const Documentation = () => {
           <li>
             <Trans>
               Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time,
-              and each auction runs for 3 hours, so there are never more than 8 new Alps a day.
+              and each auction runs for {auction.length}, so there are never more than{' '}
+              {auction.perDay} new Alps a day.
             </Trans>
           </li>
           <li>
