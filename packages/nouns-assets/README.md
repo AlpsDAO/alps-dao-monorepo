@@ -8,6 +8,20 @@
 yarn
 ```
 
+### Sync the art from the chain
+
+`src/image-data.json` is generated from the Alps descriptor on mainnet: palette, backgrounds, every
+part's image, and every trait's on-chain name (`name` on each part, `bgnames` for backgrounds).
+
+```sh
+yarn workspace @nouns/assets sync-traits          # rewrite src/image-data.json
+yarn workspace @nouns/assets sync-traits --check  # exit 1 if it's out of date
+```
+
+The deploy workflow runs it before every build, and daily, so traits added on chain reach the site
+without a code change. The same reader (`readArtSummary`, `readArtUpdates`, `readArt`) runs in the
+webapp to top up the bundled art with anything newer when the site loads.
+
 ## Usage
 
 **Access Noun RLE Image Data**

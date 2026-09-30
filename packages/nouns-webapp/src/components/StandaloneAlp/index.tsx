@@ -1,5 +1,4 @@
-import { ImageData as data, getAlpData } from '@nouns/assets';
-import { buildSVG } from '@nouns/sdk';
+import { ArtData } from '@nouns/assets';
 import { BigNumber as EthersBN } from 'ethers';
 import { IAlpSeed, useAlpSeed } from '../../wrappers/alpToken';
 import Alp from '../Alp';
@@ -8,7 +7,7 @@ import classes from './StandaloneAlp.module.css';
 import { useDispatch } from 'react-redux';
 import { setOnDisplayAuctionAlpId } from '../../state/slices/onDisplayAuction';
 import alpClasses from '../Alp/Alp.module.css';
-import { alpBackgroundColor } from '../../utils/alpBgColors';
+import { AlpArt, alpArt, alpSvg, alpTraitNames, hasAllTraits, useAlpArt } from '../../utils/alpArt';
 
 interface StandaloneAlpProps {
   alpId: EthersBN;
@@ -25,37 +24,57 @@ interface StandaloneAlpWithSeedProps {
 }
 
 // Building an Alp's SVG is costly and the same seed always gives the same image, so build each once
+// (for the art it was built from)
 const alpCache = new Map<string, ReturnType<typeof buildAlp>>();
+let cachedArt: ArtData | undefined;
 
-const buildAlp = (id: string, seed: IAlpSeed) => {
+const buildAlp = (id: string, seed: IAlpSeed, art: ArtData, withImage = true) => {
   const name = `Alp ${id}`;
   const description = `Alp ${id}, a membership in Alps`;
-  const { parts, background } = getAlpData(seed);
-  const image = `data:image/svg+xml;base64,${btoa(buildSVG(parts, data.palette, background))}`;
+  const image = withImage ? `data:image/svg+xml;base64,${btoa(alpSvg(seed, art))}` : '';
 
   return {
     name,
     description,
     image,
-    parts,
+    traits: alpTraitNames(seed, art),
   };
 };
 
-export const getAlp = (alpId: string | EthersBN, seed: IAlpSeed) => {
+/**
+ * An Alp's image and trait names. An Alp wearing a trait the art doesn't have yet has no image while the
+ * chain is being checked for it (so it shows as loading, not with the trait missing).
+ */
+export const getAlp = (
+  alpId: string | EthersBN,
+  seed: IAlpSeed,
+  { art, checking }: AlpArt = alpArt(),
+) => {
+  if (art !== cachedArt) {
+    alpCache.clear();
+    cachedArt = art;
+  }
   const id = alpId.toString();
+  if (checking && !hasAllTraits(seed, art)) return buildAlp(id, seed, art, false);
   const key = [id, seed.background, seed.body, seed.accessory, seed.head, seed.glasses].join('-');
   let alp = alpCache.get(key);
   if (!alp) {
-    alp = buildAlp(id, seed);
+    alp = buildAlp(id, seed, art);
     alpCache.set(key, alp);
   }
   return alp;
 };
 
+/** `getAlp`, updating when traits new to the art arrive */
+export const useAlp = (alpId: string | EthersBN | undefined, seed: IAlpSeed | undefined) => {
+  const art = useAlpArt();
+  return seed && alpId !== undefined ? getAlp(alpId, seed, art) : undefined;
+};
+
 const StandaloneAlp: React.FC<StandaloneAlpProps> = (props: StandaloneAlpProps) => {
   const { alpId } = props;
   const seed = useAlpSeed(alpId);
-  const alp = seed && getAlp(alpId, seed);
+  const alp = useAlp(alpId, seed);
 
   const dispatch = useDispatch();
 
@@ -75,7 +94,7 @@ export const StandaloneAlpCircular: React.FC<StandaloneCircularAlpProps> = (
 ) => {
   const { alpId, border } = props;
   const seed = useAlpSeed(alpId);
-  const alp = seed && getAlp(alpId, seed);
+  const alp = useAlp(alpId, seed);
 
   const dispatch = useDispatch();
   const onClickHandler = () => {
@@ -101,7 +120,7 @@ export const StandaloneAlpRoundedCorners: React.FC<StandaloneAlpProps> = (
 ) => {
   const { alpId } = props;
   const seed = useAlpSeed(alpId);
-  const alp = seed && getAlp(alpId, seed);
+  const alp = useAlp(alpId, seed);
 
   const dispatch = useDispatch();
   const onClickHandler = () => {
@@ -126,6 +145,7 @@ export const StandaloneAlpWithSeed: React.FC<StandaloneAlpWithSeedProps> = (
 
   const dispatch = useDispatch();
   const seed = useAlpSeed(alpId);
+  const art = useAlpArt();
   const seedIsInvalid = Object.values(seed || {}).every(v => v === 0);
 
   if (!seed || seedIsInvalid || !alpId || !onLoadSeed) return <Alp imgPath="" alt="Alp" />;
@@ -136,11 +156,9 @@ export const StandaloneAlpWithSeed: React.FC<StandaloneAlpWithSeedProps> = (
     dispatch(setOnDisplayAuctionAlpId(alpId.toNumber()));
   };
 
-  const { image, description, parts } = getAlp(alpId, seed);
+  const { image, description, traits } = getAlp(alpId, seed, art);
 
-  const alp = (
-    <Alp imgPath={image} alt={description} parts={parts} background={alpBackgroundColor(seed)} />
-  );
+  const alp = <Alp imgPath={image} alt={description} traits={traits} />;
   const alpWithLink = (
     <Link to={'/alp/' + alpId.toString()} className={classes.clickableAlp} onClick={onClickHandler}>
       {alp}

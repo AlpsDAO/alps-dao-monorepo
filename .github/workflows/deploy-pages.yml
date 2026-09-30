@@ -4,10 +4,14 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+  # Daily, so traits added on chain reach the site even without a code change
+  schedule:
+    - cron: '23 6 * * *'
 
 concurrency:
   group: pages-deploy-${{ github.ref }}
-  cancel-in-progress: true
+  # A scheduled run waits for a deploy in progress rather than cancelling it
+  cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
 jobs:
   deploy:
@@ -22,7 +26,24 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
+      # Bring the bundled art up to date with the chain (new traits, their names and colours). If the chain
+      # can't be read, the committed art is used; the site also tops itself up from the chain as it loads.
+      - name: Sync traits from the chain
+        id: traits
+        continue-on-error: true
+        run: |
+          yarn workspace @nouns/assets sync-traits
+          git diff --quiet -- packages/nouns-assets/src/image-data.json || echo "changed=true" >> "$GITHUB_OUTPUT"
+        env:
+          REACT_APP_MAINNET_JSONRPC: ${{ secrets.REACT_APP_MAINNET_JSONRPC }}
+
+      - name: Rebuild the art package with the new traits
+        if: steps.traits.outputs.changed == 'true'
+        run: yarn workspace @nouns/assets build
+
+      # The daily run only builds and deploys when the chain has art the committed file lacks
       - name: Build webapp
+        if: github.event_name != 'schedule' || steps.traits.outputs.changed == 'true'
         run: yarn workspace @nouns/webapp build
         env:
           NODE_OPTIONS: --openssl-legacy-provider
@@ -38,10 +59,12 @@ jobs:
 
       # wrangler v4 requires Node 22; the CRA build above requires Node 20
       - uses: actions/setup-node@v4
+        if: github.event_name != 'schedule' || steps.traits.outputs.changed == 'true'
         with:
           node-version: 22
 
       - name: Deploy to Cloudflare Pages
+        if: github.event_name != 'schedule' || steps.traits.outputs.changed == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

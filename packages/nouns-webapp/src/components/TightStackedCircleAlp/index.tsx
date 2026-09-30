@@ -1,6 +1,6 @@
 import { useAlpSeed } from '../../wrappers/alpToken';
 import { BigNumber } from 'ethers';
-import { getAlp } from '../StandaloneAlp';
+import { useAlp } from '../StandaloneAlp';
 import { LoadingAlp } from '../Alp';
 
 interface TightStackedCircleAlpProps {
@@ -13,12 +13,12 @@ interface TightStackedCircleAlpProps {
 const TightStackedCircleAlp: React.FC<TightStackedCircleAlpProps> = props => {
   const { alpId, index, square, shift } = props;
   const seed = useAlpSeed(BigNumber.from(alpId));
+  const alpData = useAlp(String(alpId), seed);
 
-  if (!seed) {
+  if (!alpData) {
     return <LoadingAlp />;
   }
 
-  const alpData = getAlp(BigNumber.from(alpId), seed);
   const image = alpData.image;
 
   return (

@@ -10,16 +10,24 @@ import {
   Popover,
 } from 'react-bootstrap';
 import classes from './Playground.module.css';
-import React, { ChangeEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import Link from '../../components/Link';
-import { ImageData, getAlpData, getRandomAlpSeed } from '@nouns/assets';
-import { buildSVG, EncodedImage, PNGCollectionEncoder } from '@nouns/sdk';
+import {
+  ArtData,
+  EncodedImage,
+  PART_TYPES,
+  PartType,
+  getAlpData,
+  getRandomAlpSeed,
+} from '@nouns/assets';
+import { buildSVG, PNGCollectionEncoder } from '@nouns/sdk';
 import InfoIcon from '../../assets/icons/Info.svg';
 import Alp from '../../components/Alp';
 import AlpModal from './AlpModal';
 import { PNG } from 'pngjs';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
+import { partName, useAlpArt } from '../../utils/alpArt';
 
 interface Trait {
   title: string;
@@ -27,7 +35,7 @@ interface Trait {
 }
 
 interface PendingCustomTrait {
-  type: string;
+  type: PartType;
   data: string;
   filename: string;
 }
@@ -66,11 +74,11 @@ const alpsSDKLink = (
   />
 );
 
-const DEFAULT_TRAIT_TYPE = 'heads';
+const DEFAULT_TRAIT_TYPE: PartType = 'heads';
 
 const BRICKS_URL = 'https://bricks.alps.wtf';
 // Seed keys and the image lists they index, in the order the brick builder's ?seed= link takes them
-const SEED_PARTS: [string, string | null][] = [
+const SEED_PARTS: [string, PartType | null][] = [
   ['background', null],
   ['body', 'bodies'],
   ['accessory', 'accessories'],
@@ -85,24 +93,11 @@ interface PlaygroundAlp {
   bricksUrl?: string;
 }
 
-const encoder = new PNGCollectionEncoder(ImageData.palette);
-
-const traitKeyToTitle: Record<string, string> = {
+const traitKeyToTitle: Record<PartType, string> = {
   heads: 'head',
   glasses: 'glasses',
   bodies: 'body',
   accessories: 'accessory',
-};
-
-const parseTraitName = (fileName: string): string => {
-  const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
-  fileName = fileName
-    .substring(fileName.indexOf('-') + 1)
-    .split('-')
-    .map(name => capitalizeFirstLetter(name))
-    .join(' ');
-
-  return fileName;
 };
 
 const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
@@ -120,10 +115,10 @@ const traitKeyToLocalizedTraitKeyFirstLetterCapitalized = (s: string): ReactNode
 };
 
 const Playground: React.FC = () => {
+  const { art } = useAlpArt();
   const [alpSvgs, setAlpSvgs] = useState<PlaygroundAlp[]>();
   // uploaded traits go to the front of their list, shifting the standard ones along
-  const [customCounts, setCustomCounts] = useState<Record<string, number>>({});
-  const [traits, setTraits] = useState<Trait[]>();
+  const [customTraits, setCustomTraits] = useState<Partial<Record<PartType, EncodedImage[]>>>({});
   const [modSeed, setModSeed] = useState<{ [key: string]: number }>();
   const [initLoad, setInitLoad] = useState<boolean>(true);
   const [displayAlp, setDisplayAlp] = useState<boolean>(false);
@@ -134,14 +129,43 @@ const Playground: React.FC = () => {
 
   const customTraitFileRef = useRef<HTMLInputElement>(null);
 
+  // Uploaded traits add any new colours to the encoder's palette
+  const encoder = useMemo(() => new PNGCollectionEncoder(art.palette), [art.palette]);
+  const playgroundArt: ArtData = useMemo(
+    () => ({
+      ...art,
+      images: Object.fromEntries(
+        PART_TYPES.map(type => [type, [...(customTraits[type] ?? []), ...art.images[type]]]),
+      ) as ArtData['images'],
+    }),
+    [art, customTraits],
+  );
+  const traits: Trait[] = useMemo(
+    () => [
+      {
+        title: 'background',
+        traitNames: playgroundArt.bgcolors.map(
+          (colour, i) => playgroundArt.bgnames[i] || `#${colour}`,
+        ),
+      },
+      ...PART_TYPES.map(type => ({
+        title: traitKeyToTitle[type],
+        traitNames: playgroundArt.images[type].map(part => partName(part)),
+      })),
+    ],
+    [playgroundArt],
+  );
+
   const generateAlpSvg = React.useCallback(
     (amount: number = 1) => {
       for (let i = 0; i < amount; i++) {
-        const seed = { ...getRandomAlpSeed(), ...modSeed };
-        const { parts, background } = getAlpData(seed);
+        const seed = { ...getRandomAlpSeed(playgroundArt), ...modSeed };
+        const { parts, background } = getAlpData(seed, playgroundArt);
         const svg = buildSVG(parts, encoder.data.palette, background);
         const indexes = seed as Record<string, number>;
-        const standard = SEED_PARTS.map(([key, list]) => indexes[key] - (list ? customCounts[list] ?? 0 : 0));
+        const standard = SEED_PARTS.map(
+          ([key, list]) => indexes[key] - (list ? customTraits[list]?.length ?? 0 : 0),
+        );
         const alp = {
           svg,
           bricksUrl: standard.every(i => i >= 0) ? `${BRICKS_URL}/?seed=${standard.join('-')}` : undefined,
@@ -151,43 +175,23 @@ const Playground: React.FC = () => {
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pendingTrait, modSeed, customCounts],
+    [playgroundArt, encoder, modSeed, customTraits],
   );
 
   useEffect(() => {
-    const traitTitles = ['background', 'body', 'accessory', 'head', 'glasses'];
-    const traitNames = [
-      ['bluebird Sky', 'evergreen', 'night', 'slate', 'yellow Snow', 'cool', 'warm'],
-      ...Object.values(ImageData.images).map(i => {
-        return i.map(imageData => imageData.filename);
-      }),
-    ];
-    setTraits(
-      traitTitles.map((value, index) => {
-        return {
-          title: value,
-          traitNames: traitNames[index],
-        };
-      }),
-    );
-
     if (initLoad) {
       generateAlpSvg(8);
       setInitLoad(false);
     }
   }, [generateAlpSvg, initLoad]);
 
+  // Option values are the trait's index, with -1 for random
   const traitOptions = (trait: Trait) => {
-    return Array.from(Array(trait.traitNames.length + 1)).map((_, index) => {
-      const traitName = trait.traitNames[index - 1];
-      const parsedTitle = index === 0 ? `Random` : parseTraitName(traitName);
-      return (
-        <option key={index} value={traitName}>
-          {parsedTitle}
-        </option>
-      );
-    });
+    return Array.from(Array(trait.traitNames.length + 1)).map((_, index) => (
+      <option key={index} value={index - 1}>
+        {index === 0 ? `Random` : trait.traitNames[index - 1]}
+      </option>
+    ));
   };
 
   const traitButtonHandler = (trait: Trait, traitIndex: number) => {
@@ -272,14 +276,12 @@ const Playground: React.FC = () => {
   const uploadCustomTrait = () => {
     const { type, data, filename } = pendingTrait || {};
     if (type && data && filename) {
-      const images = ImageData.images as Record<string, EncodedImage[]>;
-      images[type].unshift({
-        filename,
-        data,
-      });
-      setCustomCounts(prev => ({ ...prev, [type]: (prev[type] ?? 0) + 1 }));
+      setCustomTraits(prev => ({
+        ...prev,
+        [type]: [{ filename, name: filename, data }, ...(prev[type] ?? [])],
+      }));
       const title = traitKeyToTitle[type];
-      const trait = traits?.find(t => t.title === title);
+      const trait = traits.find(t => t.title === title);
 
       resetTraitFileUpload();
       setPendingTrait(undefined);
@@ -344,37 +346,36 @@ const Playground: React.FC = () => {
               </Button>
             </Col>
             <Row>
-              {traits &&
-                traits.map((trait, index) => {
-                  return (
-                    <Col lg={12} xs={6}>
-                      <Form className={classes.traitForm}>
-                        <FloatingLabel
-                          controlId="floatingSelect"
-                          label={traitKeyToLocalizedTraitKeyFirstLetterCapitalized(trait.title)}
-                          key={index}
-                          className={classes.floatingLabel}
+              {traits.map((trait, index) => {
+                return (
+                  <Col lg={12} xs={6}>
+                    <Form className={classes.traitForm}>
+                      <FloatingLabel
+                        controlId="floatingSelect"
+                        label={traitKeyToLocalizedTraitKeyFirstLetterCapitalized(trait.title)}
+                        key={index}
+                        className={classes.floatingLabel}
+                      >
+                        <Form.Select
+                          aria-label="Floating label select example"
+                          className={classes.traitFormBtn}
+                          value={selectIndexes?.[trait.title] ?? -1}
+                          onChange={e => {
+                            let index = e.currentTarget.selectedIndex;
+                            traitButtonHandler(trait, index - 1); // - 1 to account for 'random'
+                            setSelectIndexes({
+                              ...selectIndexes,
+                              [trait.title]: index - 1,
+                            });
+                          }}
                         >
-                          <Form.Select
-                            aria-label="Floating label select example"
-                            className={classes.traitFormBtn}
-                            value={trait.traitNames[selectIndexes?.[trait.title]] ?? -1}
-                            onChange={e => {
-                              let index = e.currentTarget.selectedIndex;
-                              traitButtonHandler(trait, index - 1); // - 1 to account for 'random'
-                              setSelectIndexes({
-                                ...selectIndexes,
-                                [trait.title]: index - 1,
-                              });
-                            }}
-                          >
-                            {traitOptions(trait)}
-                          </Form.Select>
-                        </FloatingLabel>
-                      </Form>
-                    </Col>
-                  );
-                })}
+                          {traitOptions(trait)}
+                        </Form.Select>
+                      </FloatingLabel>
+                    </Form>
+                  </Col>
+                );
+              })}
             </Row>
             <label style={{ margin: '1rem 0 .25rem 0' }} htmlFor="custom-trait-upload">
               <Trans>Upload Custom Trait</Trans>
@@ -414,7 +415,9 @@ const Playground: React.FC = () => {
                   <Form.Select
                     aria-label="Custom Trait Type"
                     className={classes.traitFormBtn}
-                    onChange={e => setPendingTrait({ ...pendingTrait, type: e.target.value })}
+                    onChange={e =>
+                      setPendingTrait({ ...pendingTrait, type: e.target.value as PartType })
+                    }
                   >
                     {Object.entries(traitKeyToTitle).map(([key, title]) => (
                       <option value={key}>{capitalizeFirstLetter(title)}</option>

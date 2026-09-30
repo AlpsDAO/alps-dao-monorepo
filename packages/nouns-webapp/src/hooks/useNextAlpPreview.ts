@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { BigNumber, ethers } from 'ethers';
 import config from '../config';
 import { getAlpSeedFromBlockHash } from '@nouns/assets';
@@ -6,6 +6,7 @@ import { IAlpSeed } from '../wrappers/alpToken';
 import { nextRewardAlp } from '../utils/alperAlp';
 import { usePublicProvider } from './usePublicProvider';
 import { useAppSelector } from '../hooks';
+import { alpArt, useAlpArt } from '../utils/alpArt';
 
 // Safety net for when the new-block subscription is still connecting or has dropped: it only polls while
 // the subscription hasn't delivered a block for longer than a block takes
@@ -50,6 +51,7 @@ const auctionedAfter = (alpId: BigNumber) => {
 export const useNextAlpPreview = () => {
   const auction = useAppSelector(state => state.auction.activeAuction);
   const publicProvider = usePublicProvider();
+  const { counts } = useAlpArt();
   const currentAlpId = auction ? BigNumber.from(auction.alpId).toString() : undefined;
   const endTime = auction ? BigNumber.from(auction.endTime).toNumber() : 0;
   const hasEnded = () => !!endTime && endTime * 1000 <= Date.now();
@@ -90,7 +92,7 @@ export const useNextAlpPreview = () => {
         }
         lastPreview = {
           alpId,
-          seed: getAlpSeedFromBlockHash(alpId, block.hash),
+          seed: getAlpSeedFromBlockHash(alpId, block.hash, alpArt().counts),
           blockNumber: block.number,
           blockHash: block.hash,
           since,
@@ -125,5 +127,15 @@ export const useNextAlpPreview = () => {
     };
   }, [enabled, currentAlpId, publicProvider]);
 
-  return enabled ? preview : undefined;
+  // The seeder picks from the chain's trait counts, which can arrive (or grow) after a preview was made
+  const seeded = useMemo(
+    () =>
+      preview && {
+        ...preview,
+        seed: getAlpSeedFromBlockHash(preview.alpId, preview.blockHash, counts),
+      },
+    [preview, counts],
+  );
+
+  return enabled ? seeded : undefined;
 };

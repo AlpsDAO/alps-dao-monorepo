@@ -5,6 +5,8 @@ import AlpTraitList from '../AlpTraitList';
 import BlockCountdown, { useBlockRemaining } from '../BlockCountdown';
 import { NextAlpPreview as Preview } from '../../hooks/useNextAlpPreview';
 import { alpBackgroundColor } from '../../utils/alpBgColors';
+import { useAlpArt } from '../../utils/alpArt';
+import loadingAlp from '../../assets/loading-skull-alp.gif';
 import classes from './NextAlpPreview.module.css';
 
 /**
@@ -14,13 +16,14 @@ import classes from './NextAlpPreview.module.css';
 const NextAlpPreview: React.FC<{ preview: Preview }> = ({ preview }) => {
   const remaining = useBlockRemaining(preview.since);
   const alpId = preview.alpId.toNumber();
-  const { image, parts } = getAlp(preview.alpId, preview.seed);
-  const background = alpBackgroundColor(preview.seed);
+  const art = useAlpArt();
+  const { image, traits } = getAlp(preview.alpId, preview.seed, art);
+  const background = alpBackgroundColor(preview.seed, art.art);
   return (
     <div className={classes.card}>
       <img
         className={classes.art}
-        src={image}
+        src={image || loadingAlp}
         style={{ backgroundColor: background }}
         alt={`Alp ${alpId}, which kicking off the next auction would mint now`}
       />
@@ -31,7 +34,7 @@ const NextAlpPreview: React.FC<{ preview: Preview }> = ({ preview }) => {
           </span>
           <BlockCountdown remaining={remaining} />
         </div>
-        <AlpTraitList parts={parts} background={background} variant="compact" />
+        <AlpTraitList traits={traits} variant="compact" />
       </div>
     </div>
   );

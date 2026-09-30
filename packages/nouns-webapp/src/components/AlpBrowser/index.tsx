@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setOnDisplayAuctionAlpId } from '../../state/slices/onDisplayAuction';
 import { alpPath } from '../../utils/history';
 import { useAlpSeed } from '../../wrappers/alpToken';
-import { getAlp } from '../StandaloneAlp';
+import { useAlp } from '../StandaloneAlp';
 import classes from './AlpBrowser.module.css';
 
 // Builds an Alp's image only once its tile scrolls near the view, so opening the browser stays quick
@@ -29,8 +29,8 @@ const useNearView = <T extends Element>() => {
 
 const TileArt: React.FC<{ id: number }> = ({ id }) => {
   const seed = useAlpSeed(BigNumber.from(id));
-  const alp = seed && getAlp(String(id), seed);
-  return alp ? <img src={alp.image} alt={`Alp ${id}`} draggable={false} /> : null;
+  const alp = useAlp(String(id), seed);
+  return alp?.image ? <img src={alp.image} alt={`Alp ${id}`} draggable={false} /> : null;
 };
 
 const Tile: React.FC<{ id: number; current: boolean; latest: boolean; onSelect: (id: number) => void }> =

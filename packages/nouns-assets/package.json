@@ -11,6 +11,7 @@
     "encode": "ts-node scripts/encode.ts",
     "encode-more": "ts-node scripts/encode-more.ts",
     "append-image-data": "ts-node scripts/append-image-data.ts",
+    "sync-traits": "ts-node scripts/sync-traits.ts",
     "clean": "rimraf dist tsconfig.build.tsbuildinfo",
     "build": "tsc -p tsconfig.build.json",
     "prepare": "yarn build",
@@ -24,6 +25,7 @@
     "pngjs": "^6.0.0"
   },
   "dependencies": {
+    "@ethersproject/abi": "^5.5.0",
     "@ethersproject/bignumber": "^5.5.0",
     "@ethersproject/solidity": "^5.5.0"
   }

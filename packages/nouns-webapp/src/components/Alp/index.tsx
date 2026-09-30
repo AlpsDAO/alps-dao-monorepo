@@ -4,6 +4,7 @@ import loadingAlp from '../../assets/loading-skull-alp.gif';
 import Image from 'react-bootstrap/Image';
 import AlpTraitsOverlay from '../AlpTraitsOverlay';
 import AlpTraitList from '../AlpTraitList';
+import { AlpTraits } from '../../utils/alpArt';
 
 export const LoadingAlp = () => {
   return (
@@ -18,13 +19,11 @@ const Alp: React.FC<{
   alt: string;
   className?: string;
   wrapperClassName?: string;
-  /** with `background`: show its traits, on hover (desktop) or behind a button in the corner (phones) */
-  parts?: { filename: string }[];
-  background?: string;
+  /** show these traits, on hover (desktop) or behind a button in the corner (phones) */
+  traits?: AlpTraits;
 }> = props => {
-  const { imgPath, alt, className, wrapperClassName, parts, background } = props;
+  const { imgPath, alt, className, wrapperClassName, traits } = props;
   const [showTraits, setShowTraits] = useState(false);
-  const hasTraits = Boolean(parts?.length && background);
 
   return (
     <div className={`${classes.imgWrapper} ${wrapperClassName}`} data-tip data-for="alp-traits">
@@ -34,9 +33,9 @@ const Alp: React.FC<{
         alt={alt}
         fluid
       />
-      {hasTraits && (
+      {traits && (
         <>
-          <AlpTraitsOverlay parts={parts!} background={background!} />
+          <AlpTraitsOverlay traits={traits} />
           <button
             type="button"
             className={classes.traitsButton}
@@ -66,7 +65,7 @@ const Alp: React.FC<{
                 setShowTraits(false);
               }}
             >
-              <AlpTraitList parts={parts!} background={background!} variant="panel" />
+              <AlpTraitList traits={traits} variant="panel" />
             </div>
           )}
         </>

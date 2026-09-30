@@ -1,15 +1,30 @@
 import { keccak256 as solidityKeccak256 } from '@ethersproject/solidity';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { AlpSeed, AlpData } from './types';
-import { images, bgcolors } from './image-data.json';
+import { AlpSeed, AlpData, ArtData, ArtCounts } from './types';
+import imageData from './image-data.json';
 
-const { bodies, accessories, heads, glasses } = images;
+/** The art bundled with this package, synced from the chain by `yarn sync-traits` */
+export const ImageData: ArtData = imageData;
+
+/**
+ * Count the traits in some art
+ * @param art The art, the bundled `ImageData` by default
+ */
+export const getArtCounts = (art: ArtData = ImageData): ArtCounts => ({
+  backgrounds: art.bgcolors.length,
+  bodies: art.images.bodies.length,
+  accessories: art.images.accessories.length,
+  heads: art.images.heads.length,
+  glasses: art.images.glasses.length,
+});
 
 /**
  * Get encoded part and background information using a Alp seed
  * @param seed The Alp seed
+ * @param art The art to draw from, the bundled `ImageData` by default
  */
-export const getAlpData = (seed: AlpSeed): AlpData => {
+export const getAlpData = (seed: AlpSeed, art: ArtData = ImageData): AlpData => {
+  const { bodies, accessories, heads, glasses } = art.images;
   return {
     parts: [
       bodies[seed.body],
@@ -17,21 +32,22 @@ export const getAlpData = (seed: AlpSeed): AlpData => {
       heads[seed.head],
       glasses[seed.glasses],
     ],
-    background: bgcolors[seed.background],
+    background: art.bgcolors[seed.background],
   };
 };
 
 /**
  * Generate a random Alp seed
- * @param seed The Alp seed
+ * @param art The art to pick traits from, the bundled `ImageData` by default
  */
-export const getRandomAlpSeed = (): AlpSeed => {
+export const getRandomAlpSeed = (art: ArtData = ImageData): AlpSeed => {
+  const counts = getArtCounts(art);
   return {
-    background: Math.floor(Math.random() * bgcolors.length),
-    body: Math.floor(Math.random() * bodies.length),
-    accessory: Math.floor(Math.random() * accessories.length),
-    head: Math.floor(Math.random() * heads.length),
-    glasses: Math.floor(Math.random() * glasses.length),
+    background: Math.floor(Math.random() * counts.backgrounds),
+    body: Math.floor(Math.random() * counts.bodies),
+    accessory: Math.floor(Math.random() * counts.accessories),
+    head: Math.floor(Math.random() * counts.heads),
+    glasses: Math.floor(Math.random() * counts.glasses),
   };
 };
 
@@ -71,14 +87,19 @@ export const getPseudorandomPart = (
  * Emulates the AlpsSeeder.sol methodology for generating a Alp seed
  * @param alpId The Alp tokenId used to create pseudorandomness
  * @param blockHash The block hash use to create pseudorandomness
+ * @param counts The trait counts the seeder reads from the descriptor, the bundled art's by default
  */
-export const getAlpSeedFromBlockHash = (alpId: BigNumberish, blockHash: string): AlpSeed => {
+export const getAlpSeedFromBlockHash = (
+  alpId: BigNumberish,
+  blockHash: string,
+  counts: ArtCounts = getArtCounts(ImageData),
+): AlpSeed => {
   const pseudorandomness = solidityKeccak256(['bytes32', 'uint256'], [blockHash, alpId]);
   return {
-    background: getPseudorandomPart(pseudorandomness, bgcolors.length, 0),
-    body: getPseudorandomPart(pseudorandomness, bodies.length, 48),
-    accessory: getPseudorandomPart(pseudorandomness, accessories.length, 96),
-    head: getPseudorandomPart(pseudorandomness, heads.length, 144),
-    glasses: getPseudorandomPart(pseudorandomness, glasses.length, 192),
+    background: getPseudorandomPart(pseudorandomness, counts.backgrounds, 0),
+    body: getPseudorandomPart(pseudorandomness, counts.bodies, 48),
+    accessory: getPseudorandomPart(pseudorandomness, counts.accessories, 96),
+    head: getPseudorandomPart(pseudorandomness, counts.heads, 144),
+    glasses: getPseudorandomPart(pseudorandomness, counts.glasses, 192),
   };
 };

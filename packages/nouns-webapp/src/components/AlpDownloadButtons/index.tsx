@@ -1,9 +1,8 @@
 import React from 'react';
-import { ImageData as data, getAlpData } from '@nouns/assets';
-import { buildSVG } from '@nouns/sdk';
 import { BigNumber as EthersBN } from 'ethers';
 import { useAlpSeed } from '../../wrappers/alpToken';
 import { svg2png } from '../../utils/svg2png';
+import { alpSvg, useAlpArt } from '../../utils/alpArt';
 import AlpInfoRowButton from '../AlpInfoRowButton';
 import _DownloadIcon from '../../assets/icons/Download.svg';
 import classes from './AlpDownloadButtons.module.css';
@@ -18,12 +17,10 @@ const save = (href: string, filename: string) => {
 /** Download an Alp's art: the SVG, or a large PNG (1600×1600, every pixel a crisp 50×50 square). */
 const AlpDownloadButtons: React.FC<{ alpId: EthersBN }> = ({ alpId }) => {
   const seed = useAlpSeed(alpId);
+  const { art } = useAlpArt();
   if (!seed) return null;
 
-  const svg = () => {
-    const { parts, background } = getAlpData(seed);
-    return buildSVG(parts, data.palette, background);
-  };
+  const svg = () => alpSvg(seed, art);
   const filename = `alp-${alpId.toString()}`;
 
   const downloadSvg = () => {
