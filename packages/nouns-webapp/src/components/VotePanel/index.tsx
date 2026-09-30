@@ -26,7 +26,7 @@ interface VotePanelProps {
 
 /**
  * Inline voting form for an active proposal: pick for/against/abstain, optionally give a reason, submit.
- * Without votes, the same form leaves an on-chain message: a vote with no weight, with its reason.
+ * Anyone can vote: with no votes it's an on-chain signal (and reason) that doesn't change the outcome.
  */
 const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
   ({ proposalId, availableVotes, isWalletConnected, userVote, snapshotTimestamp, onVoteCast }, ref) => {
@@ -103,9 +103,8 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
       {
         vote: Vote.FOR,
         className: classes.voteFor,
-        label: !availableVotes ? (
-          <Trans>For</Trans>
-        ) : availableVotes > 1 ? (
+        label:
+          availableVotes !== 1 ? (
             <Trans>
               Cast {i18n.number(availableVotes)} votes for Prop {i18n.number(parseInt(proposalId || '0'))}
             </Trans>
@@ -116,9 +115,8 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
       {
         vote: Vote.AGAINST,
         className: classes.voteAgainst,
-        label: !availableVotes ? (
-          <Trans>Against</Trans>
-        ) : availableVotes > 1 ? (
+        label:
+          availableVotes !== 1 ? (
             <Trans>
               Cast {i18n.number(availableVotes)} votes against Prop {i18n.number(parseInt(proposalId || '0'))}
             </Trans>
@@ -129,11 +127,7 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
       {
         vote: Vote.ABSTAIN,
         className: classes.voteAbstain,
-        label: !availableVotes ? (
-          <Trans>Abstain</Trans>
-        ) : (
-          <Trans>Abstain from voting on Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
-        ),
+        label: <Trans>Abstain from voting on Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>,
       },
     ];
 
@@ -176,30 +170,19 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
       if (userVote || isVoteSucessful) {
         return (
           <div className={classes.transactionStatus}>
-            {userVote && !userVote.votes ? (
-              <p>
-                <Trans>
-                  You left a message (<VoteSupportLabel support={userVote.support} />, no votes). It's in
-                  the proposal's activity.
-                </Trans>
-              </p>
-            ) : userVote ? (
+            {userVote ? (
               <p>
                 <Trans>
                   You voted <VoteSupportLabel support={userVote.support} /> with{' '}
                   {i18n.number(userVote.votes)} votes
                 </Trans>
               </p>
-            ) : !availableVotes ? (
-              <p>
-                <Trans>Your message is on-chain.</Trans>
-              </p>
             ) : (
               <p>
                 <Trans>You've successfully voted on prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
               </p>
             )}
-            {isVoteSucessful && availableVotes > 0 && (
+            {isVoteSucessful && (
               <div className={classes.voteSuccessBody}>
                 <Trans>Thank you for voting.</Trans>
               </div>
@@ -217,17 +200,14 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
           </>
         );
       }
-      // No votes: the form leaves an on-chain message instead, so the message is required
-      const isMessage = !availableVotes;
-      const canSubmit = vote !== undefined && (!isMessage || voteReason.trim() !== '');
+      const canSubmit = vote !== undefined;
       return (
         <div className={clsx(classes.votingButtonsWrapper, isLoading ? classes.disabled : '')}>
-          {isMessage && (
+          {!availableVotes && (
             <p className={classes.panelNote}>
               <Trans>
-                You have no votes on this proposal, but you can leave a message on-chain. It's recorded
-                with the proposal for everyone to see and doesn't change the result. You can leave one
-                per proposal.
+                You have no votes on this proposal, but you can still vote to leave an on-chain signal.
+                It won't affect the outcome.
               </Trans>
             </p>
           )}
@@ -250,14 +230,11 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
             ))}
           </div>
           <br />
-          <FloatingLabel
-            controlId="reasonTextarea"
-            label={isMessage ? <Trans>Message</Trans> : <Trans>Reason (Optional)</Trans>}
-          >
+          <FloatingLabel controlId="reasonTextarea" label={<Trans>Reason (Optional)</Trans>}>
             <FormControl
               as="textarea"
               placeholder={
-                i18n.locale === 'en' && !isMessage ? `Reason for voting ${Vote[vote ?? Vote.FOR]}` : ''
+                i18n.locale === 'en' ? `Reason for voting ${Vote[vote ?? Vote.FOR]}` : ''
               }
               value={voteReason}
               onChange={e => setVoteReason(e.target.value)}
@@ -279,13 +256,7 @@ const VotePanel = forwardRef<HTMLDivElement, VotePanelProps>(
             }}
             className={canSubmit ? classes.submitBtn : classes.submitBtnDisabled}
           >
-            {isLoading ? (
-              <Spinner animation="border" />
-            ) : isMessage ? (
-              <Trans>Post message</Trans>
-            ) : (
-              <Trans>Submit Vote</Trans>
-            )}
+            {isLoading ? <Spinner animation="border" /> : <Trans>Submit Vote</Trans>}
           </Button>
           {snapshotNote}
         </div>

@@ -34,7 +34,7 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
   const isMobile = isMobileScreen();
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock) ?? 0;
   const hasVoted = useHasVotedOnProposal(proposal?.id) || !!userVote;
-  // Without votes, the button leads to the on-chain message form instead
+  // Voting with no votes is allowed: it's an on-chain signal that doesn't change the outcome
   const disableVoteButton = !isWalletConnected || hasVoted;
   const activeLocale = useActiveLocale();
 
@@ -44,7 +44,7 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
         <>
           {!availableVotes && !hasVoted && (
             <div className={classes.noVotesText}>
-              <Trans>You have no votes, but you can leave a message.</Trans>
+              <Trans>You have no votes, so yours is a signal only.</Trans>
             </div>
           )}
         </>
@@ -58,7 +58,7 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
         disabled={disableVoteButton}
         onClick={submitButtonClickHandler}
       >
-        {availableVotes || hasVoted ? <Trans>Submit vote</Trans> : <Trans>Leave a message</Trans>}
+        <Trans>Submit vote</Trans>
       </Button>
     </>
   );

@@ -23,12 +23,6 @@ export const VoteSupportLabel: React.FC<{ support: 0 | 1 | 2 }> = ({ support }) 
 const voteAction = (support: 0 | 1 | 2) =>
   support === 1 ? <Trans>voted for</Trans> : support === 0 ? <Trans>voted against</Trans> : <Trans>abstained</Trans>;
 
-const messageAction = (support: 0 | 1 | 2) => (
-  <Trans>
-    left a message · <VoteSupportLabel support={support} />, no votes
-  </Trans>
-);
-
 const formatTime = (timestamp: number | undefined) => {
   if (!timestamp) return undefined;
   // A block can be a few seconds "ahead" of a slightly slow local clock; never show it in the future
@@ -79,17 +73,12 @@ const ProposalActivityFeed: React.FC<{
   const items: FeedItem[] = votes.map(v => ({
     key: `vote-${v.voter}`,
     block: v.blockNumber,
-    // A vote with no voting power behind it is an on-chain message: it doesn't count toward the result
-    content: v.votes ? (
+    content: (
       <>
         <Account address={v.voter} />{' '}
         <span className={clsx(classes.action, SUPPORT_CLASS[v.support])}>
           {voteAction(v.support)} ({v.votes})
         </span>
-      </>
-    ) : (
-      <>
-        <Account address={v.voter} /> <span className={classes.action}>{messageAction(v.support)}</span>
       </>
     ),
     body: v.reason && (
