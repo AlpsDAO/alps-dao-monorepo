@@ -1145,6 +1145,11 @@ msgstr "Fill in the details and you'll see here what this action will do."
 msgid "Find the ABI"
 msgstr "Find the ABI"
 
+#: src/components/ProposalContent/index.tsx
+#: src/components/ProposalTitle/index.tsx
+msgid "Flagged proposal"
+msgstr "Flagged proposal"
+
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
 msgid "For"
@@ -1890,6 +1895,10 @@ msgstr "Ready to queue"
 msgid "Reason (Optional)"
 msgstr "Reason (Optional)"
 
+#: src/components/ProposalActivityFeed/index.tsx
+msgid "Reason hidden: flagged wallet. Show anyway"
+msgstr "Reason hidden: flagged wallet. Show anyway"
+
 #: src/components/ProposalBuilder/templates/SendAlp.tsx
 #: src/components/ProposalBuilder/templates/SendEth.tsx
 #: src/components/ProposalBuilder/templates/SendToken.tsx
@@ -2066,6 +2075,10 @@ msgstr "Settle Alp {alpId}"
 #: src/components/ProfileActivityFeedToggle/index.tsx
 msgid "Show all {numEvents} events"
 msgstr "Show all {numEvents} events"
+
+#: src/components/ProposalContent/index.tsx
+msgid "Show anyway"
+msgstr "Show anyway"
 
 #: src/components/ProfileActivityFeedToggle/index.tsx
 msgid "Show fewer"
@@ -2481,6 +2494,10 @@ msgstr "This function isn't payable, so sending ETH with it would make the call 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "This function takes no arguments."
 msgstr "This function takes no arguments."
+
+#: src/components/ProposalContent/index.tsx
+msgid "This proposal is from a wallet flagged for {reason}. Its title and description are hidden."
+msgstr "This proposal is from a wallet flagged for {reason}. Its title and description are hidden."
 
 #: src/components/ProposalActions/index.tsx
 msgid "This proposal passed. Queue it to start the treasury's 2-day delay, after which it can be executed. Anyone can do this."

@@ -20,6 +20,7 @@ import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
 import ShortAddress from '../ShortAddress';
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import ProposalTitle from '../ProposalTitle';
 
 interface AlpProfileVoteRowProps {
   proposal: Proposal;
@@ -122,7 +123,9 @@ const AlpProfileVoteRow: React.FC<AlpProfileVoteRowProps> = props => {
       <td className={classes.voteInfoTableCell}>
         <div className={classes.voteInfoContainer}>
           {selectVotingInfoText(proposal, vote)}
-          <span className={classes.proposalTitle}>{proposal.title}</span>
+          <span className={classes.proposalTitle}>
+            <ProposalTitle proposal={proposal} />
+          </span>
         </div>
       </td>
       <td className={activeLocale === 'ja-JP' ? responsiveUiUtilsClasses.desktopOnly : ''}>

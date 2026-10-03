@@ -1,0 +1,7 @@
+.flagged {
+  opacity: 0.6;
+}
+
+.flagged::before {
+  content: '⚑ ';
+}

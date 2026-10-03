@@ -1145,6 +1145,11 @@ msgstr ""
 msgid "Find the ABI"
 msgstr ""
 
+#: src/components/ProposalContent/index.tsx
+#: src/components/ProposalTitle/index.tsx
+msgid "Flagged proposal"
+msgstr ""
+
 #: src/components/ProposalActivityFeed/index.tsx
 #: src/components/VoteCard/index.tsx
 msgid "For"
@@ -1890,6 +1895,10 @@ msgstr ""
 msgid "Reason (Optional)"
 msgstr ""
 
+#: src/components/ProposalActivityFeed/index.tsx
+msgid "Reason hidden: flagged wallet. Show anyway"
+msgstr ""
+
 #: src/components/ProposalBuilder/templates/SendAlp.tsx
 #: src/components/ProposalBuilder/templates/SendEth.tsx
 #: src/components/ProposalBuilder/templates/SendToken.tsx
@@ -2065,6 +2074,10 @@ msgstr ""
 
 #: src/components/ProfileActivityFeedToggle/index.tsx
 msgid "Show all {numEvents} events"
+msgstr ""
+
+#: src/components/ProposalContent/index.tsx
+msgid "Show anyway"
 msgstr ""
 
 #: src/components/ProfileActivityFeedToggle/index.tsx
@@ -2480,6 +2493,10 @@ msgstr ""
 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "This function takes no arguments."
+msgstr ""
+
+#: src/components/ProposalContent/index.tsx
+msgid "This proposal is from a wallet flagged for {reason}. Its title and description are hidden."
 msgstr ""
 
 #: src/components/ProposalActions/index.tsx

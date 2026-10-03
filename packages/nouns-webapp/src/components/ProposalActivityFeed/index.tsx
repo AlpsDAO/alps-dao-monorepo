@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
@@ -11,17 +11,30 @@ import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import ShortAddress from '../ShortAddress';
 import { Image as AddressIcon } from '@davatar/react';
 import classes from './ProposalActivityFeed.module.css';
+import { walletFlag } from '../../utils/moderation/flagged';
 
 const SUPPORT_CLASS = { 0: classes.against, 1: classes.for, 2: classes.abstain };
 
 export const VoteSupportLabel: React.FC<{ support: 0 | 1 | 2 }> = ({ support }) => (
   <strong className={SUPPORT_CLASS[support]}>
-    {support === 1 ? <Trans>For</Trans> : support === 0 ? <Trans>Against</Trans> : <Trans>Abstain</Trans>}
+    {support === 1 ? (
+      <Trans>For</Trans>
+    ) : support === 0 ? (
+      <Trans>Against</Trans>
+    ) : (
+      <Trans>Abstain</Trans>
+    )}
   </strong>
 );
 
 const voteAction = (support: 0 | 1 | 2) =>
-  support === 1 ? <Trans>voted for</Trans> : support === 0 ? <Trans>voted against</Trans> : <Trans>abstained</Trans>;
+  support === 1 ? (
+    <Trans>voted for</Trans>
+  ) : support === 0 ? (
+    <Trans>voted against</Trans>
+  ) : (
+    <Trans>abstained</Trans>
+  );
 
 const formatTime = (timestamp: number | undefined) => {
   if (!timestamp) return undefined;
@@ -43,11 +56,28 @@ interface FeedItem {
 // Generated address icons rather than ENS avatars: davatar batches ENS avatar lookups into one
 // multicall, and a single voter's broken avatar record reverts the whole batch
 const Account: React.FC<{ address: string }> = ({ address }) => (
-  <a href={buildEtherscanAddressLink(address)} target="_blank" rel="noreferrer" className={classes.account}>
+  <a
+    href={buildEtherscanAddressLink(address)}
+    target="_blank"
+    rel="noreferrer"
+    className={classes.account}
+  >
     <AddressIcon size={20} address={address} />
     <ShortAddress address={address} />
   </a>
 );
+
+/** A flagged wallet's vote reason, hidden until asked for */
+const HiddenReason: React.FC<{ reason: string }> = ({ reason }) => {
+  const [shown, setShown] = useState(false);
+  return shown ? (
+    <ReactMarkdown className={classes.reason} children={reason} remarkPlugins={[remarkBreaks]} />
+  ) : (
+    <button type="button" className={classes.hiddenReason} onClick={() => setShown(true)}>
+      <Trans>Reason hidden: flagged wallet. Show anyway</Trans>
+    </button>
+  );
+};
 
 /**
  * Proposal activity, newest first: each vote with its reason, plus the proposal's lifecycle milestones.
@@ -81,9 +111,17 @@ const ProposalActivityFeed: React.FC<{
         </span>
       </>
     ),
-    body: v.reason && (
-      <ReactMarkdown className={classes.reason} children={v.reason} remarkPlugins={[remarkBreaks]} />
-    ),
+    body:
+      v.reason &&
+      (walletFlag(v.voter) ? (
+        <HiddenReason reason={v.reason} />
+      ) : (
+        <ReactMarkdown
+          className={classes.reason}
+          children={v.reason}
+          remarkPlugins={[remarkBreaks]}
+        />
+      )),
   }));
 
   if (proposal.proposer) {
@@ -99,7 +137,12 @@ const ProposalActivityFeed: React.FC<{
   }
   // Without a cancel/veto time we can't tell whether voting ever opened, so only show it otherwise
   if (!wasStopped && hasReached(proposal.startBlock)) {
-    items.push({ key: 'started', block: proposal.startBlock, isEvent: true, content: <Trans>Voting started</Trans> });
+    items.push({
+      key: 'started',
+      block: proposal.startBlock,
+      isEvent: true,
+      content: <Trans>Voting started</Trans>,
+    });
   }
   if (!wasStopped && hasReached(proposal.endBlock) && status !== ProposalState.ACTIVE) {
     items.push({
@@ -120,7 +163,9 @@ const ProposalActivityFeed: React.FC<{
   }
   const finalState: Partial<Record<ProposalState, ReactNode>> = {
     [ProposalState.QUEUED]: proposal.eta ? (
-      <Trans>Proposal was queued, executable from {dayjs(proposal.eta).format('MMM D, h:mm A')}</Trans>
+      <Trans>
+        Proposal was queued, executable from {dayjs(proposal.eta).format('MMM D, h:mm A')}
+      </Trans>
     ) : (
       <Trans>Proposal was queued</Trans>
     ),

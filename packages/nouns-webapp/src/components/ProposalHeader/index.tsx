@@ -17,6 +17,7 @@ import { useActiveLocale } from '../../hooks/useActivateLocale';
 import { Locales } from '../../i18n/locales';
 import HoverCard from '../HoverCard';
 import ByLineHoverCard from '../ByLineHoverCard';
+import ProposalTitle from '../ProposalTitle';
 
 interface ProposalHeaderProps {
   proposal: Proposal;
@@ -103,7 +104,9 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
             </span>
             <div className={classes.proposalTitleWrapper}>
               <div className={classes.proposalTitle}>
-                <h1>{proposal.title} </h1>
+                <h1>
+                  <ProposalTitle proposal={proposal} />
+                </h1>
               </div>
             </div>
           </div>
@@ -153,7 +156,6 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
           </>
         )}
       </div>
-
     </>
   );
 };

@@ -20,6 +20,7 @@ import en from 'dayjs/locale/en';
 import { AVERAGE_BLOCK_TIME_IN_SECS } from '../../utils/constants';
 import { useBlockNumber } from '../../hooks/useBlockNumber';
 import { WalletContext } from '../../contexts/WalletContext';
+import ProposalTitle from '../ProposalTitle';
 
 dayjs.extend(relativeTime);
 
@@ -204,7 +205,9 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
                 <div className={classes.proposalInfoWrapper}>
                   <span className={classes.proposalTitle}>
                     <span className={classes.proposalId}>{i18n.number(parseInt(p.id || '0'))}</span>{' '}
-                    <span>{p.title}</span>
+                    <span>
+                      <ProposalTitle proposal={p} />
+                    </span>
                   </span>
 
                   {isPropInStateToHaveCountDown && (

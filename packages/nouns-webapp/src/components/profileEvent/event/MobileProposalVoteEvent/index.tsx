@@ -7,6 +7,7 @@ import React from 'react';
 import { getProposalVoteIcon } from '../../../../utils/alpActivity/getProposalVoteIcon';
 import ProposalVoteHeadline from '../../eventData/ProposalVoteHeadline';
 import MobileAlpActivityRow from '../../activityRow/MobileAlpActivityRow';
+import ProposalTitle from '../../../ProposalTitle';
 
 interface MobileProposalVoteEventProps {
   event: ProposalVoteEvent;
@@ -34,7 +35,9 @@ const MobileProposalVoteEvent: React.FC<MobileProposalVoteEventProps> = props =>
             voter={event.vote.voter}
             supportDetailed={event.vote.supportDetailed}
           />{' '}
-          <span className={classes.proposalTitle}>{event.proposal.title}</span>
+          <span className={classes.proposalTitle}>
+            <ProposalTitle proposal={event.proposal} />
+          </span>
         </>
       }
       secondaryContent={<ProposalVoteInfoPillsContainer proposal={event.proposal} />}

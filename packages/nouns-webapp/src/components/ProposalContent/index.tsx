@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 import { processProposalDescriptionText } from '../../utils/processProposalDescriptionText';
@@ -11,6 +11,7 @@ import { Trans } from '@lingui/macro';
 import EnsOrLongAddress from '../EnsOrLongAddress';
 import { ProposalActionCard } from '../ProposalActionSummary';
 import { useProposalActions } from '../../hooks/useProposalActions';
+import { walletFlag } from '../../utils/moderation/flagged';
 
 interface ProposalContentProps {
   proposal?: Proposal;
@@ -35,17 +36,42 @@ export const transactionLink = (content: string) => {
   );
 };
 
-export const ProposalDescription: React.FC<ProposalContentProps> = ({ proposal }) => (
-  <>
-    {proposal?.description && (
+/** A proposal's description. A flagged proposer's title and description stay hidden until asked for. */
+export const ProposalDescription: React.FC<ProposalContentProps> = ({ proposal }) => {
+  const [shown, setShown] = useState(false);
+  const flag = walletFlag(proposal?.proposer);
+  if (!proposal?.description) return null;
+
+  if (flag && !shown) {
+    const reason = flag.reason;
+    return (
+      <div className={classes.flagged}>
+        <p className={classes.flaggedTitle}>
+          <Trans>Flagged proposal</Trans>
+        </p>
+        <p>
+          <Trans>
+            This proposal is from a wallet flagged for {reason}. Its title and description are
+            hidden.
+          </Trans>
+        </p>
+        <button type="button" className={classes.showAnyway} onClick={() => setShown(true)}>
+          <Trans>Show anyway</Trans>
+        </button>
+      </div>
+    );
+  }
+  return (
+    <>
+      {flag && <h2 className={classes.flaggedOriginalTitle}>{proposal.title}</h2>}
       <ReactMarkdown
         className={classes.markdown}
         children={processProposalDescriptionText(proposal.description, proposal.title)}
         remarkPlugins={[remarkBreaks]}
       />
-    )}
-  </>
-);
+    </>
+  );
+};
 
 /**
  * The proposal's actions in plain words, each with its exact target, value, signature and calldata

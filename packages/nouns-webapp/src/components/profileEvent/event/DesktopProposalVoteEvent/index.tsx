@@ -9,6 +9,7 @@ import ProposalVoteHeadline from '../../eventData/ProposalVoteHeadline';
 import DesktopAlpActivityRow from '../../activityRow/DesktopAlpActivityRow';
 import ReactTooltip from 'react-tooltip';
 import { Trans } from '@lingui/macro';
+import ProposalTitle from '../../../ProposalTitle';
 
 interface DesktopProposalVoteEventProps {
   event: ProposalVoteEvent;
@@ -49,7 +50,7 @@ const DesktopProposalVoteEvent: React.FC<DesktopProposalVoteEventProps> = props 
             onClick={proposalOnClickHandler}
             className={classes.proposalTitle}
           >
-            {event.proposal.title}
+            <ProposalTitle proposal={event.proposal} />
           </span>
         </>
       }

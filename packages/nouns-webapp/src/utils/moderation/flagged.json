@@ -1,0 +1,10 @@
+{
+  "about": "Wallets flagged for abuse. On alps.wtf and in the Discord bot (which reads this file at alps.wtf/flagged.json), their proposals show a neutral title with their text hidden behind 'Show anyway', and their vote reasons are hidden the same way. Each reason completes the sentence 'flagged for …'.",
+  "wallets": [
+    {
+      "address": "0xE07ed78EB3aA31005204B4995276e0F45D7208c6",
+      "reason": "attempting to raid the treasury",
+      "flagged": "2026-10-03"
+    }
+  ]
+}

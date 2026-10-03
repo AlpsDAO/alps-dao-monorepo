@@ -50,3 +50,45 @@
   font-family: 'PT Root UI';
   color: var(--brand-gray-light-text);
 }
+
+/* A flagged proposer's title and description, hidden until asked for */
+.flagged {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--brand-gray-border);
+  border-radius: 12px;
+  background-color: var(--brand-gray-background);
+  font-family: 'PT Root UI';
+  font-size: 1.05rem;
+  color: var(--brand-gray-dark-text);
+}
+
+.flagged p {
+  margin-bottom: 0.75rem;
+}
+
+.flaggedTitle {
+  font-weight: bold;
+}
+
+.flaggedTitle::before {
+  content: '⚑ ';
+}
+
+.showAnyway {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--brand-gray-border);
+  border-radius: 8px;
+  background-color: white;
+  font-weight: bold;
+  color: var(--brand-gray-dark-text);
+}
+
+.showAnyway:hover {
+  background-color: var(--brand-gray-border);
+}
+
+.flaggedOriginalTitle {
+  font-family: 'PT Root UI';
+  font-size: 1.5rem;
+  font-weight: bold;
+}
