@@ -33,8 +33,22 @@
   min-width: 0;
 }
 
-/* The block countdown in the Alp's bottom-left corner */
-.countdown {
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* The block countdown: beside the title, or on phones in the Alp's bottom-left corner */
+.headerCountdown {
+  font-family: 'PT Root UI';
+  font-size: 14px;
+  color: var(--brand-gray-dark-text);
+}
+
+.artCountdown {
+  display: none;
   position: absolute;
   left: 5px;
   bottom: 5px;
@@ -60,6 +74,14 @@
 @media (max-width: 568px) {
   .card {
     gap: 0.75rem;
+  }
+
+  .headerCountdown {
+    display: none;
+  }
+
+  .artCountdown {
+    display: block;
   }
 
   .art {

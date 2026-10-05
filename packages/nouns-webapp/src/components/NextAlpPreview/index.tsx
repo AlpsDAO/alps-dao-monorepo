@@ -11,7 +11,8 @@ import classes from './NextAlpPreview.module.css';
 
 /**
  * A small card, above the kick-off button, showing the Alp a kick-off would mint right now with its
- * traits, and on the Alp, how long the current block (and so this Alp) has left.
+ * traits, and how long the current block (and so this Alp) has left: beside the title on wider screens,
+ * on the Alp itself on phones (where the Alp is bigger and the title has no room for it).
  */
 const NextAlpPreview: React.FC<{ preview: Preview }> = ({ preview }) => {
   const remaining = useBlockRemaining(preview.since);
@@ -28,14 +29,19 @@ const NextAlpPreview: React.FC<{ preview: Preview }> = ({ preview }) => {
           style={{ backgroundColor: background }}
           alt={`Alp ${alpId}, which kicking off the next auction would mint now`}
         />
-        <span className={classes.countdown}>
+        <span className={classes.artCountdown}>
           <BlockCountdown remaining={remaining} />
         </span>
       </div>
       <div className={classes.body}>
-        <span className={classes.title}>
-          <Trans>Next up · Alp {alpId}</Trans>
-        </span>
+        <div className={classes.header}>
+          <span className={classes.title}>
+            <Trans>Next up · Alp {alpId}</Trans>
+          </span>
+          <span className={classes.headerCountdown}>
+            <BlockCountdown remaining={remaining} />
+          </span>
+        </div>
         <AlpTraitList traits={traits} variant="compact" />
       </div>
     </div>
