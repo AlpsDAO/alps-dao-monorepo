@@ -5,6 +5,11 @@
       "address": "0xE07ed78EB3aA31005204B4995276e0F45D7208c6",
       "reason": "attempting to raid the treasury",
       "flagged": "2026-10-03"
+    },
+    {
+      "address": "0xdB98dF449DFfE761F081C5F517A05412F0F6CEBA",
+      "reason": "attempting to raid the treasury",
+      "flagged": "2026-10-08"
     }
   ]
 }
