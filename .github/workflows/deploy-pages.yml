@@ -41,6 +41,15 @@ jobs:
         if: steps.traits.outputs.changed == 'true'
         run: yarn workspace @nouns/assets build
 
+      # The live flag list is in Cloudflare KV (functions/flagged.json.ts). Build in today's copy, which the
+      # site shows until the live list loads; if it can't be read, the committed copy is used.
+      - name: Refresh the built-in flag list
+        continue-on-error: true
+        run: |
+          curl -fsS https://alps.wtf/flagged.json -o "$RUNNER_TEMP/flagged.json"
+          node -e "const l = require(process.argv[1]); if (!Array.isArray(l.wallets)) process.exit(1)" "$RUNNER_TEMP/flagged.json"
+          mv "$RUNNER_TEMP/flagged.json" packages/nouns-webapp/src/utils/moderation/flagged.json
+
       # The daily run only builds and deploys when the chain has art the committed file lacks
       - name: Build webapp
         if: github.event_name != 'schedule' || steps.traits.outputs.changed == 'true'

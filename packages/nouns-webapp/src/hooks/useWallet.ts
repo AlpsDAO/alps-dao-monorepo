@@ -16,7 +16,8 @@ export interface Wallet {
     provider?: ethers.providers.BaseProvider;
     // The account is a Safe: its transactions wait in the Safe queue for owner confirmations
     isSafe?: boolean;
-    connect?: (type: WalletType, options?: ConnectOptions) => void;
+    /** Resolves true once connected, false if refused for the wrong network; rejects with the wallet's error */
+    connect?: (type: WalletType, options?: ConnectOptions) => Promise<boolean>;
     deactivate?: () => void;
 }
 
@@ -50,7 +51,8 @@ export const useWallet = (): Wallet => {
     const activate = async (connector: AbstractConnector): Promise<boolean> => {
         try {
             const result = await connector.activate();
-            if (!result || !result.account || !result.provider) return false;
+            if (!result?.provider) throw new Error('The wallet returned no provider');
+            if (!result.account) throw new Error('The wallet returned no account. Unlock it or select an account, then try again.');
             // The injected connector doesn't report the chain on activate
             const connectedChainId = Number(result.chainId ?? await connector.getChainId());
             if (connectedChainId !== CHAIN_ID) {
@@ -90,21 +92,30 @@ export const useWallet = (): Wallet => {
             connector.on('Web3ReactDeactivate', deactivate);
             return true;
         }
-        catch {
-            return false;
+        catch (error) {
+            try {
+                connector.deactivate();
+            } catch { }
+            throw error;
         }
     };
 
-    const connect = async (type: WalletType, options: ConnectOptions = {}) => {
-        let connected = false;
+    const connect = async (type: WalletType, options: ConnectOptions = {}): Promise<boolean> => {
         try {
-            connected = await activate(createConnector(type, options));
-        } catch { }
-        if (connected && type !== 'safe') {
-            rememberWallet(type === 'injected' ? `injected:${options.walletId ?? ''}` : type);
+            const connected = await activate(createConnector(type, options));
+            if (connected && type !== 'safe') {
+                rememberWallet(type === 'injected' ? `injected:${options.walletId ?? ''}` : type);
+            }
+            if (!connected && options.restoreOnly) rememberWallet(undefined);
+            return connected;
+        } catch (error) {
+            // A saved session that no longer exists: stop trying to restore it, quietly
+            if (options.restoreOnly) {
+                rememberWallet(undefined);
+                return false;
+            }
+            throw error;
         }
-        // A saved session that no longer exists: stop trying to restore it
-        if (!connected && options.restoreOnly) rememberWallet(undefined);
     };
 
     const deactivate = () => {
@@ -126,7 +137,7 @@ export const useWallet = (): Wallet => {
     // wallet used last time if it's still authorized
     useEffect(() => {
         if (isInIframe()) {
-            connect('safe');
+            connect('safe').catch(() => { });
             return;
         }
         const last = lastWallet();

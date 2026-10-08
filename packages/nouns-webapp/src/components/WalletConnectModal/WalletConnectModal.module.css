@@ -61,6 +61,13 @@
   color: var(--brand-gray-light-text);
 }
 
+.error {
+  font-family: 'PT Root UI';
+  font-size: 13px;
+  font-weight: normal;
+  color: var(--brand-color-red);
+}
+
 .hint {
   margin: 0.4rem 0 0;
   font-size: 14px;

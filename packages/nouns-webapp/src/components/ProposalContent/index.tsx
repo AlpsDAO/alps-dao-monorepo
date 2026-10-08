@@ -11,7 +11,7 @@ import { Trans } from '@lingui/macro';
 import EnsOrLongAddress from '../EnsOrLongAddress';
 import { ProposalActionCard } from '../ProposalActionSummary';
 import { useProposalActions } from '../../hooks/useProposalActions';
-import { walletFlag } from '../../utils/moderation/flagged';
+import { useWalletFlags } from '../../utils/moderation/flagged';
 
 interface ProposalContentProps {
   proposal?: Proposal;
@@ -39,7 +39,7 @@ export const transactionLink = (content: string) => {
 /** A proposal's description. A flagged proposer's title and description stay hidden until asked for. */
 export const ProposalDescription: React.FC<ProposalContentProps> = ({ proposal }) => {
   const [shown, setShown] = useState(false);
-  const flag = walletFlag(proposal?.proposer);
+  const flag = useWalletFlags()(proposal?.proposer);
   if (!proposal?.description) return null;
 
   if (flag && !shown) {

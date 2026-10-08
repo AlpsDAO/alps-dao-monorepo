@@ -11,7 +11,7 @@ import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import ShortAddress from '../ShortAddress';
 import { Image as AddressIcon } from '@davatar/react';
 import classes from './ProposalActivityFeed.module.css';
-import { walletFlag } from '../../utils/moderation/flagged';
+import { useWalletFlags } from '../../utils/moderation/flagged';
 
 const SUPPORT_CLASS = { 0: classes.against, 1: classes.for, 2: classes.abstain };
 
@@ -87,6 +87,7 @@ const ProposalActivityFeed: React.FC<{
   votes: ProposalVoteEntry[];
   currentBlock: number | undefined;
 }> = ({ proposal, votes, currentBlock }) => {
+  const walletFlag = useWalletFlags();
   const { status } = proposal;
   const wasStopped = status === ProposalState.CANCELLED || status === ProposalState.VETOED;
   const hasReached = (block: number) => currentBlock !== undefined && currentBlock >= block;
