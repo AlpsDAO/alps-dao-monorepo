@@ -10,6 +10,18 @@
       "address": "0xdB98dF449DFfE761F081C5F517A05412F0F6CEBA",
       "reason": "attempting to raid the treasury",
       "flagged": "2026-10-08"
+    },
+    {
+      "address": "0xD750007781Bf672E32F8374156422CB0D00BEE6e",
+      "reason": "attempting to raid the treasury",
+      "flagged": "2026-10-09"
+    },
+    {
+      "address": "0x587d3f36931A760A35023Ff5963dAbD21b759044",
+      "reason": "attempting to raid the treasury",
+      "flagged": "2026-10-10",
+      "via": "Alp 244 from 0xE07ed78EB3aA31005204B4995276e0F45D7208c6",
+      "auto": true
     }
   ]
 }
