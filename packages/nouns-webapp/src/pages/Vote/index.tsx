@@ -266,7 +266,8 @@ const VotePage = ({
   }
 
   const isWalletConnected = !(activeAccount === undefined);
-  const isActiveForVoting = startDate?.isBefore(now) && endDate?.isAfter(now);
+  // From the proposal's live state, so a veto or cancel closes voting at once
+  const isActiveForVoting = proposal.status === ProposalState.ACTIVE;
 
   const forAlps = getAlpVotes(data, 1);
   const againstAlps = getAlpVotes(data, 0);

@@ -6,6 +6,7 @@ import {
   TokenInfo,
   TREASURY_ADDRESS,
 } from '../utils/proposalActions/contracts';
+import { useRefreshCount } from './useRefreshCount';
 
 const TOKEN_ABI = [
   'function symbol() view returns (string)',
@@ -70,6 +71,7 @@ export const useTokenInfo = (address: string | undefined) => {
 /** How much of a token the treasury holds right now. */
 export const useTreasuryTokenBalance = (address: string | undefined) => {
   const [balance, setBalance] = useState<{ address: string; balance: BigNumber }>();
+  const refreshCount = useRefreshCount();
 
   useEffect(() => {
     if (!address || !utils.isAddress(address)) return;
@@ -81,7 +83,7 @@ export const useTreasuryTokenBalance = (address: string | undefined) => {
     return () => {
       active = false;
     };
-  }, [address]);
+  }, [address, refreshCount]);
 
   return balance && balance.address === address ? balance.balance : undefined;
 };

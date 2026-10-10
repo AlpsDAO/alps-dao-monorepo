@@ -3,6 +3,7 @@ import { AlpVoteHistory } from '../components/ProfileActivityFeed';
 import { useAlpCanVoteTimestamp } from './alpsAuction';
 import { Proposal, ProposalState, useAllProposals } from './alpsDao';
 import {
+  LIVE_QUERY,
   createTimestampAllProposals,
   alpDelegationHistoryQuery,
   alpTransferHistoryQuery,
@@ -62,7 +63,7 @@ export type AlpProfileEventFetcherResponse = {
  * @param alpId Id of Alp who's voting history will be fetched
  */
 const useAlpProposalVoteEvents = (alpId: number): AlpProfileEventFetcherResponse => {
-  const { loading, error, data } = useQuery(alpVotingHistoryQuery(alpId));
+  const { loading, error, data } = useQuery(alpVotingHistoryQuery(alpId), LIVE_QUERY);
 
   const {
     loading: proposalTimestampLoading,
@@ -146,7 +147,7 @@ const useAlpProposalVoteEvents = (alpId: number): AlpProfileEventFetcherResponse
  * @param alpId Id of Alp who's transfer history we will fetch
  */
 const useAlpTransferEvents = (alpId: number): AlpProfileEventFetcherResponse => {
-  const { loading, error, data } = useQuery(alpTransferHistoryQuery(alpId));
+  const { loading, error, data } = useQuery(alpTransferHistoryQuery(alpId), LIVE_QUERY);
   if (loading) {
     return {
       loading,
@@ -190,7 +191,7 @@ const useAlpTransferEvents = (alpId: number): AlpProfileEventFetcherResponse => 
  * @param alpId Id of Alp who's transfer history we will fetch
  */
 const useDelegationEvents = (alpId: number): AlpProfileEventFetcherResponse => {
-  const { loading, error, data } = useQuery(alpDelegationHistoryQuery(alpId));
+  const { loading, error, data } = useQuery(alpDelegationHistoryQuery(alpId), LIVE_QUERY);
   if (loading) {
     return {
       loading,

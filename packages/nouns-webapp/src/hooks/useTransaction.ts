@@ -5,6 +5,7 @@ import { errors } from 'ethers'
 import { WalletContext } from '../contexts/WalletContext'
 import { usePublicProvider } from './usePublicProvider'
 import { SafeTxProgress, waitForSafeExecution } from '../utils/safe'
+import { refreshAfterTransaction } from '../utils/liveData'
 
 // QueuedInSafe: proposed to the connected Safe, waiting for owner confirmations and execution
 export type TransactionState = 'None' | 'PendingSignature' | 'QueuedInSafe' | 'Mining' | 'Success' | 'Fail' | 'Exception'
@@ -45,11 +46,17 @@ export const useTransaction = (): { transact: (request: Promise<TransactionRespo
         setStatus(s => ({ ...s, status: 'Mining', transaction }));
         const receipt = await publicProvider.waitForTransaction(txHash);
         setStatus(s => ({ ...s, status: receipt.status === 0 ? 'Fail' : 'Success', receipt }));
+        if (receipt.status !== 0) refreshAfterTransaction();
         return;
       }
       setStatus(s => ({ ...s, status: 'Mining', transaction, chainId: transaction?.chainId }));
-      const receipt = await transaction.wait();
-      setStatus(s => ({ ...s, status: 'Success', receipt }));
+      // Whichever sees it mined first: a wallet's own node can be slow to report the receipt
+      const { hash } = transaction;
+      const receipt = await Promise.race([transaction.wait(), publicProvider.waitForTransaction(hash)])
+        // Stop the public node watching for it, e.g. once the wallet replaced it
+        .finally(() => publicProvider.removeAllListeners(hash));
+      setStatus(s => ({ ...s, status: receipt.status === 0 ? 'Fail' : 'Success', receipt }));
+      if (receipt.status !== 0) refreshAfterTransaction();
     }
     catch (e: any) {
       const errorMessage = e.error?.message ?? e.reason ?? e.data?.message ?? e.message
@@ -65,6 +72,7 @@ export const useTransaction = (): { transact: (request: Promise<TransactionRespo
             receipt: e.receipt,
             errorMessage
           }));
+          if (e.receipt.status !== 0) refreshAfterTransaction();
         } else {
           setStatus(s => ({ ...s, status: 'Fail', receipt: e.receipt, errorMessage }));
         }

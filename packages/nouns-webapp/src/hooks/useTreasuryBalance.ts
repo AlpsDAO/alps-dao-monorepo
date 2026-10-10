@@ -4,6 +4,7 @@ import config from '../config';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import { usePublicProvider } from './usePublicProvider';
+import { useRefreshCount } from './useRefreshCount';
 
 /**
  * Computes treasury balance (ETH + Lido)
@@ -14,15 +15,14 @@ export const useTreasuryBalance = () => {
   const [ethBalance, setEthBalance] = useState<ethers.BigNumber | undefined>();
   const lidoBalanceAsETH = useLidoBalance();
   const publicProvider = usePublicProvider();
+  const refreshCount = useRefreshCount();
 
   useEffect(() => {
-    async function getTreasuryBalance() {
-      const balance = await publicProvider.getBalance(config.addresses.alpsDaoExecutor);
-      setEthBalance(balance);
-    }
-
-    getTreasuryBalance();
-  }, []);
+    publicProvider
+      .getBalance(config.addresses.alpsDaoExecutor)
+      .then(setEthBalance)
+      .catch(() => {});
+  }, [publicProvider, refreshCount]);
 
   return ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
 };

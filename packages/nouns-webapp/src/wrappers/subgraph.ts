@@ -325,6 +325,15 @@ export const totalAlpSupplyAtPropSnapshot = (proposalId: string) => gql`
 }
 `;
 
+/**
+ * For data that others change (proposals, votes): show what's cached at once, and check the subgraph each
+ * time a page opens it. Plain queries are served from the cache for as long as the tab is open.
+ */
+export const LIVE_QUERY = {
+  fetchPolicy: 'cache-and-network',
+  nextFetchPolicy: 'cache-first',
+} as const;
+
 export const clientFactory = (uri: string) =>
   new ApolloClient({
     uri,

@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { AlpsDaoLogicV1Factory } from '@nouns/sdk';
 import config, { CHAIN_ID, ETHERSCAN_API_KEY } from '../config';
-import { proposalVotesQuery, ProposalVotes } from '../wrappers/subgraph';
+import { LIVE_QUERY, proposalVotesQuery, ProposalVotes } from '../wrappers/subgraph';
 
 export interface ProposalVoteEntry {
   // Lowercased address
@@ -49,6 +49,7 @@ const fetchVotesFromChain = async (proposalId: string): Promise<ProposalVoteEntr
  */
 export const useProposalVotes = (proposalId: string | undefined, isVotingOpen: boolean) => {
   const { data, loading, error } = useQuery<ProposalVotes>(proposalVotesQuery(proposalId ?? '0'), {
+    ...LIVE_QUERY,
     skip: !proposalId,
     pollInterval: isVotingOpen ? SUBGRAPH_POLL_MS : 0,
   });

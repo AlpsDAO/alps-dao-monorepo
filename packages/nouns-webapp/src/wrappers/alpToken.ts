@@ -5,6 +5,7 @@ import { seedsQuery } from './subgraph';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useContracts } from '../hooks/useContracts';
 import { useTransaction } from '../hooks/useTransaction';
+import { useRefreshCount } from '../hooks/useRefreshCount';
 import { WalletContext } from '../contexts/WalletContext';
 
 interface AlpToken {
@@ -108,7 +109,11 @@ export const useAlpSeed = (alpId?: EthersBN) => {
 
   // One query for every seed (shared through Apollo's cache) fills in Alps missing from the cache,
   // e.g. ones minted since it was written
-  const { data, error } = useQuery(seedsQuery(), { skip: id === undefined || !!cached });
+  const { data, error } = useQuery(seedsQuery(), {
+    skip: id === undefined || !!cached,
+    // Seeds never change: new Alps are read from the token contract below
+    context: { noRefresh: true },
+  });
   const indexed = useMemo(() => (data?.seeds ? seedArrayToObject(data.seeds) : undefined), [data]);
   useEffect(() => {
     if (indexed) cacheSeeds(indexed);
@@ -146,6 +151,7 @@ export const useUserVotes = (): number | undefined => {
 export const useAccountVotes = (account?: string): number | undefined => {
   const [votes, setVotes] = useState<ethers.BigNumber | undefined>();
   const { alpsDaoToken } = useContracts();
+  const refreshCount = useRefreshCount();
 
   useEffect(() => {
     async function getVotes(address?: string) {
@@ -161,7 +167,7 @@ export const useAccountVotes = (account?: string): number | undefined => {
     }
     
     getVotes(account);
-  }, [account]);
+  }, [account, refreshCount]);
 
   return votes?.toNumber();
 };
@@ -170,6 +176,7 @@ export const useUserDelegatee = (): string | undefined => {
   const [delegate, setDelegate] = useState<string | undefined>();
   const { alpsDaoToken } = useContracts();
   const { account } = useContext(WalletContext);
+  const refreshCount = useRefreshCount();
 
   useEffect(() => {
     async function getDelegate(address?: string) {
@@ -185,7 +192,7 @@ export const useUserDelegatee = (): string | undefined => {
     }
     
     getDelegate(account);
-  }, [account]);
+  }, [account, refreshCount]);
 
   return delegate;
 };
@@ -229,6 +236,7 @@ export const useDelegateVotes = () => {
 export const useAlpTokenBalance = (address?: string): number | undefined => {
   const [tokenBalance, setTokenBalance] = useState<ethers.BigNumber | undefined>(undefined);
   const { alpsDaoToken } = useContracts();
+  const refreshCount = useRefreshCount();
 
   useEffect(() => {
     async function balanceOf(address?: string) {
@@ -244,7 +252,7 @@ export const useAlpTokenBalance = (address?: string): number | undefined => {
     }
     
     balanceOf(address);
-  }, [address]);
+  }, [address, refreshCount]);
   
   return tokenBalance?.toNumber();
 };

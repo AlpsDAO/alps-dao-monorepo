@@ -7,7 +7,6 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import account from './state/slices/account';
 import application from './state/slices/application';
-import logs from './state/slices/logs';
 import auction, {
   reduxSafeAuction,
   reduxSafeNewAuction,
@@ -25,7 +24,7 @@ import { ApolloProvider, useQuery } from '@apollo/client';
 import { clientFactory, latestAuctionsQuery } from './wrappers/subgraph';
 import { useEffect } from 'react';
 import pastAuctions, { addPastAuctions } from './state/slices/pastAuctions';
-import LogsUpdater from './state/updaters/logs';
+import SubgraphUpdater from './state/updaters/subgraph';
 import config from './config';
 import { WebSocketProvider } from '@ethersproject/providers';
 import { BigNumber, BigNumberish } from 'ethers';
@@ -53,7 +52,6 @@ const createRootReducer = (history: History) =>
     account,
     application,
     auction,
-    logs,
     pastAuctions,
     onDisplayAuction,
   });
@@ -83,7 +81,7 @@ const client = clientFactory(config.app.subgraphApiUri);
 const Updaters = () => {
   return (
     <>
-      <LogsUpdater />
+      <SubgraphUpdater />
     </>
   );
 };
@@ -169,7 +167,8 @@ const ChainSubscriber: React.FC = () => {
 
 const PastAuctions: React.FC = () => {
   const latestAuctionId = useAppSelector(state => state.onDisplayAuction.lastAuctionAlpId);
-  const { data } = useQuery(latestAuctionsQuery());
+  // A long list that doesn't change: the live auction follows the auction house's events instead
+  const { data } = useQuery(latestAuctionsQuery(), { context: { noRefresh: true } });
   const dispatch = useAppDispatch();
 
   useEffect(() => {

@@ -4,14 +4,15 @@ import { defaultAbiCoder, Result } from 'ethers/lib/utils';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import * as R from 'ramda';
 import { useQuery } from '@apollo/client';
-import { proposalsQuery } from './subgraph';
+import { LIVE_QUERY, proposalsQuery } from './subgraph';
 import BigNumber from 'bignumber.js';
-import { useBlockTimestamp } from '../hooks/useBlockTimestamp';
-import { useBlockNumber } from '../hooks/useBlockNumber';
+import { useBlockNumber, useLatestBlock } from '../hooks/useBlockNumber';
 import { useContracts } from '../hooks/useContracts';
+import { useRefreshCount } from '../hooks/useRefreshCount';
 import config, { CHAIN_ID, ETHERSCAN_API_KEY } from '../config';
 import { useTransaction } from '../hooks/useTransaction';
 import { WalletContext } from '../contexts/WalletContext';
+import { getReadProvider } from '../utils/proposalActions/contracts';
 
 export enum Vote {
   AGAINST = 0,
@@ -147,6 +148,7 @@ const useVoteReceipt = (proposalId: string | undefined): { hasVoted: boolean, su
   const [receipt, setReceipt] = useState<{ hasVoted: boolean, support: number }>({ hasVoted: false, support: -1 });
   const { account } = useContext(WalletContext);
   const { alpsDaoProxyV1 } = useContracts();
+  const refreshCount = useRefreshCount();
 
   // Fetch a voting receipt for the passed proposal id
   useEffect(() => {
@@ -163,7 +165,7 @@ const useVoteReceipt = (proposalId: string | undefined): { hasVoted: boolean, su
     }
 
     getReceipt(proposalId, account);
-  }, [proposalId, account, alpsDaoProxyV1]);
+  }, [proposalId, account, alpsDaoProxyV1, refreshCount]);
 
   return receipt;
 };
@@ -192,6 +194,7 @@ export const useProposalVote = (proposalId: string | undefined): string => {
 export const useProposalCount = (): number | undefined => {
   const [count, setCount] = useState<EthersBN | undefined>();
   const { alpsDaoProxyV1 } = useContracts();
+  const refreshCount = useRefreshCount();
 
   // Fetch a voting receipt for the passed proposal id
   useEffect(() => {
@@ -208,7 +211,7 @@ export const useProposalCount = (): number | undefined => {
     }
 
     getCount();
-  }, [alpsDaoProxyV1]);
+  }, [alpsDaoProxyV1, refreshCount]);
 
   return count?.toNumber();
 };
@@ -358,9 +361,10 @@ const getProposalState = (
 };
 
 export const useAllProposalsViaSubgraph = (): ProposalData => {
-  const { loading, data, error } = useQuery(proposalsQuery());
-  const blockNumber = useBlockNumber();
-  const timestamp = useBlockTimestamp(blockNumber);
+  const { loading, data, error } = useQuery(proposalsQuery(), LIVE_QUERY);
+  const latestBlock = useLatestBlock();
+  const blockNumber = latestBlock?.number;
+  const blockTimestamp = latestBlock && new Date(latestBlock.timestamp * 1000);
 
   const proposals = data?.proposals?.map((proposal: ProposalSubgraphEntity) => {
     const description = proposal.description?.replace(/\\n/g, '\n').replace(/(^['"]|['"]$)/g, '');
@@ -369,7 +373,7 @@ export const useAllProposalsViaSubgraph = (): ProposalData => {
       title: R.pipe(extractTitle, removeMarkdownStyle)(description) ?? 'Untitled',
       description: description ?? 'No description.',
       proposer: proposal.proposer.id,
-      status: getProposalState(blockNumber, new Date((timestamp ?? 0) * 1000), proposal),
+      status: getProposalState(blockNumber, blockTimestamp, proposal),
       proposalThreshold: parseInt(proposal.proposalThreshold),
       quorumVotes: parseInt(proposal.quorumVotes),
       forCount: parseInt(proposal.forVotes),
@@ -398,6 +402,7 @@ export const useAllProposalsViaSubgraph = (): ProposalData => {
 export const useAllProposalsViaChain = (skip = false): ProposalData => {
   const { alpsDaoProxyV1 } = useContracts();
   const proposalCount = useProposalCount();
+  const refreshCount = useRefreshCount();
   const [onchain, setOnchain] = useState<{ proposals: ProposalCallResult[]; states: ProposalState[] }>();
 
   useEffect(() => {
@@ -419,7 +424,7 @@ export const useAllProposalsViaChain = (skip = false): ProposalData => {
     return () => {
       cancelled = true;
     };
-  }, [skip, alpsDaoProxyV1, proposalCount]);
+  }, [skip, alpsDaoProxyV1, proposalCount, refreshCount]);
 
   const formattedLogs = useFormattedProposalCreatedLogs(skip);
 
@@ -463,9 +468,58 @@ export const useAllProposals = (): ProposalData => {
   return subgraph?.error ? onchain : subgraph;
 };
 
+// Once a proposal is in one of these, it stays there
+const SETTLED_STATES = [
+  ProposalState.CANCELLED,
+  ProposalState.DEFEATED,
+  ProposalState.EXPIRED,
+  ProposalState.EXECUTED,
+  ProposalState.VETOED,
+];
+
+let governorReader: ReturnType<typeof AlpsDaoLogicV1Factory.connect> | undefined;
+const getGovernorReader = () => {
+  if (!governorReader) {
+    governorReader = AlpsDaoLogicV1Factory.connect(config.addresses.alpsDAOProxy, getReadProvider());
+  }
+  return governorReader;
+};
+
+/**
+ * A proposal's state and timelock eta straight from the governor, which the subgraph can trail by a
+ * minute: read each block until the proposal is settled, and after each of the viewer's transactions.
+ */
+const useProposalStateFromChain = (id: string) => {
+  const [read, setRead] = useState<{ id: string; status: ProposalState; eta?: Date }>();
+  const settled = read?.id === id && SETTLED_STATES.includes(read.status);
+  const blockNumber = useBlockNumber();
+  const refreshCount = useRefreshCount();
+  const tick = settled ? undefined : blockNumber;
+
+  useEffect(() => {
+    let cancelled = false;
+    const governor = getGovernorReader();
+    Promise.all([governor.state(id), governor.proposals(id)])
+      .then(([state, proposal]) => {
+        if (cancelled) return;
+        const eta = proposal.eta.gt(0) ? new Date(proposal.eta.toNumber() * 1000) : undefined;
+        setRead({ id, status: state as ProposalState, eta });
+      })
+      // e.g. an id with no proposal yet
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [id, tick, refreshCount]);
+
+  return read?.id === id ? read : undefined;
+};
+
 export const useProposal = (id: string | number): Proposal | undefined => {
   const { data } = useAllProposals();
-  return data?.find(p => p.id === id.toString());
+  const proposal = data?.find(p => p.id === id.toString());
+  const fromChain = useProposalStateFromChain(id.toString());
+  return proposal && fromChain ? { ...proposal, status: fromChain.status, eta: fromChain.eta } : proposal;
 };
 
 export const useCastVote = () => {
