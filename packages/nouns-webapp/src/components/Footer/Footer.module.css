@@ -9,50 +9,61 @@
 
 .footerSignature {
   margin: auto auto 0 auto;
-  font-family: 'PT Root UI' !important;
-  font-weight: 500;
-  font-size: 18px;
   padding-bottom: 4rem;
   padding-top: 2rem;
-  color: var(--brand-black) !important;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
-.footerSignature a {
-  text-decoration: none;
-  color: black;
-  margin: 8px 14px;
-  transition: all 0.15s ease-in-out;
+.iconLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--brand-black);
+  opacity: 0.7;
+  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
 
-.footerSignature a:hover {
-  text-decoration: none;
+.iconLink svg {
+  width: 22px;
+  height: 22px;
+}
+
+.iconLink:hover,
+.iconLink:focus-visible {
+  color: var(--brand-black);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* The link's name, above it */
+.iconLink::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  padding: 0.3rem 0.6rem;
+  background-color: #213343;
+  color: white;
+  font-family: 'PT Root UI';
   font-weight: bold;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
 
-.footerSignature img {
-  width: 32px;
-  height: 32px;
-  margin: 0 8px;
-}
-
-@media (max-width: 992px) {
-  .footerSignature a {
-    font-size: 16px;
-  }
-}
-
-@keyframes slidein {
-  from {
-    margin-left: 100%;
-    width: 300%;
-  }
-
-  to {
-    margin-left: 0%;
-    width: 100%;
-  }
+.iconLink:hover::after,
+.iconLink:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
