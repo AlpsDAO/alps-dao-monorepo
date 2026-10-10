@@ -1,7 +1,7 @@
 import Davatar from '@davatar/react';
 import React, { useContext, useState } from 'react';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
-import { getNavBarButtonVariant, NavBarButtonStyle } from '../NavBarButton';
+import { NavBarButtonStyle } from '../NavBarButton';
 import classes from './NavWallet.module.css';
 import navDropdownClasses from '../NavWallet/NavBarDropdown.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,20 +15,12 @@ import { useHistory } from 'react-router-dom';
 import { usePickByState } from '../../utils/colorResponsiveUIUtils';
 import WalletConnectButton from './WalletConnectButton';
 import { Trans } from '@lingui/macro';
-import {
-  shortENS,
-  useShortAddress,
-  veryShortAddress,
-  veryShortENS,
-} from '../../utils/addressAndENSDisplayUtils';
-import { useActiveLocale } from '../../hooks/useActivateLocale';
-import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
+import { useShortAddress } from '../../utils/addressAndENSDisplayUtils';
 import { usePublicProvider } from '../../hooks/usePublicProvider';
 import { WalletContext } from '../../contexts/WalletContext';
 
 interface NavWalletProps {
   address: string;
-  buttonStyle?: NavBarButtonStyle;
 }
 
 type Props = {
@@ -46,7 +38,7 @@ type CustomMenuProps = {
 };
 
 const NavWallet: React.FC<NavWalletProps> = props => {
-  const { address, buttonStyle } = props;
+  const { address } = props;
 
   const [buttonUp, setButtonUp] = useState(false);
   const [showConnectModal, setShowConnectModal] = useState(false);
@@ -55,7 +47,6 @@ const NavWallet: React.FC<NavWalletProps> = props => {
   const { deactivate } = useContext(WalletContext);
   const ens = useReverseENSLookUp(address);
   const shortAddress = useShortAddress(address);
-  const activeLocale = useActiveLocale();
   const publicProvider = usePublicProvider();
 
   const setModalStateHandler = (state: boolean) => {
@@ -87,13 +78,6 @@ const NavWallet: React.FC<NavWalletProps> = props => {
     navDropdownClasses.whiteInfoSelected,
     navDropdownClasses.dropdownActive,
     navDropdownClasses.dropdownActive,
-    history,
-  );
-
-  const mobileBorderColor = usePickByState(
-    'rgba(140, 141, 146, .5)',
-    'rgba(121, 128, 156, .5)',
-    'rgba(142, 129, 127, .5)',
     history,
   );
 
@@ -177,68 +161,8 @@ const NavWallet: React.FC<NavWalletProps> = props => {
     );
   });
 
-  const renderENS = (ens: string) => {
-    if (activeLocale === 'ja-JP') {
-      return veryShortENS(ens);
-    }
-    return shortENS(ens);
-  };
-
-  const renderAddress = (address: string) => {
-    if (activeLocale === 'ja-JP') {
-      return veryShortAddress(address);
-    }
-    return shortAddress;
-  };
-
-  const walletConnectedContentMobile = (
-    <div className={clsx(navDropdownClasses.alpsNavLink, responsiveUiUtilsClasses.mobileOnly)}>
-      <div
-        className={'d-flex flex-row justify-content-between'}
-        style={{
-          justifyContent: 'space-between',
-        }}
-      >
-        <div className={navDropdownClasses.connectContentMobileWrapper}>
-          <div className={clsx(navDropdownClasses.wrapper, getNavBarButtonVariant(buttonStyle))}>
-            <div className={navDropdownClasses.button}>
-              <div className={classes.icon}>
-                {' '}
-                <Davatar size={21} address={address} provider={publicProvider} />
-              </div>
-              <div className={navDropdownClasses.dropdownBtnContent}>
-                <span style={{ color: 'var(--brand-white)' }}>
-                  {ens ? renderENS(ens) : renderAddress(address)}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={`d-flex flex-row  ${classes.connectContentMobileText}`}>
-          <div
-            style={{
-              borderRight: `1px solid ${mobileBorderColor}`,
-              color: 'var(--brand-white)',
-            }}
-            className={classes.mobileSwitchWalletText}
-            onClick={switchWalletHandler}
-          >
-            <Trans>Switch</Trans>
-          </div>
-          <div className={classes.disconnectText} onClick={disconectWalletHandler}>
-            <Trans>Sign out</Trans>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   const walletConnectedContentDesktop = (
-    <Dropdown
-      className={clsx(navDropdownClasses.alpsNavLink, responsiveUiUtilsClasses.desktopOnly)}
-      onToggle={() => setButtonUp(!buttonUp)}
-    >
+    <Dropdown className={navDropdownClasses.alpsNavLink} onToggle={() => setButtonUp(!buttonUp)}>
       <Dropdown.Toggle as={customDropdownToggle} id="dropdown-custom-components" />
       <Dropdown.Menu className={`${navDropdownClasses.desktopDropdown} `} as={CustomMenu} />
     </Dropdown>
@@ -250,10 +174,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
         <WalletConnectModal onDismiss={() => setModalStateHandler(false)} />
       )}
       {activeAccount ? (
-        <>
-          {walletConnectedContentDesktop}
-          {walletConnectedContentMobile}
-        </>
+        walletConnectedContentDesktop
       ) : (
         <WalletConnectButton
           className={clsx(navDropdownClasses.alpsNavLink, navDropdownClasses.connectBtn)}

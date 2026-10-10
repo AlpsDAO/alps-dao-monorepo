@@ -82,11 +82,63 @@
   justify-content: center;
 }
 
-.navBarToggle {
-  /* border-radius: 10px; */
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
   height: 44px;
-  padding: 0.25rem 0.5rem;
-  border-color: white !important;
+  padding: 0;
+  border: 1px solid white;
+  background: transparent;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.menuButton:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Three lines that turn into an X while the menu is open */
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: white;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.menuIcon {
+  position: relative;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.menuIcon::before {
+  top: -7px;
+}
+
+.menuIcon::after {
+  top: 7px;
+}
+
+.menuIconOpen {
+  background-color: transparent;
+}
+
+.menuIconOpen::before {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menuIconOpen::after {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Phones: a slimmer header */
@@ -99,7 +151,8 @@
     height: 32px;
   }
 
-  .navBarToggle {
-    height: 38px;
+  .menuButton {
+    width: 40px;
+    height: 40px;
   }
 }

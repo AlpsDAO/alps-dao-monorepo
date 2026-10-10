@@ -14,20 +14,6 @@
   cursor: pointer !important;
 }
 
-.connectContentMobileWrapper {
-  margin-left: 0.25rem;
-  margin-top: 0.3rem;
-}
-
-.connectContentMobileText {
-  font-family: 'PT Root UI';
-  font-weight: bold;
-  font-size: 18px;
-  margin-top: 1rem;
-  height: 2rem;
-  width: fit-content;
-}
-
 .disconnectText {
   color: var(--brand-color-red) !important;
 }
@@ -36,11 +22,6 @@
   color: var(--brand-color-red) !important;
   transition: all 0.125s ease-in-out;
   cursor: pointer;
-}
-
-.mobileSwitchWalletText {
-  margin-right: 1rem;
-  padding-right: 1rem;
 }
 
 .dropDownTop {

@@ -16,8 +16,10 @@ import { faGavel } from '@fortawesome/free-solid-svg-icons';
 import NavBarTreasury from '../NavBarTreasury';
 import NavWallet from '../NavWallet';
 import { Trans } from '@lingui/macro';
-import React, { useState } from 'react';
+import clsx from 'clsx';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTreasuryBalance } from '../../hooks/useTreasuryBalance';
+import MobileMenu from './MobileMenu';
 
 const NavBar = () => {
   const activeAccount = useAppSelector(state => state.account.activeAccount);
@@ -25,8 +27,11 @@ const NavBar = () => {
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const history = useHistory();
   const treasuryBalance = useTreasuryBalance();
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuTop, setMenuTop] = useState(0);
+  const navRef = useRef<HTMLElement>(null);
   const isMobile = window.innerWidth < 992;
+  const treasuryETH = treasuryBalance && Number(utils.formatEther(treasuryBalance)).toFixed(3);
 
   const useStateBg =
     history.location.pathname === '/' ||
@@ -39,15 +44,19 @@ const NavBar = () => {
     ? NavBarButtonStyle.COOL_INFO
     : NavBarButtonStyle.WARM_INFO;
 
-  const closeNav = () => setIsNavExpanded(false);
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+  const toggleMenu = () => {
+    if (!isMenuOpen) setMenuTop(Math.max(0, navRef.current?.getBoundingClientRect().bottom ?? 0));
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <>
       <Navbar
+        ref={navRef}
         expand="xl"
         style={{ backgroundColor: `#213343` }}
         className={classes.navBarCustom}
-        expanded={isNavExpanded}
       >
         <Container style={{ maxWidth: 'unset', paddingBottom: isMobile ? 3 : 0 }}>
           <div className={classes.brandAndTreasuryWrapper}>
@@ -61,52 +70,46 @@ const NavBar = () => {
               </Nav.Item>
             )}
             <Nav.Item>
-              {treasuryBalance && (
+              {treasuryETH && (
                 <Nav.Link as={Link} to="/treasury" className={classes.alpsNavLink}>
-                  <NavBarTreasury
-                    treasuryBalance={Number(utils.formatEther(treasuryBalance)).toFixed(3)}
-                    treasuryStyle={nonWalletButtonStyle}
-                  />
+                  <NavBarTreasury treasuryBalance={treasuryETH} treasuryStyle={nonWalletButtonStyle} />
                 </Nav.Link>
               )}
             </Nav.Item>
           </div>
-          <Navbar.Toggle
-            className={classes.navBarToggle}
-            aria-controls="basic-navbar-nav"
-            onClick={() => setIsNavExpanded(!isNavExpanded)}
+          {/* Phones and tablets: the menu instead of the links */}
+          <button
+            type="button"
+            className={clsx(classes.menuButton, 'd-xl-none')}
+            aria-controls="mobile-menu"
+            aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            onClick={toggleMenu}
           >
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M3 7C3 6.44772 3.44772 6 4 6H26C26.5523 6 27 6.44772 27 7C27 7.55228 26.5523 8 26 8H4C3.44772 8 3 7.55228 3 7ZM3 15C3 14.4477 3.44772 14 4 14H26C26.5523 14 27 14.4477 27 15C27 15.5523 26.5523 16 26 16H4C3.44772 16 3 15.5523 3 15ZM3 23C3 22.4477 3.44772 22 4 22H26C26.5523 22 27 22.4477 27 23C27 23.5523 26.5523 24 26 24H4C3.44772 24 3 23.5523 3 23Z"
-                fill="white"
-              />
-            </svg>
-          </Navbar.Toggle>
+            <span className={clsx(classes.menuIcon, isMenuOpen && classes.menuIconOpen)} />
+          </button>
+          <MobileMenu
+            open={isMenuOpen}
+            onClose={closeMenu}
+            top={menuTop}
+            treasuryBalance={treasuryETH || undefined}
+          />
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link as={Link} to="/" className={classes.alpsNavLink} onClick={closeNav}>
+            <Nav.Link as={Link} to="/" className={classes.alpsNavLink}>
               <NavBarButton
                 buttonText={<Trans>Auction</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faGavel} />}
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <Nav.Link as={Link} to="/vote" className={classes.alpsNavLink} onClick={closeNav}>
+            <Nav.Link as={Link} to="/vote" className={classes.alpsNavLink}>
               <NavBarButton
                 buttonText={<Trans>Governance</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faUsers} />}
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <Nav.Link as={Link} to="/about" className={classes.alpsNavLink} onClick={closeNav}>
+            <Nav.Link as={Link} to="/about" className={classes.alpsNavLink}>
               <NavBarButton
                 buttonText={<Trans>About</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faBookOpen} />}
@@ -118,7 +121,6 @@ const NavBar = () => {
               className={classes.alpsNavLink}
               target="_blank"
               rel="noreferrer"
-              onClick={closeNav}
             >
               <NavBarButton
                 buttonText={<Trans>Discourse</Trans>}
@@ -126,7 +128,7 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link> */}
-            <Nav.Link as={Link} to="/playground" className={classes.alpsNavLink} onClick={closeNav}>
+            <Nav.Link as={Link} to="/playground" className={classes.alpsNavLink}>
               <NavBarButton
                 buttonText={<Trans>Playground</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faPlay} />}
@@ -134,7 +136,7 @@ const NavBar = () => {
               />
             </Nav.Link>
             {/* <NavLocaleSwitcher buttonStyle={nonWalletButtonStyle} /> */}
-            <NavWallet address={activeAccount || '0'} buttonStyle={nonWalletButtonStyle} />{' '}
+            <NavWallet address={activeAccount || '0'} />
           </Navbar.Collapse>
         </Container>
       </Navbar>
