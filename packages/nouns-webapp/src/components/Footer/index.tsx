@@ -5,6 +5,8 @@ import { faMountain } from '@fortawesome/free-solid-svg-icons';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import { externalURL, ExternalURL } from '../../utils/externalURL';
 import config from '../../config';
+import { ReactNode } from 'react';
+import clsx from 'clsx';
 
 // Brand marks: Discord and X from Simple Icons (CC0), Etherscan from its brand assets
 const DiscordIcon = () => (
@@ -29,11 +31,20 @@ const EtherscanIcon = () => (
   </svg>
 );
 
+interface FooterLink {
+  name: string;
+  // A symbol shown on hover in place of the name
+  symbol?: string;
+  url?: string;
+  icon: ReactNode;
+}
+
 const Footer = () => {
-  const links = [
+  const links: FooterLink[] = [
     { name: 'Alps Center', url: externalURL(ExternalURL.alpsCenter), icon: <FontAwesomeIcon icon={faMountain} /> },
     { name: 'Discord', url: externalURL(ExternalURL.discord), icon: <DiscordIcon /> },
-    { name: 'X', url: externalURL(ExternalURL.twitter), icon: <XIcon /> },
+    // Named 𝕏 on screen, the way X writes it, and X to screen readers
+    { name: 'X', symbol: '𝕏', url: externalURL(ExternalURL.twitter), icon: <XIcon /> },
     { name: 'Etherscan', url: buildEtherscanAddressLink(config.addresses.alpsToken), icon: <EtherscanIcon /> },
   ];
 
@@ -49,8 +60,8 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label={link.name}
-              data-label={link.name}
-              className={classes.iconLink}
+              data-label={link.symbol ?? link.name}
+              className={clsx(classes.iconLink, link.symbol && classes.symbolLabel)}
             >
               {link.icon}
             </a>

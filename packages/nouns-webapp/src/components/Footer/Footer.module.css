@@ -67,3 +67,9 @@
   opacity: 1;
   transform: translate(-50%, 0);
 }
+
+/* A symbol's glyph comes from a fallback font and draws small, so it's set larger at the same height */
+.symbolLabel::after {
+  font-size: 1.15rem;
+  line-height: 1.02rem;
+}
