@@ -36,11 +36,18 @@ const KickOffAuction: React.FC<{
           {pending ? <Spinner animation="border" size="sm" /> : <Trans>Settle Alp {alpId}</Trans>}
         </Button>
         <p className={classes.explainer}>
-          <Trans>
-            Auctions are paused by the DAO, so no new auction starts until a proposal resumes them. Anyone
-            can still settle Alp {alpId}, which sends it to{' '}
-            {hasWinner ? <ShortAddress address={auction.bidder} /> : <Trans>the Warming Hut</Trans>}.
-          </Trans>
+          {hasWinner ? (
+            <Trans>
+              Auctions are paused by the DAO, so no new auction starts until a proposal resumes them.
+              Anyone can still settle Alp {alpId}, which sends it to its winner,{' '}
+              <ShortAddress address={auction.bidder} />.
+            </Trans>
+          ) : (
+            <Trans>
+              Auctions are paused by the DAO, so no new auction starts until a proposal resumes them.
+              Anyone can still settle Alp {alpId}, which sends it to the Warming Hut.
+            </Trans>
+          )}
         </p>
       </div>
     );

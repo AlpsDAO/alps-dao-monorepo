@@ -39,7 +39,7 @@ const CurrentDelegatePannel: React.FC<CurrentDelegatePannelProps> = props => {
 
         <div className={classes.contentWrapper}>
           <div className={classes.current}>
-            <Trans>Current Delegate</Trans>
+            <Trans>Current</Trans>
           </div>
           <div className={classes.delegateInfoWrapper}>
             <div className={classes.ens}>

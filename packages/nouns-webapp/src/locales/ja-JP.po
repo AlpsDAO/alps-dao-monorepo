@@ -18,14 +18,6 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 
-#: src/components/DynamicQuorumInfoModal/index.tsx
-#~ msgid "% of Alps Currently Against"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "'Alpers' are the group of ten builders that initiated Alps. Here are the Alpers:"
-#~ msgstr "「Alpers」とはAlpsの創業に携わった10人の創業者のことであり、以下の人物で構成されています："
-
 #: src/components/ByLineHoverCard/index.tsx
 msgid "... and {0} more"
 msgstr "...そしてさらに3つ"
@@ -35,32 +27,12 @@ msgid "1 action"
 msgstr ""
 
 #: src/components/Documentation/index.tsx
-#~ msgid "100% of Alp auction proceeds are trustlessly sent to the treasury."
-#~ msgstr "Alpオークションの売上は、第三者の介入無しで 100％トレジャリーに送られる仕組みになっています。"
-
-#: src/components/Documentation/index.tsx
 msgid "100% of auction proceeds go to the club treasury, which members spend by proposing and voting."
 msgstr ""
-
-#: src/pages/Alpers/index.tsx
-#~ msgid "3.5 artists, 6.5 technologists"
-#~ msgstr "3.5アーティスト、6.5技術者"
-
-#: src/pages/NotFound/index.tsx
-#~ msgid "404: This is not the person, place, or thing you're looking for..."
-#~ msgstr "404: お探しの人、場所、物は見つかりませんでした。"
 
 #: src/pages/NotFound/index.tsx
 msgid "404: You’ve gone off-piste. This page doesn’t exist."
 msgstr ""
-
-#: src/components/profileEvent/event/DesktopTransferEvent/index.tsx
-#~ msgid "<0/>Holder changed from<1><2/></1> to <3><4/></3>"
-#~ msgstr ""
-
-#: src/components/profileEvent/event/DesktopAlpWinEvent/index.tsx
-#~ msgid "<0> Alp {0} </0>  won by <1><2/></1>"
-#~ msgstr ""
 
 #: src/components/profileEvent/event/DesktopAlpWinEvent/index.tsx
 #: src/components/profileEvent/event/MobileAlpWinEvent/index.tsx
@@ -108,6 +80,7 @@ msgstr ""
 msgid "A proposal can have at most 10 actions. Remove some, or split it in two."
 msgstr ""
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/NavBar/index.tsx
 msgid "About"
 msgstr ""
@@ -134,10 +107,6 @@ msgstr "Propへの投票を棄権する {0} "
 msgid "Abstained on"
 msgstr "棄権しました。"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Accessories (182)"
-#~ msgstr ""
-
 #: src/pages/Playground/index.tsx
 msgid "Accessory"
 msgstr "付属品"
@@ -162,14 +131,6 @@ msgstr "実行されました"
 msgid "Activity"
 msgstr "アクティビティ"
 
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Add Transaction"
-#~ msgstr "トランザクションを追加する"
-
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Add a Proposal Transaction"
-#~ msgstr "提案するトランザクションを追加する"
-
 #: src/components/ProposalBuilder/ActionEditorModal.tsx
 msgid "Add action"
 msgstr ""
@@ -188,32 +149,8 @@ msgid "Add item"
 msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
-#~ msgid "Add one or more transactions and describe your proposal for the club. Proposals can’t be edited after submission, so check everything before you submit. Voting opens about 3 days after you submit and stays open for about 4 days."
-#~ msgstr ""
-
-#: src/pages/CreateProposal/index.tsx
-#~ msgid "Add one or more transactions and describe your proposal for the community. The proposal cannot be modified after submission, so please verify all information before submitting. The voting period will begin after 2 1/3 days and last for 3 days."
-#~ msgstr ""
-
-#: src/pages/CreateProposal/index.tsx
-#~ msgid "Add one or more transactions and describe your proposal for the community. The proposal cannot modified after submission, so please verify all information before submitting. The voting period will begin after 2 1/3 days and last for 3 days."
-#~ msgstr "トランザクション を１つ以上追加し、提案をコミュニティに説明してください。 提案は提出後に変更することが出来ませんので、事前に全ての情報を確認してください。 投票期間は56時間後に始まり、3日間続く予定です。"
-
-#: src/pages/CreateProposal/index.tsx
 msgid "Add the first action"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Additionally, the founders have chosen to establish The Alpine Council which is a group that consists of the founders plus founding/early team members and compensate this group with Alps. Every 10th Alp with ID ending in \"5\" for the first 5 years of the project (Alp IDs #5, #15, #25, #35 and so on) will be automatically sent to a multisig to be vested and shared among The Alpine Council members."
-#~ msgstr ""
-
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Address"
-#~ msgstr "アドレス"
-
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Address (Callee or Recipient)"
-#~ msgstr "アドレス (他のスマート契約者であるカーリー、又はETHを受け取る受信者)"
 
 #: src/components/VoteCard/index.tsx
 msgid "Addresses"
@@ -223,38 +160,6 @@ msgstr "イーサリアムアドレス"
 #: src/components/VoteCard/index.tsx
 msgid "Against"
 msgstr "反対"
-
-#: src/components/AlperAlpContent/index.tsx
-#~ msgid "All Alp auction proceeds are sent to the"
-#~ msgstr "すべてのAlpオークションの収益は、"
-
-#: src/pages/Alpers/index.tsx
-#~ msgid "All Alp auction proceeds are sent to the Alps DAO. For this reason, we, the project's founders (‘Alpers’) have chosen to compensate ourselves with Alps. Every 10th alp for the first 5 years of the project will be sent to our multisig (5/10), where it will be vested and distributed to individual Alpers."
-#~ msgstr ""
-
-#: src/pages/Alpers/index.tsx
-#~ msgid "All Alp auction proceeds are sent to the Alps DAO. For this reason, we, the project's founders (‘Alpers’) have chosen to compensate ourselves with Alps. Every 10th alp for the first 5 years of the project will be sent to our multisig, where it will be vested and distributed to individual Alpers."
-#~ msgstr "Alpオークションの収益は全て Alps DAOに送られます。その為、我々、プロジェクトの創設者 (Alpers) はAlpsで自らを補償することに決めました。 プロジェクトの最初の5年間の間は、毎回10体目のAlpがマルチシグ(5/10) に送られた後、個々のナウンダーズに与えられ、配布されます。"
-
-#: src/pages/Alpers/index.tsx
-#~ msgid "All Alp auction proceeds are sent to the Alps treasury. For this reason, we, the project's founders (‘Alpers’) have chosen to compensate ourselves with Alp tokens. Every 10th alp for the first 5 years of the project will be sent to our multisig (5/10), where it will be vested and distributed to individual Alpers."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "All Alp tokens are members of Alps DAO."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "All Alp tokens are members of Alps."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "All Alps are members of Alps DAO."
-#~ msgstr "Alpsは全員Alps DAOの会員です。"
-
-#: src/pages/CreateProposal/index.tsx
-#~ msgid "All Proposals"
-#~ msgstr "全ての提案"
 
 #: src/pages/CreateProposal/index.tsx
 msgid "All proposals"
@@ -270,52 +175,12 @@ msgid "Alp"
 msgstr "Alp"
 
 #: src/components/Documentation/index.tsx
-#~ msgid "Alp Seeder Contract"
-#~ msgstr "Alpシーダー契約"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alp Traits"
-#~ msgstr "Alpsの特徴"
-
-#: src/components/Documentation/index.tsx
 msgid "Alp art is 32×32 pixels, generated from 7 backgrounds, 32 bodies, 182 accessories, 248 heads and 200 glasses, stored entirely on-chain and in the public domain."
 msgstr ""
-
-#: src/pages/Governance/index.tsx
-#~ msgid "Alp token"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alp token artwork is in the <0/>."
-#~ msgstr ""
-
-#: src/pages/Governance/index.tsx
-#~ msgid "Alp tokens"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alp tokens are generated pseudo-randomly, with no rules governing trait scarcity. Current traits include:"
-#~ msgstr ""
-
-#: src/pages/Governance/index.tsx
-#~ msgid "Alp tokens govern <0>Alps</0>. Alp tokens can vote on proposals or delegate their vote to a third party. A minimum of <1>{alpsRequired} {0}</1> is required to submit proposals."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alp tokens that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet for rescue opportunities and burn events."
-#~ msgstr ""
-
-#: src/components/CurrentDelegatePannel/index.tsx
-#~ msgid "Alp votes are not transferable, but are <0>delegatable</0>, which means you can assign your vote to someone else as long as you own your Alp."
-#~ msgstr "Alpの票は譲渡できませんが (Alpの売却にはそれに応じて票も移ります)、委任することができます。"
 
 #: src/components/AuctionActivityAlpTitle/index.tsx
 msgid "Alp {0}"
 msgstr "Alp {0}"
-
-#: src/components/Auction/index.tsx
-#~ msgid "Alp {0} · ended"
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/templates/SendAlp.tsx
 msgid "Alp {alpId} belongs to <0/>, not the treasury, so this would fail unless the treasury holds it by the time the proposal executes."
@@ -329,107 +194,18 @@ msgstr ""
 msgid "Alp {typed} hasn’t been minted yet. The latest is Alp {lastId}."
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Alper distributions don't interfere with the cadence of 24 hour auctions. Alps are sent directly to the Alper's Multisig, and auctions continue on schedule with the next available Alp ID."
-#~ msgstr "Alper配布により24時間オークションの頻度に影響が及ぶことはありません。 AlpsはAlperのマルチシグに直接送られ、オークションは次の有効なAlps IDによって予定通り継続されます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alper's Reward"
-#~ msgstr "Alperへの報酬"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alpers receive rewards in the form of Alps (10% of supply for first 5 years)."
-#~ msgstr "Alperには、Alpsという形で報酬が与えられます (最初の5年間は供給量の10％)。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alpers will proveably revoke this veto right when they deem it safe to do so. This decision will be based on a healthy Alp distribution and a community that is engaged in the governance process."
-#~ msgstr "Alperは、安全であると判断した場合、この拒否権を無効にすることが出来ます。この決定は、健全なAlpの分布と、ガバナンスプロセスに関与しているコミュニティに基づいて行われます。"
-
-#: src/pages/Alpers/index.tsx
-#~ msgid "Alpers' Reward"
-#~ msgstr "Alperへの報酬"
-
 #: src/pages/Governance/index.tsx
 #: src/pages/Governance/index.tsx
 msgid "Alps"
 msgstr "Alps"
 
-#: src/components/AlpInfoRowHolder/index.tsx
-#~ msgid "Alps Auction House"
-#~ msgstr "Alpsオークションハウス"
-
-#: src/components/Footer/index.tsx
-msgid "Alps Center"
-msgstr ""
-
-#: src/components/Documentation/index.tsx
-#: src/pages/Governance/index.tsx
-#~ msgid "Alps DAO"
-#~ msgstr "Alps DAO"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps DAO is an extension of {alpsDAOLink}, focused on establishing long term relationships with alpine resorts to proliferate Alps, provide unique membership perks to DAO members and support proposals that enhance on-mountain environments and experiences."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps DAO is an extension of {nounsDAOLink}, focused on establishing long term relationships with alpine resorts to proliferate Alps, provide unique membership perks to DAO members and support proposals that enhance on-mountain environments and experiences."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps DAO uses Alps DAO’s fork of {compoundGovLink}."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps DAO uses a fork of {compoundGovLink}."
-#~ msgstr "Alps DAOは {compoundGovLink} のフォークを使用しています。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps DAO utilizes a fork of {compoundGovLink} and is the main governing body of the Alps ecosystem. The Alps DAO treasury receives 100% of ETH proceeds from daily Alp auctions. Each Alp is an irrevocable member of Alps DAO and entitled to one vote in all governance matters. Alp votes are non-transferable (if you sell your Alp the vote goes with it) but delegatable, which means you can assign your vote to someone else as long as you own your Alp."
-#~ msgstr "Alps DAOは {compoundGovLink} のフォークを利用しており、Alpsエコシステムの主要な統治機関です。毎日起こるAlpオークションから得られるETHの収益の100％はAlps DAO トレジャリーにて受け取られています。各AlpはAlps DAOの変更不可能なメンバーであり、すべてのガバナンスの問題で1票の投票権を有します。Alpの票は譲渡できませんが (Alpの売却にはそれに応じて票も移ります)、委任することができます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps DAO utilizes {alpsDAOLink}’s fork of {compoundGovLink} and is the main governing body of the Alps ecosystem. The Alps DAO treasury receives 100% of ETH proceeds from Alp auctions. Each Alp is an irrevocable member of Alps DAO and entitled to one vote in all governance matters. Alp votes are non-transferable (if you sell your Alp the vote goes with it) but delegatable, which means you can assign your vote to someone else as long as you own your Alp."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps DAO utilizes {nounsDAOLink}’s fork of {compoundGovLink} and is the main governing body of the Alps ecosystem. The Alps DAO treasury receives 100% of ETH proceeds from Alp auctions. Each Alp is an irrevocable member of Alps DAO and entitled to one vote in all governance matters. Alp votes are non-transferable (if you sell your Alp the vote goes with it) but delegatable, which means you can assign your vote to someone else as long as you own your Alp."
-#~ msgstr ""
-
 #: src/pages/Playground/index.tsx
 msgid "Alps Protocol"
 msgstr "Alpsプロトコル"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps are an experimental attempt to improve the formation of on-chain avatar communities. While projects such as {cryptopunksLink} have attempted to bootstrap digital community and identity, Alps attempt to bootstrap identity, community, governance, and a treasury that can be used by the community."
-#~ msgstr "Alps は、オンチェーン・アバターコミュニティの形成を改善するための実験的な試みです。{cryptopunksLink} などのプロジェクトがデジタルコミュニティとアイデンティティの構築を試みているのに対し、Alpsはアイデンティティ、コミュニティ、ガバナンス、そしてコミュニティが使用できるトレジャリーを構築することを試みています。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps are generated pseudo-randomly based on Ethereum block hashes. There are no 'if' statements or other rules governing Alp trait scarcity, which makes all Alps equally rare. As of this writing, Alps are made up of:"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps are generated pseudo-randomly, with no rules governing trait scarcity. Current traits include:"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps are generated randomly based Ethereum block hashes. There are no 'if' statements or other rules governing Alp trait scarcity, which makes all Alps equally rare. As of this writing, Alps are made up of:"
-#~ msgstr "Alpsは、イーサリアムのブロックハッシュに基づいてランダムに生成されます。Alpの特徴の希少性を管理する「if」ステートメントやその他のルールは存在しないため、すべてのAlpが等しく希少となります。現時点では、Alpsは以下のもので構成されています："
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps are stored directly on Ethereum and do not utilize pointers to other networks such as IPFS. This is possible because Alp parts are compressed and stored on-chain using a custom run-length encoding (RLE), which is a form of lossless compression."
-#~ msgstr "AlpはEthereum上に直接保存されるため、IPFSのような他のネットワークへのポインタを利用することはありません。これは、Alpのパーツが可逆圧縮の一種であるカスタムのランレングス圧縮 (RLE) を使用してオンチェーンで圧縮・保存されていることから実現したものです。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps artwork is in the {publicDomainLink}."
-#~ msgstr "Alpsのアートワークは {publicDomainLink} にあります。"
-
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Alps auction house"
 msgstr ""
-
-#: src/pages/Governance/index.tsx
-#~ msgid "Alps govern <0>Alps DAO</0>. Alps can vote on proposals or delegate their vote to a third party. A minimum of <1>{alpsRequired} {0}</1> is required to submit proposals."
-#~ msgstr "Alpsが統治する <0>Alps DAO</0> 。Alpsは提案に対して投票したり、第三者に投票を委任することができますが、提案の提出には最低でも <1>{alpsRequired} {0}</1> 以上が必要です。"
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Alps governor"
@@ -439,50 +215,14 @@ msgstr ""
 msgid "Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together."
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps is an extension of <0/> and <1/>, focused on establishing long-term relationships with alpine resorts to proliferate Alps, provide unique membership perks to members, and support proposals that enhance on-mountain environments and experiences."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps that receive no bids are sent to a treasury wallet for rescue opportunities and burn events."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps that receive no bids are sent to the Warming Hut (warminghut.eth), a wallet for rescue opportunities and burn events."
-#~ msgstr ""
-
 #: src/components/ProposalActionSummary/index.tsx
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "Alps token"
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps token artwork is in the <0/>."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps token artwork is in the {publicDomainLink}."
-#~ msgstr ""
-
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Alps treasury"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps uses a fork of <0/>."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps utilises <0/>'s fork of <1/> and governs the Alps ecosystem. Each Alp represents one vote in governance matters, with votes delegatable but non-transferable."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Alps utilises <0/>'s fork of <1/> and governs the Alps ecosystem. Each Alp token represents one vote in governance matters, with votes delegatable but non-transferable."
-#~ msgstr ""
-
-#: src/pages/Governance/index.tsx
-#~ msgid "Alpss"
-#~ msgstr ""
 
 #: src/components/DelegationCandidateInfo/index.tsx
 msgid "Already has"
@@ -509,13 +249,9 @@ msgstr ""
 msgid "Any function on any contract, from its ABI"
 msgstr ""
 
-#: src/components/KickOffAuction/index.tsx
-#~ msgid "Anyone can do this; it only costs gas."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Anyone can kick off the next auction once one ends. Alps that get no bids go to the Warming Hut."
-#~ msgstr ""
+#: src/components/WalletConnectModal/index.tsx
+msgid "Approve the connection in {0}…"
+msgstr ""
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Arguments"
@@ -525,18 +261,11 @@ msgstr "引数"
 msgid "Arguments data"
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Artwork is generative and stored directly on-chain (not IPFS)."
-#~ msgstr "生成されたアートワークは直接オンチェーンに保存されます(IPFSではありません)。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Artwork is generative and stored directly onchain (not IPFS)."
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/templates/AuctionSettings.tsx
 msgid "At 0%, a new bid only has to beat the last one by 1 wei."
 msgstr ""
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/NavBar/index.tsx
 msgid "Auction"
 msgstr ""
@@ -558,10 +287,6 @@ msgstr ""
 msgid "Auction settings"
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Auctions"
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/templates/AuctionSettings.tsx
 msgid "Auctions are already paused, so this would fail unless they're resumed before the proposal executes."
 msgstr ""
@@ -571,16 +296,16 @@ msgid "Auctions are already running, so this would fail unless they're paused be
 msgstr ""
 
 #: src/components/KickOffAuction/index.tsx
-msgid "Auctions are paused by the DAO, so no new auction starts until a proposal resumes them. Anyone can still settle Alp {alpId}, which sends it to {0}."
+msgid "Auctions are paused by the DAO, so no new auction starts until a proposal resumes them. Anyone can still settle Alp {alpId}, which sends it to its winner, <0/>."
+msgstr ""
+
+#: src/components/KickOffAuction/index.tsx
+msgid "Auctions are paused by the DAO, so no new auction starts until a proposal resumes them. Anyone can still settle Alp {alpId}, which sends it to the Warming Hut."
 msgstr ""
 
 #: src/components/ProposalBuilder/templates/AuctionSettings.tsx
 msgid "Auctions start again, beginning with a new one if none is running."
 msgstr ""
-
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Back"
-#~ msgstr "戻る"
 
 #: src/components/ProposalBuilder/ReviewStep.tsx
 msgid "Back to editing"
@@ -589,18 +314,6 @@ msgstr ""
 #: src/pages/Playground/index.tsx
 msgid "Background"
 msgstr "背景"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Backgrounds (7)"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Because 100% of Alp auction proceeds are sent to Alps DAO, Alpers have chosen to compensate themselves with Alps. Every 10th Alp for the first 5 years of the project (Alp ids #0, #10, #20, #30 and so on) will be automatically sent to the Alper's multisig to be vested and shared among the founding members of the project."
-#~ msgstr "Alpオークションの収益の100%がAlps DAOに送られるため、Alperは自分達をAlpsで補償することに決めました。プロジェクトの最初の5年間の間、毎回10番目のAlp (Alp ID #0, #10, #20, #30 など) が自動的にAlpersのマルチシグに送られ、プロジェクトの創設メンバー達に与えられて、共有されます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Because 100% of Alp auction proceeds are sent to Alps DAO, the founders have chosen to compensate themselves with Alps. Every 10th Alp for the first 5 years of the project (Alp IDs #0, #10, #20, #30 and so on) will be automatically sent to a multisig to be vested and shared among the founding members of the project."
-#~ msgstr ""
 
 #: src/components/Bid/index.tsx
 #: src/components/Bid/index.tsx
@@ -628,10 +341,6 @@ msgstr "入札"
 msgid "Bids will appear here"
 msgstr "入札はここに表示されます"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Bodies (32)"
-#~ msgstr ""
-
 #: src/pages/Playground/index.tsx
 msgid "Body"
 msgstr "体"
@@ -648,10 +357,6 @@ msgstr ""
 #: src/components/AlpBrowser/index.tsx
 msgid "Browse Alps"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Build an Alp in bricks"
-#~ msgstr ""
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Call <0>{name}</0> on {0}"
@@ -694,6 +399,7 @@ msgstr ""
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
 #: src/components/ProposalStatusCopy/index.tsx
+#: src/pages/Vote/index.tsx
 msgid "Canceled"
 msgstr "キャンセルしました"
 
@@ -717,10 +423,6 @@ msgstr "提案 \"{1}\" にする1票を投票\"{0}\"してください"
 msgid "Change"
 msgstr "代理人を変更する"
 
-#: src/components/NextAlpPreview/index.tsx
-#~ msgid "Changes with every block"
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/ActionCheck.tsx
 msgid "Check"
 msgstr ""
@@ -741,10 +443,6 @@ msgstr ""
 msgid "Checking…"
 msgstr ""
 
-#: src/components/WalletConnectModal/index.tsx
-#~ msgid "Clear WalletConnect Data"
-#~ msgstr "WalletConnect データを消去"
-
 #: src/pages/CreateProposal/index.tsx
 msgid "Clear everything"
 msgstr ""
@@ -759,9 +457,9 @@ msgstr ""
 msgid "Close"
 msgstr "近い"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Compound Governance"
-#~ msgstr "コンパウンドガバナンス"
+#: src/pages/Vote/index.tsx
+msgid "Closed early"
+msgstr ""
 
 #: src/components/ProposalBuilder/ReviewStep.tsx
 msgid "Confirm in your wallet"
@@ -779,6 +477,7 @@ msgstr ""
 msgid "Connect a wallet to vote."
 msgstr "投票するためにウォレットを接続してください。"
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/ProposalBuilder/EligibilityNotice.tsx
 msgid "Connect wallet"
 msgstr ""
@@ -803,9 +502,9 @@ msgstr ""
 msgid "Connect your wallet"
 msgstr "ウォレットに接続してください"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Consequently, the Alps Foundation anticipates being the steward of the veto power until Alps DAO is ready to implement an alternative, and therefore wishes to clarify the conditions under which it would exercise this power."
-#~ msgstr ""
+#: src/components/WalletConnectModal/index.tsx
+msgid "Connecting…"
+msgstr ""
 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "Contract"
@@ -817,6 +516,10 @@ msgstr ""
 
 #: src/components/ProposalContent/index.tsx
 msgid "Couldn't load this proposal's actions."
+msgstr ""
+
+#: src/components/WalletConnectModal/index.tsx
+msgid "Couldn't reach Frame. Open the Frame app, then try again."
 msgstr ""
 
 #: src/components/ProposalBuilder/templates/SendToken.tsx
@@ -831,33 +534,13 @@ msgstr ""
 msgid "Couldn't submit:"
 msgstr ""
 
-#: src/components/CreateProposalButton/index.tsx
-#~ msgid "Create Proposal"
-#~ msgstr "提案を作成"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Cryptopunks"
-#~ msgstr "クリプトパンクス"
-
 #: src/components/CurrentDelegatePannel/index.tsx
-msgid "Current Delegate"
-msgstr "現在の代表者"
-
-#: src/pages/Vote/index.tsx
-#~ msgid "Current Quorum"
-#~ msgstr ""
+msgid "Current"
+msgstr ""
 
 #: src/components/CurrentBid/index.tsx
 msgid "Current bid"
 msgstr "現在の入札額"
-
-#: src/components/NavBar/index.tsx
-#~ msgid "DAO"
-#~ msgstr "DAO"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Daily Auctions"
-#~ msgstr "デイリーオークション"
 
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
@@ -910,25 +593,10 @@ msgstr "説明"
 msgid "Detected in this browser"
 msgstr ""
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/NavWallet/index.tsx
 msgid "Disconnect"
 msgstr "切断する"
-
-#: src/components/Footer/index.tsx
-msgid "Discord"
-msgstr "Discord"
-
-#: src/components/NavBar/index.tsx
-#~ msgid "Discourse"
-#~ msgstr "Discourse"
-
-#: src/components/NavBar/index.tsx
-#~ msgid "Docs"
-#~ msgstr "ドキュメント"
-
-#: src/components/DynamicQuorumInfoModal/index.tsx
-#~ msgid "Dynamic Quorum"
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "ETH to send with the call"
@@ -938,21 +606,9 @@ msgstr ""
 msgid "ETH value"
 msgstr ""
 
-#: src/components/Banner/index.tsx
-#~ msgid "EVERY 3 HOURS,"
-#~ msgstr ""
-
-#: src/components/Banner/index.tsx
-#~ msgid "EVERY DAY,"
-#~ msgstr "毎日"
-
 #: src/pages/Governance/index.tsx
 msgid "Each Alp is a membership in the club and one vote. Members vote on proposals to spend the treasury, or delegate their votes to someone else. Submitting a proposal takes at least <0>{alpsRequired} {0}</0>. <1>How governance works</1>"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time, and each auction runs for 3 hours, so there are never more than 8 new Alps a day."
-#~ msgstr ""
 
 #: src/components/Documentation/index.tsx
 msgid "Each Alp is a membership in the club and one vote. New Alps are auctioned one at a time, and each auction runs for {0}, so there are never more than {1} new Alps a day."
@@ -962,18 +618,6 @@ msgstr ""
 msgid "Each action is checked by running it as if the treasury sent it right now, on its own. A check can't know about earlier actions in this proposal, or what changes before it executes."
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Each auction settlement triggers a new Alp mint and begins a new 3-hour auction."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Each time an auction is settled, the settlement transaction will also cause a new Alp to be minted and a new 24 hour auction to begin."
-#~ msgstr "オークションが決済される度に、決済取引によって新しいAlpがミントされ、また新たに24時間のオークションが開催されます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Each time an auction is settled, the settlement transaction will also cause a new Alp to be minted and a new 3 hour auction to begin."
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/ActionList.tsx
 msgid "Edit"
 msgstr ""
@@ -981,10 +625,6 @@ msgstr ""
 #: src/pages/Vote/index.tsx
 msgid "Ended"
 msgstr "終了しました"
-
-#: src/components/Auction/index.tsx
-#~ msgid "Ended · Alp {0}"
-#~ msgstr ""
 
 #: src/pages/Vote/index.tsx
 msgid "Ends"
@@ -1081,7 +721,6 @@ msgid "Error fetching Alp birthday"
 msgstr "Alpの誕生日を取得できませんでした"
 
 #: src/components/AlpInfoCard/index.tsx
-#: src/components/Footer/index.tsx
 msgid "Etherscan"
 msgstr "Etherscan"
 
@@ -1092,10 +731,6 @@ msgstr ""
 #: src/components/Proposals/index.tsx
 msgid "Executable {0}"
 msgstr ""
-
-#: src/pages/Vote/index.tsx
-#~ msgid "Execute"
-#~ msgstr "実行する"
 
 #: src/components/ProposalActions/index.tsx
 msgid "Execute in {0}"
@@ -1110,10 +745,6 @@ msgstr ""
 #: src/components/ProposalStatusCopy/index.tsx
 msgid "Executed"
 msgstr "実行しました"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Experiment with Alp generation using the <0/>."
-#~ msgstr ""
 
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
@@ -1164,54 +795,10 @@ msgstr ""
 msgid "For"
 msgstr "賛成"
 
-#: src/components/AlperAlpContent/index.tsx
-#~ msgid "For this reason, we, the project's founders (‘Alpers’) have chosen to compensate ourselves with Alps. Every 10th Alp for the first 5 years of the project will be sent to our multisig (5/10), where it will be vested and distributed to individual Alpers."
-#~ msgstr "その為、我々、プロジェクトの創設者 (Alpers) はAlpsで自らを補償することに決めました。 プロジェクトの最初の5年間の間は、毎回10体目のAlpがマルチシグ(5/10) に送られた後、個々のナウンダーズに与えられ、配布されます。"
-
-#: src/components/AlperAlpContent/index.tsx
-#~ msgid "For this reason, we, the project’s founders, have chosen to compensate ourselves with Alps. Every 10th Alp for the first 5 years of the project will be sent to our multisig, where it will be vested and distributed to individual founders."
-#~ msgstr ""
-
-#: src/components/Footer/index.tsx
-#~ msgid "Forums"
-#~ msgstr "Forums"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Founder distributions don't interfere with the cadence of 3 hour auctions. Alps are sent directly to the founder multisig and auctions continue on schedule with the next available Alp ID."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Founder's & Alpine Council Rewards"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Founder's Reward"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Founders are the group of builders that initiated Alps DAO. Here are the Founders:"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Founders hold a temporary veto right to block malicious proposals during initial distribution. This right will be revoked once the community is sufficiently engaged."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Founders receive rewards in the form of Alp tokens (10% of supply for first 5 years)."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Founders receive rewards in the form of Alps (10% of supply for first 5 years)."
-#~ msgstr ""
-
 #: src/components/ProposalActionSummary/index.tsx
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "Function"
 msgstr "関数"
-
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Function (Optional)"
-#~ msgstr "関数 (任意)"
 
 #: src/components/ProposalBuilder/templates/RawTransaction.tsx
 msgid "Function signature (optional)"
@@ -1221,10 +808,6 @@ msgstr ""
 msgid "Generate Alps"
 msgstr "Alpsを作る"
 
-#: src/pages/Playground/index.tsx
-#~ msgid "Generate Alpss"
-#~ msgstr ""
-
 #: src/pages/CreateProposal/index.tsx
 msgid "Give the proposal a title."
 msgstr ""
@@ -1232,14 +815,6 @@ msgstr ""
 #: src/pages/Playground/index.tsx
 msgid "Glasses"
 msgstr "メガネ"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Glasses (200)"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Gnars"
-#~ msgstr ""
 
 #: src/components/AlpBrowser/index.tsx
 msgid "Go"
@@ -1249,6 +824,7 @@ msgstr ""
 msgid "Goes to"
 msgstr ""
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/NavBar/index.tsx
 #: src/pages/CreateProposal/index.tsx
 #: src/pages/Governance/index.tsx
@@ -1258,10 +834,6 @@ msgstr "ガバナンス"
 #: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 msgid "Governance settings"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Governance ‘Slow Start’"
-#~ msgstr "ガバナンス「スロースタート」"
 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "Governor"
@@ -1275,18 +847,10 @@ msgstr "票あり"
 msgid "Head"
 msgstr "頭"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Heads (248)"
-#~ msgstr ""
-
 #: src/components/AlpHoverCard/index.tsx
 #: src/components/Holder/index.tsx
 msgid "Held by"
 msgstr "主催者"
-
-#: src/components/AuctionActivity/index.tsx
-#~ msgid "Help mint the next Alp"
-#~ msgstr "次にミントされるAlpの投票をしてください"
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Hide transaction data"
@@ -1327,14 +891,6 @@ msgstr ""
 #: src/components/Documentation/index.tsx
 msgid "If that’s you, join us by bidding above."
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "In addition to the precautions taken by Compound Governance, Alpers have given themselves a special veto right to ensure that no malicious proposals can be passed while the Alp supply is low. This veto right will only be used if an obviously harmful governance proposal has been passed, and is intended as a last resort."
-#~ msgstr "コンパウンドガバナンスによる予防措置に加えて、Alpの供給量が少ない間に悪意のある議案が通らないように、Alpersは特別な拒否権を保有しています。この拒否権は、明らかに有害なガバナンスの提案が可決された場合にのみ行使され、最後の手段として使用されます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "In addition to the precautions taken by Compound Governance, the founders have given themselves a special veto right to ensure that no malicious proposals can be passed while the Alp supply is low. This veto right will only be used if an obviously harmful governance proposal has been passed, and is intended as a last resort."
-#~ msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
 msgid "In total this proposal sends {0} ETH from the treasury."
@@ -1380,26 +936,6 @@ msgstr ""
 msgid "Latest auction income"
 msgstr ""
 
-#: src/components/AlperAlpContent/index.tsx
-#~ msgid "Learn more"
-#~ msgstr "詳細はこちら"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Learn more about Alps DAO below or create your own Alps off-chain using our {playgroundLink}."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Learn more about Alps below or create your own Alps off-chain using our <0/>."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Learn more below, or start creating Alps off-chain using the {playgroundLink}."
-#~ msgstr "詳しくは以下をご覧ください。また、{playgroundLink} を使いAlpsのオフチェーンの作成をすることもできます。"
-
-#: src/components/ProposalHeader/index.tsx
-#~ msgid "Leave a message"
-#~ msgstr ""
-
 #: src/pages/CreateProposal/index.tsx
 msgid "Let the club know it's coming, so members have time to read it."
 msgstr ""
@@ -1432,17 +968,9 @@ msgstr ""
 msgid "Members vote on what they read here: say what the proposal does, why it's good for the club, and what it costs."
 msgstr ""
 
-#: src/components/VotePanel/index.tsx
-#~ msgid "Message"
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/templates/AuctionSettings.tsx
 msgid "Minimum bid increase"
 msgstr ""
-
-#: src/components/DynamicQuorumInfoModal/index.tsx
-#~ msgid "More details on how dynamic quorum works can be found <0>here</0>."
-#~ msgstr ""
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Move Alp {alpId} from {0} to {1}"
@@ -1458,6 +986,10 @@ msgstr ""
 
 #: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
 msgid "Needs exactly {expected} items"
+msgstr ""
+
+#: src/pages/Vote/index.tsx
+msgid "Never opened"
 msgstr ""
 
 #: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
@@ -1484,10 +1016,6 @@ msgstr ""
 msgid "New value"
 msgstr ""
 
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Next"
-#~ msgstr "次へ"
-
 #: src/components/KickOffAuction/index.tsx
 msgid "Next up is the Alp it would mint right now: its traits come from the latest block, so it changes with every new block, about every 12 seconds. Anyone can kick off the next auction; it only costs gas."
 msgstr ""
@@ -1496,17 +1024,9 @@ msgstr ""
 msgid "Next up · Alp {alpId}"
 msgstr ""
 
-#: src/components/NextAlpPreview/index.tsx
-#~ msgid "Next · Alp {alpId}"
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/inputs/AddressInput.tsx
 msgid "No address is set for {0}"
 msgstr ""
-
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "No arguments required"
-#~ msgstr "引数は必要ありません"
 
 #: src/pages/Treasury/index.tsx
 msgid "No bids"
@@ -1515,22 +1035,6 @@ msgstr ""
 #: src/components/WalletConnectModal/index.tsx
 msgid "No browser wallet detected. Use WalletConnect to connect a wallet on your phone."
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "No explicit rules exist for attribute scarcity; all Alp tokens are equally rare but trait occurrence can vary, creating dynamics around rarity."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "No explicit rules exist for attribute scarcity; all Alps are equally rare but trait occurrence can vary which does create some dynamics around rarity."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "No explicit rules exist for attribute scarcity; all Alps are equally rare but trait occurrence can vary, creating dynamics around rarity."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "No explicit rules exist for attribute scarcity; all Alps are equally rare."
-#~ msgstr "Alpsは全て等しく希少なため、属性の希少性についての明確なルールは存在しません。"
 
 #: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
 msgid "No items yet."
@@ -1547,10 +1051,6 @@ msgstr "提案が見つかりません"
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "No votes yet."
 msgstr ""
-
-#: src/components/KickOffAuction/index.tsx
-#~ msgid "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new 3-hour auction."
-#~ msgstr ""
 
 #: src/components/KickOffAuction/index.tsx
 msgid "Nobody bid on Alp {alpId}, so this sends it to the Warming Hut and mints Alp {nextAuctionAlpId} for a new {length} auction."
@@ -1577,10 +1077,6 @@ msgstr ""
 #: src/components/ProposalBuilder/ProposalTextEditor.tsx
 msgid "Nothing written yet."
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Nouns DAO"
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/templates/AuctionSettings.tsx
 msgid "Now <0/>"
@@ -1626,53 +1122,17 @@ msgstr ""
 msgid "ONE ALP AT A TIME,"
 msgstr ""
 
-#: src/components/Banner/index.tsx
-#~ msgid "ONE ALP,"
-#~ msgstr ""
-
-#: src/components/Banner/index.tsx
-#~ msgid "ONE NOUN,"
-#~ msgstr "1つのNOUNを"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "On-Chain Artwork"
-#~ msgstr "オンチェーンアートワーク"
-
 #: src/components/ProposalBuilder/ReviewStep.tsx
 msgid "Once submitted, voting opens in about <0/> and stays open for about <1/>. If it passes, it waits in the treasury for <2/>, then anyone can execute it within <3/>. The actions run in order, all together. A proposal can't be edited once submitted, though you can cancel it."
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "One Alp is auctioned every 3 hours, forever. Each Alp is a membership in the club and one vote."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "One Alp is equal to one vote."
-#~ msgstr "1体のAlpにつき、1票の投票件を得ることができます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "One Alp is trustlessly auctioned every 24 hours, forever."
-#~ msgstr "Alpsは24時間ごとに1体ずつ、第三者の介入無しでオークションに出され続けます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "One Alp is trustlessly auctioned every 3 hours, forever."
-#~ msgstr ""
 
 #: src/pages/Playground/index.tsx
 msgid "Only 32x32 PNG images are accepted"
 msgstr "32x32 PNG画像のみ受け付けています"
 
 #: src/components/VotePanel/index.tsx
-#~ msgid "Only Alp tokens you owned or were delegated to you before {0} are eligible to vote."
-#~ msgstr ""
-
-#: src/components/VotePanel/index.tsx
 msgid "Only Alps you held, or that were delegated to you, when this proposal was created ({0}) can vote on it."
 msgstr ""
-
-#: src/components/VotePanel/index.tsx
-#~ msgid "Only Alps you owned or were delegated to you before {0} are eligible to vote."
-#~ msgstr "投票できるのは {0} 以前に所有していた、または委任されたAlpsのみです。"
 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "Optional. Only functions marked payable accept ETH."
@@ -1716,6 +1176,7 @@ msgstr "保留中"
 msgid "Place bid"
 msgstr "入札をする"
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/NavBar/index.tsx
 #: src/pages/Playground/index.tsx
 msgid "Playground"
@@ -1740,22 +1201,10 @@ msgstr "もう一度やり直してください。"
 msgid "Plus {0} unrecognised tokens and {1} NFT collections that look like spam, sent to the treasury by strangers. Some link to scams, so they aren't listed here."
 msgstr ""
 
-#: src/pages/Treasury/index.tsx
-#~ msgid "Plus {0} unrecognised tokens someone sent to the treasury. These are usually spam, and some link to scams, so they aren't listed here."
-#~ msgstr ""
-
-#: src/components/VotePanel/index.tsx
-#~ msgid "Post message"
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/ActionEditorModal.tsx
 #: src/components/ProposalBuilder/ProposalTextEditor.tsx
 msgid "Preview"
 msgstr ""
-
-#: src/components/ProposalEditor/index.tsx
-#~ msgid "Preview:"
-#~ msgstr "プレビュー："
 
 #: src/pages/Treasury/index.tsx
 msgid "Prop {0}"
@@ -1765,17 +1214,9 @@ msgstr ""
 msgid "Prop {id} is submitted"
 msgstr ""
 
-#: src/components/ProposalEditor/index.tsx
-#~ msgid "Proposal"
-#~ msgstr "提案"
-
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "Proposal <0>succeeded</0>"
 msgstr ""
-
-#: src/pages/CreateProposal/index.tsx
-#~ msgid "Proposal Created!"
-#~ msgstr "提案を作成しました！"
 
 #: src/pages/Vote/index.tsx
 msgid "Proposal Executed!"
@@ -1840,10 +1281,6 @@ msgstr "コミュニティメンバーが提出した提案はここに表示さ
 #: src/components/ProposalContent/index.tsx
 msgid "Proposed Transactions"
 msgstr "提案中のトランザクション"
-
-#: src/pages/Vote/index.tsx
-#~ msgid "Queue"
-#~ msgstr "キュー"
 
 #: src/components/ProposalActions/index.tsx
 msgid "Queue proposal"
@@ -1921,10 +1358,6 @@ msgstr ""
 #: src/components/ProposalBuilder/inputs/AbiParamInput.tsx
 msgid "Required"
 msgstr ""
-
-#: src/components/DynamicQuorumInfoModal/index.tsx
-#~ msgid "Required % of Alps to Pass"
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/templates/AuctionSettings.tsx
 msgid "Reserve price"
@@ -2057,30 +1490,6 @@ msgstr "決済する"
 msgid "Settle Alp {alpId}"
 msgstr ""
 
-#: src/components/Bid/index.tsx
-#: src/components/Bid/index.tsx
-#: src/components/Bid/index.tsx
-#: src/components/Bid/index.tsx
-#: src/components/Bid/index.tsx
-#~ msgid "Settle Auction"
-#~ msgstr "オークションを決済する"
-
-#: src/components/SettleManuallyBtn/index.tsx
-#~ msgid "Settle manually"
-#~ msgstr "手動で決済する"
-
-#: src/components/Bid/index.tsx
-#~ msgid "Settled auction successfully!"
-#~ msgstr "オークションが正常に決済されました！"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Settlement of one auction kicks off the next."
-#~ msgstr "オークションの決済が１つ終わる度に次が始まります。"
-
-#: src/components/ProfileActivityFeed/index.tsx
-#~ msgid "Show all {0} events"
-#~ msgstr "すべての {0} イベントを表示"
-
 #: src/components/ProfileActivityFeedToggle/index.tsx
 msgid "Show all {numEvents} events"
 msgstr ""
@@ -2097,13 +1506,9 @@ msgstr "少なく表示する"
 msgid "Show transaction data"
 msgstr ""
 
-#: src/components/NavWallet/index.tsx
-msgid "Sign out"
-msgstr "サインアウト"
-
-#: src/components/SettleManuallyBtn/index.tsx
-#~ msgid "Start The Next Auction"
-#~ msgstr ""
+#: src/pages/Vote/index.tsx
+msgid "Snapshot"
+msgstr ""
 
 #: src/components/ProposalBuilder/ProposalTextEditor.tsx
 msgid "Start from an outline"
@@ -2182,14 +1587,6 @@ msgstr "成功しました"
 msgid "Success"
 msgstr "成功"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "Summary"
-#~ msgstr "まとめ"
-
-#: src/components/NavWallet/index.tsx
-msgid "Switch"
-msgstr "切り替え"
-
 #: src/pages/Vote/index.tsx
 msgid "Switch to Alp view"
 msgstr "Alpビューに切り替えます"
@@ -2198,6 +1595,7 @@ msgstr "Alpビューに切り替えます"
 msgid "Switch to delegate view"
 msgstr "ビューを委任するように切り替えます"
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/NavWallet/index.tsx
 msgid "Switch wallet"
 msgstr "ウォレットを切り替える"
@@ -2272,74 +1670,6 @@ msgstr ""
 msgid "That's the zero address: anything sent there is lost for good."
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alp Seeder contract is used to determine Alp traits during the minting process. The seeder contract can be replaced to allow for future trait generation algorithm upgrades. Additionally, it can be locked by the Alps DAO to prevent any future updates. Currently, Alp traits are determined using pseudo-random number generation:"
-#~ msgstr "Alpシーダー契約は、ミントのプロセスでAlpsの特徴を決定するために使用されます。シーダー契約は、今後の特徴生成アルゴリズムのアップグレードを可能にするために変更することができ、さらに、今後のアップデートを防ぐためにAlps DAOによってロックすることも可能です。現在、Alpsの特徴は擬似乱数生成を用い決められています。"
-
-#: src/components/KickOffAuction/index.tsx
-#~ msgid "The Alp beside this one is the one it mints right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); the bar shows how long this one has left. Anyone can kick off the next auction; it only costs gas."
-#~ msgstr ""
-
-#: src/components/KickOffAuction/index.tsx
-#~ msgid "The Alp beside this one is what it mints right now. Its traits come from the latest block, so it changes with every new block, about every 12 seconds: kick off before the bar runs out (leave a few seconds for your transaction to make the next block) and that’s the Alp you’ll mint. Anyone can kick off the next auction; it only costs gas."
-#~ msgstr ""
-
-#: src/components/KickOffAuction/index.tsx
-#~ msgid "The Alp labelled Next is the one it would mint right now. Its traits come from the latest block, so it changes with every new block (about every 12 seconds); its timer shows how long it has left. Anyone can kick off the next auction; it only costs gas."
-#~ msgstr ""
-
-#: src/components/KickOffAuction/index.tsx
-#~ msgid "The Alp shown beside this one is the one it would mint right now: its traits come from the latest block, so it changes with each new block (about every 12 seconds). Anyone can kick off the next auction; it only costs gas."
-#~ msgstr ""
-
-#: src/pages/Alpers/index.tsx
-#~ msgid "The Alpers"
-#~ msgstr "Alpers"
-
-#: src/pages/Alpers/index.tsx
-#~ msgid "The Alpers reward is intended as compensation for our pre and post-launch contributions to the project, and to help us participate meaningfully in governance as the project matures. Since there are 10 Alpers, after 5 years each Alper could receive up to 1% of the Alp supply."
-#~ msgstr "Alpersの報酬は、プロジェクト開始前と開始後の貢献に対する対価として提供されるほか、プロジェクトが成熟するにつれ、ガバナンスに有意義に参加できるよう支援することも目的としています。Alpersは10人なので、5年後には各ナウンダーは最大でAlpの供給量の1%を受け取ることができます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alpine Council receives rewards in the form of Alp tokens (10% of supply for first 5 years)."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alpine Council receives rewards in the form of Alps (10% of supply for first 5 years)."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alps Auction Contract will act as a self-sufficient Alp generation and distribution mechanism, auctioning one Alp every 24 hours, forever. 100% of auction proceeds (ETH) are automatically deposited in the Alps DAO treasury, where they are governed by Alp owners."
-#~ msgstr "Alpsオークション契約は、Alp生成・分配の自律的なメカニズムとして機能するため、24時間ごとに1体のAlpを永遠にオークションにかけ続けます。オークションの収益 (ETH) は100%自動的にAlpの所有者によって管理されている、Alps DAO のトレジャリーに預けられます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alps Auction Contract will act as a self-sufficient Alp generation and distribution mechanism, auctioning one Alp every 3 hours, forever. 100% of auction proceeds (ETH) are automatically deposited in the Alps DAO treasury, where they are governed by Alp owners."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alps Auction Contract will act as a self-sufficient Alp generation and distribution mechanism, auctioning one Alp every 3 hours, forever. 100% of auction proceeds (ETH) are automatically deposited in the Alps DAO treasury."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alps Auction Contract will act as a self-sufficient Alp generation and distribution mechanism, auctioning one Alp every 3 hours, forever. 100% of auction proceeds (ETH) are automatically deposited in the Alps treasury."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alps Foundation considers the veto an emergency power that should not be exercised in the normal course of business. The Alps Foundation will veto proposals that introduce non-trivial legal or existential risks to the Alps DAO or the Alps Foundation, including (but not necessarily limited to) proposals that:"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The Alps community has undertaken a preliminary exploration of proposal veto alternatives (‘rage quit’ etc.), but it is now clear that this is a difficult problem that will require significantly more research, development and testing before a satisfactory solution can be implemented."
-#~ msgstr ""
-
-#: src/components/DynamicQuorumInfoModal/index.tsx
-#~ msgid "The Quorum (minimum number of For votes required to pass a proposal) is set as a function of the number of Against votes a proposal has recieved. It increases quadratically as a function of the % of Alps voting against a prop, varying between Min Quorum and Max Quorum."
-#~ msgstr ""
-
-#: src/components/DynamicQuorumInfoModal/index.tsx
-#~ msgid "The Quorum (minimum number of For votes required to pass a proposal) is set as a function of the number of Against votes a proposal has recieved. The number of For votes required to pass Proposal {0} is given by the following curve:"
-#~ msgstr ""
-
 #: src/components/Bid/index.tsx
 msgid "The auction is settled."
 msgstr ""
@@ -2356,10 +1686,6 @@ msgstr ""
 msgid "The club treasury holds 100% of auction proceeds. It only pays out when a proposal passes, is queued, and waits out the 2-day delay."
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "The compressed parts are efficiently converted into a single base64 encoded SVG image on-chain. To accomplish this, each part is decoded into an intermediate format before being converted into a series of SVG rects using batched, on-chain string concatenation. Once the entire SVG has been generated, it is base64 encoded."
-#~ msgstr "圧縮されたパーツは、オンチェインで効率よく1つのbase64エンコードされたSVG画像に変換されます。そのために、各パーツは中間フォーマットにデコードされた後、オンチェーンでの文字列連結により一連のSVG rectsに変換されます。SVG全体が生成されると、それはbase64でエンコードされます。"
-
 #: src/components/ProposalBuilder/templates/RawTransaction.tsx
 msgid "The data doesn't decode as this function's arguments, so the call would likely fail."
 msgstr ""
@@ -2367,10 +1693,6 @@ msgstr ""
 #: src/components/ProposalBuilder/templates/RawTransaction.tsx
 msgid "The data starts with this function's selector. With a signature, leave the selector out: the treasury adds it."
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The founders will provably revoke this veto right when they deem it safe to do so. This decision will be based on a healthy Alp distribution and a community that is engaged in the governance process."
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "The function's name and parameter types, as in its Solidity source. Parameter names are optional."
@@ -2391,26 +1713,6 @@ msgstr ""
 #: src/pages/Playground/index.tsx
 msgid "The playground is built with the {alpsProtocolLink}. An Alp’s traits come from its seed, which draws on {alpsAssetsLink}, {gnarsAssetsLink} and {nounsAssetsLink}, and is rendered with the {alpsSDKLink}."
 msgstr ""
-
-#: src/pages/Playground/index.tsx
-#~ msgid "The playground was built using the {alpsProtocolLink}. Alp's traits are determined by the Alp Seed. The seed was generated using {alpsAssetsLink} and rendered using the {alpsSDKLink}."
-#~ msgstr "遊び場は{alpsProtocolLink} を使用して作られており、Alpの特徴は、Alpシードによって決まります。{alpsAssetsLink} でシードを生成し、{alpsSDKLink} でレンダリングされています。"
-
-#: src/pages/Playground/index.tsx
-#~ msgid "The playground was built using the {alpsProtocolLink}. Alp's traits are determined by the Seed. The seed was generated using {alpsAssetsLink} , {gnarsAssetsLink}, {alpsAssetsLink} and rendered using the {alpsSDKLink}."
-#~ msgstr ""
-
-#: src/pages/Playground/index.tsx
-#~ msgid "The playground was built using the {alpsProtocolLink}. Alp's traits are determined by the Seed. The seed was generated using {alpsAssetsLink} , {gnarsAssetsLink}, {nounsAssetsLink} and rendered using the {alpsSDKLink}."
-#~ msgstr ""
-
-#: src/pages/Playground/index.tsx
-#~ msgid "The playground was built using the {alpsProtocolLink}. Alp's traits are determined by the Seed. The seed was generated using {alpsAssetsLink} and rendered using the {alpsSDKLink}."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The proposal veto right was initially envisioned as a temporary solution to the problem of ‘51% attacks’ on the Alps DAO treasury. While Alpers initially believed that a healthy distribution of Alps would be sufficient protection for the DAO, a more complete understanding of the incentives and risks has led to general consensus within the Alpers, the Alps Foundation, and the wider community that a more robust game-theoretic solution should be implemented before the right is removed."
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 msgid "The share of all Alps someone needs to submit a proposal, in basis points: 100 basis points is 1%. Between {minText} and {maxText}."
@@ -2440,21 +1742,9 @@ msgstr ""
 msgid "The treasury holds Alp {alpId}"
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "The treasury is controlled exclusively by Alp token holders via governance."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "The treasury is controlled exclusively by Alps via governance."
-#~ msgstr "トレジャリーは、ガバナンスを通じてAlpsが独占的に管理しています。"
-
 #: src/components/ProposalBuilder/templates/TreasuryDelay.tsx
 msgid "The treasury only accepts 2 to 30 days"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "There are unfortunately no algorithmic solutions for making these determinations in advance (if there were, the veto would not be required), and proposals must be considered on a case by case basis."
-#~ msgstr ""
 
 #: src/components/VotePanel/index.tsx
 msgid "There was an error voting for your account."
@@ -2467,10 +1757,6 @@ msgstr ""
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "These arguments couldn't be encoded for this function."
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "These distributions don't interfere with the cadence of 3 hour auctions. Alps are sent directly to the founder multisig and the Alpine Council multisig and auctions continue on schedule with the next available Alp ID."
-#~ msgstr ""
 
 #: src/components/ProfileActivityFeed/index.tsx
 msgid "This Alp has no activity, since it was just created. Check back soon!"
@@ -2487,10 +1773,6 @@ msgstr ""
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "This contract's owner is <0/>, not the treasury, so any function only its owner can call would fail."
 msgstr ""
-
-#: src/components/ProposalBuilder/templates/ContractCall.tsx
-#~ msgid "This contract's owner is <0/>, not the treasury, so functions only its owner can call would fail."
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "This contract's source isn't verified on Etherscan or Sourcify. Paste its ABI, or type the function you want to call."
@@ -2517,24 +1799,8 @@ msgid "This proposal sends {sending} ETH, more than the {held} ETH the treasury 
 msgstr ""
 
 #: src/components/KickOffAuction/index.tsx
-#~ msgid "This sends Alp {alpId} to its winner, <0/>, and mints Alp {nextAuctionAlpId} for a new 3-hour auction."
-#~ msgstr ""
-
-#: src/components/KickOffAuction/index.tsx
 msgid "This sends Alp {alpId} to its winner, <0/>, and mints Alp {nextAuctionAlpId} for a new {length} auction."
 msgstr ""
-
-#: src/pages/Governance/index.tsx
-#~ msgid "This treasury exists for <0>Alps DAO</0> participants to allocate resources for the long-term growth and prosperity of the Alps DAO project."
-#~ msgstr ""
-
-#: src/pages/Governance/index.tsx
-#~ msgid "This treasury exists for <0>Alps DAO</0> participants to allocate resources for the long-term growth and prosperity of the Alps project."
-#~ msgstr "このトレジャリーは、<0>Alps DAO</0>の参加者がAlpsプロジェクトの長期的な成長と繁栄目的に、リソースを配分するために存在しています。"
-
-#: src/pages/Governance/index.tsx
-#~ msgid "This treasury exists for <0>Alps</0> participants to allocate resources for the long-term growth and prosperity of the Alps project."
-#~ msgstr ""
 
 #: src/components/ProposalBuilder/ReviewStep.tsx
 msgid "This wallet can't submit yet: see the note at the top."
@@ -2560,10 +1826,6 @@ msgstr ""
 msgid "Time left"
 msgstr "残り時間"
 
-#: src/pages/CreateProposal/index.tsx
-#~ msgid "Tip:"
-#~ msgstr "コツ："
-
 #: src/components/ProposalBuilder/ProposalTextEditor.tsx
 msgid "Title"
 msgstr ""
@@ -2579,10 +1841,6 @@ msgstr ""
 #: src/pages/Treasury/index.tsx
 msgid "Total value"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "Trait generation is not truly random. Traits can be predicted when minting a Alp on the pending block."
-#~ msgstr "特徴生成は完全にランダムというわけではなく、形質は、保留中のブロックにAlpをミントする際に予想することができます。"
 
 #: src/components/Bid/index.tsx
 #: src/components/Bid/index.tsx
@@ -2603,6 +1861,7 @@ msgstr ""
 msgid "Transfer an Alp the treasury holds"
 msgstr ""
 
+#: src/components/NavBar/MobileMenu.tsx
 #: src/components/NavBarTreasury/index.tsx
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 #: src/pages/Governance/index.tsx
@@ -2630,17 +1889,9 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: src/components/Footer/index.tsx
-#~ msgid "Twitter"
-#~ msgstr "Twitter"
-
 #: src/components/ProposalBuilder/templates/ContractCall.tsx
 msgid "Type the function"
 msgstr ""
-
-#: src/components/Banner/index.tsx
-#~ msgid "UP TO 8 A DAY,"
-#~ msgstr ""
 
 #: src/components/Banner/index.tsx
 msgid "UP TO {perDay} A DAY,"
@@ -2663,14 +1914,6 @@ msgstr ""
 #: src/components/ProposalActionSummary/index.tsx
 msgid "Unwrap {amount} of the treasury's WETH into ETH"
 msgstr ""
-
-#: src/components/Auction/index.tsx
-#~ msgid "Up next: Alp {0}"
-#~ msgstr ""
-
-#: src/components/NextAlpPreview/index.tsx
-#~ msgid "Up next: Alp {alpId}"
-#~ msgstr ""
 
 #: src/components/ChangeDelegatePannel/index.tsx
 #: src/components/CurrentDelegatePannel/index.tsx
@@ -2714,10 +1957,6 @@ msgstr ""
 msgid "Value"
 msgstr "値"
 
-#: src/components/ProposalTransactionFormModal/index.tsx
-#~ msgid "Value in ETH (Optional)"
-#~ msgstr "ETHの価格 (任意)"
-
 #: src/components/ProposalActions/index.tsx
 msgid "Veto proposal"
 msgstr ""
@@ -2725,12 +1964,9 @@ msgstr ""
 #: src/components/AlpProfileVoteRow/index.tsx
 #: src/components/ProposalStatus/index.tsx
 #: src/components/ProposalStatusCopy/index.tsx
+#: src/pages/Vote/index.tsx
 msgid "Vetoed"
 msgstr "拒否"
-
-#: src/pages/Vote/index.tsx
-#~ msgid "View Dynamic Quorum Info"
-#~ msgstr ""
 
 #: src/pages/CreateProposal/index.tsx
 msgid "View Prop {id}"
@@ -2764,10 +2000,6 @@ msgstr "イーサスキャンで見る"
 msgid "View transaction"
 msgstr ""
 
-#: src/components/Bid/index.tsx
-#~ msgid "Vote for the next Alp"
-#~ msgstr "次のAlpに投票する"
-
 #: src/components/VotePanel/index.tsx
 msgid "Vote on Prop {0}"
 msgstr "提案 {0} に投票"
@@ -2787,6 +2019,10 @@ msgstr "<0>{numVotesForProp}</0>のAlpで投票"
 #: src/components/DelegateHoverCard/index.tsx
 msgid "Voted with<0>{numVotesForProp}</0>Alps"
 msgstr "<0>{numVotesForProp}</0>のAlpで投票"
+
+#: src/pages/Vote/index.tsx
+msgid "Voting"
+msgstr ""
 
 #: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 msgid "Voting delay"
@@ -2821,21 +2057,13 @@ msgstr "WTF?"
 msgid "Waiting for"
 msgstr "待機"
 
+#: src/components/WalletConnectModal/index.tsx
+msgid "Waiting for your wallet…"
+msgstr ""
+
 #: src/pages/Treasury/index.tsx
 msgid "Waiting to be paid out"
 msgstr ""
-
-#: src/components/Footer/index.tsx
-#~ msgid "Warpcast"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is a club where membership fees go into a treasury governed by the membership tokens. If you love mountain culture, skiing, snowboarding, or snow in general, join us by bidding above."
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "We take ⌐◨-◨ deep into the pristine pow of the world. Alps is an alpine club for skiers, snowboarders and mountain lovers of every kind, with a treasury its members run together. If that’s you, join us by bidding above."
-#~ msgstr ""
 
 #: src/components/AlpInfoRowHolder/index.tsx
 #: src/components/Winner/index.tsx
@@ -2850,11 +2078,6 @@ msgstr ""
 msgid "What it holds"
 msgstr ""
 
-#: src/components/Winner/index.tsx
-#: src/components/Winner/index.tsx
-#~ msgid "What now?"
-#~ msgstr "これからどうする？"
-
 #: src/components/ProposalBuilder/templates/AuctionSettings.tsx
 #: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 msgid "What to change"
@@ -2863,14 +2086,6 @@ msgstr ""
 #: src/components/Documentation/index.tsx
 msgid "When an auction ends, anyone can kick off the next one; until someone does, it simply waits. Alps that get no bids go to the Warming Hut."
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "While settlement is most heavily incentivized for the winning bidder, it can be triggered by anyone, allowing the system to trustlessly auction Alps as long as Ethereum is operational and there are interested bidders."
-#~ msgstr "決済は落札者に最も大きなインセンティブが与えられるが、誰でも起動できるため、Ethereumが稼働し、関心のある入札者がいる限り、システムは第三者の介入無しでAlpsをオークションにかけることができます。"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "While the winning bidder is incentivised to settle the auction, anyone can trigger settlement, ensuring continuous auctions as long as Ethereum is operational."
-#~ msgstr ""
 
 #: src/components/DelegationCandidateInfo/index.tsx
 msgid "Will have"
@@ -2921,45 +2136,21 @@ msgstr ""
 msgid "Write another"
 msgstr ""
 
-#: src/components/Footer/index.tsx
-#~ msgid "X"
-#~ msgstr ""
-
 #: src/components/Winner/index.tsx
 msgid "You"
 msgstr "あなた"
-
-#: src/components/ProposalHeader/index.tsx
-#~ msgid "You <0>Abstained</0> from this proposal"
-#~ msgstr "あなたはこの提案から<0>棄権</0>しました"
 
 #: src/components/ProposalBuilder/ReviewStep.tsx
 msgid "You already have a proposal that's pending or being voted on."
 msgstr ""
 
-#: src/components/CreateProposalButton/index.tsx
-#~ msgid "You already have an active or pending proposal"
-#~ msgstr "すでに有効または保留中の提案があります"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "You can experiment with off-chain Alp generation at the {playgroundLink}."
-#~ msgstr "{playgroundLink} にてオフチェーンのAlp生成を試すことができます。"
-
-#: src/components/SettleManuallyBtn/index.tsx
-#~ msgid "You can settle manually in 1 minute"
-#~ msgstr "1分で手動で決済できます"
-
-#: src/components/SettleManuallyBtn/index.tsx
-#~ msgid "You can settle manually in {0} minutes"
-#~ msgstr "{0} 分で手動で決済できます"
-
 #: src/components/ProposalBuilder/ReviewStep.tsx
 msgid "You cancelled the transaction in your wallet."
 msgstr ""
 
-#: src/components/CreateProposalButton/index.tsx
-#~ msgid "You don't have enough votes to submit a proposal"
-#~ msgstr "提案を提出するのに十分な投票がありません"
+#: src/components/WalletConnectModal/index.tsx
+msgid "You declined the connection in {name}."
+msgstr ""
 
 #: src/components/ProposalBuilder/EligibilityNotice.tsx
 msgid "You have 1 vote, enough to submit a proposal."
@@ -2970,49 +2161,20 @@ msgid "You have no Votes."
 msgstr "投票がありません。"
 
 #: src/components/VotePanel/index.tsx
-#~ msgid "You have no votes on this proposal, but you can leave a message on-chain. It's recorded with the proposal for everyone to see and doesn't change the result. You can leave one per proposal."
-#~ msgstr ""
-
-#: src/components/VotePanel/index.tsx
 msgid "You have no votes on this proposal, but you can still vote to leave an on-chain signal. It won't affect the outcome."
 msgstr ""
 
 #: src/components/ProposalHeader/index.tsx
-#~ msgid "You have no votes, but you can leave a message."
-#~ msgstr ""
-
-#: src/components/ProposalHeader/index.tsx
 msgid "You have no votes, so yours is a signal only."
 msgstr ""
-
-#: src/components/ProposalHeader/index.tsx
-#: src/components/VotePanel/index.tsx
-#~ msgid "You have no votes."
-#~ msgstr "投票がありません。"
 
 #: src/components/ProposalBuilder/EligibilityNotice.tsx
 msgid "You have {votesText} votes, enough to submit a proposal."
 msgstr ""
 
 #: src/components/VotePanel/index.tsx
-#~ msgid "You left a message (<0/>, no votes). It's in the proposal's activity."
-#~ msgstr ""
-
-#: src/components/CreateProposalButton/index.tsx
-#~ msgid "You must have {0} votes to submit a proposal"
-#~ msgstr "提案を提出するには {0} 票が必要です"
-
-#: src/components/VotePanel/index.tsx
 msgid "You voted <0/> with {0} votes"
 msgstr ""
-
-#: src/components/ProposalHeader/index.tsx
-#~ msgid "You voted <0>Against</0> this proposal"
-#~ msgstr "あなたはこの提案に<0>反対</0>を投票しました"
-
-#: src/components/ProposalHeader/index.tsx
-#~ msgid "You voted <0>For</0> this proposal"
-#~ msgstr "あなたはこの提案<0>に</0>投票しました"
 
 #: src/components/ChangeDelegatePannel/index.tsx
 msgid "You've already delegated to this address"
@@ -3021,10 +2183,6 @@ msgstr "あなたはすでにこのアドレスに委任しています"
 #: src/pages/Playground/index.tsx
 msgid "You've generated {0} years worth of Alps"
 msgstr "{0} 年分のナウンを生成しました"
-
-#: src/components/VoteModal/index.tsx
-#~ msgid "You've successfully voted on on prop {0}"
-#~ msgstr "あなたは提案 {0} に投票することに成功しました。"
 
 #: src/components/VotePanel/index.tsx
 msgid "You've successfully voted on prop {0}"
@@ -3050,10 +2208,6 @@ msgstr "あなたの<0>{availableVotes}</0>票が新しいアカウントに委�
 msgid "Your Alps’ votes stay with your Alps, but they’re <0>delegatable</0>: someone else can vote with them while you keep your Alps."
 msgstr ""
 
-#: src/components/VotePanel/index.tsx
-#~ msgid "Your message is on-chain."
-#~ msgstr ""
-
 #: src/pages/CreateProposal/index.tsx
 msgid "Your proposal is submitted"
 msgstr ""
@@ -3061,18 +2215,6 @@ msgstr ""
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "abstained"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "accessories (140)"
-#~ msgstr "付属品(140)"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "accessories (182)"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "accessories (186)"
-#~ msgstr ""
 
 #: src/components/AuctionTimer/index.tsx
 msgid "at"
@@ -3082,14 +2224,6 @@ msgstr "の"
 msgid "at <0>{0}</0>"
 msgstr "<0>{0}</0> で"
 
-#: src/components/Documentation/index.tsx
-#~ msgid "backgrounds (2)"
-#~ msgstr "背景 (2)"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "backgrounds (7)"
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 msgid "basis points"
 msgstr ""
@@ -3097,14 +2231,6 @@ msgstr ""
 #: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 msgid "blocks"
 msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "bodies (30)"
-#~ msgstr "体 (30)"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "bodies (32)"
-#~ msgstr ""
 
 #: src/components/ProposalActivityFeed/index.tsx
 msgid "created the proposal"
@@ -3114,33 +2240,9 @@ msgstr ""
 msgid "days"
 msgstr ""
 
-#: src/components/Documentation/index.tsx
-#~ msgid "glasses (200)"
-#~ msgstr ""
-
-#: src/components/Documentation/index.tsx
-#~ msgid "glasses (23)"
-#~ msgstr "メガネ (23)"
-
 #: src/components/AuctionTimer/index.tsx
 msgid "h"
 msgstr "時間"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "heads (242)"
-#~ msgstr "頭 (242)"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "heads (248)"
-#~ msgstr ""
-
-#: src/components/Auction/index.tsx
-#~ msgid "if kicked off now"
-#~ msgstr ""
-
-#: src/components/ProposalActivityFeed/index.tsx
-#~ msgid "left a message · <0/>, no votes"
-#~ msgstr ""
 
 #: src/components/AuctionTimer/index.tsx
 msgid "m"
@@ -3150,10 +2252,6 @@ msgstr "分"
 msgid "matches"
 msgstr ""
 
-#: src/components/BlockCountdown/index.tsx
-#~ msgid "next block any moment"
-#~ msgstr ""
-
 #: src/pages/Treasury/index.tsx
 msgid "on"
 msgstr ""
@@ -3161,10 +2259,6 @@ msgstr ""
 #: src/components/Bid/index.tsx
 msgid "or more"
 msgstr "かそれ以上"
-
-#: src/components/Documentation/index.tsx
-#~ msgid "public domain"
-#~ msgstr "パブリックドメイン"
 
 #: src/components/ProposalActionSummary/index.tsx
 msgid "raw calldata"
@@ -3216,10 +2310,6 @@ msgid "{0, plural, one {# minute} other {# minutes}}"
 msgstr ""
 
 #: src/components/VoteCard/index.tsx
-#~ msgid "{0} <0>Address </0>"
-#~ msgstr "{0}<0>イーサリアムアドレス</0>"
-
-#: src/components/VoteCard/index.tsx
 msgid "{0} <0>Address</0>"
 msgstr "{0}<0>イーサリアムアドレス</0>"
 
@@ -3239,17 +2329,13 @@ msgstr "{0} 票"
 msgid "{0}, {1} decimals"
 msgstr ""
 
-#: src/components/BlockCountdown/index.tsx
-#~ msgid "{0}s left"
-#~ msgstr ""
-
 #: src/components/ProposalBuilder/ReviewStep.tsx
 msgid "{count} actions"
 msgstr ""
 
-#: src/pages/Vote/index.tsx
-#~ msgid "{moveStateButtonAction} Proposal ⌐◧-◧"
-#~ msgstr "{moveStateButtonAction} 提案の順番 ⌐◧-◧"
+#: src/components/WalletConnectModal/index.tsx
+msgid "{name} didn't connect: {message}"
+msgstr ""
 
 #: src/components/ProposalBuilder/templates/GovernorSettings.tsx
 msgid "{percent} of all Alps."
@@ -3289,28 +2375,4 @@ msgstr ""
 
 #: src/components/profileEvent/eventData/ProposalVoteHeadline/index.tsx
 msgid "{voterComponent} voted for"
-msgstr ""
-
-#: src/components/ProposalBuilder/templates/SendAlp.tsx
-#~ msgid "✓ The treasury holds Alp {alpId}"
-#~ msgstr ""
-
-#: src/components/ProposalBuilder/ActionCheck.tsx
-#~ msgid "✓ Works if the treasury sent it right now."
-#~ msgstr ""
-
-#: src/components/ProposalBuilder/ActionCheck.tsx
-#~ msgid "✗ The treasury doesn't hold enough ETH for this right now."
-#~ msgstr ""
-
-#: src/components/ProposalBuilder/ActionCheck.tsx
-#~ msgid "✗ Would fail right now, without saying why."
-#~ msgstr ""
-
-#: src/components/ProposalBuilder/ActionCheck.tsx
-#~ msgid "✗ Would fail right now: {reason}"
-#~ msgstr ""
-
-#: src/components/Footer/index.tsx
-msgid "𝕏"
 msgstr ""
