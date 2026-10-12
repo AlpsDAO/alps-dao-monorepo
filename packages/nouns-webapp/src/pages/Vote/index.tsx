@@ -121,7 +121,6 @@ const VotePage = ({
   const availableVotes = useUserVotesAsOfBlock(proposal?.createdBlock ?? undefined);
   const snapshotTimestamp = useBlockTimestamp(proposal?.createdBlock);
 
-
   const startOrEndTimeCopy = () => {
     if (startDate?.isBefore(now) && endDate?.isAfter(now)) {
       return <Trans>Ends</Trans>;
@@ -138,6 +137,11 @@ const VotePage = ({
     }
     return endDate;
   };
+
+  // Vetoed or canceled before voting was over: the dates above won't happen, so say what did instead
+  const isStopped =
+    proposal?.status === ProposalState.VETOED || proposal?.status === ProposalState.CANCELLED;
+  const stoppedEarly = isStopped && !!endDate?.isAfter(now);
 
   const onTransactionStateChange = useCallback(
     (
@@ -394,24 +398,43 @@ const VotePage = ({
               <Card.Body className="p-2">
                 <div className={classes.voteMetadataRow}>
                   <div className={classes.voteMetadataRowTitle}>
-                    <h1>{startOrEndTimeCopy()}</h1>
+                    <h1>{stoppedEarly ? <Trans>Voting</Trans> : startOrEndTimeCopy()}</h1>
                   </div>
-                  <div className={classes.voteMetadataTime}>
-                    <span>
-                      {startOrEndTimeTime() &&
-                        i18n.date(new Date(startOrEndTimeTime()?.toISOString() || 0), {
-                          hour: 'numeric',
-                          minute: '2-digit',
-                          timeZoneName: 'short',
-                        })}
-                    </span>
-                    <h3>
-                      {startOrEndTimeTime() &&
-                        i18n.date(new Date(startOrEndTimeTime()?.toISOString() || 0), {
-                          dateStyle: 'long',
-                        })}
-                    </h3>
-                  </div>
+                  {stoppedEarly ? (
+                    <div className={classes.voteMetadataTime}>
+                      <span>
+                        {proposal.status === ProposalState.VETOED ? (
+                          <Trans>Vetoed</Trans>
+                        ) : (
+                          <Trans>Canceled</Trans>
+                        )}
+                      </span>
+                      <h3>
+                        {startDate?.isAfter(now) ? (
+                          <Trans>Never opened</Trans>
+                        ) : (
+                          <Trans>Closed early</Trans>
+                        )}
+                      </h3>
+                    </div>
+                  ) : (
+                    <div className={classes.voteMetadataTime}>
+                      <span>
+                        {startOrEndTimeTime() &&
+                          i18n.date(new Date(startOrEndTimeTime()?.toISOString() || 0), {
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            timeZoneName: 'short',
+                          })}
+                      </span>
+                      <h3>
+                        {startOrEndTimeTime() &&
+                          i18n.date(new Date(startOrEndTimeTime()?.toISOString() || 0), {
+                            dateStyle: 'long',
+                          })}
+                      </h3>
+                    </div>
+                  )}
                 </div>
               </Card.Body>
             </Card>
@@ -421,7 +444,9 @@ const VotePage = ({
               <Card.Body className="p-2">
                 <div className={classes.voteMetadataRow}>
                   <div className={classes.voteMetadataRowTitle}>
-                    <h1>Snapshot</h1>
+                    <h1>
+                      <Trans>Snapshot</Trans>
+                    </h1>
                   </div>
                   <div className={classes.snapshotBlock}>
                     <span>
