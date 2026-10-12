@@ -28,8 +28,8 @@ const NavBar = () => {
   const history = useHistory();
   const treasuryBalance = useTreasuryBalance();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [menuTop, setMenuTop] = useState(0);
   const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const isMobile = window.innerWidth < 992;
   const treasuryETH = treasuryBalance && Number(utils.formatEther(treasuryBalance)).toFixed(3);
 
@@ -45,10 +45,6 @@ const NavBar = () => {
     : NavBarButtonStyle.WARM_INFO;
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
-  const toggleMenu = () => {
-    if (!isMenuOpen) setMenuTop(Math.max(0, navRef.current?.getBoundingClientRect().bottom ?? 0));
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   return (
     <>
@@ -77,21 +73,23 @@ const NavBar = () => {
               )}
             </Nav.Item>
           </div>
-          {/* Phones and tablets: the menu instead of the links */}
+          {/* Below 1200px wide: the menu instead of the links */}
           <button
+            ref={menuButtonRef}
             type="button"
             className={clsx(classes.menuButton, 'd-xl-none')}
             aria-controls="mobile-menu"
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            onClick={toggleMenu}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <span className={clsx(classes.menuIcon, isMenuOpen && classes.menuIconOpen)} />
           </button>
           <MobileMenu
             open={isMenuOpen}
             onClose={closeMenu}
-            top={menuTop}
+            headerRef={navRef}
+            buttonRef={menuButtonRef}
             treasuryBalance={treasuryETH || undefined}
           />
           <Navbar.Collapse className="justify-content-end">

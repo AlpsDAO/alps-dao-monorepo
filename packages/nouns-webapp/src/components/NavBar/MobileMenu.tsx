@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { RefObject, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,18 +34,38 @@ interface MenuLink {
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
-  // Where the header ends on screen: the menu opens just below it
-  top: number;
+  // The header, which a phone's menu opens below, and the button, which a wider screen's menu hangs from
+  headerRef: RefObject<HTMLElement>;
+  buttonRef: RefObject<HTMLButtonElement>;
   // ETH, formatted
   treasuryBalance?: string;
 }
 
+// From this wide the menu is a dropdown under its button; narrower, it fills the screen below the header
+const DROPDOWN_QUERY = '(min-width: 768px)';
+// Widths where the header or the menu change shape, so an open menu closes rather than sit in the wrong place
+const LAYOUT_QUERIES = ['(max-width: 568px)', DROPDOWN_QUERY, '(min-width: 1200px)'];
+
+interface Layout {
+  dropdown: boolean;
+  style: React.CSSProperties;
+}
+
 /**
- * The menu on phones and tablets: the pages as a list, the current one marked, and the wallet at the
- * bottom. It covers the page under the header and closes on a tap of a link, Escape, or the page changing.
+ * The menu below 1200px wide, where the header has no room for its links: the pages as a list, the current
+ * one marked, and the wallet at the bottom. On phones it covers the page under the header; on wider screens
+ * it's a dropdown. It closes on a link, a click outside it, Escape, or the page changing.
  */
-const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, top, treasuryBalance }) => {
+const MobileMenu: React.FC<MobileMenuProps> = ({
+  open,
+  onClose,
+  headerRef,
+  buttonRef,
+  treasuryBalance,
+}) => {
   const { pathname } = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [layout, setLayout] = useState<Layout>();
   const activeAccount = useAppSelector(state => state.account.activeAccount);
   const { deactivate } = useContext(WalletContext);
   const ens = useReverseENSLookUp(activeAccount ?? '');
@@ -59,22 +79,56 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, top, treasuryBal
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  // Placed before it's drawn: under the header on phones, under the button (and scrolling with the page)
+  // on wider screens
+  useLayoutEffect(() => {
+    if (!open) {
+      setLayout(undefined);
+      return;
+    }
+    const header = headerRef.current?.getBoundingClientRect();
+    const button = buttonRef.current?.getBoundingClientRect();
+    if (button && window.matchMedia(DROPDOWN_QUERY).matches) {
+      setLayout({
+        dropdown: true,
+        style: {
+          top: button.bottom + window.scrollY + 8,
+          right: document.documentElement.clientWidth - button.right,
+        },
+      });
+    } else {
+      setLayout({ dropdown: false, style: { top: Math.max(0, header?.bottom ?? 0) } });
+    }
+  }, [open, headerRef, buttonRef]);
+
   useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    // The header switches to the full nav from 1200px wide
-    const wide = window.matchMedia('(min-width: 1200px)');
-    const onWide = () => wide.matches && onClose();
-    const { overflow } = document.body.style;
-    document.body.style.overflow = 'hidden';
+    if (!open || !layout) return;
+    // Keyboard users carry on into the menu from here
+    menuRef.current?.focus({ preventScroll: true });
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      onClose();
+      buttonRef.current?.focus();
+    };
+    // The menu button toggles the menu itself
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (!menuRef.current?.contains(target) && !buttonRef.current?.contains(target)) onClose();
+    };
+    const queries = LAYOUT_QUERIES.map(query => window.matchMedia(query));
     window.addEventListener('keydown', onKeyDown);
-    wide.addEventListener?.('change', onWide);
+    document.addEventListener('pointerdown', onPointerDown);
+    queries.forEach(query => query.addEventListener?.('change', onClose));
+    // Phones: the page behind stays put. A dropdown leaves the page free to scroll.
+    const { overflow } = document.body.style;
+    if (!layout.dropdown) document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = overflow;
       window.removeEventListener('keydown', onKeyDown);
-      wide.removeEventListener?.('change', onWide);
+      document.removeEventListener('pointerdown', onPointerDown);
+      queries.forEach(query => query.removeEventListener?.('change', onClose));
     };
-  }, [open, onClose]);
+  }, [open, layout, onClose, buttonRef]);
 
   const links: MenuLink[] = [
     {
@@ -126,8 +180,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, top, treasuryBal
     deactivate?.();
   };
 
-  const menu = open && (
-    <div id="mobile-menu" className={classes.menu} style={{ top }}>
+  const menu = open && layout && (
+    <div
+      id="mobile-menu"
+      ref={menuRef}
+      tabIndex={-1}
+      className={clsx(classes.menu, layout.dropdown && classes.dropdown)}
+      style={layout.style}
+    >
       <nav aria-label="Main">
         <ul className={classes.links}>
           {links.map(link => {
